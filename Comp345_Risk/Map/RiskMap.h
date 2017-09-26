@@ -1,10 +1,13 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
 #include "../Base/RiskObject.h"
+#include "../Map/Country.h"
+#include "../Map/Continent.h"
 
-
-struct MapMetaData {
+struct MapMetaData
+{
 	std::string author;
 	std::string image;
 	bool wrap;
@@ -12,14 +15,33 @@ struct MapMetaData {
 	bool warn;
 };
 
+struct Edge
+{
+	Country* country;
+};
 
-class RiskMap : public RiskObject {
+struct Node
+{
+	Country* country;
+	std::vector<Edge> adjList;
+};
+
+class RiskMap : public RiskObject
+{
 public:
+	MapMetaData metadata;
+
 	RiskMap();
 	~RiskMap();
-
-	MapMetaData metadata;
-	//std::set<Continent> continents;
-	//std::unordered_map<Country, std::set<Country>> connections;
+	void addEdge(std::string targetCountry, Country& newCountry);
+	void addCountry(std::string countryName, std::string continentName);
+	void addContinent(std::string continentName, int controlVal);
+	Continent& getContinent(std::string continentName);
+	Country& getCountry(std::string countrytName);
+	void traverseMap();
+private:
+	std::unordered_map<std::string, Country> auxStorage;
+	std::unordered_map<std::string, Continent> continents;
+	std::vector<Node> map;
 };
 
