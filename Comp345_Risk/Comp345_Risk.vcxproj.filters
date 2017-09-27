@@ -51,7 +51,7 @@
     <ClInclude Include="Player\Hand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Player\CardDistributor.h">
+    <ClInclude Include="Drivers\CardDriver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -84,9 +84,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Player\Hand.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player\CardDistributor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

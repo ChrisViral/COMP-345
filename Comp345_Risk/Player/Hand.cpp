@@ -22,7 +22,9 @@ Hand::~Hand() {
 }
 
 
-int Hand::exchange() {
+Exchangement Hand::exchange() {
+	Exchangement ex{ true, {}, 0 };
+	
 	// Exchange a CARD_EXCHANGE_AMOUNT cards of all different kinds
 	bool canExchange = true;
 	for (int i = 0; i < CARD_EXCHANGE_AMOUNT; i++) {
@@ -34,27 +36,30 @@ int Hand::exchange() {
 
 	if (canExchange) {
 		for (int i = 0; i < CARD_EXCHANGE_AMOUNT; i++) {
-			hand.at(CardType(i)).pop_back();
+			std::vector<Card>& handAtCardType = hand.at(CardType(i));
+			ex.cardsExchanged.push_back(handAtCardType.back());
+			handAtCardType.pop_back();
 		}
-		
-	} else {
-		// Can't exchange, there is not 3 cards of different type
 	}
+	ex.successfullyExchanged = canExchange;
 
-	return exchangeForArmy();
+	return exchangeForArmy(ex);
 }
 
-int Hand::exchange(CardType cardType) {
+Exchangement Hand::exchange(CardType cardType) {
+	Exchangement ex{ true,{}, 0 };
 	// Exchange a CARD_EXCHANGE_AMOUNT cards of the same kind
 	std::vector<Card>& handType = hand.at(cardType);
 	if (handType.size() >= Hand::CARD_EXCHANGE_AMOUNT) {
 		for (int i = 0; i < Hand::CARD_EXCHANGE_AMOUNT; i++) {
+			ex.cardsExchanged.push_back(handType.back());
 			handType.pop_back();
 		}
 	} else {
 		// Can't exchange, there is not enough cards of the same type
+		ex.successfullyExchanged = false;
 	}
-	return exchangeForArmy();
+	return exchangeForArmy(ex);
 }
 
 
@@ -62,6 +67,12 @@ void Hand::addCard(const Card& card) {
 	hand.at(card.getCardType()).push_back(card);
 }
 
-int Hand::exchangeForArmy() {
-	return exchangeCount++ * Hand::ARMY_EXCHANGE_AMOUNT;
+Exchangement Hand::exchangeForArmy(Exchangement& exchangement) {
+	if (exchangement.successfullyExchanged) {
+		exchangement.armies = exchangeCount++ * Hand::ARMY_EXCHANGE_AMOUNT;
+	} else {
+		exchangement.armies = 0;
+	}
+	
+	return exchangement;
 }

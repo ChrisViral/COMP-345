@@ -144,7 +144,7 @@
   <ItemGroup>
     <ClInclude Include="Base\RiskObject.h" />
     <ClInclude Include="Base\Utils.h" />
-    <ClInclude Include="Player\CardDistributor.h" />
+    <ClInclude Include="Drivers\CardDriver.h" />
     <ClInclude Include="Player\Hand.h" />
     <ClInclude Include="Player\Deck.h" />
     <ClInclude Include="Player\Card.h" />
@@ -158,7 +158,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Base\RiskObject.cpp" />
-    <ClCompile Include="Player\CardDistributor.cpp" />
     <ClCompile Include="Player\Hand.cpp" />
     <ClCompile Include="Player\Deck.cpp" />
     <ClCompile Include="Player\Card.cpp" />

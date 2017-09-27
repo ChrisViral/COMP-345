@@ -1,7 +1,7 @@
 #pragma once
 #include "Card.h"
-#include <vector>
 #include <random>
+#include <deque>
 
 
 class Deck : public RiskObject {
@@ -20,9 +20,13 @@ public:
 	bool isEmpty() const;
 	// Gets the amount of cards in the deck
 	int getDeckSize() const;
+
+	// Add a card back into the deck
+	void addCard(const Card& card);
+	
 private:
 	// The collection of cards in this deck
-	std::vector<Card> cardDeck;
+	std::deque<Card> cardDeck;
 	
 };
 

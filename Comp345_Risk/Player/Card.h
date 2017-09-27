@@ -1,5 +1,6 @@
 #pragma once
 #include "../Base/RiskObject.h"
+#include <string>
 
 
 /*
@@ -13,6 +14,15 @@ enum CardType {
 	// Used when we are generating the deck of cards
 	_Count = 3 
 };
+
+static std::string cardTypeEnumToString(const CardType& cardtype) {
+	switch (cardtype) {
+	case artillery: return "artillery";
+		case cavalry: return "cavalry";;
+		case infantry: return "infantry";
+		default: return "";
+	}
+}
 
 
 /*
