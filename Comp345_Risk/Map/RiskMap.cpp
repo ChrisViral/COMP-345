@@ -27,16 +27,19 @@ void RiskMap::addEdge(std::string targetCountry, Country& newCountry)
 	}
 }
 
-void RiskMap::addCountry(std::string countryName, std::string continentName)
+Country RiskMap::addCountry(std::string countryName, std::string continentName, int x, int y)
 {	
 	//inserts into the aux storage
-	std::pair<std::string, Country> pair(countryName, Country(countryName, getContinent(continentName)));
+	Country c(countryName, getContinent(continentName), x, y);
+	std::pair<std::string, Country> pair(countryName, c);
 	auxStorage.insert(pair);
 
 	//Push node into map
 	Node n;
 	n.country = &getCountry(countryName);
-	map.push_back(n);	
+	map.push_back(n);
+
+	return c;
 }
 
 void RiskMap::addContinent(std::string continentName, int controlVal)

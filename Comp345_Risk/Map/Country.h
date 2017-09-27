@@ -12,6 +12,7 @@ class Country : public RiskObject
 public:
 	Country();
 	Country(std::string countryName, Continent& cont);
+	Country(std::string countryName, Continent& cont, int x, int y);
 	~Country();
 	Continent* getContinent();
 	std::string getName();

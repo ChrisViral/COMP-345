@@ -34,7 +34,7 @@ public:
 	RiskMap();
 	~RiskMap();
 	void addEdge(std::string targetCountry, Country& newCountry);
-	void addCountry(std::string countryName, std::string continentName);
+	Country addCountry(std::string countryName, std::string continentName, int x, int y);
 	void addContinent(std::string continentName, int controlVal);
 	Continent& getContinent(std::string continentName);
 	Country& getCountry(std::string countrytName);

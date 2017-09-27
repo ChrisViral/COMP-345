@@ -12,6 +12,12 @@ Country::Country(std::string countryName, Continent& cont)
 	armies = 0;
 }
 
+Country::Country(std::string countryName, Continent& cont, int x, int y) : Country(countryName, cont)
+{
+	this->x = x;
+	this->y = y;
+}
+
 Country::~Country()
 {
 

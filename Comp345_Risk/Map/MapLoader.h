@@ -1,24 +1,33 @@
 #pragma once
-#include <string>
 #include "RiskMap.h"
 
+using namespace std;
 
-class MapLoader {
+class MapLoader
+{
 public:
-	MapLoader();
+	explicit MapLoader(const string& location);
 	~MapLoader();
-	std::pair<bool, RiskMap> loadFromMapFile(const std::string& mapfile);
-	
+	bool tryParseMap(RiskMap& result);
+	string getLocation() const
+	{
+		return location;
+	}
+	RiskMap getMap() const
+	{
+		return riskMap;
+	}
+	bool successfullyParsed() const
+	{
+		return success;
+	}
+
 private:
 	RiskMap riskMap;
-	bool successfullyParsed;
-	void parseMetaBlock(std::ifstream& stream, std::string& line);
-	void parseContinentBlock(std::ifstream& stream, std::string& line);
-	void parseCountryBlock(std::ifstream& stream, std::string& line);
-	void parseCountryRow(std::ifstream& stream, std::string& line);
-
-
-
-
+	string location;
+	string current;
+	bool success;
+	bool parseMetaBlock(ifstream& stream);
+	bool parseContinentBlock(ifstream& stream);
+	bool parseCountryBlock(ifstream& stream);
 };
-

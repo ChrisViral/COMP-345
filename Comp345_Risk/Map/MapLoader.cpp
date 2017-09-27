@@ -6,90 +6,105 @@
 #include "../Base/Utils.h"
 #include "RiskMap.h"
 
+using namespace std;
 
-MapLoader::MapLoader() {
-	successfullyParsed = true;
+MapLoader::MapLoader(const string& location)
+{
+	this->location = location;
+	success = true;
 }
 
+MapLoader::~MapLoader() { }
 
-MapLoader::~MapLoader() {
+bool MapLoader::tryParseMap(RiskMap& result)
+{
+	ifstream stream(location);
+
+	//If anything goes wrong, prevents crash, simply fail parse.
+	try
+	{
+		success = parseMetaBlock(stream) && parseContinentBlock(stream) && parseCountryBlock(stream);
+	}
+	catch (exception)
+	{
+		success = false;
+	}
+
+	if (success)
+	{
+		//Finish map setup and pass to out pointer parameter
+		riskMap.addCountriesToContinents();
+		result = riskMap;
+	}
+
+	stream.close();
+	return success;
 }
 
-std::pair<bool, RiskMap> MapLoader::loadFromMapFile(const std::string& map) {
-	
-	std::ifstream mapstream(map);
-	
+bool MapLoader::parseMetaBlock(ifstream& stream)
+{
+	getline(stream, current);
+	if (current != "[Map]") { return false; }
 
-	std::string line;
+	while (getline(stream, current)  && current != "[Continents]")
+	{
+		vector<string> splits = split(current, '=');
 
-	getline(mapstream, line);
-	// TODO: write ur parser using a fsm
-	if (line == "[Map]") {
-		parseMetaBlock(mapstream, line);
+		if (splits.size() != 2) { return false; }
+
+		if (splits[0] == "author")
+		{
+			riskMap.metadata.author = splits[1];
+		}
+		if (splits[0] == "image")
+		{
+			riskMap.metadata.image = splits[1];
+		}
+		if (splits[0] == "wrap")
+		{
+			riskMap.metadata.wrap = boolFromYesNo(splits[1]);
+		}
+		if (splits[0] == "scroll")
+		{
+			riskMap.metadata.scroll = splits[1];
+		}
+		if (splits[0] == "warn")
+		{
+			riskMap.metadata.warn = boolFromYesNo(splits[1]);
+		}
 	}
-	else if (line == "[Continents]") {
-		parseContinentBlock(mapstream, line);
+
+	return true;
+}
+
+bool MapLoader::parseContinentBlock(ifstream& stream)
+{
+	while (getline(stream, current ) && current != "[Territories]")
+	{
+		vector<string> splits = split(current, '=');
+
+		if (splits.size() != 2) { return false; }
+		riskMap.addContinent(splits[0], stoi(splits[1]));
 	}
-	else if (line == "[Territories]") {
-		parseCountryBlock(mapstream, line);
-	}
-	else {
-		// The map file is not formatted properly
-		successfullyParsed = false;
-	}
-	
+
+	return true;
+}
+
+bool MapLoader::parseCountryBlock(ifstream& stream)
+{
+	while (getline(stream, current))
+	{
+		vector<string> splits = split(current, ',');
+
+		//There should at lease be a name, two coordinates, a continent, and one adjacent country
+		if (splits.size() < 5) { return false; }
+
+		Country country = riskMap.addCountry(splits[0], splits[3], stoi(splits[1]), stoi(splits[2]));
 		
-	mapstream.close();
-	return std::make_pair(successfullyParsed, riskMap);
-}
-
-void MapLoader::parseMetaBlock(std::ifstream& stream, std::string& line) {
-	while (std::getline(stream, line)) {
-		if (line == "[Continents]") {
-			parseContinentBlock(stream, line);
-		} else {
-			if (startsWith(line, "author")) {
-				std::vector<std::string> row = split(line, '=');
-				riskMap.metadata.author = row[1];
-			}
-			if (startsWith(line, "image")) {
-				std::vector<std::string> row = split(line, '=');
-				riskMap.metadata.image = row[1];
-			}
-			if (startsWith(line, "wrap")) {
-				std::vector<std::string> row = split(line, '=');
-				riskMap.metadata.wrap = boolFromYesNo(row[1]);
-			}
-			if (startsWith(line, "scroll")) {
-				std::vector<std::string> row = split(line, '=');
-				riskMap.metadata.scroll = row[1];
-			}
-			if (startsWith(line, "warn")) {
-				std::vector<std::string> row = split(line, '=');
-				riskMap.metadata.warn = boolFromYesNo(row[1]);
-			}
-		}
-
-	}
-
-}
-
-void MapLoader::parseContinentBlock(std::ifstream& stream, std::string& line) {
-	while (std::getline(stream, line)) {
-		if (line == "[Territories]") {
-			parseCountryBlock(stream, line);
-		} else {
-			std::vector<std::string> row = split(line, '=');
-			
+		for (int i = 4; i < splits.size(); i++)
+		{
+			riskMap.addEdge(splits[i], country);
 		}
 	}
+	return true;
 }
-
-void MapLoader::parseCountryBlock(std::ifstream& stream, std::string& line) {
-}
-
-void MapLoader::parseCountryRow(std::ifstream& stream, std::string& line) {
-}
-
-
-
