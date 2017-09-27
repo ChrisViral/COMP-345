@@ -1,5 +1,5 @@
 #pragma once
-#include "../Base/RiskObject.h"
+
 #include <vector>
 #include "Card.h"
 #include <unordered_map>

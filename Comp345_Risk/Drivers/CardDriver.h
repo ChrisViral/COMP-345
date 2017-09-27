@@ -1,7 +1,9 @@
 #pragma once
 
-#include "../Player/Hand.h"
+
 #include <iostream>
+#include "../Player/Card/Hand.h"
+#include "../Player/Card/Deck.h"
 
 static void printExchangement(Exchangement& ex) {
 	std::cout << std::endl;
