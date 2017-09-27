@@ -13,8 +13,9 @@ public:
 	Continent(std::string continentName, int controlVal);
 	~Continent();
 	int getControlValue();
-	void addCountry(Node country);
+	void addCountry(Node& country);
 	std::string getName();
+	void traverseCountries();
 
 private:
 	int controlValue;

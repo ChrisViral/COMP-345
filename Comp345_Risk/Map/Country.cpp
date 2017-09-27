@@ -9,6 +9,7 @@ Country::Country(std::string countryName, Continent& cont)
 {
 	name = countryName;
 	continent = &cont;
+	armies = 0;
 }
 
 Country::~Country()

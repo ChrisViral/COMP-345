@@ -149,7 +149,6 @@
     <ClInclude Include="Map\MapLoader.h" />
     <ClInclude Include="Player\Dice.h" />
     <ClInclude Include="Map\RiskMap.h" />
-    <ClInclude Include="Player\Player.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -162,7 +161,6 @@
     <ClCompile Include="Map\MapLoader.cpp" />
     <ClCompile Include="Player\Dice.cpp" />
     <ClCompile Include="Map\RiskMap.cpp" />
-    <ClCompile Include="Player\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="mapfiles\World.map" />

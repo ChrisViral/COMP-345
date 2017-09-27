@@ -39,6 +39,11 @@ public:
 	Continent& getContinent(std::string continentName);
 	Country& getCountry(std::string countrytName);
 	void traverseMap();
+	bool RiskMap::isReachable(Country& source, Country& destination);
+	Node& getNodeFromMap(std::string countrytName);
+	void clearMap();
+	void RiskMap::addCountriesToContinents();
+
 private:
 	std::unordered_map<std::string, Country> auxStorage;
 	std::unordered_map<std::string, Continent> continents;
