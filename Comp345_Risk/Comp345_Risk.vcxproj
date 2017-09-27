@@ -144,6 +144,10 @@
   <ItemGroup>
     <ClInclude Include="Base\RiskObject.h" />
     <ClInclude Include="Base\Utils.h" />
+    <ClInclude Include="Drivers\CardDriver.h" />
+    <ClInclude Include="Player\Card\Hand.h" />
+    <ClInclude Include="Player\Card\Deck.h" />
+    <ClInclude Include="Player\Card\Card.h" />
     <ClInclude Include="Map\Continent.h" />
     <ClInclude Include="Map\Country.h" />
     <ClInclude Include="Map\MapLoader.h" />
@@ -154,6 +158,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Base\RiskObject.cpp" />
+    <ClCompile Include="Player\Card\Hand.cpp" />
+    <ClCompile Include="Player\Card\Deck.cpp" />
+    <ClCompile Include="Player\Card\Card.cpp" />
     <ClCompile Include="Comp345_Risk.cpp" />
     <ClCompile Include="Map\Continent.cpp" />
     <ClCompile Include="Map\Country.cpp" />
