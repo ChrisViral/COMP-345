@@ -146,6 +146,8 @@
     <ClInclude Include="Base\Utils.h" />
     <ClInclude Include="Drivers\CardDriver.h" />
     <ClInclude Include="Drivers\Driver.h" />
+    <ClInclude Include="Drivers\MapDriver.h" />
+    <ClInclude Include="Drivers\MapLoaderDriver.h" />
     <ClInclude Include="Player\Card\Hand.h" />
     <ClInclude Include="Player\Card\Deck.h" />
     <ClInclude Include="Player\Card\Card.h" />
@@ -161,6 +163,7 @@
     <ClCompile Include="Base\RiskObject.cpp" />
     <ClCompile Include="Drivers\CardDriver.cpp" />
     <ClCompile Include="Drivers\Driver.cpp" />
+    <ClCompile Include="Drivers\MapLoaderDriver.cpp" />
     <ClCompile Include="Player\Card\Hand.cpp" />
     <ClCompile Include="Player\Card\Deck.cpp" />
     <ClCompile Include="Player\Card\Card.cpp" />

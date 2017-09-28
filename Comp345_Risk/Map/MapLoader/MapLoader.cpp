@@ -3,11 +3,11 @@
 #include <fstream>
 #include <map>
 
-#include "..\..\Base\Utils.h"
-#include "..\RiskMap.h";
+#include "../../Base/Utils.h"
+#include "../RiskMap.h";
 
 
-MapLoader::MapLoader(const string& location)
+MapLoader::MapLoader(const std::string& location)
 {
 	this->location = location;
 	success = true;
@@ -17,14 +17,14 @@ MapLoader::~MapLoader() { }
 
 bool MapLoader::tryParseMap(RiskMap& result)
 {
-	ifstream stream(location);
+	std::ifstream stream(location);
 
 	//If anything goes wrong, prevents crash, simply fail parse.
 	try
 	{
 		success = parseMetaBlock(stream) && parseContinentBlock(stream) && parseCountryBlock(stream);
 	}
-	catch (exception)
+	catch (std::exception)
 	{
 		success = false;
 	}
@@ -40,14 +40,14 @@ bool MapLoader::tryParseMap(RiskMap& result)
 	return success;
 }
 
-bool MapLoader::parseMetaBlock(ifstream& stream)
+bool MapLoader::parseMetaBlock(std::ifstream& stream)
 {
 	getline(stream, current);
 	if (current != "[Map]") { return false; }
 
 	while (getline(stream, current)  && current != "[Continents]")
 	{
-		vector<string> splits = split(current, '=');
+		std::vector<std::string> splits = split(current, '=');
 
 		if (splits.size() != 2) { return false; }
 
@@ -76,29 +76,29 @@ bool MapLoader::parseMetaBlock(ifstream& stream)
 	return true;
 }
 
-bool MapLoader::parseContinentBlock(ifstream& stream)
+bool MapLoader::parseContinentBlock(std::ifstream& stream)
 {
 	while (getline(stream, current ) && current != "[Territories]")
 	{
-		vector<string> splits = split(current, '=');
+		std::vector<std::string> splits = split(current, '=');
 
 		if (splits.size() != 2) { return false; }
-		riskMap.addContinent(splits[0], stoi(splits[1]));
+		riskMap.addContinent(splits[0], std::stoi(splits[1]));
 	}
 
 	return true;
 }
 
-bool MapLoader::parseCountryBlock(ifstream& stream)
+bool MapLoader::parseCountryBlock(std::ifstream& stream)
 {
 	while (getline(stream, current))
 	{
-		vector<string> splits = split(current, ',');
+		std::vector<std::string> splits = split(current, ',');
 
 		//There should at lease be a name, two coordinates, a continent, and one adjacent country
 		if (splits.size() < 5) { return false; }
 
-		Country country = riskMap.addCountry(splits[0], splits[3], stoi(splits[1]), stoi(splits[2]));
+		Country country = riskMap.addCountry(splits[0], splits[3], std::stoi(splits[1]), std::stoi(splits[2]));
 		
 		for (int i = 4; i < splits.size(); i++)
 		{

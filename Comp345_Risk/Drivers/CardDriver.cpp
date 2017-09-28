@@ -2,6 +2,19 @@
 #include <iostream>
 #include "../Player/Card/Deck.h"
 
+CardDriver::CardDriver() { }
+CardDriver::~CardDriver() { }
+
+std::string CardDriver::getOpeningMessage()
+{
+	return "Ending Card driver";
+}
+
+std::string CardDriver::getClosingMessage()
+{
+	return "Starting Card driver";
+}
+
 void CardDriver::printExchangement(Exchangement& ex)
 {
 	std::cout << std::endl;

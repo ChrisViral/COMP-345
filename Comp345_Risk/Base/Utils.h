@@ -1,7 +1,8 @@
 #pragma once
 #include <iterator>
-#include <locale>
 #include <vector>
+#include <algorithm>
+#include <locale>
 
 //Taken from 
 //https://stackoverflow.com/questions/1878001/how-do-i-check-if-a-c-string-starts-with-a-certain-string-and-convert-a-sub
@@ -32,14 +33,21 @@ inline std::vector<std::string> split(const std::string& s, char delim)
 	return elems;
 }
 
-std::locale loc;
-//Shortcut tolower method
-inline std::string tolower(std::string str)
+inline char charToLower(char c)
 {
-	return tolower(str, loc);
+	std::locale loc;
+	return tolower(c, loc);
+}
+
+//Shortcut tolower method, taken from
+// https://stackoverflow.com/questions/313970/how-to-convert-stdstring-to-lower-case
+inline std::string stringToLower(std::string str)
+{
+	transform(str.begin(), str.end(), str.begin(), charToLower);
+	return str;
 }
 
 inline bool boolFromYesNo(std::string str)
 {
-	return tolower(str) == "yes";
+	return stringToLower(str) == "yes";
 }

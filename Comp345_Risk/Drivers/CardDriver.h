@@ -8,6 +8,8 @@ public:
 	CardDriver();
 	~CardDriver();
 	void run() override;
+	std::string getOpeningMessage() override;
+	std::string getClosingMessage() override;
 	static void printExchangement(Exchangement& ex);
 };
 

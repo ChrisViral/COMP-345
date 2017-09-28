@@ -1,8 +1,21 @@
 #include "../Map/RiskMap.h"
-#include "../Map/Country.h"
+#include "MapDriver.h"
 #include <iostream>
 
-void main()
+MapDriver::MapDriver() { }
+MapDriver::~MapDriver() { }
+
+std::string MapDriver::getOpeningMessage()
+{
+	return "Starting Map driver";
+}
+
+std::string MapDriver::getClosingMessage()
+{
+	return "Ending Map Driver";
+}
+
+void MapDriver::run()
 {
 	RiskMap rm;	
 
