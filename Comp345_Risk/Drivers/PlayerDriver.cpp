@@ -33,7 +33,9 @@ void PlayerDriver::run()
 	Hand hand;
 
 	//Roll the dice a few times
-	playerDice.roll(rand() % 10 + 1);
+	playerDice.roll(3);
+	playerDice.roll(3);
+	playerDice.roll(3);
 
 	//Add countries
 	Continent na("North America", 5);
