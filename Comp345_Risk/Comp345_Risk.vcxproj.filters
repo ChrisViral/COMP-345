@@ -5,9 +5,6 @@
     <ClCompile Include="Base\RiskObject.cpp">
       <Filter>Base</Filter>
     </ClCompile>
-    <ClCompile Include="Map\MapDriver.cpp">
-      <Filter>Drivers</Filter>
-    </ClCompile>
     <ClCompile Include="Player\Card\Card.cpp">
       <Filter>Player\Cards</Filter>
     </ClCompile>
@@ -26,11 +23,14 @@
     <ClCompile Include="Map\Country.cpp">
       <Filter>Map</Filter>
     </ClCompile>
-    <ClCompile Include="Map\MapLoader.cpp">
-      <Filter>Map</Filter>
-    </ClCompile>
     <ClCompile Include="Map\RiskMap.cpp">
       <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\MapDriver.cpp">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Map\MapLoader\MapLoader.cpp">
+      <Filter>Map\MapLoader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -63,15 +63,12 @@
     <ClInclude Include="Map\Country.h">
       <Filter>Map</Filter>
     </ClInclude>
-    <ClInclude Include="Map\MapLoader.h">
-      <Filter>Map</Filter>
-    </ClInclude>
     <ClInclude Include="Map\RiskMap.h">
       <Filter>Map</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="mapfiles\World.map" />
+    <ClInclude Include="Map\MapLoader\MapLoader.h">
+      <Filter>Map\MapLoader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Base">
@@ -89,5 +86,16 @@
     <Filter Include="Map">
       <UniqueIdentifier>{693281e8-3bdb-4e51-b21b-49963aa24a3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Map\MapLoader">
+      <UniqueIdentifier>{fd532a92-3016-4c2f-b6c6-60cdbcec0d66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mapfiles">
+      <UniqueIdentifier>{3a39d5ca-fd52-4155-a85c-6b591709d12e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mapfiles\World.map">
+      <Filter>mapfiles</Filter>
+    </None>
   </ItemGroup>
 </Project>
