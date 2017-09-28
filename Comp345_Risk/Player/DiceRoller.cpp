@@ -6,13 +6,13 @@
 
 DiceRoller::DiceRoller()
 {
-	int totalRolls = 0;
-	float num1 = 0;
-	float num2 = 0;
-	float num3 = 0;
-	float num4 = 0;
-	float num5 = 0;
-	float num6 = 0;
+	totalRolls = 0;
+	num1 = 0;
+	num2 = 0;
+	num3 = 0;
+	num4 = 0;
+	num5 = 0;
+	num6 = 0;
 }
 
 
