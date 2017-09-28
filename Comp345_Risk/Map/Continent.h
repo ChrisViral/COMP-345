@@ -22,4 +22,3 @@ private:
 	std::string name;
 	std::vector<Node*> countries;
 };
-

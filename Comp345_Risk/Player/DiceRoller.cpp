@@ -35,17 +35,17 @@ int DiceRoller::roll(int numberOfDice)
 
 
 	//switch case to determine how many times to roll the myDice object. If an invalid number of dice has been passed to the roll function, it will notify the user.
-	switch(numberOfDice)
+	switch (numberOfDice)
 	{
-		case 1:
-		{	
+	case 1:
+		{
 			rollA = myDice.roll();
 			std::cout << rollA << std::endl;
 			totalRolls++;
-			
+
 			break;
 		}
-		case 2:
+	case 2:
 		{
 			rollA = myDice.roll();
 			std::cout << rollA << std::endl;
@@ -53,10 +53,10 @@ int DiceRoller::roll(int numberOfDice)
 			rollB = myDice.roll();
 			std::cout << rollB << std::endl;
 			totalRolls++;
-		
+
 			break;
 		}
-		case 3:
+	case 3:
 		{
 			rollA = myDice.roll();
 			std::cout << rollA << std::endl;
@@ -70,7 +70,7 @@ int DiceRoller::roll(int numberOfDice)
 
 			break;
 		}
-		default:
+	default:
 		{
 			std::cout << "Not a valid number of Dice have been rolled." << std::endl;
 		}
@@ -79,117 +79,118 @@ int DiceRoller::roll(int numberOfDice)
 	//switch to increment the number of times each roll value has been rolled.
 	switch (rollA)
 	{
-				case 1:
-				{
-					num1++;
-					break;
-				}
-				case 2:
-				{
-					num2++;
-					break;
-				}
-				case 3:
-				{
-					num3++;
-					break;
-				}
-				case 4:
-				{
-					num4++;
-					break;
-				}
-				case 5:
-				{
-					num5++;
-					break;
-				}
-				case 6:
-				{
-					num6++;
-					break;
-				}
-				default:
-				{
-					break;
-				}
+	case 1:
+		{
+			num1++;
+			break;
+		}
+	case 2:
+		{
+			num2++;
+			break;
+		}
+	case 3:
+		{
+			num3++;
+			break;
+		}
+	case 4:
+		{
+			num4++;
+			break;
+		}
+	case 5:
+		{
+			num5++;
+			break;
+		}
+	case 6:
+		{
+			num6++;
+			break;
+		}
+	default:
+		{
+			break;
+		}
 	}
 	switch (rollB)
 	{
-				case 1:
-				{
-					num1++;
-					break;
-				}
-				case 2:
-				{
-					num2++;
-					break;
-				}
-				case 3:
-				{
-					num3++;
-					break;
-				}
-				case 4:
-				{
-					num4++;
-					break;
-				}
-				case 5:
-				{
-					num5++;
-					break;
-				}
-				case 6:
-				{
-					num6++;
-					break;
-				}
-				default:
-				{
-					break;
-				}
+	case 1:
+		{
+			num1++;
+			break;
+		}
+	case 2:
+		{
+			num2++;
+			break;
+		}
+	case 3:
+		{
+			num3++;
+			break;
+		}
+	case 4:
+		{
+			num4++;
+			break;
+		}
+	case 5:
+		{
+			num5++;
+			break;
+		}
+	case 6:
+		{
+			num6++;
+			break;
+		}
+	default:
+		{
+			break;
+		}
 	}
 	switch (rollC)
 	{
-				case 1:
-				{
-					num1++;
-					break;
-				}
-				case 2:
-				{
-					num2++;
-					break;
-				}
-				case 3:
-				{
-					num3++;
-					break;
-				}
-				case 4:
-				{
-					num4++;
-					break;
-				}
-				case 5:
-				{
-					num5++;
-					break;
-				}
-				case 6:
-				{
-					num6++;
-					break;
-				}
-				default:
-				{
-					break;
-				}
+	case 1:
+		{
+			num1++;
+			break;
+		}
+	case 2:
+		{
+			num2++;
+			break;
+		}
+	case 3:
+		{
+			num3++;
+			break;
+		}
+	case 4:
+		{
+			num4++;
+			break;
+		}
+	case 5:
+		{
+			num5++;
+			break;
+		}
+	case 6:
+		{
+			num6++;
+			break;
+		}
+	default:
+		{
+			break;
+		}
 	}
 	return rollC * 100 + rollB * 10 + rollA;
 }
+
 //prints out the percentage of each roll's likeliness.
 void DiceRoller::showRolls()
 {
@@ -203,4 +204,3 @@ void DiceRoller::showRolls()
 	std::cout << "Percent of 5s: " << ((num5 / totalRolls) * 100) << std::endl;
 	std::cout << "Percent of 6s: " << ((num6 / totalRolls) * 100) << std::endl;
 }
-

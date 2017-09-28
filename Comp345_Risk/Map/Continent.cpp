@@ -28,10 +28,10 @@ void Continent::addCountry(Node& node)
 }
 
 void Continent::traverseCountries()
-{	
+{
 	for (int i = 0; i < countries.size(); i++)
 	{
-		std::cout << countries[i]->country->getName() << std::endl;		
+		std::cout << countries[i]->country->getName() << std::endl;
 
 		for (int j = 0; j < countries[i]->adjList.size(); j++)
 		{

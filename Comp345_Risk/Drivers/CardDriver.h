@@ -12,6 +12,3 @@ public:
 	std::string getClosingMessage() override;
 	static void printExchangement(Exchangement& ex);
 };
-
-
-

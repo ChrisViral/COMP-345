@@ -3,20 +3,21 @@
 #include "Dice.h"
 
 
-
-Dice::Dice() {
+Dice::Dice()
+{
 	// Create a new random seed on object creatio
-	
-	srand(time(NULL));
+
+	srand(time(nullptr));
 	// Pre roll the die, and cache roll
 	lastRoll = roll();
 }
 
-Dice::~Dice() {
-
+Dice::~Dice()
+{
 }
 
-int Dice::roll() {
+int Dice::roll()
+{
 	lastRoll = (rand() % 6 + 1);
 	return lastRoll;
 }

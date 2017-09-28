@@ -1,8 +1,8 @@
 #pragma once
-class RiskObject {
-
+class RiskObject
+{
 protected:
-	RiskObject() {};
-
+	RiskObject()
+	{
+	};
 };
-

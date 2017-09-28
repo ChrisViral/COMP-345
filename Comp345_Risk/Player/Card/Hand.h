@@ -4,14 +4,16 @@
 #include "Card.h"
 #include <unordered_map>
 
-struct Exchangement {
+struct Exchangement
+{
 	bool successfullyExchanged;
 	std::vector<Card> cardsExchanged;
 	int armies;
 };
 
 
-class Hand : public RiskObject {
+class Hand : public RiskObject
+{
 public:
 	Hand();
 	~Hand();
@@ -28,7 +30,7 @@ public:
 	Exchangement exchange();
 	// Exchange a CARD_EXCHANGE_AMOUNT cards of the same kind
 	Exchangement exchange(CardType cardType);
-	
+
 	//Display cards
 	void displayCards();
 
@@ -41,9 +43,4 @@ private:
 	std::unordered_map<CardType, std::vector<Card>> hand;
 	// Gets the amount of armies to exchange our cards for
 	Exchangement exchangeForArmy(Exchangement& exchangement);
-
-	
-
-
 };
-

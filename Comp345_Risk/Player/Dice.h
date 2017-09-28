@@ -1,8 +1,8 @@
 #pragma once
 #include "../Base/RiskObject.h"
 
-class Dice : public RiskObject {
-
+class Dice : public RiskObject
+{
 public:
 	Dice();
 	~Dice();
@@ -12,4 +12,3 @@ public:
 private:
 	int lastRoll;
 };
-

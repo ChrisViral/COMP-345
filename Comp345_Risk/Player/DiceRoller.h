@@ -18,6 +18,4 @@ private:
 	float num4;
 	float num5;
 	float num6;
-
 };
-

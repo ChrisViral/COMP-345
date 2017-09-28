@@ -3,9 +3,13 @@
 #include <string>
 #include <iostream>
 
-MapLoaderDriver::MapLoaderDriver() { }
+MapLoaderDriver::MapLoaderDriver()
+{
+}
 
-MapLoaderDriver::~MapLoaderDriver() { }
+MapLoaderDriver::~MapLoaderDriver()
+{
+}
 
 std::string MapLoaderDriver::getOpeningMessage()
 {

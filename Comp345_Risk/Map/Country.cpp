@@ -2,7 +2,6 @@
 
 Country::Country()
 {
-
 }
 
 Country::Country(std::string countryName, Continent& cont)
@@ -20,7 +19,6 @@ Country::Country(std::string countryName, Continent& cont, int x, int y) : Count
 
 Country::~Country()
 {
-
 }
 
 Continent* Country::getContinent()

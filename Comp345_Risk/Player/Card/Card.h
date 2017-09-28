@@ -6,21 +6,24 @@
 /*
  * CardType is the specialization for each card
  */
-enum CardType {
+enum CardType
+{
 	artillery,
 	cavalry,
 	infantry,
 	// Special enum value to indicate how many card types there are for this Enum
 	// Used when we are generating the deck of cards
-	_Count = 3 
+	_Count = 3
 };
 
-static std::string cardTypeEnumToString(const CardType& cardtype) {
-	switch (cardtype) {
+static std::string cardTypeEnumToString(const CardType& cardtype)
+{
+	switch (cardtype)
+	{
 	case artillery: return "artillery";
-		case cavalry: return "cavalry";;
-		case infantry: return "infantry";
-		default: return "";
+	case cavalry: return "cavalry";
+	case infantry: return "infantry";
+	default: return "";
 	}
 }
 
@@ -30,7 +33,8 @@ static std::string cardTypeEnumToString(const CardType& cardtype) {
  * 
  * Each card has its own CardType enum
  */
-class Card : public RiskObject {
+class Card : public RiskObject
+{
 public:
 	// Creates a card with the specified CardType specialization
 	Card(CardType);
@@ -41,4 +45,3 @@ private:
 	// The CardType specialization
 	CardType cardType;
 };
-

@@ -4,7 +4,8 @@
 #include <deque>
 
 
-class Deck : public RiskObject {
+class Deck : public RiskObject
+{
 public:
 
 	// Create a deck of cards with the same amount of cards as there are countries
@@ -23,10 +24,8 @@ public:
 
 	// Add a card back into the deck
 	void addCard(const Card& card);
-	
+
 private:
 	// The collection of cards in this deck
 	std::deque<Card> cardDeck;
-	
 };
-

@@ -14,7 +14,9 @@ MapLoader::MapLoader(const std::string& location)
 	current = "";
 }
 
-MapLoader::~MapLoader() { }
+MapLoader::~MapLoader()
+{
+}
 
 bool MapLoader::tryParseMap(RiskMap* result)
 {
@@ -74,7 +76,7 @@ bool MapLoader::parseMetaBlock(std::ifstream& stream)
 
 bool MapLoader::parseContinentBlock(std::ifstream& stream)
 {
-	while (getline(stream, current ) && current != "[Territories]")
+	while (getline(stream, current) && current != "[Territories]")
 	{
 		if (current.size() == 0) { continue; }
 		std::vector<std::string> splits = split(current, '=');
@@ -98,7 +100,7 @@ bool MapLoader::parseCountryBlock(std::ifstream& stream)
 		if (splits.size() < 5) { return false; }
 
 		Country country = riskMap->addCountry(splits[0], splits[3], stoi(splits[1]), stoi(splits[2]));
-		
+
 		for (int i = 4; i < splits.size(); i++)
 		{
 			edges.push_back(make_pair(splits[i], country));

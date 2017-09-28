@@ -51,4 +51,3 @@ private:
 	std::unordered_map<std::string, Continent> continents;
 	std::vector<Node> map;
 };
-

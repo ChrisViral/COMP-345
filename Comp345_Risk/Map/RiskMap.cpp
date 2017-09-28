@@ -5,9 +5,13 @@
 #include <iostream>
 #include <list>
 
-RiskMap::RiskMap() { }
+RiskMap::RiskMap()
+{
+}
 
-RiskMap::~RiskMap() { }
+RiskMap::~RiskMap()
+{
+}
 
 int RiskMap::size() const
 {
@@ -52,7 +56,7 @@ Country RiskMap::addCountry(std::string countryName, std::string continentName)
 }
 
 Country RiskMap::addCountry(std::string countryName, std::string continentName, int x, int y)
-{	
+{
 	//inserts into the aux storage
 	Country c(countryName, getContinent(continentName), x, y);
 	std::pair<std::string, Country> pair(countryName, c);
@@ -68,8 +72,8 @@ Country RiskMap::addCountry(std::string countryName, std::string continentName, 
 
 void RiskMap::addContinent(std::string continentName, int controlVal)
 {
-	Continent continent = Continent(continentName,controlVal);
-	std::pair<std::string, Continent> pair (continent.getName(), continent);
+	Continent continent = Continent(continentName, controlVal);
+	std::pair<std::string, Continent> pair(continent.getName(), continent);
 	continents.insert(pair);
 }
 
@@ -83,7 +87,7 @@ Continent& RiskMap::getContinent(std::string continentName)
 Country& RiskMap::getCountry(std::string countrytName)
 {
 	std::unordered_map<std::string, Country>::iterator found = auxStorage.find(countrytName);
-	
+
 	return found->second;
 }
 
@@ -97,14 +101,14 @@ void RiskMap::traverseMap()
 		{
 			std::cout << "\t" << map[i].adjList[j].country.getName() << " (" << map[i].adjList[j].country.getContinent()->getName() << ")" << std::endl;
 		}
-		
+
 		std::cout << std::endl;
-	}	
-}	
+	}
+}
 
 //A test to see if a source country can reach a destinatation country
 bool RiskMap::isReachable(Country& source, Country& destination)
-{	
+{
 	if (source.getName() == destination.getName())
 		return true;
 
@@ -113,9 +117,9 @@ bool RiskMap::isReachable(Country& source, Country& destination)
 
 	//initialize them all to false
 	std::unordered_map<std::string, Country>::iterator beg = auxStorage.begin();
-	for (beg; beg != auxStorage.end(); beg++)
-	{		
-		std::pair<std::string, bool> pair(beg->first,false);
+	for (beg; beg != auxStorage.end(); ++beg)
+	{
+		std::pair<std::string, bool> pair(beg->first, false);
 		visited.insert(pair);
 	}
 
@@ -131,7 +135,7 @@ bool RiskMap::isReachable(Country& source, Country& destination)
 
 		//Get edges 
 		std::vector<Edge>::iterator i = getNodeFromMap(name).adjList.begin();
-		for(i ; i != getNodeFromMap(name).adjList.end(); ++i)
+		for (i; i != getNodeFromMap(name).adjList.end(); ++i)
 		{
 			// If this adjacent node is the destination node, then 
 			// return true
@@ -169,7 +173,6 @@ void RiskMap::clearMap()
 
 void RiskMap::addCountriesToContinents()
 {
-
 	for (int i = 0; i < map.size(); i++)
 	{
 		getContinent(map[i].country->getContinent()->getName()).addCountry(map[i]);

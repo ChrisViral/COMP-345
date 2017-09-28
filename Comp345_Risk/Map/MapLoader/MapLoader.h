@@ -12,10 +12,12 @@ public:
 	{
 		return location;
 	}
+
 	RiskMap getMap() const
 	{
 		return *riskMap;
 	}
+
 	bool successfullyParsed() const
 	{
 		return success;

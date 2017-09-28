@@ -8,7 +8,6 @@ class Continent;
 
 class Country : public RiskObject
 {
-
 public:
 	Country();
 	Country(std::string countryName, Continent& cont);
@@ -31,4 +30,3 @@ private:
 	int x;
 	int y;
 };
-

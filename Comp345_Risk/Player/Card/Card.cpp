@@ -1,14 +1,16 @@
 #include "Card.h"
 
 
-
-Card::Card(CardType cardType) {
+Card::Card(CardType cardType)
+{
 	this->cardType = cardType;
 }
 
-Card::~Card() {
+Card::~Card()
+{
 }
 
-const CardType& Card::getCardType() const {
+const CardType& Card::getCardType() const
+{
 	return cardType;
 }

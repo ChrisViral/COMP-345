@@ -11,8 +11,13 @@
 #include "../Player/Card/Hand.h";
 
 
-PlayerDriver::PlayerDriver() { }
-PlayerDriver::~PlayerDriver() { }
+PlayerDriver::PlayerDriver()
+{
+}
+
+PlayerDriver::~PlayerDriver()
+{
+}
 
 
 std::string PlayerDriver::getOpeningMessage()

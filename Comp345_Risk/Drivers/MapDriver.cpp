@@ -2,8 +2,13 @@
 #include "MapDriver.h"
 #include <iostream>
 
-MapDriver::MapDriver() { }
-MapDriver::~MapDriver() { }
+MapDriver::MapDriver()
+{
+}
+
+MapDriver::~MapDriver()
+{
+}
 
 std::string MapDriver::getOpeningMessage()
 {
@@ -17,24 +22,24 @@ std::string MapDriver::getClosingMessage()
 
 void MapDriver::run()
 {
-	RiskMap rm;	
+	RiskMap rm;
 
-	rm.addContinent("North America",2);
-	rm.addContinent("South America",2);
-	rm.addContinent("Europe",2);
+	rm.addContinent("North America", 2);
+	rm.addContinent("South America", 2);
+	rm.addContinent("Europe", 2);
 
 	//Countries in NA Continent
-	rm.addCountry("Alberta","North America");
-	rm.addCountry("Ontario","North America");
-	rm.addCountry("Quebec","North America");
+	rm.addCountry("Alberta", "North America");
+	rm.addCountry("Ontario", "North America");
+	rm.addCountry("Quebec", "North America");
 
 	//Countries in SA Continent
-	rm.addCountry("Peru","South America");
+	rm.addCountry("Peru", "South America");
 	rm.addCountry("Brazil", "South America");
 	rm.addCountry("Argentina", "South America");
 
 	//Countries in EU Continent
-	rm.addCountry("Iceland","Europe");
+	rm.addCountry("Iceland", "Europe");
 	rm.addCountry("Scandinavia", "Europe");
 	rm.addCountry("Ukraine", "Europe");
 
@@ -74,7 +79,7 @@ void MapDriver::run()
 
 	//A test to show that Alberta is reachable to Iceland.
 	std::cout << "Test Path from Alberta to Iceland" << std::endl;
-	if(rm.isReachable(rm.getCountry("Alberta"), rm.getCountry("Iceland")))
+	if (rm.isReachable(rm.getCountry("Alberta"), rm.getCountry("Iceland")))
 		std::cout << "Path from Alberta to Iceland is reachable" << std::endl;
 	else
 		std::cout << "Path from Alberta to Iceland is unreachable" << std::endl;
@@ -101,7 +106,7 @@ void MapDriver::run()
 	rm.addEdge("Alberta", rm.getCountry("Quebec"));
 	rm.addEdge("Quebec", rm.getCountry("Alberta"));
 	rm.addEdge("Peru", rm.getCountry("Argentina"));
-	rm.addEdge("Argentina", rm.getCountry("Peru"));	
+	rm.addEdge("Argentina", rm.getCountry("Peru"));
 
 	std::cout << std::endl;
 	std::cout << std::endl;
@@ -112,10 +117,8 @@ void MapDriver::run()
 
 	//A test to show that Alberta is not reachable to Peru
 	std::cout << "Test Path from Alberta to Peru" << std::endl;
-	if(rm.isReachable(rm.getCountry("Alberta"), rm.getCountry("Peru")))
+	if (rm.isReachable(rm.getCountry("Alberta"), rm.getCountry("Peru")))
 		std::cout << "\nPath from Alberta to Peru is reachable\n" << std::endl;
 	else
 		std::cout << "\nPath from Alberta to Peru is unreachable\n" << std::endl;
-
-
 }

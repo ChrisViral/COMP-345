@@ -2,8 +2,13 @@
 #include <iostream>
 #include "../Player/Card/Deck.h"
 
-CardDriver::CardDriver() { }
-CardDriver::~CardDriver() { }
+CardDriver::CardDriver()
+{
+}
+
+CardDriver::~CardDriver()
+{
+}
 
 std::string CardDriver::getOpeningMessage()
 {

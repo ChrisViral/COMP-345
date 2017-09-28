@@ -2,8 +2,13 @@
 #include <iostream>
 #include "DiceDriver.h"
 
-DiceDriver::DiceDriver() { }
-DiceDriver::~DiceDriver() { }
+DiceDriver::DiceDriver()
+{
+}
+
+DiceDriver::~DiceDriver()
+{
+}
 
 std::string DiceDriver::getOpeningMessage()
 {
@@ -18,7 +23,7 @@ std::string DiceDriver::getClosingMessage()
 void DiceDriver::run()
 {
 	DiceRoller a; //creates a DiceRoller object
-	for (int i = 0 ; i < 100; i++) //loops 100 times
+	for (int i = 0; i < 100; i++) //loops 100 times
 	{
 		a.roll(3); //rolls 3 dice and logs their rolls
 		a.showRolls(); //prints out the log of the rolls, stating the total number of rolls, and the percentage of each rolls likely hood.
