@@ -1,5 +1,10 @@
-//This is the application file PlayerDriver.cpp. This program
-//demonstrates the implementation of the Player.cpp class.
+// COMP-345
+// Assignment #1
+// Christophe Savard
+// David Di Feo
+// Paul Weber
+// Steven Tucci
+// Adriano Monteclavo
 
 #include <string>
 #include "../Map/Continent.h"

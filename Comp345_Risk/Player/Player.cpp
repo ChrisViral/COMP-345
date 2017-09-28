@@ -1,5 +1,10 @@
-//This is the implementation file Player.cpp of the class Player.
-//The interface for the class Player is in the header file Player.h.
+// COMP-345
+// Assignment #1
+// Christophe Savard
+// David Di Feo
+// Paul Weber
+// Steven Tucci
+// Adriano Monteclavo
 
 #include "Player.h"
 #include <string>

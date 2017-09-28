@@ -1,7 +1,10 @@
-//This is the header file Player.h This is the interface for the class Player.
-//Values of this type are Player objects. A Player owns a
-//collection of territories, a hand of Risk cards and his own dice
-//roller object.
+// COMP-345
+// Assignment #1
+// Christophe Savard
+// David Di Feo
+// Paul Weber
+// Steven Tucci
+// Adriano Monteclavo
 
 #pragma once
 #include <vector>

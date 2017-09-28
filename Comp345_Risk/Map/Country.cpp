@@ -1,3 +1,11 @@
+// COMP-345
+// Assignment #1
+// Christophe Savard
+// David Di Feo
+// Paul Weber
+// Steven Tucci
+// Adriano Monteclavo
+
 #include "Country.h"
 
 Country::Country() : continent(nullptr), armies(0)/*,owner(nullptr)*/, x(0), y(0)

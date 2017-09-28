@@ -1,3 +1,11 @@
+// COMP-345
+// Assignment #1
+// Christophe Savard
+// David Di Feo
+// Paul Weber
+// Steven Tucci
+// Adriano Monteclavo
+
 #pragma once
 #include "../Player/Card/Hand.h"
 #include "Driver.h"

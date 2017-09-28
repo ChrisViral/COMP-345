@@ -1,5 +1,10 @@
-//The following website was used as a resource
-//http://www.geeksforgeeks.org/find-if-there-is-a-path-between-two-vertices-in-a-given-graph/
+// COMP-345
+// Assignment #1
+// Christophe Savard
+// David Di Feo
+// Paul Weber
+// Steven Tucci
+// Adriano Monteclavo
 
 #include "RiskMap.h"
 #include <iostream>

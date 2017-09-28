@@ -1,3 +1,11 @@
+// COMP-345
+// Assignment #1
+// Christophe Savard
+// David Di Feo
+// Paul Weber
+// Steven Tucci
+// Adriano Monteclavo
+
 #include "DiceRoller.h"
 #include "Dice.h"
 #include <iostream>
