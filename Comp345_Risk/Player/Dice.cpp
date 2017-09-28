@@ -18,7 +18,7 @@ Dice::~Dice()
 
 int Dice::roll()
 {
-	lastRoll = (rand() % 6 + 1);
+	lastRoll = rand() % 6 + 1;
 	return lastRoll;
 }
 

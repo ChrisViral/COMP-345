@@ -12,9 +12,9 @@ class Continent : public RiskObject
 public:
 	Continent(std::string continentName, int controlVal);
 	~Continent();
-	int getControlValue();
+	int getControlValue() const;
 	void addCountry(Node& country);
-	std::string getName();
+	std::string getName() const;
 	void traverseCountries();
 
 private:

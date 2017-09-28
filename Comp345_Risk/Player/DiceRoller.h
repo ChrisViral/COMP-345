@@ -7,7 +7,7 @@ public:
 	DiceRoller();
 	~DiceRoller();
 	int roll(int numberOfDice); //function rolls a number of dice and returns a string containing the rolls.
-	void showRolls(); //prints out the total number of rolls and the percent of each rolls outcome.
+	void showRolls() const; //prints out the total number of rolls and the percent of each rolls outcome.
 
 private:
 	Dice myDice;

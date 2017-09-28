@@ -1,7 +1,8 @@
 #pragma once
+
 class RiskObject
 {
 protected:
 	RiskObject();
-	~RiskObject();
+	virtual ~RiskObject() = 0;
 };

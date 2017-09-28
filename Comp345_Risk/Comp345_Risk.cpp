@@ -25,6 +25,7 @@ int main()
 
 	const std::string endll = "\n\n";
 
+	//Batch run, run all drivers
 	std::cout << "Beginning driver tests" << endll;
 	for (Driver* d : drivers)
 	{
@@ -38,6 +39,13 @@ int main()
 
 	std::cout << "Press any key to exit...";
 	getchar();
+
+	//Unique run, uncomment to run a specific driver
+	//map.run();
+	//loader.run();
+	//card.run();
+	//dice.run();
+	//player.run();
 
 	return 0;
 }

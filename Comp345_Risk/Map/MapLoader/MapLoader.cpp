@@ -7,7 +7,7 @@
 #include "../RiskMap.h";
 
 
-MapLoader::MapLoader(const std::string& location)
+MapLoader::MapLoader(const std::string& location): riskMap(nullptr)
 {
 	this->location = location;
 	success = true;

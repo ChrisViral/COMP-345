@@ -192,15 +192,15 @@ int DiceRoller::roll(int numberOfDice)
 }
 
 //prints out the percentage of each roll's likeliness.
-void DiceRoller::showRolls()
+void DiceRoller::showRolls() const
 {
 	std::cout << std::fixed;
 	std::cout << std::setprecision(3);
 	std::cout << "Total Number of Rolls: " << totalRolls << std::endl;
-	std::cout << "Percent of 1s: " << ((num1 / totalRolls) * 100) << std::endl;
-	std::cout << "Percent of 2s: " << ((num2 / totalRolls) * 100) << std::endl;
-	std::cout << "Percent of 3s: " << ((num3 / totalRolls) * 100) << std::endl;
-	std::cout << "Percent of 4s: " << ((num4 / totalRolls) * 100) << std::endl;
-	std::cout << "Percent of 5s: " << ((num5 / totalRolls) * 100) << std::endl;
-	std::cout << "Percent of 6s: " << ((num6 / totalRolls) * 100) << std::endl;
+	std::cout << "Percent of 1s: " << num1 / totalRolls * 100 << std::endl;
+	std::cout << "Percent of 2s: " << num2 / totalRolls * 100 << std::endl;
+	std::cout << "Percent of 3s: " << num3 / totalRolls * 100 << std::endl;
+	std::cout << "Percent of 4s: " << num4 / totalRolls * 100 << std::endl;
+	std::cout << "Percent of 5s: " << num5 / totalRolls * 100 << std::endl;
+	std::cout << "Percent of 6s: " << num6 / totalRolls * 100 << std::endl;
 }

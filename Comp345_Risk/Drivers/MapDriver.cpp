@@ -80,9 +80,13 @@ void MapDriver::run()
 	//A test to show that Alberta is reachable to Iceland.
 	std::cout << "Test Path from Alberta to Iceland" << std::endl;
 	if (rm.isReachable(rm.getCountry("Alberta"), rm.getCountry("Iceland")))
+	{
 		std::cout << "Path from Alberta to Iceland is reachable" << std::endl;
+	}
 	else
+	{
 		std::cout << "Path from Alberta to Iceland is unreachable" << std::endl;
+	}
 
 	//Clear the map for next test
 	rm.clearMap();
@@ -118,7 +122,11 @@ void MapDriver::run()
 	//A test to show that Alberta is not reachable to Peru
 	std::cout << "Test Path from Alberta to Peru" << std::endl;
 	if (rm.isReachable(rm.getCountry("Alberta"), rm.getCountry("Peru")))
+	{
 		std::cout << "\nPath from Alberta to Peru is reachable\n" << std::endl;
+	}
 	else
+	{
 		std::cout << "\nPath from Alberta to Peru is unreachable\n" << std::endl;
+	}
 }

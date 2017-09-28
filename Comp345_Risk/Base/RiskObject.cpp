@@ -7,4 +7,3 @@ RiskObject::RiskObject()
 RiskObject::~RiskObject()
 {
 }
-

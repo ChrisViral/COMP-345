@@ -11,13 +11,13 @@ Continent::~Continent()
 {
 }
 
-std::string Continent::getName()
+std::string Continent::getName() const
 {
 	return name;
 }
 
 
-int Continent::getControlValue()
+int Continent::getControlValue() const
 {
 	return controlValue;
 }

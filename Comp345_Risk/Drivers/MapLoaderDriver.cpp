@@ -56,7 +56,7 @@ void MapLoaderDriver::loadMap(const std::string path)
 	}
 	else
 	{
-		std::cout << "The map could not be parsed sucessfully" << std::endl << std::endl;
+		std::cout << "The map could not be parsed sucessfully" << std::endl;
 	}
 
 	delete map;
