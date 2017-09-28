@@ -16,7 +16,7 @@ struct MapMetaData
 
 struct Edge
 {
-	Country* country;
+	Country country;
 };
 
 struct Node
@@ -32,7 +32,7 @@ public:
 
 	RiskMap();
 	~RiskMap();
-	void addEdge(std::string targetCountry, Country& newCountry);
+	bool addEdge(std::string targetCountry, Country& newCountry);
 	Country addCountry(std::string countryName, std::string continentName);
 	Country addCountry(std::string countryName, std::string continentName, int x, int y);
 	void addContinent(std::string continentName, int controlVal);
@@ -43,6 +43,8 @@ public:
 	Node& getNodeFromMap(std::string countrytName);
 	void clearMap();
 	void RiskMap::addCountriesToContinents();
+	int size() const;
+	int continentSize() const;
 
 private:
 	std::unordered_map<std::string, Country> auxStorage;

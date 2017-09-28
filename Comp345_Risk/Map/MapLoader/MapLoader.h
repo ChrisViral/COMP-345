@@ -6,7 +6,7 @@ class MapLoader
 public:
 	explicit MapLoader(const std::string& location);
 	~MapLoader();
-	bool tryParseMap(RiskMap& result);
+	bool tryParseMap(RiskMap* result);
 
 	std::string getLocation() const
 	{
@@ -14,7 +14,7 @@ public:
 	}
 	RiskMap getMap() const
 	{
-		return riskMap;
+		return *riskMap;
 	}
 	bool successfullyParsed() const
 	{
@@ -22,7 +22,7 @@ public:
 	}
 
 private:
-	RiskMap riskMap;
+	RiskMap* riskMap;
 	std::string location;
 	std::string current;
 	bool success;

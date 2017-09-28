@@ -11,14 +11,15 @@ MapLoader::MapLoader(const std::string& location)
 {
 	this->location = location;
 	success = true;
+	current = "";
 }
 
 MapLoader::~MapLoader() { }
 
-bool MapLoader::tryParseMap(RiskMap& result)
+bool MapLoader::tryParseMap(RiskMap* result)
 {
 	std::ifstream stream(location);
-
+	riskMap = result;
 	//If anything goes wrong, prevents crash, simply fail parse.
 	try
 	{
@@ -29,81 +30,89 @@ bool MapLoader::tryParseMap(RiskMap& result)
 		success = false;
 	}
 
-	if (success)
-	{
-		//Finish map setup and pass to out pointer parameter
-		riskMap.addCountriesToContinents();
-		result = riskMap;
-	}
 
 	stream.close();
-	return success;
+	return success && riskMap->size() > 0 && riskMap->continentSize() > 0;
 }
 
 bool MapLoader::parseMetaBlock(std::ifstream& stream)
 {
-	getline(stream, current);
+	while (current.size() == 0) { getline(stream, current); }
 	if (current != "[Map]") { return false; }
 
-	while (getline(stream, current)  && current != "[Continents]")
+	while (getline(stream, current) && current != "[Continents]")
 	{
-		std::vector<std::string> splits = split(current, '=');
+		if (current.size() == 0) { continue; }
 
+		std::vector<std::string> splits = split(current, '=');
 		if (splits.size() != 2) { return false; }
 
 		if (splits[0] == "author")
 		{
-			riskMap.metadata.author = splits[1];
+			riskMap->metadata.author = splits[1];
 		}
-		if (splits[0] == "image")
+		else if (splits[0] == "image")
 		{
-			riskMap.metadata.image = splits[1];
+			riskMap->metadata.image = splits[1];
 		}
-		if (splits[0] == "wrap")
+		else if (splits[0] == "wrap")
 		{
-			riskMap.metadata.wrap = boolFromYesNo(splits[1]);
+			riskMap->metadata.wrap = boolFromYesNo(splits[1]);
 		}
-		if (splits[0] == "scroll")
+		else if (splits[0] == "scroll")
 		{
-			riskMap.metadata.scroll = splits[1];
+			riskMap->metadata.scroll = splits[1];
 		}
-		if (splits[0] == "warn")
+		else if (splits[0] == "warn")
 		{
-			riskMap.metadata.warn = boolFromYesNo(splits[1]);
+			riskMap->metadata.warn = boolFromYesNo(splits[1]);
 		}
 	}
 
-	return true;
+	return current == "[Continents]";
 }
 
 bool MapLoader::parseContinentBlock(std::ifstream& stream)
 {
 	while (getline(stream, current ) && current != "[Territories]")
 	{
+		if (current.size() == 0) { continue; }
 		std::vector<std::string> splits = split(current, '=');
 
 		if (splits.size() != 2) { return false; }
-		riskMap.addContinent(splits[0], std::stoi(splits[1]));
+		riskMap->addContinent(splits[0], stoi(splits[1]));
 	}
 
-	return true;
+	return current == "[Territories]";
 }
 
 bool MapLoader::parseCountryBlock(std::ifstream& stream)
 {
+	std::vector<std::pair<std::string, Country>> edges;
 	while (getline(stream, current))
 	{
+		if (current.size() == 0) { continue; }
 		std::vector<std::string> splits = split(current, ',');
 
 		//There should at lease be a name, two coordinates, a continent, and one adjacent country
 		if (splits.size() < 5) { return false; }
 
-		Country country = riskMap.addCountry(splits[0], splits[3], std::stoi(splits[1]), std::stoi(splits[2]));
+		Country country = riskMap->addCountry(splits[0], splits[3], stoi(splits[1]), stoi(splits[2]));
 		
 		for (int i = 4; i < splits.size(); i++)
 		{
-			riskMap.addEdge(splits[i], country);
+			edges.push_back(make_pair(splits[i], country));
 		}
 	}
+
+	//Setup edges and continents
+	for (std::pair<std::string, Country> p : edges)
+	{
+		if (!riskMap->addEdge(p.first, p.second))
+		{
+			return false;
+		}
+	}
+	riskMap->addCountriesToContinents();
 	return true;
 }

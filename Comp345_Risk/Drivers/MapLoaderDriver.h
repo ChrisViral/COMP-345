@@ -10,4 +10,6 @@ public:
 	std::string getOpeningMessage() override;
 	std::string getClosingMessage() override;
 	void run() override;
+private:
+	static void loadMap(const std::string path);
 };

@@ -115,5 +115,11 @@
     <None Include="mapfiles\World.map">
       <Filter>mapfiles</Filter>
     </None>
+    <None Include="mapfiles\Lord of the Rings.map">
+      <Filter>mapfiles</Filter>
+    </None>
+    <None Include="mapfiles\broken.map">
+      <Filter>mapfiles</Filter>
+    </None>
   </ItemGroup>
 </Project>

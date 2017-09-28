@@ -176,6 +176,8 @@
     <ClCompile Include="Map\RiskMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="mapfiles\broken.map" />
+    <None Include="mapfiles\Lord of the Rings.map" />
     <None Include="mapfiles\World.map" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

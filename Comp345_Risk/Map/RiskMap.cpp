@@ -5,26 +5,35 @@
 #include <iostream>
 #include <list>
 
-RiskMap::RiskMap()
+RiskMap::RiskMap() { }
+
+RiskMap::~RiskMap() { }
+
+int RiskMap::size() const
 {
+	return map.size();
 }
 
-RiskMap::~RiskMap()
+int RiskMap::continentSize() const
 {
+	return continents.size();
 }
 
 //Search through the map for a country by name, then add a new edge to that country.
-void RiskMap::addEdge(std::string targetCountry, Country& newCountry)
+bool RiskMap::addEdge(std::string targetCountry, Country& newCountry)
 {
+	//TODO: We should probably store the country's node in the object then use auxStorage to get the country here instead.
 	for (int i = 0; i < map.size(); i++)
 	{
 		if (map[i].country->getName() == targetCountry)
 		{
 			Edge e;
-			e.country = &newCountry;
-			map[i].adjList.push_back(e);			
+			e.country = newCountry;
+			map[i].adjList.push_back(e);
+			return true;
 		}
 	}
+	return false;
 }
 
 Country RiskMap::addCountry(std::string countryName, std::string continentName)
@@ -86,7 +95,7 @@ void RiskMap::traverseMap()
 
 		for (int j = 0; j < map[i].adjList.size(); j++)
 		{
-			std::cout << "\t" << map[i].adjList[j].country->getName() << " (" << map[i].adjList[j].country->getContinent()->getName() << ")" << std::endl;
+			std::cout << "\t" << map[i].adjList[j].country.getName() << " (" << map[i].adjList[j].country.getContinent()->getName() << ")" << std::endl;
 		}
 		
 		std::cout << std::endl;
@@ -126,13 +135,13 @@ bool RiskMap::isReachable(Country& source, Country& destination)
 		{
 			// If this adjacent node is the destination node, then 
 			// return true
-			if (i->country->getName() == destination.getName())
+			if (i->country.getName() == destination.getName())
 				return true;
 
-			if (!visited[i->country->getName()])
+			if (!visited[i->country.getName()])
 			{
-				visited[i->country->getName()] = true;
-				queue.push_back(i->country->getName());
+				visited[i->country.getName()] = true;
+				queue.push_back(i->country.getName());
 			}
 		}
 	}
@@ -143,10 +152,13 @@ bool RiskMap::isReachable(Country& source, Country& destination)
 //Search the map for a Node by name of the country
 Node& RiskMap::getNodeFromMap(std::string countrytName)
 {
+	//TODO: There should be a final return statement here, this isn't best practice
 	for (int i = 0; i < map.size(); i++)
 	{
 		if (map[i].country->getName() == countrytName)
+		{
 			return map[i];
+		}
 	}
 }
 
