@@ -47,6 +47,12 @@
     <ClCompile Include="Player\DiceRoller.cpp">
       <Filter>Player</Filter>
     </ClCompile>
+    <ClCompile Include="Drivers\PlayerDriver.cpp">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -98,6 +104,12 @@
     </ClInclude>
     <ClInclude Include="Drivers\DiceDriver.h">
       <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\PlayerDriver.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\Player.h">
+      <Filter>Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

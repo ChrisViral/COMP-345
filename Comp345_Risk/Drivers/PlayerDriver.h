@@ -1,14 +1,12 @@
 #pragma once
 #include "Driver.h"
 
-class MapLoaderDriver : public Driver
+class PlayerDriver : public Driver
 {
 public:
-	MapLoaderDriver();
-	~MapLoaderDriver();
+	PlayerDriver();
+	~PlayerDriver();
 	std::string getOpeningMessage() override;
 	std::string getClosingMessage() override;
 	void run() override;
-private:
-	static void loadMap(const std::string path);
 };

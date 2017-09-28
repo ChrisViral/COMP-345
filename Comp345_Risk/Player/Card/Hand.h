@@ -29,6 +29,8 @@ public:
 	// Exchange a CARD_EXCHANGE_AMOUNT cards of the same kind
 	Exchangement exchange(CardType cardType);
 	
+	//Display cards
+	void displayCards();
 
 private:
 

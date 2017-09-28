@@ -3,21 +3,20 @@
 //collection of territories, a hand of Risk cards and his own dice
 //roller object.
 
-#ifndef PLAYER_H
-#define PLAYER_H
-
-#include "Dice.h"
-#include "Territories.h"
-#include "Cards.h"
-#include <string>
+#pragma once
 #include <vector>
-using namespace std;
+#include "../Base/RiskObject.h";
+#include "Card/Hand.h"
+#include "../Map/Country.h"
+#include "DiceRoller.h"
 
-class Player
+class Player : public RiskObject
 {
 public:
 	Player();
-	Player(Dice diceRoller, Territories playersTerritories, Cards playersCards);
+	Player(DiceRoller diceRoller, std::vector<Country> playersTerritories, Hand playersCards);
+	~Player();
+
 	void displayInfo();
 	//All Player's assests are displayed
 
@@ -33,9 +32,9 @@ public:
 	//Method can be invoked after attack turn is complete. Player can take as many troops as he’d like
 	//from one of his territories, and put them in one of his other
 	//territories that is connected either by land or sea in order to fortify it.
+
 private:
-	Dice diceRoller;
-	Territories playersTerritories;
-	Cards playersCards;
+	DiceRoller diceRoller;
+	std::vector<Country> playersTerritories;
+	Hand playersCards;
 };
-#endif //PLAYER_H
