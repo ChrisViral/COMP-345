@@ -14,8 +14,8 @@ class Player : public RiskObject
 {
 public:
 	Player();
-	Player(DiceRoller diceRoller, std::vector<Country> playersTerritories, Hand playersCards);
 	~Player();
+	Player(DiceRoller diceRoller, std::vector<Country> playersTerritories, Hand playersCards);
 
 	void displayInfo();
 	//All Player's assests are displayed

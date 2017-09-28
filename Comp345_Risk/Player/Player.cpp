@@ -8,6 +8,7 @@
 #include "../Map/Country.h"
 
 Player::Player() { }
+Player::~Player() { }
 
 Player::Player(DiceRoller aDiceRoller, std::vector<Country> aPlayersTerritoriesVector, Hand aPlayersCards)
 {
