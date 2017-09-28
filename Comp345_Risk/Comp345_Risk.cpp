@@ -5,6 +5,7 @@
 #include "Drivers/CardDriver.h"
 #include "Drivers/MapLoaderDriver.h"
 #include "Drivers/MapDriver.h"
+#include "Drivers/DiceDriver.h"
 
 //Comp345_Risk.cpp : Defines the entry point for the console application.
 int main()
@@ -12,10 +13,12 @@ int main()
 	MapDriver map;
 	MapLoaderDriver loader;
 	CardDriver card;
-	std::vector<Driver*> drivers(3);
+	DiceDriver dice;
+	std::vector<Driver*> drivers(4);
 	drivers[0] = &map;
 	drivers[1] = &loader;
 	drivers[2] = &card;
+	drivers[3] = &dice;
 
 	const std::string endll = "\n\n";
 
@@ -32,4 +35,6 @@ int main()
 
 	std::cout << "Press any key to exit...";
 	getchar();
+
+	return 0;
 }

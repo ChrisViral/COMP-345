@@ -145,6 +145,7 @@
     <ClInclude Include="Base\RiskObject.h" />
     <ClInclude Include="Base\Utils.h" />
     <ClInclude Include="Drivers\CardDriver.h" />
+    <ClInclude Include="Drivers\DiceDriver.h" />
     <ClInclude Include="Drivers\Driver.h" />
     <ClInclude Include="Drivers\MapDriver.h" />
     <ClInclude Include="Drivers\MapLoaderDriver.h" />
@@ -156,12 +157,14 @@
     <ClInclude Include="Map\MapLoader\MapLoader.h" />
     <ClInclude Include="Player\Dice.h" />
     <ClInclude Include="Map\RiskMap.h" />
+    <ClInclude Include="Player\DiceRoller.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Base\RiskObject.cpp" />
     <ClCompile Include="Drivers\CardDriver.cpp" />
+    <ClCompile Include="Drivers\DiceDriver.cpp" />
     <ClCompile Include="Drivers\Driver.cpp" />
     <ClCompile Include="Drivers\MapLoaderDriver.cpp" />
     <ClCompile Include="Player\Card\Hand.cpp" />
@@ -174,6 +177,7 @@
     <ClCompile Include="Map\MapLoader\MapLoader.cpp" />
     <ClCompile Include="Player\Dice.cpp" />
     <ClCompile Include="Map\RiskMap.cpp" />
+    <ClCompile Include="Player\DiceRoller.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="mapfiles\broken.map" />
