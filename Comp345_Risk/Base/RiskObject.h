@@ -2,7 +2,6 @@
 class RiskObject
 {
 protected:
-	RiskObject()
-	{
-	};
+	RiskObject();
+	~RiskObject();
 };
