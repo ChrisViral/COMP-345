@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Base/RiskObject.h"
-#include "../Player/Player.h"
+//#include "../Player/Player.h"
 #include <string>
 
 class Continent;
@@ -19,7 +19,7 @@ public:
 	int getArmies();
 	void addArmies(int amount);
 	void removeArmies(int amount);
-	Player* getOwner();
+	//Player* getOwner();
 	void setX(int val);
 	void setY(int val);
 
@@ -27,7 +27,7 @@ private:
 	Continent* continent;
 	std::string name;
 	int armies;
-	Player* owner;
+	//Player* owner;
 	int x;
 	int y;
 };

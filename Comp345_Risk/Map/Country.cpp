@@ -48,10 +48,12 @@ void Country::removeArmies(int amount)
 	armies -= amount;
 }
 
+/*
 Player* Country::getOwner()
 {
 	return owner;
 }
+*/
 
 void Country::setX(int val)
 {

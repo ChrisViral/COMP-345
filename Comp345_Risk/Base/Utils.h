@@ -1,8 +1,10 @@
 #pragma once
+#include <string>
 #include <iterator>
 #include <vector>
 #include <algorithm>
 #include <locale>
+#include <sstream>
 
 //Taken from 
 //https://stackoverflow.com/questions/1878001/how-do-i-check-if-a-c-string-starts-with-a-certain-string-and-convert-a-sub
@@ -17,9 +19,9 @@ static bool startsWith(std::string str, std::string prefix)
 template <typename Out>
 void split(const std::string& s, char delim, Out result)
 {
-	stringstream ss;
+	std::stringstream ss;
 	ss.str(s);
-	string item;
+	std::string item;
 	while (getline(ss, item, delim))
 	{
 		*(result++) = item;
