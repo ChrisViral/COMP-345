@@ -1,25 +1,20 @@
 #pragma once
-#include <string>
 #include <iterator>
 #include <locale>
-#include <sstream>
 #include <vector>
 
-using namespace std;
-
-
-// Taken from 
-// https://stackoverflow.com/questions/1878001/how-do-i-check-if-a-c-string-starts-with-a-certain-string-and-convert-a-sub
-static bool startsWith(string str, string prefix)
+//Taken from 
+//https://stackoverflow.com/questions/1878001/how-do-i-check-if-a-c-string-starts-with-a-certain-string-and-convert-a-sub
+static bool startsWith(std::string str, std::string prefix)
 {
-	return (str.substr(0, prefix.size()) == prefix);
+	return str.substr(0, prefix.size()) == prefix;
 }
 
 
 // Taken from
 //https://stackoverflow.com/questions/236129/most-elegant-way-to-split-a-string
 template <typename Out>
-void split(const string& s, char delim, Out result)
+void split(const std::string& s, char delim, Out result)
 {
 	stringstream ss;
 	ss.str(s);
@@ -30,21 +25,21 @@ void split(const string& s, char delim, Out result)
 	}
 }
 
-vector<string> split(const string& s, char delim)
+inline std::vector<std::string> split(const std::string& s, char delim)
 {
-	vector<string> elems;
+	std::vector<std::string> elems;
 	split(s, delim, back_inserter(elems));
 	return elems;
 }
 
-locale loc;
+std::locale loc;
 //Shortcut tolower method
-string tolower(string str)
+inline std::string tolower(std::string str)
 {
 	return tolower(str, loc);
 }
 
-bool boolFromYesNo(string str)
+inline bool boolFromYesNo(std::string str)
 {
 	return tolower(str) == "yes";
 }

@@ -1,10 +1,9 @@
 #pragma once
 
-#include <string>
 #include <unordered_map>
 #include "../Base/RiskObject.h"
-#include "../Map/Country.h"
-#include "../Map/Continent.h"
+#include "Country.h"
+#include "Continent.h"
 
 struct MapMetaData
 {

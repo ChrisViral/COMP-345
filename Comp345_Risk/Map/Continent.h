@@ -2,7 +2,7 @@
 
 #include <vector>
 #include "../Base/RiskObject.h"
-#include "../Map/RiskMap.h"
+#include "RiskMap.h"
 
 class Country;
 struct Node;

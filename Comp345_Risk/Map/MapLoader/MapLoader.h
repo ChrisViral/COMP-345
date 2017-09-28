@@ -1,5 +1,5 @@
 #pragma once
-#include "RiskMap.h"
+#include "..\RiskMap.h"
 
 using namespace std;
 

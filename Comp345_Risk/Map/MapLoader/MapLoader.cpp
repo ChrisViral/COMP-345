@@ -3,10 +3,9 @@
 #include <fstream>
 #include <map>
 
-#include "../Base/Utils.h"
-#include "RiskMap.h"
+#include "..\..\Base\Utils.h"
+#include "..\RiskMap.h";
 
-using namespace std;
 
 MapLoader::MapLoader(const string& location)
 {

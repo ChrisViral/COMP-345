@@ -32,6 +32,12 @@
     <ClCompile Include="Map\MapLoader\MapLoader.cpp">
       <Filter>Map\MapLoader</Filter>
     </ClCompile>
+    <ClCompile Include="Drivers\Driver.cpp">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\CardDriver.cpp">
+      <Filter>Drivers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -68,6 +74,9 @@
     </ClInclude>
     <ClInclude Include="Map\MapLoader\MapLoader.h">
       <Filter>Map\MapLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\Driver.h">
+      <Filter>Drivers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
