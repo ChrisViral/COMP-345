@@ -1,10 +1,20 @@
+// COMP-345
+// Assignment #1
+// Christophe Savard
+// David Di Feo
+// Paul Weber
+// Steven Tucci
+// Adriano Monteclavo
+
 #pragma once
 
-#include <string>
+#include <unordered_map>
 #include "../Base/RiskObject.h"
+#include "Country.h"
+#include "Continent.h"
 
-
-struct MapMetaData {
+struct MapMetaData
+{
 	std::string author;
 	std::string image;
 	bool wrap;
@@ -12,14 +22,40 @@ struct MapMetaData {
 	bool warn;
 };
 
-
-class RiskMap : public RiskObject {
-public:
-	RiskMap();
-	~RiskMap();
-
-	MapMetaData metadata;
-	//std::set<Continent> continents;
-	//std::unordered_map<Country, std::set<Country>> connections;
+struct Edge
+{
+	Country country;
 };
 
+struct Node
+{
+	Country* country;
+	std::vector<Edge> adjList;
+};
+
+class RiskMap : public RiskObject
+{
+public:
+	MapMetaData metadata;
+
+	RiskMap();
+	~RiskMap();
+	bool addEdge(std::string targetCountry, Country& newCountry);
+	Country addCountry(std::string countryName, std::string continentName);
+	Country addCountry(std::string countryName, std::string continentName, int x, int y);
+	void addContinent(std::string continentName, int controlVal);
+	Continent& getContinent(std::string continentName);
+	Country& getCountry(std::string countrytName);
+	void traverseMap();
+	bool RiskMap::isReachable(Country& source, Country& destination);
+	Node& getNodeFromMap(std::string countrytName);
+	void clearMap();
+	void RiskMap::addCountriesToContinents();
+	int size() const;
+	int continentSize() const;
+
+private:
+	std::unordered_map<std::string, Country> auxStorage;
+	std::unordered_map<std::string, Continent> continents;
+	std::vector<Node> map;
+};

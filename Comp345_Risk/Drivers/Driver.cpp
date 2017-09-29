@@ -6,12 +6,12 @@
 // Steven Tucci
 // Adriano Monteclavo
 
-#include "RiskObject.h"
+#include "Driver.h"
 
-RiskObject::RiskObject()
+Driver::Driver()
 {
 }
 
-RiskObject::~RiskObject()
+Driver::~Driver()
 {
 }

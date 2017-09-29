@@ -1,31 +1,59 @@
-// Comp345_Risk.cpp : Defines the entry point for the console application.
+// COMP-345
+// Assignment #1
+// Christophe Savard
+// David Di Feo
+// Paul Weber
+// Steven Tucci
+// Adriano Monteclavo
 
-#include "Player/Dice.h"
-
+#include <cstdio>
 #include <iostream>
-#include "Map/RiskMap.h"
-#include "Map/MapLoader.h"
+#include <vector>
+#include "Drivers/Driver.h";
+#include "Drivers/CardDriver.h"
+#include "Drivers/MapLoaderDriver.h"
+#include "Drivers/MapDriver.h"
+#include "Drivers/DiceDriver.h"
+#include "Drivers/PlayerDriver.h"
 
-int main() {
-	
-	// Testing
-	Dice d;
-	std::cout << d.roll() << std::endl;
+//Comp345_Risk.cpp : Defines the entry point for the console application.
+int main()
+{
+	MapDriver map;
+	MapLoaderDriver loader;
+	CardDriver card;
+	DiceDriver dice;
+	PlayerDriver player;
+	std::vector<Driver*> drivers(5);
+	drivers[0] = &map;
+	drivers[1] = &loader;
+	drivers[2] = &card;
+	drivers[3] = &dice;
+	drivers[4] = &player;
 
-	MapLoader l;
-	std::string mapfile = "mapfiles/World.map";
-	// TODO: finish loading map
-	std::pair<bool, RiskMap> load = l.loadFromMapFile(mapfile);
-	RiskMap riskmap;
-	if (load.first) {
-		riskmap = load.second;
-		std::cout << "Map loaded";
-	} else {
-		std::cout << "Map file failed to load";
+	const std::string endll = "\n\n";
+
+	//Batch run, run all drivers
+	std::cout << "Beginning driver tests" << endll;
+	for (Driver* d : drivers)
+	{
+		std::cout << "=====================================================================" << endll;
+		std::cout << d->getOpeningMessage() << endll;
+		d->run();
+		std::cout << std::endl << d->getClosingMessage() << endll;
 	}
+	std::cout << "=====================================================================" << endll;
+	std::cout << "Ended driver tests" << endll;
 
-	
-	
+	std::cout << "Press any key to exit...";
+	getchar();
 
-	
+	//Unique run, uncomment to run a specific driver
+	//map.run();
+	//loader.run();
+	//card.run();
+	//dice.run();
+	//player.run();
+
+	return 0;
 }
