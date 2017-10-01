@@ -174,6 +174,8 @@ Node& RiskMap::getNodeFromMap(std::string countrytName)
 void RiskMap::clearMap()
 {
 	map.clear();
+	auxStorage.clear();
+	continents.clear();
 }
 
 void RiskMap::addCountriesToContinents()
@@ -184,4 +186,9 @@ void RiskMap::addCountriesToContinents()
 	}
 
 	//getContinent(continentName).addCountry(getNodeFromMap("countryName"));
+}
+
+int RiskMap::getCountryCount()
+{
+	return auxStorage.size();
 }

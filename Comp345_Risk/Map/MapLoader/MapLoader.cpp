@@ -29,6 +29,7 @@ MapLoader::~MapLoader()
 bool MapLoader::tryParseMap(RiskMap* result)
 {
 	std::ifstream stream(location);
+	result->clearMap();
 	riskMap = result;
 	//If anything goes wrong, prevents crash, simply fail parse.
 	try
