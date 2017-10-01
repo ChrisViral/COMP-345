@@ -21,6 +21,11 @@ public:
 		return location;
 	}
 
+	inline void setLocation(std::string loc)
+	{
+		location = loc;
+	}
+
 	RiskMap getMap() const
 	{
 		return *riskMap;

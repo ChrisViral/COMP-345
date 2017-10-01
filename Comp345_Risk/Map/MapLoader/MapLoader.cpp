@@ -15,7 +15,7 @@
 #include "../RiskMap.h";
 
 
-MapLoader::MapLoader(const std::string& location): riskMap(nullptr)
+MapLoader::MapLoader(const std::string& location) : riskMap(nullptr)
 {
 	this->location = location;
 	success = true;
@@ -29,6 +29,7 @@ MapLoader::~MapLoader()
 bool MapLoader::tryParseMap(RiskMap* result)
 {
 	std::ifstream stream(location);
+	result->clearMap();
 	riskMap = result;
 	//If anything goes wrong, prevents crash, simply fail parse.
 	try
