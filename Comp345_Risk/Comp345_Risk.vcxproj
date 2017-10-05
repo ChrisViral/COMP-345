@@ -146,7 +146,8 @@
     <ClInclude Include="Base\Utils.h" />
     <ClInclude Include="Drivers\CardDriver.h" />
     <ClInclude Include="Drivers\DiceDriver.h" />
-    <ClInclude Include="Drivers\Driver.h" />
+    <ClInclude Include="Base\Driver.h" />
+    <ClInclude Include="Drivers\GameStartDriver.h" />
     <ClInclude Include="Drivers\MapDriver.h" />
     <ClInclude Include="Drivers\MapLoaderDriver.h" />
     <ClInclude Include="Drivers\PlayerDriver.h" />
@@ -167,7 +168,8 @@
     <ClCompile Include="Base\RiskObject.cpp" />
     <ClCompile Include="Drivers\CardDriver.cpp" />
     <ClCompile Include="Drivers\DiceDriver.cpp" />
-    <ClCompile Include="Drivers\Driver.cpp" />
+    <ClCompile Include="Base\Driver.cpp" />
+    <ClCompile Include="Drivers\GameStartDriver.cpp" />
     <ClCompile Include="Drivers\MapLoaderDriver.cpp" />
     <ClCompile Include="Drivers\PlayerDriver.cpp" />
     <ClCompile Include="Player\Player.cpp" />
@@ -187,6 +189,9 @@
     <None Include="mapfiles\broken.map" />
     <None Include="mapfiles\Lord of the Rings.map" />
     <None Include="mapfiles\World.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="mapfiles\list.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

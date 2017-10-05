@@ -32,9 +32,6 @@
     <ClCompile Include="Map\MapLoader\MapLoader.cpp">
       <Filter>Map\MapLoader</Filter>
     </ClCompile>
-    <ClCompile Include="Drivers\Driver.cpp">
-      <Filter>Drivers</Filter>
-    </ClCompile>
     <ClCompile Include="Drivers\CardDriver.cpp">
       <Filter>Drivers</Filter>
     </ClCompile>
@@ -52,6 +49,12 @@
     </ClCompile>
     <ClCompile Include="Player\Player.cpp">
       <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\Driver.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\GameStartDriver.cpp">
+      <Filter>Drivers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -90,9 +93,6 @@
     <ClInclude Include="Map\MapLoader\MapLoader.h">
       <Filter>Map\MapLoader</Filter>
     </ClInclude>
-    <ClInclude Include="Drivers\Driver.h">
-      <Filter>Drivers</Filter>
-    </ClInclude>
     <ClInclude Include="Drivers\MapDriver.h">
       <Filter>Drivers</Filter>
     </ClInclude>
@@ -110,6 +110,12 @@
     </ClInclude>
     <ClInclude Include="Player\Player.h">
       <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\Driver.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\GameStartDriver.h">
+      <Filter>Drivers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -145,5 +151,10 @@
     <None Include="mapfiles\broken.map">
       <Filter>mapfiles</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="mapfiles\list.txt">
+      <Filter>mapfiles</Filter>
+    </Text>
   </ItemGroup>
 </Project>
