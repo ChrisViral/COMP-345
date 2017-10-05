@@ -144,13 +144,8 @@
   <ItemGroup>
     <ClInclude Include="Base\RiskObject.h" />
     <ClInclude Include="Base\Utils.h" />
-    <ClInclude Include="Drivers\CardDriver.h" />
-    <ClInclude Include="Drivers\DiceDriver.h" />
     <ClInclude Include="Base\Driver.h" />
     <ClInclude Include="Drivers\GameStartDriver.h" />
-    <ClInclude Include="Drivers\MapDriver.h" />
-    <ClInclude Include="Drivers\MapLoaderDriver.h" />
-    <ClInclude Include="Drivers\PlayerDriver.h" />
     <ClInclude Include="Player\Player.h" />
     <ClInclude Include="Player\Card\Hand.h" />
     <ClInclude Include="Player\Card\Deck.h" />
@@ -166,12 +161,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Base\RiskObject.cpp" />
-    <ClCompile Include="Drivers\CardDriver.cpp" />
-    <ClCompile Include="Drivers\DiceDriver.cpp" />
     <ClCompile Include="Base\Driver.cpp" />
     <ClCompile Include="Drivers\GameStartDriver.cpp" />
-    <ClCompile Include="Drivers\MapLoaderDriver.cpp" />
-    <ClCompile Include="Drivers\PlayerDriver.cpp" />
     <ClCompile Include="Player\Player.cpp" />
     <ClCompile Include="Player\Card\Hand.cpp" />
     <ClCompile Include="Player\Card\Deck.cpp" />
@@ -179,7 +170,6 @@
     <ClCompile Include="Comp345_Risk.cpp" />
     <ClCompile Include="Map\Continent.cpp" />
     <ClCompile Include="Map\Country.cpp" />
-    <ClCompile Include="Drivers\MapDriver.cpp" />
     <ClCompile Include="Map\MapLoader\MapLoader.cpp" />
     <ClCompile Include="Player\Dice.cpp" />
     <ClCompile Include="Map\RiskMap.cpp" />
