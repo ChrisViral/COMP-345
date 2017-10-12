@@ -187,8 +187,3 @@ void RiskMap::addCountriesToContinents()
 
 	//getContinent(continentName).addCountry(getNodeFromMap("countryName"));
 }
-
-int RiskMap::getCountryCount()
-{
-	return auxStorage.size();
-}

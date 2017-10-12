@@ -53,8 +53,6 @@ public:
 	void RiskMap::addCountriesToContinents();
 	int size() const;
 	int continentSize() const;
-	int getCountryCount();
-
 private:
 	std::unordered_map<std::string, Country> auxStorage;
 	std::unordered_map<std::string, Continent> continents;
