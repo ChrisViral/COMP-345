@@ -212,6 +212,6 @@ bool RiskMap::addCountriesToContinents()
 /* This already exists (RiskMap::size())
 int RiskMap::getCountryCount()
 {
-	return auxStorage.size();
+return auxStorage.size();
 }
 */

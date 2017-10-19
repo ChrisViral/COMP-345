@@ -15,35 +15,35 @@
 #include "../RiskMap.h";
 
 /**
- * Creates a new MapLoader from a file at a given location in the current working directory
- * @param loc String location of the mapfile to load in the memory
- */
+* Creates a new MapLoader from a file at a given location in the current working directory
+* @param loc String location of the mapfile to load in the memory
+*/
 MapLoader::MapLoader(const std::string& loc) : riskMap(nullptr), current(""), error(""), line(0), success(false)
 {
 	location = loc;
 }
 
 /**
- * MapLoader destructor
- */
+* MapLoader destructor
+*/
 MapLoader::~MapLoader()
 {
 }
 
 /**
- * Returns the current working RiskMap of this MapLoader
- * @returns RiskMap being loaded
- */
+* Returns the current working RiskMap of this MapLoader
+* @returns RiskMap being loaded
+*/
 RiskMap* MapLoader::getMap() const
 {
 	return riskMap;
 }
 
 /**
- * Tries to parse a RiskMap from a on disk .map text file
- * @param result Pointer to the RiskMap to load into
- * @returns Result structure containing information about the loading
- */
+* Tries to parse a RiskMap from a on disk .map text file
+* @param result Pointer to the RiskMap to load into
+* @returns Result structure containing information about the loading
+*/
 MapLoader::LoaderResults MapLoader::tryParseMap(RiskMap* result)
 {
 	//If the map is already initialized, return immediately
@@ -98,10 +98,10 @@ MapLoader::LoaderResults MapLoader::tryParseMap(RiskMap* result)
 }
 
 /**
- * Parses the [Map] block of a .map file
- * @param stream File stream to the file being read
- * @returns False if an issue arose, true otherwise
- */
+* Parses the [Map] block of a .map file
+* @param stream File stream to the file being read
+* @returns False if an issue arose, true otherwise
+*/
 bool MapLoader::parseMetaBlock(std::ifstream& stream)
 {
 	while (current.size() == 0)
