@@ -12,29 +12,24 @@
 class MapLoader
 {
 public:
+	struct LoaderResults
+	{
+		RiskMap* riskMap;
+		bool success;
+		std::string failureMessage;
+	};
+
 	explicit MapLoader(const std::string& location);
 	~MapLoader();
-	bool tryParseMap(RiskMap* result);
-
-	std::string getLocation() const
-	{
-		return location;
-	}
-
-	RiskMap getMap() const
-	{
-		return *riskMap;
-	}
-
-	bool successfullyParsed() const
-	{
-		return success;
-	}
+	LoaderResults tryParseMap(RiskMap* result);
+	RiskMap* getMap() const;
 
 private:
 	RiskMap* riskMap;
 	std::string location;
 	std::string current;
+	std::string error;
+	int line;
 	bool success;
 	bool parseMetaBlock(std::ifstream& stream);
 	bool parseContinentBlock(std::ifstream& stream);
