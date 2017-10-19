@@ -7,6 +7,7 @@
 // Adriano Monteclavo
 
 #pragma once
+
 #include "../RiskMap.h"
 
 class MapLoader
@@ -16,19 +17,19 @@ public:
 	{
 		RiskMap* riskMap;
 		bool success;
-		std::string failureMessage;
+		string failureMessage;
 	};
 
-	explicit MapLoader(const std::string& location);
+	explicit MapLoader(const string& location);
 	~MapLoader();
 	LoaderResults tryParseMap(RiskMap* result);
 	RiskMap* getMap() const;
 
 private:
 	RiskMap* riskMap;
-	std::string location;
-	std::string current;
-	std::string error;
+	string location;
+	string current;
+	string error;
 	int line;
 	bool success;
 	bool parseMetaBlock(std::ifstream& stream);

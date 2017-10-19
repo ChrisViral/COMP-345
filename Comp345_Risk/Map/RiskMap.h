@@ -8,10 +8,11 @@
 
 #pragma once
 
-#include <unordered_map>
 #include "../Base/RiskObject.h"
 #include "Country.h"
 #include "Continent.h"
+
+#include <unordered_map>
 
 struct MapMetaData
 {
