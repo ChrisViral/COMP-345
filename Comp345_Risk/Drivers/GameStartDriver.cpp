@@ -51,9 +51,9 @@ void GameStartDriver::run()
 	RiskMap* map = new RiskMap();
 	MapLoader mapLoader(mapString);	
 
-	bool success = mapLoader.tryParseMap(map);
+	MapLoader::LoaderResults results = mapLoader.tryParseMap(map);
 
-	while (!success)
+	while (!results.success)
 	{
 		std::cout << std::endl;
 		std::cout << "The map could not be parsed sucessfully" << std::endl;
@@ -66,11 +66,11 @@ void GameStartDriver::run()
 
 		std::cin >> mapNumber;
 		mapString = "mapfiles/" + list[mapNumber - 1] + ".map";
-		mapLoader.setLocation(mapString);
-		success = mapLoader.tryParseMap(map);
+		mapLoader = MapLoader(mapString);
+		results = mapLoader.tryParseMap(map);
 	}
 
-	if (success)
+	if (results.success)
 	{
 		MapMetaData meta = map->metadata;
 		std::cout << " ==== METADATA ====" << std::endl;
@@ -87,7 +87,7 @@ void GameStartDriver::run()
 	}
 
 	//Create the deck
-	Deck deck(map->getCountryCount());	
+	Deck deck(map->size());	
 
 	std::cout << std::endl;
 	std::cout << "Enter the number of players (from 2 - 6)" << std::endl;
@@ -109,7 +109,7 @@ void GameStartDriver::run()
 		players.push_back(Player());
 	}
 
-	std::cout << "The number of countries in the map: " << map->getCountryCount() << std::endl;
+	std::cout << "The number of countries in the map: " << map->size() << std::endl;
 	std::cout << "The number of cards in the deck: " << deck.getDeckSize() << std::endl;
 	std::cout << "The number of players in the game: " << players.size() << std::endl;
 	

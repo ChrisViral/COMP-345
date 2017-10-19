@@ -14,49 +14,117 @@
 #include "../../Base/Utils.h"
 #include "../RiskMap.h";
 
-
-MapLoader::MapLoader(const std::string& location): riskMap(nullptr)
+/**
+ * Creates a new MapLoader from a file at a given location in the current working directory
+ * @param loc String location of the mapfile to load in the memory
+ */
+MapLoader::MapLoader(const std::string& loc) : riskMap(nullptr), current(""), error(""), line(0), success(false)
 {
-	this->location = location;
-	success = true;
-	current = "";
+	location = loc;
 }
 
+/**
+ * MapLoader destructor
+ */
 MapLoader::~MapLoader()
 {
 }
 
-bool MapLoader::tryParseMap(RiskMap* result)
+/**
+ * Returns the current working RiskMap of this MapLoader
+ * @returns RiskMap being loaded
+ */
+RiskMap* MapLoader::getMap() const
 {
-	std::ifstream stream(location);
-	result->clearMap();
-	riskMap = result;
-	//If anything goes wrong, prevents crash, simply fail parse.
-	try
-	{
-		success = parseMetaBlock(stream) && parseContinentBlock(stream) && parseCountryBlock(stream);
-	}
-	catch (std::exception)
-	{
-		success = false;
-	}
-
-
-	stream.close();
-	return success && riskMap->size() > 0 && riskMap->continentSize() > 0;
+	return riskMap;
 }
 
+/**
+ * Tries to parse a RiskMap from a on disk .map text file
+ * @param result Pointer to the RiskMap to load into
+ * @returns Result structure containing information about the loading
+ */
+MapLoader::LoaderResults MapLoader::tryParseMap(RiskMap* result)
+{
+	//If the map is already initialized, return immediately
+	if (!result->isInitialized())
+	{
+		error = "This map has already been initialized";
+	}
+	else
+	{
+		//Setup
+		success = true;
+		riskMap = result;
+		riskMap->setInitialized(true);
+		std::ifstream stream(location);
+
+		//If anything goes wrong, prevents crash, simply fail parse.
+		try
+		{
+			//Try and parse the map info
+			success = parseMetaBlock(stream) && parseContinentBlock(stream) && parseCountryBlock(stream);
+		}
+		catch (std::exception e)
+		{
+			//If an error occurs, the map is considered invalid
+			success = false;
+			riskMap = nullptr;
+			std::stringstream ss;
+			ss << "EXCEPTION: " << e.what() << "happened while loading the map, unable to proceed normally.";
+			error = ss.str();
+		}
+
+		//Close the stream
+		stream.close();
+
+		if (success)
+		{
+			if (riskMap->size() == 0)
+			{
+				error = "This map contains no countries.";
+				success = false;
+			}
+			else if (riskMap->continentSize() == 0)
+			{
+				error = "This map contains no continents.";
+				success = false;
+			}
+		}
+	}
+
+	//Return a new LoaderResults structure containing the relevant info
+	return { riskMap, success, error };
+}
+
+/**
+ * Parses the [Map] block of a .map file
+ * @param stream File stream to the file being read
+ * @returns False if an issue arose, true otherwise
+ */
 bool MapLoader::parseMetaBlock(std::ifstream& stream)
 {
-	while (current.size() == 0) { getline(stream, current); }
-	if (current != "[Map]") { return false; }
+	while (current.size() == 0)
+	{
+		getline(stream, current);
+		line++;
+	}
+	if (current != "[Map]")
+	{
+		error = "Wrong header block where [Map] is expected @" + line;
+		return false;
+	}
 
-	while (getline(stream, current) && current != "[Continents]")
+	for (line++; getline(stream, current) && current != "[Continents]"; line++)
 	{
 		if (current.size() == 0) { continue; }
 
 		std::vector<std::string> splits = split(current, '=');
-		if (splits.size() != 2) { return false; }
+		if (splits.size() != 2)
+		{
+			error = "Wrong line format, incorrect amount of equal signs @" + line;
+			return false;
+		}
 
 		if (splits[0] == "author")
 		{
@@ -80,23 +148,53 @@ bool MapLoader::parseMetaBlock(std::ifstream& stream)
 		}
 	}
 
-	return current == "[Continents]";
+	if (current != "[Continents]")
+	{
+		error = "Wrong header block where [Continents] is expected @" + line;
+		return false;
+	}
+
+	return true;
 }
 
+/**
+* Parses the [Continents] block of a .map file
+* @param stream File stream to the file being read
+* @returns False if an issue arose, true otherwise
+*/
 bool MapLoader::parseContinentBlock(std::ifstream& stream)
 {
-	while (getline(stream, current) && current != "[Territories]")
+	for (line++; getline(stream, current) && current != "[Territories]"; line++)
 	{
 		if (current.size() == 0) { continue; }
 		std::vector<std::string> splits = split(current, '=');
 
-		if (splits.size() != 2) { return false; }
-		riskMap->addContinent(splits[0], stoi(splits[1]));
+		if (splits.size() != 2)
+		{
+			error = "Wrong line format, incorrect amount of equal signs @" + line;
+			return false;
+		}
+		if (!riskMap->addContinent(splits[0], stoi(splits[1])))
+		{
+			error = "Dupplicate Continent " + splits[0] + " detected @" + std::to_string(line);
+			return false;
+		}
 	}
 
-	return current == "[Territories]";
+	if (current != "[Territories]")
+	{
+		error = "Wrong header block where [Territories] is expected @" + line;
+		return false;
+	}
+
+	return true;
 }
 
+/**
+* Parses the [Territories] block of a .map file
+* @param stream File stream to the file being read
+* @returns False if an issue arose, true otherwise
+*/
 bool MapLoader::parseCountryBlock(std::ifstream& stream)
 {
 	std::vector<std::pair<std::string, Country>> edges;
@@ -106,13 +204,22 @@ bool MapLoader::parseCountryBlock(std::ifstream& stream)
 		std::vector<std::string> splits = split(current, ',');
 
 		//There should at lease be a name, two coordinates, a continent, and one adjacent country
-		if (splits.size() < 5) { return false; }
+		if (splits.size() < 5)
+		{
+			error = "Invalid amount of Country data @" + line;
+			return false;
+		}
 
-		Country country = riskMap->addCountry(splits[0], splits[3], stoi(splits[1]), stoi(splits[2]));
+		std::pair<Country, bool> p = riskMap->addCountry(splits[0], splits[3], stoi(splits[1]), stoi(splits[2]));
+		if (!p.second)
+		{
+			error = "Dupplicate Country " + splits[0] + " detected @" + std::to_string(line);
+			return false;
+		}
 
 		for (int i = 4; i < splits.size(); i++)
 		{
-			edges.push_back(make_pair(splits[i], country));
+			edges.push_back(make_pair(splits[i], p.first));
 		}
 	}
 
@@ -121,9 +228,14 @@ bool MapLoader::parseCountryBlock(std::ifstream& stream)
 	{
 		if (!riskMap->addEdge(p.first, p.second))
 		{
+			error = "Could not find the adjacent Country " + p.first + " to connect to " + p.second.getName();
 			return false;
 		}
 	}
-	riskMap->addCountriesToContinents();
+	if (!riskMap->addCountriesToContinents())
+	{
+		error = "One of the Countries has an invalid Continent name.";
+		return false;
+	}
 	return true;
 }
