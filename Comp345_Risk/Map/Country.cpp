@@ -8,11 +8,11 @@
 
 #include "Country.h"
 
-Country::Country() : continent(nullptr), armies(0)/*,owner(nullptr)*/, x(0), y(0)
+Country::Country() : continent(nullptr), armies(0), owner(nullptr), x(0), y(0)
 {
 }
 
-Country::Country(std::string countryName, Continent& cont) : /*owner(nullptr),*/x(0), y(0)
+Country::Country(std::string countryName, Continent& cont) : owner(nullptr), x(0), y(0)
 {
 	name = countryName;
 	continent = &cont;
@@ -53,6 +53,12 @@ void Country::removeArmies(int amount)
 {
 	armies -= amount;
 }
+
+Player* Country::getOwner() const
+{
+	return owner;
+}
+
 /* TODO: Figure out why uncommenting this causes build errors
 Player* Country::getOwner() const
 {

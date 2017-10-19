@@ -10,8 +10,8 @@
 
 #include "../Base/RiskObject.h"
 #include <string>
-//#include "../Player/Player.h"
 
+class Player;
 class Continent;
 
 class Country : public RiskObject
@@ -26,7 +26,7 @@ public:
 	int getArmies() const;
 	void addArmies(int amount);
 	void removeArmies(int amount);
-	//Player* getOwner();
+	Player* getOwner() const;
 	void setX(int val);
 	void setY(int val);
 
@@ -34,7 +34,7 @@ private:
 	Continent* continent;
 	std::string name;
 	int armies;
-	//Player* owner;
+	Player* owner;
 	int x;
 	int y;
 };
