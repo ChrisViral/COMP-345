@@ -8,6 +8,7 @@
 
 #pragma once
 #include <string>
+using std::string;
 
 class Driver
 {
@@ -15,6 +16,6 @@ public:
 	Driver();
 	virtual ~Driver() = 0;
 	virtual void run() = 0;
-	virtual std::string getOpeningMessage() = 0;
-	virtual std::string getClosingMessage() = 0;
+	virtual string getOpeningMessage() = 0;
+	virtual string getClosingMessage() = 0;
 };

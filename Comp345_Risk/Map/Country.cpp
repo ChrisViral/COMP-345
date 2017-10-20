@@ -59,6 +59,11 @@ Player* Country::getOwner() const
 	return owner;
 }
 
+void Country::setOwner(Player* player)
+{
+	owner = player;
+}
+
 /* TODO: Figure out why uncommenting this causes build errors
 Player* Country::getOwner() const
 {

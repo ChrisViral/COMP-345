@@ -47,6 +47,7 @@ public:
 	bool addContinent(std::string continentName, int controlVal);
 	Continent& getContinent(std::string continentName);
 	Country& getCountry(std::string countrytName);
+	Country* getCountry(int index);
 	void traverseMap();
 	bool RiskMap::isReachable(Country& source, Country& destination);
 	Node& getNodeFromMap(std::string countrytName);

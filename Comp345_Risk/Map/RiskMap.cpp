@@ -113,6 +113,11 @@ Country& RiskMap::getCountry(std::string countrytName)
 	return found->second;
 }
 
+Country* RiskMap::getCountry(int index)
+{
+	return map[index].country;
+}
+
 void RiskMap::traverseMap()
 {
 	for (int i = 0; i < map.size(); i++)

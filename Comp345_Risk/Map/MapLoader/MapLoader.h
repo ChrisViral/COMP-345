@@ -10,6 +10,8 @@
 
 #include "../RiskMap.h"
 
+using std::string;
+
 class MapLoader
 {
 public:

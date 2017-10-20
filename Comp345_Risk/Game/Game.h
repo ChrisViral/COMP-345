@@ -9,10 +9,11 @@ using std::vector;
 class Game : public RiskObject
 {
 public:
-	Game();
+	Game(vector<Player*> players, RiskMap* map);
 	~Game();
+	void setup();
 private:
-	vector<Player> players;
-	RiskMap map;
+	vector<Player*> players;
+	RiskMap* map;
 };
 

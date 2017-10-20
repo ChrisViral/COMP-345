@@ -7,12 +7,12 @@
 // Adriano Monteclavo
 
 #include "MapLoader.h"
-
-#include <fstream>
-#include <map>
-
 #include "../../Base/Utils.h"
 #include "../RiskMap.h";
+
+#include <fstream>
+
+using std::vector;
 
 /**
 * Creates a new MapLoader from a file at a given location in the current working directory
