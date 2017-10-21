@@ -41,7 +41,7 @@ void Player::displayInfo()
 	playersCards.displayCards();
 }
 
-void Player::reinforce()
+void Player::reinforce(int total = 0)
 {
 	std::cout << "\nPlayer can reinforce a territory of his choice:" << std::endl;
 	std::cout << " -- Exact reinforce() function implementation has yet to be determined! -- " << std::endl;
