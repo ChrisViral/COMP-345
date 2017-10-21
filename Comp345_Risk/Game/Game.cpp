@@ -4,7 +4,7 @@
 #include <algorithm>
 
 
-Game::Game(vector<Player*> players, RiskMap* map) : players(players), map(map)
+Game::Game(vector<Player*>& players, RiskMap* map) : players(players), map(map)
 {
 }
 
@@ -21,7 +21,7 @@ Game::~Game()
 
 void Game::setup()
 {
-	//Original random seed, only needs to be done once in whole game execution program execution
+	//Original random seed, only needs to be done once in whole game execution
 	srand(time(nullptr));
 
 	//Shuffle the order of the players
@@ -48,10 +48,10 @@ void Game::setup()
 
 	int armies = 40 - (players.size() - 2) * 5;
 
-	//Each player places one army at a time
+	//Each player places the same total amount of armies
 	for (int i = 0; i < armies; i++)
 	{
-		//Players place one army in the regular play order
+		//Players place one army at a time in the regular play order
 		for (Player* p : players)
 		{
 			p->reinforce(1);

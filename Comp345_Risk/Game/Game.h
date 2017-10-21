@@ -9,7 +9,7 @@ using std::vector;
 class Game : public RiskObject
 {
 public:
-	Game(vector<Player*> players, RiskMap* map);
+	Game(vector<Player*>& players, RiskMap* map);
 	~Game();
 	void setup();
 private:
