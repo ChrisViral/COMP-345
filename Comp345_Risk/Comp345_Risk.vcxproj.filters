@@ -26,32 +26,20 @@
     <ClCompile Include="Map\RiskMap.cpp">
       <Filter>Map</Filter>
     </ClCompile>
-    <ClCompile Include="Drivers\MapDriver.cpp">
-      <Filter>Drivers</Filter>
-    </ClCompile>
     <ClCompile Include="Map\MapLoader\MapLoader.cpp">
       <Filter>Map\MapLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="Drivers\Driver.cpp">
-      <Filter>Drivers</Filter>
-    </ClCompile>
-    <ClCompile Include="Drivers\CardDriver.cpp">
-      <Filter>Drivers</Filter>
-    </ClCompile>
-    <ClCompile Include="Drivers\MapLoaderDriver.cpp">
-      <Filter>Drivers</Filter>
-    </ClCompile>
-    <ClCompile Include="Drivers\DiceDriver.cpp">
-      <Filter>Drivers</Filter>
     </ClCompile>
     <ClCompile Include="Player\DiceRoller.cpp">
       <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="Drivers\PlayerDriver.cpp">
-      <Filter>Drivers</Filter>
-    </ClCompile>
     <ClCompile Include="Player\Player.cpp">
       <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Base\Driver.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\GameStartDriver.cpp">
+      <Filter>Drivers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,9 +50,6 @@
     </ClInclude>
     <ClInclude Include="Base\Utils.h">
       <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Drivers\CardDriver.h">
-      <Filter>Drivers</Filter>
     </ClInclude>
     <ClInclude Include="Player\Card\Card.h">
       <Filter>Player\Cards</Filter>
@@ -90,26 +75,17 @@
     <ClInclude Include="Map\MapLoader\MapLoader.h">
       <Filter>Map\MapLoader</Filter>
     </ClInclude>
-    <ClInclude Include="Drivers\Driver.h">
-      <Filter>Drivers</Filter>
-    </ClInclude>
-    <ClInclude Include="Drivers\MapDriver.h">
-      <Filter>Drivers</Filter>
-    </ClInclude>
-    <ClInclude Include="Drivers\MapLoaderDriver.h">
-      <Filter>Drivers</Filter>
-    </ClInclude>
     <ClInclude Include="Player\DiceRoller.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="Drivers\DiceDriver.h">
-      <Filter>Drivers</Filter>
-    </ClInclude>
-    <ClInclude Include="Drivers\PlayerDriver.h">
-      <Filter>Drivers</Filter>
-    </ClInclude>
     <ClInclude Include="Player\Player.h">
       <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Base\Driver.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\GameStartDriver.h">
+      <Filter>Drivers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -145,5 +121,10 @@
     <None Include="mapfiles\broken.map">
       <Filter>mapfiles</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="mapfiles\list.txt">
+      <Filter>mapfiles</Filter>
+    </Text>
   </ItemGroup>
 </Project>

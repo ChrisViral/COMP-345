@@ -10,7 +10,7 @@
 #include <iostream>
 #include <list>
 
-RiskMap::RiskMap()
+RiskMap::RiskMap() : initialized(false)
 {
 }
 
@@ -26,6 +26,16 @@ int RiskMap::size() const
 int RiskMap::continentSize() const
 {
 	return continents.size();
+}
+
+bool RiskMap::isInitialized() const
+{
+	return initialized;
+}
+
+void RiskMap::setInitialized(bool init)
+{
+	initialized = init;
 }
 
 //Search through the map for a country by name, then add a new edge to that country.
@@ -45,41 +55,48 @@ bool RiskMap::addEdge(std::string targetCountry, Country& newCountry)
 	return false;
 }
 
-Country RiskMap::addCountry(std::string countryName, std::string continentName)
+std::pair<Country, bool> RiskMap::addCountry(std::string countryName, std::string continentName)
 {
 	//inserts into the aux storage
 	Country c(countryName, getContinent(continentName));
 	std::pair<std::string, Country> pair(countryName, c);
-	auxStorage.insert(pair);
+	if (!auxStorage.insert(pair).second)
+	{
+		return std::make_pair(c, false);
+	}
 
 	//Push node into map
+	//Chris: why not just use c above?
 	Node n;
 	n.country = &getCountry(countryName);
 	map.push_back(n);
 
-	return c;
+	return std::make_pair(c, true);
 }
 
-Country RiskMap::addCountry(std::string countryName, std::string continentName, int x, int y)
+std::pair<Country, bool> RiskMap::addCountry(std::string countryName, std::string continentName, int x, int y)
 {
 	//inserts into the aux storage
 	Country c(countryName, getContinent(continentName), x, y);
 	std::pair<std::string, Country> pair(countryName, c);
-	auxStorage.insert(pair);
+	if (!auxStorage.insert(pair).second)
+	{
+		return std::make_pair(c, false);
+	}
 
 	//Push node into map
 	Node n;
 	n.country = &getCountry(countryName);
 	map.push_back(n);
 
-	return c;
+	return std::make_pair(c, true);
 }
 
-void RiskMap::addContinent(std::string continentName, int controlVal)
+bool RiskMap::addContinent(std::string continentName, int controlVal)
 {
 	Continent continent = Continent(continentName, controlVal);
 	std::pair<std::string, Continent> pair(continent.getName(), continent);
-	continents.insert(pair);
+	return continents.insert(pair).second;
 }
 
 Continent& RiskMap::getContinent(std::string continentName)
@@ -178,12 +195,23 @@ void RiskMap::clearMap()
 	continents.clear();
 }
 
-void RiskMap::addCountriesToContinents()
+bool RiskMap::addCountriesToContinents()
 {
-	for (int i = 0; i < map.size(); i++)
+	for (Node n : map)
 	{
-		getContinent(map[i].country->getContinent()->getName()).addCountry(map[i]);
+		std::string name = n.country->getContinent()->getName();
+		if (!continents.count(name))
+		{
+			return false;
+		}
+		getContinent(name).addCountry(n);
 	}
-
-	//getContinent(continentName).addCountry(getNodeFromMap("countryName"));
+	return true;
 }
+
+/* This already exists (RiskMap::size())
+int RiskMap::getCountryCount()
+{
+return auxStorage.size();
+}
+*/

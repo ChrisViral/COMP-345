@@ -8,7 +8,7 @@
 #include "../Map/MapLoader/MapLoader.h"
 
 std::vector<std::string> readFileNames();
-void askForMap(int&,std::vector<std::string>);
+void askForMap(int&, std::vector<std::string>);
 
 GameStartDriver::GameStartDriver()
 {
@@ -36,16 +36,16 @@ void GameStartDriver::run()
 	int mapNumber;
 	std::vector<std::string> list = readFileNames();
 
-	askForMap(mapNumber,list);
+	askForMap(mapNumber, list);
 
 	std::string mapString = "mapfiles/" + list[mapNumber - 1] + ".map";
-	
+
 	RiskMap* map = new RiskMap();
-	MapLoader mapLoader(mapString);	
+	MapLoader mapLoader(mapString);
 
-	bool success = mapLoader.tryParseMap(map);
+	MapLoader::LoaderResults results = mapLoader.tryParseMap(map);
 
-	while (!success)
+	while (!results.success)
 	{
 		std::cout << std::endl;
 		std::cout << "The map could not be parsed sucessfully" << std::endl;
@@ -57,10 +57,10 @@ void GameStartDriver::run()
 		delete map;
 		map = new RiskMap();
 		mapLoader = MapLoader(mapString);
-		success = mapLoader.tryParseMap(map);
+		results = mapLoader.tryParseMap(map);
 	}
 
-	if (success)
+	if (results.success)
 	{
 		MapMetaData meta = map->metadata;
 		std::cout << " ==== METADATA ====" << std::endl;
@@ -77,7 +77,7 @@ void GameStartDriver::run()
 	}
 
 	//Create the deck
-	Deck deck(map->size());	
+	Deck deck(map->size());
 
 	std::cout << std::endl;
 	std::cout << "Enter the number of players (from 2 - 6)" << std::endl;
@@ -95,14 +95,14 @@ void GameStartDriver::run()
 	//Create the players with
 	std::vector<Player> players;
 	for (int i = 0; i < numOfPlayers; i++)
-	{		
+	{
 		players.push_back(Player(DiceRoller(), std::vector<Country>(), Hand()));
 	}
 
 	std::cout << "The number of countries in the map: " << map->size() << std::endl;
 	std::cout << "The number of cards in the deck: " << deck.getDeckSize() << std::endl;
 	std::cout << "The number of players in the game: " << players.size() << std::endl;
-	
+
 	delete map;
 }
 
@@ -112,7 +112,7 @@ std::vector<std::string> readFileNames()
 	//Open the file
 	std::ifstream input;
 	input.open("mapfiles/list.txt");
-	
+
 	//Push all the file names in the vector
 	std::vector<std::string> list;
 	std::string map;
@@ -124,7 +124,7 @@ std::vector<std::string> readFileNames()
 	return list;
 }
 
-void askForMap(int& mapNumber,std::vector<std::string> list)
+void askForMap(int& mapNumber, std::vector<std::string> list)
 {
 	std::cout << "Select a map from the list. Enter the map's number" << std::endl;
 
@@ -132,10 +132,10 @@ void askForMap(int& mapNumber,std::vector<std::string> list)
 	for (int i = 0; i < list.size(); i++)
 	{
 		std::cout << i + 1 << ") " << list[i] << std::endl;
-	}	
+	}
 
 	//Get input from the user for the map number
-	std::cin >> mapNumber;	
+	std::cin >> mapNumber;
 
 	while (mapNumber <= 0 || mapNumber > list.size() || std::cin.fail())
 	{
