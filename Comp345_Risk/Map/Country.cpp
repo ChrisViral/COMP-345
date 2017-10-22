@@ -53,12 +53,12 @@ void Country::removeArmies(int amount)
 {
 	armies -= amount;
 }
-/* TODO: Figure out why uncommenting this causes build errors
+
 Player* Country::getOwner() const
 {
 	return owner;
 }
-*/
+
 void Country::setX(int val)
 {
 	x = val;

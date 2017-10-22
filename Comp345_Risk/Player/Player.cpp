@@ -11,6 +11,7 @@
 #include <iostream>
 #include <vector>
 #include "../Map/Country.h"
+#include <functional>
 
 Player::Player()
 {
@@ -53,8 +54,32 @@ void Player::attack()
 	std::cout << " -- Exact attack() function implementation has yet to be determined! -- " << std::endl;
 }
 
-void Player::fortify()
+bool Player::fortify(Country& source, Country& target, int amount)
 {
 	std::cout << "\nPlayer can fortify a territory of his choice:" << std::endl;
-	std::cout << " -- Exact fortify() function implementation has yet to be determined! -- " << std::endl;
+	//std::cout << " -- Exact fortify() function implementation has yet to be determined! -- " << std::endl;
+
+	// Cannot exchange armies, if the countries are not owned by the same player
+	if (source.getOwner() != target.getOwner())
+	{
+		return false;
+	}
+	
+	// We can't exchange more armies then we have from the source country to the target country
+	// Also from the official rules, we must leave at least 1 army in the source country
+	// We can't pull out all of our armies
+	if (amount >= source.getArmies())
+	{
+		return false;
+	}
+	source.removeArmies(amount);
+	target.addArmies(amount);
+	return true;
+	
+	
+	
+	
+	
+
 }
+

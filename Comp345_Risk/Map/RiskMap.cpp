@@ -179,6 +179,10 @@ bool RiskMap::isReachable(Country& source, Country& destination)
 Node& RiskMap::getNodeFromMap(std::string countrytName)
 {
 	//TODO: There should be a final return statement here, this isn't best practice
+	// Steven: Since you cant return null references,
+	// either you create some sort of special node value that symbolizes that this node is null
+	// or you change the method to return back pointers instead of references
+	// or just keep it like this :)
 	for (int i = 0; i < map.size(); i++)
 	{
 		if (map[i].country->getName() == countrytName)
