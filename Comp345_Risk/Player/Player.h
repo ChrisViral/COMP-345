@@ -49,5 +49,7 @@ private:
 	std::vector<Country> playersTerritories;
 	Hand playersCards;
 
+	bool ownsCountry(const Country& country) const;
+
 	
 };

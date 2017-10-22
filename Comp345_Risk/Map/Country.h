@@ -34,6 +34,8 @@ private:
 	Continent* continent;
 	std::string name;
 	int armies;
+	// TODO: do we want to keep this pointer or just remove it?
+	// TODO: owner is not set yet. Needs to be implemented when handing out the countries
 	Player* owner;
 	int x;
 	int y;

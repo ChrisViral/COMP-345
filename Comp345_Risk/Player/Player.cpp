@@ -56,19 +56,31 @@ void Player::attack()
 
 bool Player::fortify(Country& source, Country& target, int amount)
 {
-	std::cout << "\nPlayer can fortify a territory of his choice:" << std::endl;
+	//std::cout << "\nPlayer can fortify a territory of his choice:" << std::endl;
 	//std::cout << " -- Exact fortify() function implementation has yet to be determined! -- " << std::endl;
 
-	// Cannot exchange armies, if the countries are not owned by the same player
-	if (source.getOwner() != target.getOwner())
-	{
-		return false;
-	}
 	
-	// We can't exchange more armies then we have from the source country to the target country
+
+	// check to see if this player owns the source and target country
+	
+	if (!ownsCountry(source) && !ownsCountry(target))
+	{
+		// TODO: implement country ownership when handing out countries to the players. right now the owners are null
+		// TODO: uncomment this when countries have their owners set
+		//return false;
+	}
+
+	// TODO: implement some sort of function to check if countries are adjacent to each other
+	// Right now this is pseudo code
+	//if (source is not adjacent to target) {
+		//return false;
+	//}
+	
+	
+	// We can't exchange negative/more armies then we have from the source country to the target country
 	// Also from the official rules, we must leave at least 1 army in the source country
 	// We can't pull out all of our armies
-	if (amount >= source.getArmies())
+	if (amount < 0 || amount > source.getArmies() - 1)
 	{
 		return false;
 	}
@@ -81,5 +93,23 @@ bool Player::fortify(Country& source, Country& target, int amount)
 	
 	
 
+}
+
+bool Player::ownsCountry(const Country& country) const
+{
+
+	// TODO: figure out in the end if are keeping the getOwner() and a pointer to the owner in the player
+	return (this == country.getOwner());
+
+	// If we don't keep a pointer to the player owner, then use the bottom implementation
+	
+	/*
+	for (const Country& c : playersTerritories) {
+		if (c.getName() == country.getName()) {
+			return true;
+		}
+	}
+	return false;*/
+	
 }
 
