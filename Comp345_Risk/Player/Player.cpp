@@ -104,8 +104,10 @@ bool Player::ownsCountry(const Country& country) const
 	// If we don't keep a pointer to the player owner, then use the bottom implementation
 	
 	/*
-	for (const Country& c : playersTerritories) {
-		if (c.getName() == country.getName()) {
+	for (const Country& c : playersTerritories)
+	{
+		if (c.getName() == country.getName())
+		{
 			return true;
 		}
 	}

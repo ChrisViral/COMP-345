@@ -63,6 +63,7 @@ void FortificationDriver::run()
 	std::cout << std::endl;
 	
 	
+	// TODO: add the countries that this player owns
 	std::vector<Country> playersTerritories;
 	Hand h;
 
