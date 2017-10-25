@@ -7,6 +7,7 @@
 // Adriano Monteclavo
 
 #include "RiskMap.h"
+
 #include <iostream>
 #include <list>
 
@@ -166,6 +167,51 @@ bool RiskMap::isReachable(Country& source, Country& destination)
 
 			if (!visited[i->country.getName()])
 			{
+				visited[i->country.getName()] = true;
+				queue.push_back(i->country.getName());
+			}
+		}
+	}
+
+	return false;
+}
+
+//A test to see if a source country can reach a destinatation country
+bool RiskMap::isReachable(Player* p, Country& source, Country& destination) {
+	if (source.getName() == destination.getName())
+		return true;
+
+	// Keep track of visited countries.
+	std::unordered_map<std::string, bool> visited;
+
+	//initialize them all to false    
+	for (int i = 0; i < p->getCountries().size(); i++) {
+		std::pair<std::string, bool> pair(p->getCountries()[i].getName(), false);
+		visited.insert(pair);
+	}
+
+	//Create a queue and mark the source as visited
+	std::list<std::string> queue;
+	visited[source.getName()] = true;
+	queue.push_back(source.getName());
+
+	while (!queue.empty()) {
+		std::string name = queue.front();
+		queue.pop_front();
+
+		//Get edges 
+		std::vector<Edge>::iterator i = getNodeFromMap(name).adjList.begin();
+		for (i; i != getNodeFromMap(name).adjList.end(); ++i) {
+			// If this adjacent node is the destination node, then 
+			// return true
+			if (i->country.getName() == destination.getName()) {
+				return true;
+			}
+
+
+			if (getNodeFromMap(i->country.getName()).country->getOwner() != p)
+				visited[i->country.getName()] = true;
+			else if (!visited[i->country.getName()]) {
 				visited[i->country.getName()] = true;
 				queue.push_back(i->country.getName());
 			}

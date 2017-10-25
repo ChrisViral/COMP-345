@@ -70,7 +70,8 @@ bool Player::fortify(Country& source, Country& target, int amount)
 		//return false;
 	}
 
-	// TODO: implement some sort of function to check if countries are adjacent to each other
+	// TODO: implement some sort of function to check if countries are adjacent to each other.
+	// with the new added isReachable this could be solved, but their is no access to the riskmap from inside the player
 	// Right now this is pseudo code
 	//if (source is not adjacent to target) {
 		//return false;
@@ -93,6 +94,10 @@ bool Player::fortify(Country& source, Country& target, int amount)
 	
 	
 
+}
+
+const std::vector<Country>& Player::getCountries() {
+	return playersTerritories;
 }
 
 bool Player::ownsCountry(const Country& country) const

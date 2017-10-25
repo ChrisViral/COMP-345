@@ -42,7 +42,10 @@ public:
 	// From the official rules, we must leave at least 1 army in the source country
 	// We can't pull out all of our armies
 	bool fortify(Country& source, Country& target, int amount);
-	
+
+	// Return the countries that this player owns
+	const std::vector<Country>& getCountries();
+
 
 private:
 	DiceRoller diceRoller;

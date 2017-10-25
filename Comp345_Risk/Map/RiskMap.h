@@ -10,8 +10,10 @@
 
 #include <unordered_map>
 #include "../Base/RiskObject.h"
+#include "../Player/Player.h"
 #include "Country.h"
 #include "Continent.h"
+
 
 struct MapMetaData
 {
@@ -48,6 +50,7 @@ public:
 	Country& getCountry(std::string countrytName);
 	void traverseMap();
 	bool RiskMap::isReachable(Country& source, Country& destination);
+	bool RiskMap::isReachable(Player* p, Country& source, Country& destination);
 	Node& getNodeFromMap(std::string countrytName);
 	void clearMap();
 	bool RiskMap::addCountriesToContinents();
