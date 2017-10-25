@@ -146,6 +146,7 @@
     <ClInclude Include="Base\Utils.h" />
     <ClInclude Include="Base\Driver.h" />
     <ClInclude Include="Drivers\GameStartDriver.h" />
+    <ClInclude Include="Game\GameStart.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Game\MainGameLoop.h" />
     <ClInclude Include="Drivers\MainGameLoopDriver.h" />
@@ -167,6 +168,7 @@
     <ClCompile Include="Base\Driver.cpp" />
     <ClCompile Include="Drivers\MainGameLoopDriver.cpp" />
     <ClCompile Include="Drivers\GameStartDriver.cpp" />
+    <ClCompile Include="Game\GameStart.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Game\MainGameLoop.cpp" />
     <ClCompile Include="Player\Player.cpp" />
