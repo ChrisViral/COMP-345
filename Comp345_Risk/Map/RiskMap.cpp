@@ -1,10 +1,13 @@
-// COMP-345
-// Assignment #1
-// Christophe Savard
-// David Di Feo
-// Paul Weber
-// Steven Tucci
-// Adriano Monteclavo
+// ==============================
+//           COMP-345 D
+//          Assignment 2
+//  ----------------------------
+//  Christophe Savard,  40017812
+//  David Di Feo,       27539800
+//  Paul Weber,         27057938
+//  Steven Tucci,       40006014
+//  Adriano Monteclavo, 40009257
+// ==============================
 
 #include "RiskMap.h"
 #include <iostream>
@@ -111,6 +114,11 @@ Country& RiskMap::getCountry(std::string countrytName)
 	std::unordered_map<std::string, Country>::iterator found = auxStorage.find(countrytName);
 
 	return found->second;
+}
+
+Country* RiskMap::getCountry(int index)
+{
+	return map[index].country;
 }
 
 void RiskMap::traverseMap()
