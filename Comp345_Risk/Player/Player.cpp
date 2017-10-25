@@ -1,10 +1,13 @@
-// COMP-345
-// Assignment #1
-// Christophe Savard
-// David Di Feo
-// Paul Weber
-// Steven Tucci
-// Adriano Monteclavo
+// ==============================
+//           COMP-345 D
+//          Assignment 2
+//  ----------------------------
+//  Christophe Savard,  40017812
+//  David Di Feo,       27539800
+//  Paul Weber,         27057938
+//  Steven Tucci,       40006014
+//  Adriano Monteclavo, 40009257
+// ==============================
 
 #include "Player.h"
 #include <string>
@@ -42,7 +45,7 @@ void Player::displayInfo()
 	playersCards.displayCards();
 }
 
-void Player::reinforce()
+void Player::reinforce(int total)
 {
 	std::cout << "\nPlayer can reinforce a territory of his choice:" << std::endl;
 	std::cout << " -- Exact reinforce() function implementation has yet to be determined! -- " << std::endl;
@@ -100,6 +103,16 @@ const std::vector<Country>& Player::getCountries() {
 	return playersTerritories;
 }
 
+std::string Player::getName()
+{
+	//TODO: Implement
+	return "";
+}
+
+int Player::controlled()
+{
+	return playersTerritories.size();
+}
 bool Player::ownsCountry(const Country& country) const
 {
 
@@ -119,4 +132,3 @@ bool Player::ownsCountry(const Country& country) const
 	return false;*/
 	
 }
-

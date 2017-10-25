@@ -1,18 +1,21 @@
-// COMP-345
-// Assignment #1
-// Christophe Savard
-// David Di Feo
-// Paul Weber
-// Steven Tucci
-// Adriano Monteclavo
+// ==============================
+//           COMP-345 D
+//          Assignment 2
+//  ----------------------------
+//  Christophe Savard,  40017812
+//  David Di Feo,       27539800
+//  Paul Weber,         27057938
+//  Steven Tucci,       40006014
+//  Adriano Monteclavo, 40009257
+// ==============================
 
 #include "Country.h"
 
-Country::Country() : continent(nullptr), armies(0)/*,owner(nullptr)*/, x(0), y(0)
+Country::Country() : continent(nullptr), armies(0), owner(nullptr), x(0), y(0)
 {
 }
 
-Country::Country(std::string countryName, Continent& cont) : /*owner(nullptr),*/x(0), y(0)
+Country::Country(std::string countryName, Continent& cont) : owner(nullptr), x(0), y(0)
 {
 	name = countryName;
 	continent = &cont;
@@ -57,6 +60,11 @@ void Country::removeArmies(int amount)
 Player* Country::getOwner() const
 {
 	return owner;
+}
+
+void Country::setOwner(Player* player)
+{
+	owner = player;
 }
 
 void Country::setX(int val)
