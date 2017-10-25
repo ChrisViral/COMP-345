@@ -10,9 +10,9 @@
 
 #include "../Base/RiskObject.h"
 #include <string>
-//#include "../Player/Player.h"
 
 class Continent;
+class Player;
 
 class Country : public RiskObject
 {
@@ -26,7 +26,7 @@ public:
 	int getArmies() const;
 	void addArmies(int amount);
 	void removeArmies(int amount);
-	//Player* getOwner();
+	Player* getOwner() const;
 	void setX(int val);
 	void setY(int val);
 
@@ -34,7 +34,9 @@ private:
 	Continent* continent;
 	std::string name;
 	int armies;
-	//Player* owner;
+	// TODO: do we want to keep this pointer or just remove it?
+	// TODO: owner is not set yet. Needs to be implemented when handing out the countries
+	Player* owner;
 	int x;
 	int y;
 };
