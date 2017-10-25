@@ -1,18 +1,21 @@
-// COMP-345
-// Assignment #1
-// Christophe Savard
-// David Di Feo
-// Paul Weber
-// Steven Tucci
-// Adriano Monteclavo
+// ==============================
+//           COMP-345 D
+//          Assignment 2
+//  ----------------------------
+//  Christophe Savard,  40017812
+//  David Di Feo,       27539800
+//  Paul Weber,         27057938
+//  Steven Tucci,       40006014
+//  Adriano Monteclavo, 40009257
+// ==============================
 
 #pragma once
 
-#include <unordered_map>
 #include "../Base/RiskObject.h"
 #include "../Player/Player.h"
 #include "Country.h"
 #include "Continent.h"
+#include <unordered_map>
 
 
 struct MapMetaData
@@ -48,6 +51,7 @@ public:
 	bool addContinent(std::string continentName, int controlVal);
 	Continent& getContinent(std::string continentName);
 	Country& getCountry(std::string countrytName);
+	Country* getCountry(int index);
 	void traverseMap();
 	bool RiskMap::isReachable(Country& source, Country& destination);
 	bool RiskMap::isReachable(Player* p, Country& source, Country& destination);
