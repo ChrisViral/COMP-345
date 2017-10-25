@@ -1,16 +1,7 @@
-// COMP-345
-// Assignment #1
-// Christophe Savard
-// David Di Feo
-// Paul Weber
-// Steven Tucci
-// Adriano Monteclavo
-
-#include "Player.h"
 #include <string>
+#include "Player.h"
 #include <iostream>
 #include <vector>
-#include "../Map/Country.h"
 
 Player::Player()
 {
@@ -20,41 +11,59 @@ Player::~Player()
 {
 }
 
-Player::Player(DiceRoller aDiceRoller, std::vector<Country> aPlayersTerritoriesVector, Hand aPlayersCards)
+Player::Player(std::string aName, std::string aDiceRoller, std::vector<std::string> aPlayersTerritoriesVector, std::string aPlayersCards)
 {
+	name = aName;
 	diceRoller = aDiceRoller;
 	playersTerritories = aPlayersTerritoriesVector;
 	playersCards = aPlayersCards;
 }
+std::string Player::getName()
+{
+	return name;
+}
+std::vector<std::string> Player::getTerritories()
+{
+	return std::vector<std::string>();
+}
+
+int Player::getNumberOfTerritories()
+{
+	int num = playersTerritories.size();
+	return num;
+}
+
+std::string Player::getDiceRoller()
+{
+	return diceRoller;
+}
+std::string Player::getPlayersCards()
+{
+	return playersCards;
+}
 
 void Player::displayInfo()
 {
-	std::cout << "Here is what the Player can access during his turn:" << std::endl;
-	std::cout << "\n1- Player has a dice roller object: " << std::endl;
-	diceRoller.showRolls();
-	std::cout << " \n2- Player owns one or more territories, Here they are: " << std::endl;
-	for (Country c : playersTerritories)
-	{
-		std::cout << c.getName() << std::endl;
-	}
-	std::cout << " \n3- Player has one or more cards in his game, Here they are: " << std::endl;
-	playersCards.displayCards();
+	std::cout << "Name: " << name << std::endl;
+	std::cout << "Dice: " << diceRoller << std::endl;
+	std::cout << "Territories: ";
+	for (unsigned int i = 0; i < playersTerritories.size(); i++)
+		std::cout << playersTerritories[i];
+	std::cout << std::endl;
+	std::cout << "Cards: " << playersCards << std::endl;
 }
 
-void Player::reinforce(int total = 0)
+void Player::reinforce()
 {
-	std::cout << "\nPlayer can reinforce a territory of his choice:" << std::endl;
-	std::cout << " -- Exact reinforce() function implementation has yet to be determined! -- " << std::endl;
+	std::cout << "[Part 4: Main game loop: reinforcement phase.]" << std::endl;
 }
 
 void Player::attack()
 {
-	std::cout << "\nPlayer can attack a territory of his choice:" << std::endl;
-	std::cout << " -- Exact attack() function implementation has yet to be determined! -- " << std::endl;
+	std::cout << "[Part 5: Main game loop: attack phase.]" << std::endl;
 }
 
 void Player::fortify()
 {
-	std::cout << "\nPlayer can fortify a territory of his choice:" << std::endl;
-	std::cout << " -- Exact fortify() function implementation has yet to be determined! -- " << std::endl;
+	std::cout << "[Part 6: Main game loop: fortification phase.]" << std::endl;
 }

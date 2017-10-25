@@ -1,16 +1,20 @@
-// COMP-345
-// Assignment #1
-// Christophe Savard
-// David Di Feo
-// Paul Weber
-// Steven Tucci
-// Adriano Monteclavo
-
 #pragma once
+#include "Player.h"
+#include <cstdlib>
+#include <vector>
+#include <iostream>
 
 class RiskObject
 {
-protected:
+public:
 	RiskObject();
-	virtual ~RiskObject() = 0;
+	int getRandomNumberOfPlayers();
+	std::vector<Player> getRiskPlayers();
+	std::vector<int> getOrderOfPlay(int);
+	~RiskObject();
+private:
+	int numberOfPlayers;
+	std::vector<Player> riskPlayers;
+	std::vector<int> orderOfPlay;
 };
+
