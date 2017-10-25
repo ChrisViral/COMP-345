@@ -6,9 +6,11 @@
 #include "../Player/Card/Deck.h"
 #include "../Map/RiskMap.h"
 #include "../Map/MapLoader/MapLoader.h"
+#include "../Player/DiceRoller.h"
+#include "../Player/Card/Hand.h"
 
-std::vector<std::string> readFileNames();
-void askForMap(int&, std::vector<std::string>);
+std::vector<string> readFileNames();
+void askForMap(int&, std::vector<string>);
 
 GameStartDriver::GameStartDriver()
 {
@@ -20,12 +22,12 @@ GameStartDriver::~GameStartDriver()
 
 }
 
-std::string GameStartDriver::getOpeningMessage()
+string GameStartDriver::getOpeningMessage()
 {
 	return "Starting Game Start driver";
 }
 
-std::string GameStartDriver::getClosingMessage()
+string GameStartDriver::getClosingMessage()
 {
 	return "Ending Game Start driver";
 }
@@ -34,11 +36,11 @@ void GameStartDriver::run()
 {
 	int numOfPlayers;
 	int mapNumber;
-	std::vector<std::string> list = readFileNames();
+	std::vector<string> list = readFileNames();
 
 	askForMap(mapNumber, list);
 
-	std::string mapString = "mapfiles/" + list[mapNumber - 1] + ".map";
+	string mapString = "mapfiles/" + list[mapNumber - 1] + ".map";
 
 	RiskMap* map = new RiskMap();
 	MapLoader mapLoader(mapString);
@@ -107,15 +109,15 @@ void GameStartDriver::run()
 }
 
 //Return a vector with the file names. If you add a new map to the folder, the list.txt file needs to be updated.
-std::vector<std::string> readFileNames()
+std::vector<string> readFileNames()
 {
 	//Open the file
 	std::ifstream input;
 	input.open("mapfiles/list.txt");
 
 	//Push all the file names in the vector
-	std::vector<std::string> list;
-	std::string map;
+	std::vector<string> list;
+	string map;
 	while (getline(input, map))
 	{
 		list.push_back(map);
@@ -124,7 +126,7 @@ std::vector<std::string> readFileNames()
 	return list;
 }
 
-void askForMap(int& mapNumber, std::vector<std::string> list)
+void askForMap(int& mapNumber, std::vector<string> list)
 {
 	std::cout << "Select a map from the list. Enter the map's number" << std::endl;
 

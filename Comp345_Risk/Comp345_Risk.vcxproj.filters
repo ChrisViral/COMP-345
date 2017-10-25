@@ -44,11 +44,11 @@
     <ClCompile Include="Game\Game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Drivers\DriverMainGameLoop.cpp">
-      <Filter>Drivers</Filter>
-    </ClCompile>
     <ClCompile Include="Game\MainGameLoop.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\MainGameLoopDriver.cpp">
+      <Filter>Drivers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +101,9 @@
     </ClInclude>
     <ClInclude Include="Game\MainGameLoop.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\MainGameLoopDriver.h">
+      <Filter>Drivers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,21 +1,21 @@
 #pragma once
-#include "RiskObject.h"
-#include "Player.h"
-#include <string>
+
 #include <vector>
-#include <iostream>
+#include "../Player/Player.h"
+
+using std::vector;
 
 class MainGameLoop
 {
 public:
 	MainGameLoop();
-	MainGameLoop(std::vector<Player>, std::vector<int>);
+	MainGameLoop(vector<Player>, vector<int>);
 	void MainGameLoop::openingAnnouncement();
 	void MainGameLoop::playGame();
 	~MainGameLoop();
 
 private:
 	int numOfPlayers;
-	std::vector<Player> riskPlayers;
-	std::vector<int> orderOfPlay;
+	vector<Player> riskPlayers;
+	vector<int> orderOfPlay;
 };

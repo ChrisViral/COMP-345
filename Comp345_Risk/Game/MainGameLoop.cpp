@@ -1,17 +1,12 @@
 #include "MainGameLoop.h"
-#include "RiskObject.h"
-#include "Player.h"
-#include <string>
-#include <vector>
 #include <iostream>
 #include <ctime>
 
-MainGameLoop::MainGameLoop()
+MainGameLoop::MainGameLoop(): numOfPlayers(0)
 {
-
 }
 
-MainGameLoop::MainGameLoop(std::vector<Player> riskPlayerVector, std::vector<int> orderOfPlayVector)
+MainGameLoop::MainGameLoop(vector<Player> riskPlayerVector, vector<int> orderOfPlayVector)
 {
 	int count = 0;
 	for (unsigned int i = 0; i < riskPlayerVector.size(); i++)
@@ -21,6 +16,10 @@ MainGameLoop::MainGameLoop(std::vector<Player> riskPlayerVector, std::vector<int
 	numOfPlayers = count;
 	riskPlayers = riskPlayerVector;
 	orderOfPlay = orderOfPlayVector;
+}
+
+MainGameLoop::~MainGameLoop()
+{
 }
 
 void MainGameLoop::openingAnnouncement()
@@ -92,7 +91,7 @@ void MainGameLoop::playGame()
 				for (int i = 0; i < numOfPlayers; i++) {
 					int numberOfTerritories;
 					if (i == randomWinner) {
-						numberOfTerritories = riskPlayers[i].getNumberOfTerritories();
+						numberOfTerritories = riskPlayers[i].controlled();
 						std::cout << riskPlayers[i].getName();
 						std::cout << ": ";
 						std::cout << numberOfTerritories << std::endl;
@@ -111,9 +110,9 @@ void MainGameLoop::playGame()
 			}
 			else {
 				std::cout << "Number of territories each player has left: " << std::endl;		//To check for end of game normally, when user does NOT want to end the game early.
-				for (int i = 0; i < numOfPlayers; i++) {
-					int numberOfTerritories;
-					numberOfTerritories = riskPlayers[i].getNumberOfTerritories();
+				for (int i = 0; i < numOfPlayers; i++)
+				{
+					int numberOfTerritories = riskPlayers[i].controlled();
 					std::cout << riskPlayers[i].getName();
 					std::cout << ": ";
 					std::cout << numberOfTerritories << std::endl;
@@ -146,8 +145,4 @@ void MainGameLoop::playGame()
 				break;
 		}
 	}
-}
-
-MainGameLoop::~MainGameLoop()
-{
 }

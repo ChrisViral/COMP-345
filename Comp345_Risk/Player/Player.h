@@ -1,33 +1,29 @@
-#pragma once
-#include <string>
-#include <vector>
+// COMP-345
+// Assignment #1
+// Christophe Savard
+// David Di Feo
+// Paul Weber
+// Steven Tucci
+// Adriano Monteclavo
 
-class Player
+#pragma once
+#include <vector>
+#include "../Base/RiskObject.h";
+#include "Card/Hand.h"
+#include "../Map/Country.h"
+#include "DiceRoller.h"
+
+class Player : public RiskObject
 {
 public:
 	Player();
 	~Player();
-	Player(std::string, std::string, std::vector<std::string>, std::string);
-
-	std::string getName();
-	//Get name of player
-
-	std::vector<std::string> getTerritories();
-	//Get territories of player
-
-	int getNumberOfTerritories();
-	//See how many territories player has.
-
-	std::string getDiceRoller();
-	//Show player's dice roller
-
-	std::string getPlayersCards();
-	//Show player's cards
+	Player(DiceRoller diceRoller, std::vector<Country> playersTerritories, Hand playersCards);
 
 	void displayInfo();
-	//Show all player info
+	//All Player's assests are displayed
 
-	void reinforce();
+	void reinforce(int total = 0);
 	//Player is given choice to place an allocated amount of troops (based on the countries he owns, the continents he controls
 	//and cards he has on hand on any of his territories to reinforce them before attacking.
 
@@ -40,9 +36,12 @@ public:
 	//from one of his territories, and put them in one of his other
 	//territories that is connected either by land or sea in order to fortify it.
 
+	std::string getName();
+
+	int controlled();
+
 private:
-	std::string name;
-	std::string diceRoller;
-	std::vector<std::string> playersTerritories;
-	std::string playersCards;
+	DiceRoller diceRoller;
+	std::vector<Country> playersTerritories;
+	Hand playersCards;
 };
