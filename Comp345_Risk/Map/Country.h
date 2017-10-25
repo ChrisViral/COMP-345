@@ -30,6 +30,7 @@ public:
 	void addArmies(int amount);
 	void removeArmies(int amount);
 	Player* getOwner() const;
+
 	void setOwner(Player* player);
 	void setX(int val);
 	void setY(int val);

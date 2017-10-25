@@ -10,6 +10,7 @@
 // ==============================
 
 #include "RiskMap.h"
+
 #include <iostream>
 #include <list>
 
@@ -183,10 +184,59 @@ bool RiskMap::isReachable(Country& source, Country& destination)
 	return false;
 }
 
+//A test to see if a source country can reach a destinatation country
+bool RiskMap::isReachable(Player* p, Country& source, Country& destination) {
+	if (source.getName() == destination.getName())
+		return true;
+
+	// Keep track of visited countries.
+	std::unordered_map<std::string, bool> visited;
+
+	//initialize them all to false    
+	for (int i = 0; i < p->getCountries().size(); i++) {
+		std::pair<std::string, bool> pair(p->getCountries()[i].getName(), false);
+		visited.insert(pair);
+	}
+
+	//Create a queue and mark the source as visited
+	std::list<std::string> queue;
+	visited[source.getName()] = true;
+	queue.push_back(source.getName());
+
+	while (!queue.empty()) {
+		std::string name = queue.front();
+		queue.pop_front();
+
+		//Get edges 
+		std::vector<Edge>::iterator i = getNodeFromMap(name).adjList.begin();
+		for (i; i != getNodeFromMap(name).adjList.end(); ++i) {
+			// If this adjacent node is the destination node, then 
+			// return true
+			if (i->country.getName() == destination.getName()) {
+				return true;
+			}
+
+
+			if (getNodeFromMap(i->country.getName()).country->getOwner() != p)
+				visited[i->country.getName()] = true;
+			else if (!visited[i->country.getName()]) {
+				visited[i->country.getName()] = true;
+				queue.push_back(i->country.getName());
+			}
+		}
+	}
+
+	return false;
+}
+
 //Search the map for a Node by name of the country
 Node& RiskMap::getNodeFromMap(std::string countrytName)
 {
 	//TODO: There should be a final return statement here, this isn't best practice
+	// Steven: Since you cant return null references,
+	// either you create some sort of special node value that symbolizes that this node is null
+	// or you change the method to return back pointers instead of references
+	// or just keep it like this :)
 	for (int i = 0; i < map.size(); i++)
 	{
 		if (map[i].country->getName() == countrytName)

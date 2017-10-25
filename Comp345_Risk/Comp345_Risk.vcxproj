@@ -146,9 +146,9 @@
     <ClInclude Include="Base\Utils.h" />
     <ClInclude Include="Base\Driver.h" />
     <ClInclude Include="Drivers\GameStartDriver.h" />
+    <ClInclude Include="Drivers\MainGameLoopDriver.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Game\MainGameLoop.h" />
-    <ClInclude Include="Drivers\MainGameLoopDriver.h" />
     <ClInclude Include="Player\Player.h" />
     <ClInclude Include="Player\Card\Hand.h" />
     <ClInclude Include="Player\Card\Deck.h" />
