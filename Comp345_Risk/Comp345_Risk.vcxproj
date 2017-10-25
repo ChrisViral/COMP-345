@@ -167,6 +167,7 @@
     <ClCompile Include="Base\Driver.cpp" />
     <ClCompile Include="Drivers\MainGameLoopDriver.cpp" />
     <ClCompile Include="Drivers\GameStartDriver.cpp" />
+
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Game\MainGameLoop.cpp" />
     <ClCompile Include="Player\Player.cpp" />

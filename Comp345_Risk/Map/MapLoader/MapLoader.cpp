@@ -50,7 +50,7 @@ RiskMap* MapLoader::getMap() const
 MapLoader::LoaderResults MapLoader::tryParseMap(RiskMap* result)
 {
 	//If the map is already initialized, return immediately
-	if (!result->isInitialized())
+	if (result->isInitialized())
 	{
 		error = "This map has already been initialized";
 	}
