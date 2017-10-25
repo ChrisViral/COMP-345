@@ -1,3 +1,14 @@
+// ==============================
+//           COMP-345 D
+//          Assignment 2
+//  ----------------------------
+//  Christophe Savard,  40017812
+//  David Di Feo,       27539800
+//  Paul Weber,         27057938
+//  Steven Tucci,       40006014
+//  Adriano Monteclavo, 40009257
+// ==============================
+
 #include "MainGameLoop.h"
 #include <iostream>
 #include <ctime>
@@ -50,14 +61,16 @@ void MainGameLoop::playGame()
 
 	std::cout << "\n=============== Start of Risk Game ===============\n" << std::endl;
 
-	while (gameOver == false) {
+	while (gameOver == false)
+	{
 		for (unsigned int i = 0; i < orderOfPlay.size(); i++)
 		{
-			std::cout << "It's ";									//Displays whose turn it is.
-			std::cout << riskPlayers[orderOfPlay[i]].getName();		
-			std::cout << "'s turn to play!\n" << std::endl;			
+			std::cout << "It's "; //Displays whose turn it is.
+			std::cout << riskPlayers[orderOfPlay[i]].getName();
+			std::cout << "'s turn to play!\n" << std::endl;
 
-			if (riskPlayers[orderOfPlay[i]].getName() == "Human Player") {					//Human player interface. Functions will be completed in parts 4, 5 and 6
+			if (riskPlayers[orderOfPlay[i]].getName() == "Human Player")
+			{ //Human player interface. Functions will be completed in parts 4, 5 and 6
 				std::cout << "You can now reinforce your territories!" << std::endl;
 				riskPlayers[orderOfPlay[i]].reinforce();
 				std::cout << "\nPress Enter to Continue on to Attack phase!\n";
@@ -72,8 +85,9 @@ void MainGameLoop::playGame()
 				std::cout << "-----------------------------------------------------------------";
 				std::cin.ignore();
 			}
-			else {
-				riskPlayers[orderOfPlay[i]].reinforce();	//Summary of computer bot actions. Functions will be completed in parts 4, 5 and 6
+			else
+			{
+				riskPlayers[orderOfPlay[i]].reinforce(); //Summary of computer bot actions. Functions will be completed in parts 4, 5 and 6
 				riskPlayers[orderOfPlay[i]].attack();
 				riskPlayers[orderOfPlay[i]].fortify();
 				std::cout << std::endl;
@@ -82,21 +96,25 @@ void MainGameLoop::playGame()
 			std::cout << "End Game Now? If yes, the program will give someone all the territories and declare him winner. (y/n) " << std::endl;
 			char endGame;
 			std::cin >> endGame;
-			if (endGame == 'y' || endGame == 'Y') {			//User choice: can end game manually if he wants. Program assigns a random winner by setting all other players' territories owned to 0.
+			if (endGame == 'y' || endGame == 'Y')
+			{ //User choice: can end game manually if he wants. Program assigns a random winner by setting all other players' territories owned to 0.
 
-				srand(unsigned(time(0)));					//Get a random winner
+				srand(unsigned(time(nullptr))); //Get a random winner
 				int randomWinner = rand() % numOfPlayers;
 
-				std::cout << "Number of territories each player has left: " << std::endl;		//To check for end of game. The game WILL end because program assigns a random winner by setting all other players' territories owned to 0.
-				for (int i = 0; i < numOfPlayers; i++) {
+				std::cout << "Number of territories each player has left: " << std::endl; //To check for end of game. The game WILL end because program assigns a random winner by setting all other players' territories owned to 0.
+				for (int i = 0; i < numOfPlayers; i++)
+				{
 					int numberOfTerritories;
-					if (i == randomWinner) {
+					if (i == randomWinner)
+					{
 						numberOfTerritories = riskPlayers[i].controlled();
 						std::cout << riskPlayers[i].getName();
 						std::cout << ": ";
 						std::cout << numberOfTerritories << std::endl;
 					}
-					else {
+					else
+					{
 						numberOfTerritories = 0;
 						std::cout << riskPlayers[i].getName();
 						std::cout << ": ";
@@ -108,8 +126,9 @@ void MainGameLoop::playGame()
 						winner = i;
 				}
 			}
-			else {
-				std::cout << "Number of territories each player has left: " << std::endl;		//To check for end of game normally, when user does NOT want to end the game early.
+			else
+			{
+				std::cout << "Number of territories each player has left: " << std::endl; //To check for end of game normally, when user does NOT want to end the game early.
 				for (int i = 0; i < numOfPlayers; i++)
 				{
 					int numberOfTerritories = riskPlayers[i].controlled();
@@ -123,8 +142,9 @@ void MainGameLoop::playGame()
 						winner = i;
 				}
 			}
-			
-			if (gameOverCount == (numOfPlayers - 1)) {
+
+			if (gameOverCount == (numOfPlayers - 1))
+			{
 				std::cout << "---------------------------------------" << std::endl;
 				std::cout << "     GAME OVER! Winner is ";
 				std::cout << riskPlayers[winner].getName() << std::endl;
@@ -133,7 +153,8 @@ void MainGameLoop::playGame()
 				std::cout << "\n================...End of Risk Game. Press Enter to Close...=================" << std::endl;
 				std::cin.ignore();
 			}
-			else {
+			else
+			{
 				gameOver = false;
 				gameOverCount = 0;
 				std::cout << "\nPress Enter to Continue\n";
