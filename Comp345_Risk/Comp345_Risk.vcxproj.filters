@@ -50,6 +50,12 @@
     <ClCompile Include="Drivers\MainGameLoopDriver.cpp">
       <Filter>Drivers</Filter>
     </ClCompile>
+    <ClCompile Include="Drivers\FortificationDriver.cpp">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameStart.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -104,6 +110,12 @@
     </ClInclude>
     <ClInclude Include="Drivers\MainGameLoopDriver.h">
       <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\FortificationDriver.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameStart.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

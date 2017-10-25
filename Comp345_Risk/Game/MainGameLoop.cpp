@@ -80,7 +80,8 @@ void MainGameLoop::playGame()
 				std::cout << "\nPress Enter to Continue on to Fortify phase!\n";
 				std::cin.ignore();
 				std::cout << "You can now fortify your territories!" << std::endl;
-				riskPlayers[orderOfPlay[i]].fortify();
+				//TODO: Figure this out
+				//riskPlayers[orderOfPlay[i]].fortify();
 				std::cout << "\nYour turn is over. Press Enter to allow your opponents to play.\n";
 				std::cout << "-----------------------------------------------------------------";
 				std::cin.ignore();
@@ -89,7 +90,8 @@ void MainGameLoop::playGame()
 			{
 				riskPlayers[orderOfPlay[i]].reinforce(); //Summary of computer bot actions. Functions will be completed in parts 4, 5 and 6
 				riskPlayers[orderOfPlay[i]].attack();
-				riskPlayers[orderOfPlay[i]].fortify();
+				//TODO: this too
+				//riskPlayers[orderOfPlay[i]].fortify();
 				std::cout << std::endl;
 			}
 

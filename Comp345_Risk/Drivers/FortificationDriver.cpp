@@ -1,8 +1,8 @@
 #include "FortificationDriver.h"
-#include "Player/Player.h"
-#include "Map/RiskMap.h"
-#include "Map/MapLoader/MapLoader.h"
-#include "Player/Card/Deck.h"
+#include "../Player/Player.h"
+#include "../Map/RiskMap.h"
+#include "../Map/MapLoader/MapLoader.h"
+#include "../Player/Card/Deck.h"
 #include <iostream>
 
 
