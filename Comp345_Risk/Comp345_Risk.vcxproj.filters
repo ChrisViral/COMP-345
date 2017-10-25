@@ -41,7 +41,7 @@
     <ClCompile Include="Drivers\GameStartDriver.cpp">
       <Filter>Drivers</Filter>
     </ClCompile>
-    <ClCompile Include="FortificationDriver.cpp">
+    <ClCompile Include="Drivers\FortificationDriver.cpp">
       <Filter>Drivers</Filter>
     </ClCompile>
   </ItemGroup>
@@ -90,7 +90,7 @@
     <ClInclude Include="Drivers\GameStartDriver.h">
       <Filter>Drivers</Filter>
     </ClInclude>
-    <ClInclude Include="FortificationDriver.h">
+    <ClInclude Include="Drivers\FortificationDriver.h">
       <Filter>Drivers</Filter>
     </ClInclude>
   </ItemGroup>
