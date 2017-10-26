@@ -71,7 +71,7 @@ void Game::setup()
 	random_shuffle(players->begin(), players->end());
 
 	//Create a vector of countries not distributed yet
-	vector<int> remaining(map->size());
+	vector<int> remaining;
 	for (int i = 0; i < map->size(); i++)
 	{
 		remaining.push_back(i);
@@ -86,7 +86,9 @@ void Game::setup()
 		remaining.erase(remaining.begin() + j);
 		//Find the country at the given index and set it's new owner
 		Country* country = map->getCountry(index);
-		country->setOwner(players->at(i % numPlayers));
+		Player* p = players->at(i % numPlayers);
+		country->setOwner(p);
+		p->addCountry(*country);
 		country->addArmies(1);
 	}
 

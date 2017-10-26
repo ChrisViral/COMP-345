@@ -27,7 +27,7 @@ void GameDriver::run()
 	loader.tryParseMap(map);
 
 	//Create four players at random
-	vector<Player*>* players = new vector<Player*>(4);
+	vector<Player*>* players = new vector<Player*>;
 	players->push_back(new Player("Player 1", DiceRoller(), vector<Country>(), Hand()));
 	players->push_back(new Player("Player 2", DiceRoller(), vector<Country>(), Hand()));
 	players->push_back(new Player("Player 3", DiceRoller(), vector<Country>(), Hand()));

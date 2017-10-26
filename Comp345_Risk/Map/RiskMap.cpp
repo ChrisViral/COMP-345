@@ -289,6 +289,6 @@ void RiskMap::printMapArmyInfo()
 		//See who owns the country and how many armies are stationed there
 		Country* c = getCountry(i);
 		std::cout << c->getName() << "'s owner is " << c->getOwner()->getName() << std::endl;
-		std::cout << "There are " << c->getArmies() << " armies stationed in " << c->getName();
+		std::cout << "There are " << c->getArmies() << " armies stationed in " << c->getName() << std::endl;
 	}
 }

@@ -26,7 +26,7 @@ using std::vector;
 //Comp345_Risk.cpp : Defines the entry point for the console application.
 int main()
 {
-	vector<Driver*> drivers(6);
+	vector<Driver*> drivers;
 	GameStartDriver start;
 	GameDriver game;
 	MainGameLoopDriver loop;
