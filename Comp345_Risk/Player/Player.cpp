@@ -49,20 +49,35 @@ void Player::displayInfo()
 	playersCards.displayCards();
 }
 
-void Player::reinforce(int total)
+void Player::reinforce(int total, bool skip)
 {
-	std::cout << "\nPlayer can reinforce a territory of his choice:" << std::endl;
-	std::cout << " -- Exact reinforce() function implementation has yet to be determined! -- " << std::endl;
+	if (skip)
+	{
+		std::cout << "\nReinForce Method" << std::endl;
+		return;
+	}
+
+	
 }
 
-void Player::attack()
+void Player::attack(bool skip)
 {
-	std::cout << "\nPlayer can attack a territory of his choice:" << std::endl;
-	std::cout << " -- Exact attack() function implementation has yet to be determined! -- " << std::endl;
+	if (skip)
+	{
+		std::cout << "\nAttack Method" << std::endl;
+		return;
+	}
 }
 
-bool Player::fortify(Country& source, Country& target, int amount)
+bool Player::fortify(Country& source, Country& target, int amount, bool skip)
 {
+	if (skip)
+	{
+		std::cout << "\nFortify Method" << std::endl;
+		return true;
+	}
+
+
 	//std::cout << "\nPlayer can fortify a territory of his choice:" << std::endl;
 	//std::cout << " -- Exact fortify() function implementation has yet to be determined! -- " << std::endl;
 
@@ -135,4 +150,9 @@ bool Player::ownsCountry(const Country& country) const
 	}
 	return false;*/
 	
+}
+
+void Player::addCountry(Country country)
+{ 
+	playersTerritories.push_back(country); 
 }

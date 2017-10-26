@@ -14,20 +14,17 @@
 #include "../Base/RiskObject.h"
 #include "../Player/Player.h"
 #include "../Map/RiskMap.h"
-
-using std::vector;
-using std::string;
+#include "../Map/MapLoader/MapLoader.h"
 
 class Game : public RiskObject
 {
 public:
-	Game(int numPlayers, RiskMap* map);
+	Game();
 	~Game();
-	void setup();
-	void openingAnnouncement() const;
-	void playGame();
+	void gameLoop();
+
 private:
-	int numPlayers;
-	vector<Player*>* players;
-	RiskMap* map;
+	bool checkWin(std::vector<Player*> players, RiskMap* map);
+	RiskMap* map = new RiskMap();
+	std::vector<Player*> players;
 };
