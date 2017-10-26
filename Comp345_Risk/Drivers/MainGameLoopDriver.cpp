@@ -35,7 +35,7 @@ string MainGameLoopDriver::getClosingMessage()
 
 void MainGameLoopDriver::run()
 {
-	Game game;
+	Game game = Game();
 
 	game.gameLoop();
 }
