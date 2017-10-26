@@ -28,6 +28,7 @@ public:
 	std::string getName() const;
 	void traverseCountries();
 	bool ownedBy(const Player* player);
+	std::vector<Node*> getCountries() const;
 
 private:
 	int controlValue;

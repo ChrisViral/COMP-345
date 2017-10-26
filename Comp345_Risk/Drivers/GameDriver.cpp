@@ -35,39 +35,16 @@ void GameDriver::run()
 
 	//Load a game with the above info and run the setup
 	Game game(players, map);
-	game.setup();				//We want to know how this affected the players and map
-
+	//We want to know how this affected the players and map
+	game.setup();
 
 	//Look at all the countries
-	for (int i = 0; i < map->size(); i++)
-	{
-		//See who owns the country and how many armies are stationed there
-		Country* c = map->getCountry(i);
-		cout << c->getName() << "'s owner is " << c->getOwner()->getName() << endl;
-		cout << "There are " << c->getArmies() << " armies stationed in " << c->getName();
-	}
+	map->printMapArmyInfo();
 
 	//Look at all the players
 	for (int i = 0; i < 4; i++)
 	{
-		Player* p = players->at(i);
-		vector<Country> countries = p->getCountries();
-
-		//See how many countries they own
-		cout << p->getName() << " owns " << countries.size() << " countries" << endl;
-
-		//Count player's armies
-		int armies = 0;
-		for (Country c : countries)
-		{
-			//See what country the player owns
-			cout << p->getName() << " owns " << c.getName() << " and has " << c.getArmies() << " armies stationed there" << endl;
-			armies += c.getArmies();
-		}
-
-		//See total amount of armies owned by a player
-		cout << p->getName() << " has a total of " << armies << " placed on the board" << endl;
-		cout << "This means " << p->getName() << " has placed a total of " << (armies - countries.size()) << " armies on the board during the setup phase" << endl;
+		players->at(i)->printPlayerArmyInfo();
 	}
 
 	//Clear memory

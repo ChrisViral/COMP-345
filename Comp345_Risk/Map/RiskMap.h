@@ -62,6 +62,7 @@ public:
 	bool isInitialized() const;
 	void setInitialized(bool init);
 	std::unordered_map<std::string, Continent> getContinents();
+	void printMapArmyInfo();
 
 
 private:

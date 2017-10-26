@@ -50,6 +50,8 @@ public:
 	int controlled() const;
 	void setGame(Game* currentGame);
 	void addRandomArmy();
+	Hand getHand() const;
+	void printPlayerArmyInfo();
 
 private:
 	std::string name;
