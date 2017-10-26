@@ -56,7 +56,7 @@ void GameStart::createPlayers()
 {	
 	for (int i = 0; i < numOfPlayers; i++)
 	{
-		players.push_back(Player(DiceRoller(), std::vector<Country>(), Hand()));
+		players.push_back(new Player(DiceRoller(), std::vector<Country>(), Hand()));
 	}
 }
 

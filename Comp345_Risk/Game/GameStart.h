@@ -21,7 +21,7 @@ public:
 	void askForPlayers();
 	std::vector<std::string> getMapNames() { return mapNames; }
 	void createPlayers();
-	std::vector<Player> getPlayers() { return players; }
+	std::vector<Player*> getPlayers() { return players; }
 	void createMap();
 	RiskMap* getMap() { return map; }
 	void createDeck();
@@ -34,6 +34,6 @@ private:
 	std::string mapString;
 	void readFileNames();
 	RiskMap* map;
-	std::vector<Player> players;
+	std::vector<Player*> players;
 	Deck deck;
 };
