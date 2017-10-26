@@ -19,8 +19,6 @@ void FortificationDriver::run()
 {
 
 
-
-	
 	std::string mapFile = "mapfiles/World.map";
 	RiskMap map;
 	MapLoader mapLoader(mapFile);
@@ -64,7 +62,25 @@ void FortificationDriver::run()
 	
 	
 	// TODO: add the countries that this player owns
-	std::vector<Country> playersTerritories;
+	std::vector<Country*> playersTerritories;
+
+	
+	// Player is owner of
+	//Alaska
+	// Alberta
+	//Quebec
+	//Brazil
+	//Peru
+	playersTerritories.push_back(&c1);
+	playersTerritories.push_back(&c2);
+	playersTerritories.push_back(&c3);
+	playersTerritories.push_back(&c4);
+	playersTerritories.push_back(&c5);
+
+
+	
+	
+	
 	Hand h;
 
 	while (!d.isEmpty())
@@ -73,6 +89,19 @@ void FortificationDriver::run()
 	}
 
 	Player p(DiceRoller(), playersTerritories, h);
+
+	std::vector<Player*> players;
+	players.push_back(&p);
+
+
+	c1.setOwner(&p);
+	c2.setOwner(&p);
+	c3.setOwner(&p);
+	c4.setOwner(&p);
+	c5.setOwner(&p);
+
+	Game game(&players, &map);
+	
 
 
 
@@ -151,6 +180,7 @@ void FortificationDriver::run()
 
 	std::cout << std::endl;
 	
+
 }
 
 std::string FortificationDriver::getOpeningMessage()

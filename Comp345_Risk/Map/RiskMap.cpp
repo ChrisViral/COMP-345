@@ -200,7 +200,7 @@ bool RiskMap::isReachable(Player* p, Country& source, Country& destination) {
 
 	//initialize them all to false    
 	for (int i = 0; i < p->getCountries().size(); i++) {
-		std::pair<std::string, bool> pair(p->getCountries()[i].getName(), false);
+		std::pair<std::string, bool> pair(p->getCountries()[i]->getName(), false);
 		visited.insert(pair);
 	}
 

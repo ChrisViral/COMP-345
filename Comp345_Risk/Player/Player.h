@@ -21,8 +21,8 @@ class Player : public RiskObject
 public:
 	Player();
 	~Player();
-	Player(DiceRoller diceRoller, vector<Country> playersTerritories, Hand playersCards);
-	Player(std::string name, DiceRoller diceRoller, vector<Country> playersTerritories, Hand playersCards);
+	Player(DiceRoller diceRoller, vector<Country*> playersTerritories, Hand playersCards);
+	Player(std::string name, DiceRoller diceRoller, vector<Country*> playersTerritories, Hand playersCards);
 
 	//All Player's assests are displayed
 	void displayInfo();
@@ -42,9 +42,9 @@ public:
 	bool fortify(Country& source, Country& target, int amount, bool skip = false);
 
 	// Return the countries that this player owns
-	const vector<Country>& getCountries() const;
+	const vector<Country*>& getCountries() const;
 
-	void addCountry(Country country);
+	void addCountry(Country* country);
 
 	std::string getName() const;
 	int controlled() const;
@@ -56,7 +56,7 @@ public:
 private:
 	std::string name;
 	DiceRoller diceRoller;
-	vector<Country> playersTerritories;
+	vector<Country*> playersTerritories;
 	Hand playersCards;
 	Game* game;
 

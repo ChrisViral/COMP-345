@@ -31,9 +31,9 @@ Game::Game() : owned(true), numPlayers(0)
 
 	players = new vector<Player*>();
 
-	players->push_back(new Player("Player 1", DiceRoller(), vector<Country>(), Hand()));
-	players->push_back(new Player("Player 2", DiceRoller(), vector<Country>(), Hand()));
-	players->push_back(new Player("Player 3", DiceRoller(), vector<Country>(), Hand()));
+	players->push_back(new Player("Player 1", DiceRoller(), vector<Country*>(), Hand()));
+	players->push_back(new Player("Player 2", DiceRoller(), vector<Country*>(), Hand()));
+	players->push_back(new Player("Player 3", DiceRoller(), vector<Country*>(), Hand()));
 }
 
 Game::Game(vector<Player*>* players, RiskMap* map) : owned(false), numPlayers(players->size()), players(players), map(map)
@@ -87,9 +87,10 @@ void Game::setup()
 		//Find the country at the given index and set it's new owner
 		Country* country = map->getCountry(index);
 		Player* p = players->at(i % numPlayers);
-		country->setOwner(p);
-		p->addCountry(*country);
 		country->addArmies(1);
+		country->setOwner(p);
+		p->addCountry(country);
+		
 	}
 
 	//Get amount of armies to give place for each player						
@@ -154,6 +155,6 @@ void transferCountries(Player* player, RiskMap* map)
 
 	for (int i = 0; i < map->size(); i++)
 	{
-		player->addCountry(*(map->getCountry(i)));
+		player->addCountry((map->getCountry(i)));
 	}
 }

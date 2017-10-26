@@ -59,7 +59,7 @@ void GameStart::createPlayers()
 	players = new vector<Player*>(numOfPlayers);
 	for (int i = 0; i < numOfPlayers; i++)
 	{
-		players->push_back(new Player("Player " + (i + 1), DiceRoller(), vector<Country>(), Hand()));
+		players->push_back(new Player("Player " + (i + 1), DiceRoller(), vector<Country*>(), Hand()));
 	}
 }
 

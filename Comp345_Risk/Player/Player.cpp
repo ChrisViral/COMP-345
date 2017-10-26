@@ -32,14 +32,14 @@ Player::~Player()
 	game = nullptr;
 }
 
-Player::Player(DiceRoller aDiceRoller, vector<Country> aPlayersTerritoriesVector, Hand aPlayersCards): game(nullptr)
+Player::Player(DiceRoller aDiceRoller, vector<Country*> aPlayersTerritoriesVector, Hand aPlayersCards): game(nullptr)
 {
 	diceRoller = aDiceRoller;
 	playersTerritories = aPlayersTerritoriesVector;
 	playersCards = aPlayersCards;
 }
 
-Player::Player(string name, DiceRoller diceRoller, vector<Country> playersTerritories, Hand playersCards)
+Player::Player(string name, DiceRoller diceRoller, vector<Country*> playersTerritories, Hand playersCards)
 	: name(name), diceRoller(diceRoller), playersTerritories(playersTerritories), playersCards(playersCards), game(nullptr)
 {
 }
@@ -50,9 +50,9 @@ void Player::displayInfo()
 	cout << "\n1- Player has a dice roller object: " << endl;
 	diceRoller.showRolls();
 	cout << " \n2- Player owns one or more territories, Here they are: " << endl;
-	for (Country c : playersTerritories)
+	for (Country* c : playersTerritories)
 	{
-		cout << c.getName() << endl;
+		cout << c->getName() << endl;
 	}
 	cout << " \n3- Player has one or more cards in his game, Here they are: " << endl;
 	playersCards.displayCards();
@@ -96,9 +96,9 @@ void Player::reinforce(bool skip)
 
 	for (int i = 0; i < total; i++)
 	{
-		Country c = playersTerritories[rand() % playersTerritories.size()];
-		c.addArmies(1);
-		cout << "Adding one army to " << c.getName() << endl;
+		Country* c = playersTerritories[rand() % playersTerritories.size()];
+		c->addArmies(1);
+		cout << "Adding one army to " << c->getName() << endl;
 	}
 
 	cout << "All reinforcements distributed!" << endl << endl;
@@ -130,31 +130,28 @@ bool Player::fortify(Country& source, Country& target, int amount, bool skip)
 
 	// check to see if this player owns the source and target country
 	
-	if (!ownsCountry(source) && !ownsCountry(target))
+	if (ownsCountry(source) && ownsCountry(target))
 	{
-		// TODO: implement country ownership when handing out countries to the players. right now the owners are null
-		// TODO: uncomment this when countries have their owners set
-		//return false;
-	}
+		if (!game->getMap()->isReachable(this, source, target)) {
+				return false;
+		}
 
-	// TODO: implement some sort of function to check if countries are adjacent to each other.
-	// with the new added isReachable this could be solved, but their is no access to the riskmap from inside the player
-	// Right now this is pseudo code
-	//if (source is not adjacent to target) {
-		//return false;
-	//}
-	
-	
-	// We can't exchange negative/more armies then we have from the source country to the target country
-	// Also from the official rules, we must leave at least 1 army in the source country
-	// We can't pull out all of our armies
-	if (amount < 0 || amount > source.getArmies() - 1)
-	{
+
+		// We can't exchange negative/more armies then we have from the source country to the target country
+		// Also from the official rules, we must leave at least 1 army in the source country
+		// We can't pull out all of our armies
+		if (amount < 0 || amount > source.getArmies() - 1) {
+			return false;
+		}
+		source.removeArmies(amount);
+		target.addArmies(amount);
+		return true;
+	} else {
 		return false;
 	}
-	source.removeArmies(amount);
-	target.addArmies(amount);
-	return true;
+
+
+
 	
 	
 	
@@ -163,7 +160,7 @@ bool Player::fortify(Country& source, Country& target, int amount, bool skip)
 
 }
 
-const vector<Country>& Player::getCountries() const
+const vector<Country*>& Player::getCountries() const
 {
 	return playersTerritories;
 }
@@ -197,7 +194,7 @@ bool Player::ownsCountry(const Country& country) const
 	
 }
 
-void Player::addCountry(Country country)
+void Player::addCountry(Country* country)
 { 
 	playersTerritories.push_back(country); 
 }
@@ -209,7 +206,7 @@ void Player::setGame(Game* currentGame)
 
 void Player::addRandomArmy()
 {
-	playersTerritories[rand() % playersTerritories.size()].addArmies(1);
+	playersTerritories[rand() % playersTerritories.size()]->addArmies(1);
 }
 
 Hand Player::getHand() const
@@ -224,11 +221,11 @@ void Player::printPlayerArmyInfo()
 
 	//Count player's armies
 	int armies = 0;
-	for (Country c : playersTerritories)
+	for (Country* c : playersTerritories)
 	{
 		//See what country the player owns
-		cout << name << " owns " << c.getName() << " and has " << c.getArmies() << " armies stationed there" << endl;
-		armies += c.getArmies();
+		cout << name << " owns " << c->getName() << " and has " << c->getArmies() << " armies stationed there" << endl;
+		armies += c->getArmies();
 	}
 
 	//See total amount of armies owned by a player

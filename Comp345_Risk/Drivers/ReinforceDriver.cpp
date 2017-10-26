@@ -20,10 +20,10 @@ void ReinforceDriver::run()
 	RiskMap* map = new RiskMap();
 	MapLoader loader("mapfiles/World.map");
 	loader.tryParseMap(map);
-	vector<Player*>* players = new vector<Player*>(3);
-	players->push_back(new Player("Player 1", DiceRoller(), vector<Country>(), Hand()));
-	players->push_back(new Player("Player 2", DiceRoller(), vector<Country>(), Hand()));
-	players->push_back(new Player("Player 3", DiceRoller(), vector<Country>(), Hand()));
+	vector<Player*>* players = new vector<Player*>();
+	players->push_back(new Player("Player 1", DiceRoller(), vector<Country*>(), Hand()));
+	players->push_back(new Player("Player 2", DiceRoller(), vector<Country*>(), Hand()));
+	players->push_back(new Player("Player 3", DiceRoller(), vector<Country*>(), Hand()));
 	Game game(players, map);
 	game.setup();
 

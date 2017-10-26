@@ -28,10 +28,10 @@ void GameDriver::run()
 
 	//Create four players at random
 	vector<Player*>* players = new vector<Player*>;
-	players->push_back(new Player("Player 1", DiceRoller(), vector<Country>(), Hand()));
-	players->push_back(new Player("Player 2", DiceRoller(), vector<Country>(), Hand()));
-	players->push_back(new Player("Player 3", DiceRoller(), vector<Country>(), Hand()));
-	players->push_back(new Player("Player 4", DiceRoller(), vector<Country>(), Hand()));
+	players->push_back(new Player("Player 1", DiceRoller(), vector<Country*>(), Hand()));
+	players->push_back(new Player("Player 2", DiceRoller(), vector<Country*>(), Hand()));
+	players->push_back(new Player("Player 3", DiceRoller(), vector<Country*>(), Hand()));
+	players->push_back(new Player("Player 4", DiceRoller(), vector<Country*>(), Hand()));
 
 	//Load a game with the above info and run the setup
 	Game game(players, map);
