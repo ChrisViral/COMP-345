@@ -3,8 +3,6 @@
 #include "../Base/Driver.h"
 #include "../Player/Player.h"
 
-using std::vector;
-
 class MainGameLoopDriver : public Driver
 {
 public:

@@ -10,6 +10,7 @@
 // ==============================
 
 #include "MainGameLoopDriver.h"
+#include <iostream>
 #include "../Player/Player.h"
 #include "../Game/Game.h"
 #include "../Map/MapLoader/MapLoader.h"
@@ -34,13 +35,7 @@ string MainGameLoopDriver::getClosingMessage()
 
 void MainGameLoopDriver::run()
 {
-	RiskMap* map = new RiskMap();
-	MapLoader loader("mapfiles/World.map");
-	loader.tryParseMap(map);
-	
-	vector<Player*> players(rand() % 5 + 2);
-	Game gameLoop(&players, map);
-	gameLoop.setup();
-	gameLoop.openingAnnouncement();
-	gameLoop.playGame();
+	Game game = Game();
+
+	game.gameLoop();
 }

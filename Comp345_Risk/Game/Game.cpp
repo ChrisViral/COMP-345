@@ -14,7 +14,20 @@
 #include <algorithm>
 #include <iostream>
 
-using std::cout;
+void transferCountries(Player* player, RiskMap* map);
+
+Game::Game()
+{
+	map = new RiskMap();
+	MapLoader loader("mapfiles/World.map");
+	loader.tryParseMap(map);
+
+	players = new std::vector<Player*>();
+
+	players->push_back(new Player(DiceRoller(), std::vector<Country>(), Hand()));
+	players->push_back(new Player(DiceRoller(), std::vector<Country>(), Hand()));
+	players->push_back(new Player(DiceRoller(), std::vector<Country>(), Hand()));	
+}
 
 Game::Game(vector<Player*>* players, RiskMap* map) : players(players), numPlayers(players->size()), map(map)
 {
@@ -34,7 +47,7 @@ void Game::setup()
 	random_shuffle(players->begin(), players->end());
 
 	//Create a vector of countries not distributed yet
-	vector<int> remaining(map->size());
+	std::vector<int> remaining(map->size());
 	for (int i = 0; i < map->size(); i++)
 	{
 		remaining.push_back(i);
@@ -66,140 +79,49 @@ void Game::setup()
 	}
 }
 
-void Game::openingAnnouncement() const
+void Game::gameLoop()
 {
-	cout << "...Part 3: Game play: main game loop...\n" << std::endl;
-	cout << "This game of risk will have " << numPlayers << " players, determined randomly from a choice of 2-6 players (only one human)." << std::endl;
-	cout << "\nHere are all the players and what they have: " << std::endl;
-	for (int i = 0; i < numPlayers; i++)
+	int counter = 1;
+	while (!checkWin())
 	{
-		cout << std::endl;
-		players->at(i)->displayInfo();
+		for (int i = 0; i < players->size(); i++)
+		{
+			std::cout << "Player " << i + 1 << std::endl;
+			(*players)[i]->reinforce(true);
+			(*players)[i]->attack(true);
+			(*players)[i]->fortify(Country(), Country(), 0, true); //Dummy arguements for this part
+			std::cout << std::endl;
+		}
+
+		if (counter > 3)
+		{
+			transferCountries((*players)[0], map);
+		}
+
+		counter++;
 	}
 
-	/*Already shuffled
-	std::cout << "\nHere is the order of play, determined randomly: " << std::endl;
-	std::cout << std::endl;
-	for (unsigned int i = 0; i < orderOfPlay.size(); i++)
-	{
-		std::cout << (i + 1) << ": ";
-		std::cout << riskPlayers[orderOfPlay[i]].getName() << std::endl;
-	}
-	*/
+	std::cout << "Player 1 won" << std::endl;
 }
 
-void Game::playGame()
+bool Game::checkWin()
 {
-	bool gameOver = false;
-	int gameOverCount = 0;
-	int winner = 0;
-
-	cout << "\n=============== Start of Risk Game ===============\n" << std::endl;
-
-	while (gameOver == false)
+	for (int i = 0; i < players->size(); i++)
 	{
-		for (int i = 0; i < numPlayers; i++)
-		{
-			cout << "It's "; //Displays whose turn it is.
-			cout << players->at(i)->getName();
-			cout << "'s turn to play!\n" << std::endl;
+		if (players->at(i)->getCountries().size() == map->size())
+			return true;
+	}
 
-			if (players->at(i)->getName() == "Human Player")
-			{ //Human player interface. Functions will be completed in parts 4, 5 and 6
-				cout << "You can now reinforce your territories!" << std::endl;
-				players->at(i)->reinforce();
-				cout << "\nPress Enter to Continue on to Attack phase!\n";
-				std::cin.ignore();
-				cout << "You can now attack!" << std::endl;
-				players->at(i)->attack();
-				cout << "\nPress Enter to Continue on to Fortify phase!\n";
-				std::cin.ignore();
-				cout << "You can now fortify your territories!" << std::endl;
-				//TODO: Figure this out
-				//players->at(i)->fortify();
-				cout << "\nYour turn is over. Press Enter to allow your opponents to play.\n";
-				cout << "-----------------------------------------------------------------";
-				std::cin.ignore();
-			}
-			else
-			{
-				players->at(i)->reinforce(); //Summary of computer bot actions. Functions will be completed in parts 4, 5 and 6
-				players->at(i)->attack();
-				//TODO: this too
-				//players->at(i)->fortify();
-				cout << std::endl;
-			}
+	return false;
+}
 
-			cout << "End Game Now? If yes, the program will give someone all the territories and declare him winner. (y/n) " << std::endl;
-			char endGame;
-			std::cin >> endGame;
-			if (endGame == 'y' || endGame == 'Y')
-			{ 
-				//User choice: can end game manually if he wants. Program assigns a random winner by setting all other players' territories owned to 0.
-				int randomWinner = rand() % numPlayers;
+//Free function to transfer countries to a player
+void transferCountries(Player* player, RiskMap* map)
+{
+	std::cout << "Transfering Countries to player 1" << std::endl;
 
-				cout << "Number of territories each player has left: " << std::endl; //To check for end of game. The game WILL end because program assigns a random winner by setting all other players' territories owned to 0.
-				for (int j = 0; j < numPlayers; j++)
-				{
-					int numberOfTerritories;
-					if (j == randomWinner)
-					{
-						numberOfTerritories = players->at(j)->controlled();
-						cout << players->at(j)->getName();
-						cout << ": ";
-						cout << numberOfTerritories << std::endl;
-					}
-					else
-					{
-						numberOfTerritories = 0;
-						cout << players->at(j)->getName();
-						cout << ": ";
-						cout << numberOfTerritories << std::endl;
-					}
-					if (numberOfTerritories == 0)
-						gameOverCount++;
-					else
-						winner = j;
-				}
-			}
-			else
-			{
-				cout << "Number of territories each player has left: " << std::endl; //To check for end of game normally, when user does NOT want to end the game early.
-				for (int j = 0; j < numPlayers; j++)
-				{
-					int numberOfTerritories = players->at(j)->controlled();
-					cout << players->at(j)->getName();
-					cout << ": ";
-					cout << numberOfTerritories << std::endl;
-
-					if (numberOfTerritories == 0)
-						gameOverCount++;
-					else
-						winner = j;
-				}
-			}
-
-			if (gameOverCount == (numPlayers - 1))
-			{
-				cout << "---------------------------------------" << std::endl;
-				cout << "     GAME OVER! Winner is ";
-				cout << players->at(winner)->getName() << std::endl;
-				cout << "---------------------------------------" << std::endl;
-				gameOver = true;
-				cout << "\n================...End of Risk Game. Press Enter to Close...=================" << std::endl;
-				std::cin.ignore();
-			}
-			else
-			{
-				gameOver = false;
-				gameOverCount = 0;
-				cout << "\nPress Enter to Continue\n";
-				std::cin.ignore();
-				std::cin.ignore();
-			}
-
-			if (gameOver == true)
-				break;
-		}
+	for (int i = 0; i < map->size(); i++)
+	{
+		player->addCountry(*map->getCountry(i));
 	}
 }
