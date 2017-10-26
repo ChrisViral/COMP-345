@@ -20,7 +20,7 @@ void ReinforceDriver::run()
 	RiskMap* map = new RiskMap();
 	MapLoader loader("mapfiles/World.map");
 	loader.tryParseMap(map);
-	vector<Player*>* players = new vector<Player*>(4);
+	vector<Player*>* players = new vector<Player*>(3);
 	players->push_back(new Player("Player 1", DiceRoller(), vector<Country>(), Hand()));
 	players->push_back(new Player("Player 2", DiceRoller(), vector<Country>(), Hand()));
 	players->push_back(new Player("Player 3", DiceRoller(), vector<Country>(), Hand()));
@@ -60,6 +60,18 @@ void ReinforceDriver::run()
 	//Print map and player army info
 	map->printMapArmyInfo();
 	p->printPlayerArmyInfo();
+
+	//Clear memory
+	delete map;
+	map = nullptr;
+
+	delete players->at(0);
+	delete players->at(1);
+	delete players->at(2);
+	players->clear();
+
+	delete players;
+	players = nullptr;
 }
 
 string ReinforceDriver::getOpeningMessage()
