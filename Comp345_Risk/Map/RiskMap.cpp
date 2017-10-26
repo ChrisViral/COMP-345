@@ -261,7 +261,7 @@ void RiskMap::clearMap()
 
 bool RiskMap::addCountriesToContinents()
 {
-	for (Node n : map)
+	for (Node& n : map)
 	{
 		std::string name = n.country->getContinent()->getName();
 		if (!continents.count(name))
