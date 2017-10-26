@@ -12,21 +12,24 @@
 #pragma once
 
 #include "../Base/RiskObject.h"
-#include "../Player/Player.h"
 #include "../Map/RiskMap.h"
 
 using std::vector;
-using std::string;
 
 class Game : public RiskObject
 {
 public:
-	Game(int numPlayers, RiskMap* map);
+
+	Game();
+	Game(vector<Player*>* players, RiskMap* map);
 	~Game();
+	void gameLoop() const;
 	void setup();
-	void openingAnnouncement() const;
-	void playGame();
+	RiskMap* getMap() const;
+
 private:
+	bool checkWin() const;
+	bool owned;
 	int numPlayers;
 	vector<Player*>* players;
 	RiskMap* map;

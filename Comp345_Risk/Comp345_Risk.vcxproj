@@ -148,6 +148,7 @@
     <ClInclude Include="Drivers\FortificationDriver.h" />
     <ClInclude Include="Drivers\GameStartDriver.h" />
     <ClInclude Include="Drivers\MainGameLoopDriver.h" />
+    <ClInclude Include="Drivers\GameDriver.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Game\GameStart.h" />
     <ClInclude Include="Player\Player.h" />
@@ -169,6 +170,7 @@
     <ClCompile Include="Drivers\FortificationDriver.cpp" />
     <ClCompile Include="Drivers\MainGameLoopDriver.cpp" />
     <ClCompile Include="Drivers\GameStartDriver.cpp" />
+    <ClCompile Include="Drivers\GameDriver.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Game\GameStart.cpp" />
     <ClCompile Include="Player\Player.cpp" />

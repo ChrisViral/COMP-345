@@ -12,7 +12,6 @@
 #pragma once
 
 #include "../Base/RiskObject.h"
-#include "../Player/Player.h"
 #include "Country.h"
 #include "Continent.h"
 #include <unordered_map>
@@ -62,6 +61,7 @@ public:
 	int continentSize() const;
 	bool isInitialized() const;
 	void setInitialized(bool init);
+	std::unordered_map<std::string, Continent> getContinents();
 
 
 private:
