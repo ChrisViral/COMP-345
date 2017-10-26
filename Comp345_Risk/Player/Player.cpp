@@ -211,3 +211,27 @@ void Player::addRandomArmy()
 {
 	playersTerritories[rand() % playersTerritories.size()].addArmies(1);
 }
+
+Hand Player::getHand() const
+{
+	return playersCards;
+}
+
+void Player::printPlayerArmyInfo()
+{
+	//See how many countries they own
+	cout << name << " owns " << playersTerritories.size() << " countries" << endl;
+
+	//Count player's armies
+	int armies = 0;
+	for (Country c : playersTerritories)
+	{
+		//See what country the player owns
+		cout << name << " owns " << c.getName() << " and has " << c.getArmies() << " armies stationed there" << endl;
+		armies += c.getArmies();
+	}
+
+	//See total amount of armies owned by a player
+	cout << name << " has a total of " << armies << " placed on the board" << endl;
+	cout << "This means " << name << " has placed a total of " << (armies - playersTerritories.size()) << " armies on the board during the setup phase" << endl;
+}
