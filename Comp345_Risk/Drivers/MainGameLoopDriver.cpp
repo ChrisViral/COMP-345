@@ -10,10 +10,8 @@
 // ==============================
 
 #include "MainGameLoopDriver.h"
-#include <iostream>
 #include "../Player/Player.h"
 #include "../Game/Game.h"
-#include "../Map/MapLoader/MapLoader.h"
 
 MainGameLoopDriver::MainGameLoopDriver()
 {

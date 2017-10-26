@@ -29,6 +29,7 @@ public:
 
 private:
 	bool checkWin() const;
+	bool owned;
 	int numPlayers;
 	vector<Player*>* players;
 	RiskMap* map;

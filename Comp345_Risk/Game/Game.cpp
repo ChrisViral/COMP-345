@@ -17,7 +17,7 @@
 
 void transferCountries(Player* player, RiskMap* map);
 
-Game::Game(): numPlayers(0)
+Game::Game() : owned(true), numPlayers(0)
 {
 	//Original random seed, only needs to be done once in whole game execution
 	srand(time(nullptr));
@@ -26,14 +26,14 @@ Game::Game(): numPlayers(0)
 	MapLoader loader("mapfiles/World.map");
 	loader.tryParseMap(map);
 
-	players = new std::vector<Player*>();
+	players = new vector<Player*>();
 
-	players->push_back(new Player(DiceRoller(), std::vector<Country>(), Hand()));
-	players->push_back(new Player(DiceRoller(), std::vector<Country>(), Hand()));
-	players->push_back(new Player(DiceRoller(), std::vector<Country>(), Hand()));
+	players->push_back(new Player("Player 1", DiceRoller(), vector<Country>(), Hand()));
+	players->push_back(new Player("Player 2", DiceRoller(), vector<Country>(), Hand()));
+	players->push_back(new Player("Player 3", DiceRoller(), vector<Country>(), Hand()));
 }
 
-Game::Game(vector<Player*>* players, RiskMap* map) : numPlayers(players->size()), players(players), map(map)
+Game::Game(vector<Player*>* players, RiskMap* map) : owned(false), numPlayers(players->size()), players(players), map(map)
 {
 	//Original random seed, only needs to be done once in whole game execution
 	srand(time(nullptr));
@@ -41,6 +41,17 @@ Game::Game(vector<Player*>* players, RiskMap* map) : numPlayers(players->size())
 
 Game::~Game()
 {
+	if (owned)
+	{
+		delete map;
+		for (int i = 0; i < players->size(); i++)
+		{
+			delete players->at(i);
+		}
+		players->clear();
+		delete players;
+	}
+
 	players = nullptr;
 	map = nullptr;
 }
@@ -51,7 +62,7 @@ void Game::setup()
 	random_shuffle(players->begin(), players->end());
 
 	//Create a vector of countries not distributed yet
-	std::vector<int> remaining(map->size());
+	vector<int> remaining(map->size());
 	for (int i = 0; i < map->size(); i++)
 	{
 		remaining.push_back(i);
@@ -70,6 +81,7 @@ void Game::setup()
 		country->addArmies(1);
 	}
 
+	//Get amount of armies to give place for each player
 	int armies = 40 - (numPlayers - 2) * 5;
 
 	//Each player places the same total amount of armies
