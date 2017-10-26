@@ -56,6 +56,9 @@
     <ClCompile Include="Drivers\GameDriver.cpp">
       <Filter>Drivers</Filter>
     </ClCompile>
+    <ClCompile Include="Drivers\ReinforceDriver.cpp">
+      <Filter>Drivers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -115,6 +118,9 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Drivers\GameDriver.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\ReinforceDriver.h">
       <Filter>Drivers</Filter>
     </ClInclude>
   </ItemGroup>

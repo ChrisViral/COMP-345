@@ -161,6 +161,7 @@
     <ClInclude Include="Player\Dice.h" />
     <ClInclude Include="Map\RiskMap.h" />
     <ClInclude Include="Player\DiceRoller.h" />
+    <ClInclude Include="Drivers\ReinforceDriver.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -184,6 +185,7 @@
     <ClCompile Include="Player\Dice.cpp" />
     <ClCompile Include="Map\RiskMap.cpp" />
     <ClCompile Include="Player\DiceRoller.cpp" />
+    <ClCompile Include="Drivers\ReinforceDriver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="mapfiles\broken.map" />
