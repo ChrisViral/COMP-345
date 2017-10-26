@@ -3,10 +3,14 @@
 #include <iostream>
 #include <string>
 
-
-GameStart::GameStart()
+GameStart::GameStart(): deck(0)  //create a deck of size 0, it will get created with the proper size after the map is selected
 {
 	readFileNames();
+}
+
+GameStart::~GameStart()
+{
+	delete map;
 }
 
 void GameStart::askForMap()
@@ -44,6 +48,16 @@ void GameStart::askForPlayers()
 		std::cout << "You entered the wrong number of players. Enter between 2 - 6" << std::endl;
 		std::cin >> numOfPlayers;
 	}
+	
+}
+
+//create the players
+void GameStart::createPlayers()
+{	
+	for (int i = 0; i < numOfPlayers; i++)
+	{
+		players.push_back(Player(DiceRoller(), std::vector<Country>(), Hand()));
+	}
 }
 
 //Return a vector with the file names. If you add a new map to the folder, the list.txt file needs to be updated.
@@ -60,4 +74,49 @@ void GameStart::readFileNames()
 		mapNames.push_back(map);
 	}
 
+}
+
+void GameStart::createMap()
+{
+	map = new RiskMap();
+	mapString = "mapfiles/" + getMapNames()[mapNumber - 1] + ".map";
+	MapLoader mapLoader(mapString);
+
+	MapLoader::LoaderResults results = mapLoader.tryParseMap(map);
+
+	while (!results.success)
+	{
+		std::cout << std::endl;
+		std::cout << "The map could not be parsed sucessfully" << std::endl;
+		askForMap();
+
+		mapString = "mapfiles/" + getMapNames()[mapNumber - 1] + ".map";
+
+		//Delete the bad map object and create a new one
+		delete map;
+		map = new RiskMap();
+		mapLoader = MapLoader(mapString);
+		results = mapLoader.tryParseMap(map);
+	}
+
+	if (results.success)
+	{
+		MapMetaData meta = map->metadata;
+		std::cout << " ==== METADATA ====" << std::endl;
+		std::cout << "Author: " << meta.author << std::endl;
+		std::cout << "Image: " << meta.image << std::endl;
+		std::cout << "Scroll: " << meta.scroll << std::endl;
+		std::cout << "Warn: " << (meta.warn ? "Yes" : "No") << std::endl;
+		std::cout << "Wrap: " << (meta.wrap ? "Yes" : "No") << std::endl;
+
+		std::cout << std::endl << " ==== MAP TRAVERSAL ====" << std::endl;
+		map->traverseMap();
+
+		std::cout << std::endl;
+	}
+}
+
+void GameStart::createDeck()
+{
+	deck = Deck(map->size());
 }
