@@ -19,15 +19,17 @@
 class Game : public RiskObject
 {
 public:
+
 	Game();
-	Game(int numPlayers, RiskMap* map);
+	Game(vector<Player*>* players, RiskMap* map);
 	~Game();
 	void gameLoop();
 	void setup();
 
 private:
-	int numPlayers;
 	bool checkWin();
+	int numPlayers;
+	vector<Player*>* players;
+	int numPlayers;
 	RiskMap* map;
-	std::vector<Player*>* players;
 };

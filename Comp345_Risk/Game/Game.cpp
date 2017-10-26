@@ -29,39 +29,20 @@ Game::Game()
 	players->push_back(new Player(DiceRoller(), std::vector<Country>(), Hand()));	
 }
 
-
-Game::Game(int numPlayers, RiskMap* map) : numPlayers(numPlayers), map(map)
+Game::Game(vector<Player*>* players, RiskMap* map) : players(players), numPlayers(players->size()), map(map)
 {
-
+	//Original random seed, only needs to be done once in whole game execution
+	srand(time(nullptr));
 }
 
 Game::~Game()
 {
-	//Clear local information
-	for (int i = 0; i < players->size(); i++)
-	{
-		delete players->at(i);
-	}
-	players->clear();
-
-	delete players;
 	players = nullptr;
-
 	map = nullptr;
 }
 
 void Game::setup()
 {
-	//Original random seed, only needs to be done once in whole game execution
-	srand(time(nullptr));
-
-	//Create the vector of empty players
-	players = new std::vector<Player*>(numPlayers);
-	for (int i = 0; i < numPlayers; i++)
-	{
-		players->push_back(new Player("Player " + i, DiceRoller(), std::vector<Country>(), Hand()));
-	}
-
 	//Shuffle the order of the players
 	random_shuffle(players->begin(), players->end());
 
@@ -80,7 +61,9 @@ void Game::setup()
 		int index = remaining[j];
 		remaining.erase(remaining.begin() + j);
 		//Find the country at the given index and set it's new owner
-		map->getCountry(index)->setOwner(players->at(i % numPlayers));
+		Country* country = map->getCountry(index);
+		country->setOwner(players->at(i % numPlayers));
+		country->addArmies(1);
 	}
 
 	int armies = 40 - (numPlayers - 2) * 5;
