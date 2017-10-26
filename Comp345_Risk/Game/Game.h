@@ -12,7 +12,6 @@
 #pragma once
 
 #include "../Base/RiskObject.h"
-#include "../Player/Player.h"
 #include "../Map/RiskMap.h"
 
 using std::vector;
@@ -26,6 +25,7 @@ public:
 	~Game();
 	void gameLoop() const;
 	void setup();
+	RiskMap* getMap() const;
 
 private:
 	bool checkWin() const;

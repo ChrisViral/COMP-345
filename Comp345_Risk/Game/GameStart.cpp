@@ -2,6 +2,8 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include "../Map/MapLoader/MapLoader.h"
+
 
 GameStart::GameStart(): deck(0)  //create a deck of size 0, it will get created with the proper size after the map is selected
 {
@@ -54,9 +56,10 @@ void GameStart::askForPlayers()
 //create the players
 void GameStart::createPlayers()
 {	
+	players = new vector<Player*>(numOfPlayers);
 	for (int i = 0; i < numOfPlayers; i++)
 	{
-		players.push_back(new Player(DiceRoller(), std::vector<Country>(), Hand()));
+		players->push_back(new Player("Player " + (i + 1), DiceRoller(), vector<Country>(), Hand()));
 	}
 }
 
@@ -120,3 +123,10 @@ void GameStart::createDeck()
 {
 	deck = Deck(map->size());
 }
+
+void GameStart::startGame()
+{
+	game = new Game(players, map);
+	game->setup();
+}
+

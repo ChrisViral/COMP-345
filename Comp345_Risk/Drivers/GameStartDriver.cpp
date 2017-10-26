@@ -55,6 +55,6 @@ void GameStartDriver::run()
 
 	std::cout << "The number of countries in the map: " << gamestart.getMap()->size() << std::endl;
 	std::cout << "The number of cards in the deck: " << gamestart.getDeck().getDeckSize() << std::endl;
-	std::cout << "The number of players in the game: " << gamestart.getPlayers().size() << std::endl;
+	std::cout << "The number of players in the game: " << gamestart.getPlayers()->size() << std::endl;
 }
 

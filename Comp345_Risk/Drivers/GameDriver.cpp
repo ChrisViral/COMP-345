@@ -2,6 +2,9 @@
 #include "../Map/RiskMap.h"
 #include "../Map/MapLoader/MapLoader.h"
 #include "../Game/Game.h"
+#include "../Player/DiceRoller.h"
+#include "../Player/Card/Hand.h"
+#include "../Player/Player.h"
 #include <iostream>
 
 using std::vector;

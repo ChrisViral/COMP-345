@@ -10,28 +10,26 @@
 // ==============================
 
 #pragma once
-#include <vector>
 #include "../Base/RiskObject.h"
 #include "Card/Hand.h"
 #include "DiceRoller.h"
 #include "../Map/Country.h"
-
-//class Country;
+#include "../Game/Game.h"
 
 class Player : public RiskObject
 {
 public:
 	Player();
 	~Player();
-	Player(DiceRoller diceRoller, std::vector<Country> playersTerritories, Hand playersCards);
-	Player(std::string name, DiceRoller diceRoller, std::vector<Country> playersTerritories, Hand playersCards);
+	Player(DiceRoller diceRoller, vector<Country> playersTerritories, Hand playersCards);
+	Player(std::string name, DiceRoller diceRoller, vector<Country> playersTerritories, Hand playersCards);
 
 	//All Player's assests are displayed
 	void displayInfo();
 	
 	//Player is given choice to place an allocated amount of troops (based on the countries he owns, the continents he controls
 	//and cards he has on hand on any of his territories to reinforce them before attacking.
-	void reinforce(int total = 0, bool skip = false);
+	void reinforce(bool skip = false);
 
 	//Method allows player to roll and take over countries adjacent to his own territories. Method ends when player 
 	//decided or when he know longer has a territory with more than one troop remaining positioned on it.
@@ -44,20 +42,21 @@ public:
 	bool fortify(Country& source, Country& target, int amount, bool skip = false);
 
 	// Return the countries that this player owns
-	const std::vector<Country>& getCountries() const;
+	const vector<Country>& getCountries() const;
 
 	void addCountry(Country country);
 
 	std::string getName() const;
 	int controlled() const;
+	void setGame(Game* currentGame);
+	void addRandomArmy();
 
 private:
 	std::string name;
 	DiceRoller diceRoller;
-	std::vector<Country> playersTerritories;
+	vector<Country> playersTerritories;
 	Hand playersCards;
+	Game* game;
 
 	bool ownsCountry(const Country& country) const;
-
-	
 };

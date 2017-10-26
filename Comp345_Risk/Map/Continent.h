@@ -27,6 +27,7 @@ public:
 	void addCountry(Node& country);
 	std::string getName() const;
 	void traverseCountries();
+	bool ownedBy(const Player* player);
 
 private:
 	int controlValue;

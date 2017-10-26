@@ -13,6 +13,7 @@
 
 #include <iostream>
 #include <list>
+#include "../Player/Player.h"
 
 RiskMap::RiskMap() : initialized(false)
 {
@@ -40,6 +41,11 @@ bool RiskMap::isInitialized() const
 void RiskMap::setInitialized(bool init)
 {
 	initialized = init;
+}
+
+std::unordered_map<std::string, Continent> RiskMap::getContinents()
+{
+	return continents;
 }
 
 //Search through the map for a country by name, then add a new edge to that country.

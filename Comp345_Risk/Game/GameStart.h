@@ -1,16 +1,13 @@
 #pragma once
 #include "../Base/RiskObject.h"
-#include <vector>
 #include "../Player/Player.h"
 #include "../Map/RiskMap.h"
-#include "../Map/MapLoader/MapLoader.h"
 #include "../Player/Card/Deck.h"
-#include "../Player/DiceRoller.h"
-#include "../Player/Card/Hand.h"
-#include "../Game/GameStart.h"
-#include "../Player/Card/Deck.h"
-#include "../Player/DiceRoller.h"
-#include "../Player/Card/Hand.h"
+#include "Game.h"
+
+using std::string;
+using std::vector;
+
 
 class GameStart: public RiskObject
 {
@@ -19,21 +16,24 @@ public:
 	~GameStart();
 	void askForMap();	
 	void askForPlayers();
-	std::vector<std::string> getMapNames() { return mapNames; }
+	vector<string> getMapNames() const { return mapNames; }
 	void createPlayers();
-	std::vector<Player*> getPlayers() { return players; }
+	vector<Player*>* getPlayers() const { return players; }
 	void createMap();
-	RiskMap* getMap() { return map; }
+	RiskMap* getMap() const { return map; }
 	void createDeck();
-	Deck getDeck() { return deck; }
+	Deck getDeck() const { return deck; }
+	Game* getGame() const { return game; }
+	void startGame();
 
 private:
 	int numOfPlayers;
 	int mapNumber;
-	std::vector<std::string> mapNames;
-	std::string mapString;
+	vector<string> mapNames;
+	string mapString;
 	void readFileNames();
 	RiskMap* map;
-	std::vector<Player*> players;
+	vector<Player*>* players;
 	Deck deck;
+	Game* game;
 };

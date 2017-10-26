@@ -11,6 +11,9 @@
 
 #include "Game.h"
 #include "../Map/MapLoader/MapLoader.h"
+#include "../Player/DiceRoller.h"
+#include "../Player/Card/Hand.h"
+#include "../Player/Player.h"
 #include <ctime>
 #include <algorithm>
 #include <iostream>
@@ -35,6 +38,12 @@ Game::Game() : owned(true), numPlayers(0)
 
 Game::Game(vector<Player*>* players, RiskMap* map) : owned(false), numPlayers(players->size()), players(players), map(map)
 {
+	//Set the players to the current game
+	for (int i = 0; i < players->size(); i++)
+	{
+		players->at(i)->setGame(this);
+	}
+
 	//Original random seed, only needs to be done once in whole game execution
 	srand(time(nullptr));
 }
@@ -81,7 +90,7 @@ void Game::setup()
 		country->addArmies(1);
 	}
 
-	//Get amount of armies to give place for each player
+	//Get amount of armies to give place for each player						
 	int armies = 40 - (numPlayers - 2) * 5;
 
 	//Each player places the same total amount of armies
@@ -90,9 +99,14 @@ void Game::setup()
 		//Players place one army at a time in the regular play order
 		for (int j = 0; j < numPlayers; j++)
 		{
-			players->at(j)->reinforce(1);
+			players->at(j)->addRandomArmy();
 		}
 	}
+}
+
+RiskMap* Game::getMap() const
+{
+	return map;
 }
 
 void Game::gameLoop() const
@@ -111,7 +125,7 @@ void Game::gameLoop() const
 
 		if (counter > 3)
 		{
-			transferCountries((*players)[0], map);
+			transferCountries(players->at(0), map);
 		}
 
 		counter++;

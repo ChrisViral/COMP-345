@@ -10,6 +10,7 @@
 // ==============================
 
 #include "Continent.h"
+#include "../Player/Player.h"
 #include <iostream>
 
 Continent::Continent(std::string continentName, int controlVal)
@@ -51,4 +52,17 @@ void Continent::traverseCountries()
 
 		std::cout << std::endl;
 	}
+}
+
+
+bool Continent::ownedBy(const Player* player)
+{
+	for (Node* n : countries)
+	{
+		if (n->country->getOwner()->getName() != player->getName())
+		{
+			return false;
+		}
+	}
+	return true;
 }
