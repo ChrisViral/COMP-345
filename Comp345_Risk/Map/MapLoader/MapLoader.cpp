@@ -1,24 +1,27 @@
-// COMP-345
-// Assignment #1
-// Christophe Savard
-// David Di Feo
-// Paul Weber
-// Steven Tucci
-// Adriano Monteclavo
+// ==============================
+//           COMP-345 D
+//          Assignment 2
+//  ----------------------------
+//  Christophe Savard,  40017812
+//  David Di Feo,       27539800
+//  Paul Weber,         27057938
+//  Steven Tucci,       40006014
+//  Adriano Monteclavo, 40009257
+// ==============================
 
 #include "MapLoader.h"
-
-#include <fstream>
-#include <map>
-
 #include "../../Base/Utils.h"
 #include "../RiskMap.h";
+
+#include <fstream>
+
+using std::vector;
 
 /**
 * Creates a new MapLoader from a file at a given location in the current working directory
 * @param loc String location of the mapfile to load in the memory
 */
-MapLoader::MapLoader(const std::string& loc) : riskMap(nullptr), current(""), error(""), line(0), success(false)
+MapLoader::MapLoader(const string& loc) : riskMap(nullptr), current(""), error(""), line(0), success(false)
 {
 	location = loc;
 }
@@ -47,7 +50,7 @@ RiskMap* MapLoader::getMap() const
 MapLoader::LoaderResults MapLoader::tryParseMap(RiskMap* result)
 {
 	//If the map is already initialized, return immediately
-	if (!result->isInitialized())
+	if (result->isInitialized())
 	{
 		error = "This map has already been initialized";
 	}
@@ -94,7 +97,7 @@ MapLoader::LoaderResults MapLoader::tryParseMap(RiskMap* result)
 	}
 
 	//Return a new LoaderResults structure containing the relevant info
-	return { riskMap, success, error };
+	return {riskMap, success, error};
 }
 
 /**
@@ -119,7 +122,7 @@ bool MapLoader::parseMetaBlock(std::ifstream& stream)
 	{
 		if (current.size() == 0) { continue; }
 
-		std::vector<std::string> splits = split(current, '=');
+		vector<string> splits = split(current, '=');
 		if (splits.size() != 2)
 		{
 			error = "Wrong line format, incorrect amount of equal signs @" + line;
@@ -167,7 +170,7 @@ bool MapLoader::parseContinentBlock(std::ifstream& stream)
 	for (line++; getline(stream, current) && current != "[Territories]"; line++)
 	{
 		if (current.size() == 0) { continue; }
-		std::vector<std::string> splits = split(current, '=');
+		vector<string> splits = split(current, '=');
 
 		if (splits.size() != 2)
 		{
@@ -197,11 +200,11 @@ bool MapLoader::parseContinentBlock(std::ifstream& stream)
 */
 bool MapLoader::parseCountryBlock(std::ifstream& stream)
 {
-	std::vector<std::pair<std::string, Country>> edges;
+	vector<std::pair<string, Country>> edges;
 	while (getline(stream, current))
 	{
 		if (current.size() == 0) { continue; }
-		std::vector<std::string> splits = split(current, ',');
+		vector<string> splits = split(current, ',');
 
 		//There should at lease be a name, two coordinates, a continent, and one adjacent country
 		if (splits.size() < 5)
@@ -224,7 +227,7 @@ bool MapLoader::parseCountryBlock(std::ifstream& stream)
 	}
 
 	//Setup edges and continents
-	for (std::pair<std::string, Country> p : edges)
+	for (std::pair<string, Country> p : edges)
 	{
 		if (!riskMap->addEdge(p.first, p.second))
 		{

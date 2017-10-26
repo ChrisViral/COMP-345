@@ -41,6 +41,18 @@
     <ClCompile Include="Drivers\GameStartDriver.cpp">
       <Filter>Drivers</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\MainGameLoopDriver.cpp">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\FortificationDriver.cpp">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameStart.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -87,6 +99,18 @@
     <ClInclude Include="Drivers\GameStartDriver.h">
       <Filter>Drivers</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\MainGameLoopDriver.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\FortificationDriver.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameStart.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Base">
@@ -109,6 +133,9 @@
     </Filter>
     <Filter Include="mapfiles">
       <UniqueIdentifier>{3a39d5ca-fd52-4155-a85c-6b591709d12e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{da70bd8c-e4c0-4b20-bd24-ac4aab498aec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
