@@ -10,14 +10,18 @@
 // ==============================
 
 #include "Game.h"
+#include "../Map/MapLoader/MapLoader.h"
 #include <ctime>
 #include <algorithm>
 #include <iostream>
 
 void transferCountries(Player* player, RiskMap* map);
 
-Game::Game()
+Game::Game(): numPlayers(0)
 {
+	//Original random seed, only needs to be done once in whole game execution
+	srand(time(nullptr));
+
 	map = new RiskMap();
 	MapLoader loader("mapfiles/World.map");
 	loader.tryParseMap(map);
@@ -26,10 +30,10 @@ Game::Game()
 
 	players->push_back(new Player(DiceRoller(), std::vector<Country>(), Hand()));
 	players->push_back(new Player(DiceRoller(), std::vector<Country>(), Hand()));
-	players->push_back(new Player(DiceRoller(), std::vector<Country>(), Hand()));	
+	players->push_back(new Player(DiceRoller(), std::vector<Country>(), Hand()));
 }
 
-Game::Game(vector<Player*>* players, RiskMap* map) : players(players), numPlayers(players->size()), map(map)
+Game::Game(vector<Player*>* players, RiskMap* map) : numPlayers(players->size()), players(players), map(map)
 {
 	//Original random seed, only needs to be done once in whole game execution
 	srand(time(nullptr));
@@ -79,7 +83,7 @@ void Game::setup()
 	}
 }
 
-void Game::gameLoop()
+void Game::gameLoop() const
 {
 	int counter = 1;
 	while (!checkWin())
@@ -104,7 +108,7 @@ void Game::gameLoop()
 	std::cout << "Player 1 won" << std::endl;
 }
 
-bool Game::checkWin()
+bool Game::checkWin() const
 {
 	for (int i = 0; i < players->size(); i++)
 	{
@@ -122,6 +126,6 @@ void transferCountries(Player* player, RiskMap* map)
 
 	for (int i = 0; i < map->size(); i++)
 	{
-		player->addCountry(*map->getCountry(i));
+		player->addCountry(*(map->getCountry(i)));
 	}
 }
