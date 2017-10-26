@@ -31,6 +31,10 @@ Player::Player(DiceRoller aDiceRoller, std::vector<Country> aPlayersTerritoriesV
 	playersCards = aPlayersCards;
 }
 
+Player::Player(std::string name, DiceRoller diceRoller, std::vector<Country> playersTerritories, Hand playersCards)
+{
+}
+
 void Player::displayInfo()
 {
 	std::cout << "Here is what the Player can access during his turn:" << std::endl;
@@ -99,17 +103,17 @@ bool Player::fortify(Country& source, Country& target, int amount)
 
 }
 
-const std::vector<Country>& Player::getCountries() {
+const std::vector<Country>& Player::getCountries() const
+{
 	return playersTerritories;
 }
 
-std::string Player::getName()
+std::string Player::getName() const
 {
-	//TODO: Implement
-	return "";
+	return name;
 }
 
-int Player::controlled()
+int Player::controlled() const
 {
 	return playersTerritories.size();
 }

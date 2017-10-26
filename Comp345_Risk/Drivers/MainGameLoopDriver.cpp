@@ -11,10 +11,10 @@
 
 #include "MainGameLoopDriver.h"
 #include "../Player/Player.h"
-#include "../Game/MainGameLoop.h"
-#include <algorithm>
+#include "../Game/Game.h"
+#include "../Map/MapLoader/MapLoader.h"
 
-MainGameLoopDriver::MainGameLoopDriver(): numberOfPlayers(0)
+MainGameLoopDriver::MainGameLoopDriver()
 {
 }
 
@@ -34,26 +34,12 @@ string MainGameLoopDriver::getClosingMessage()
 
 void MainGameLoopDriver::run()
 {
-	vector<int> orderOfPlay = getOrderOfPlay(getRandomNumberOfPlayers()); // simulates parts 1 and 2
-	vector<Player> riskPlayers;
+	RiskMap* map = new RiskMap();
+	MapLoader loader("mapfiles/World.map");
+	loader.tryParseMap(map);
 
-	MainGameLoop gameLoop(riskPlayers, orderOfPlay);
+	Game gameLoop(rand() % 5 + 2, map);
+	gameLoop.setup();
 	gameLoop.openingAnnouncement();
 	gameLoop.playGame();
-}
-
-int MainGameLoopDriver::getRandomNumberOfPlayers()
-{
-	int randNum = rand() % 5 + 2;
-	numberOfPlayers = randNum;
-	return numberOfPlayers;
-}
-
-vector<int> MainGameLoopDriver::getOrderOfPlay(int num) const // simulates parts 1 and 2
-{
-	vector<int> order;
-	for (int i = 0; i < num; i++)
-		order.push_back(i);
-	random_shuffle(order.begin(), order.end());
-	return order;
 }

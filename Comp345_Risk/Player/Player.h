@@ -24,6 +24,7 @@ public:
 	Player();
 	~Player();
 	Player(DiceRoller diceRoller, std::vector<Country> playersTerritories, Hand playersCards);
+	Player(std::string name, DiceRoller diceRoller, std::vector<Country> playersTerritories, Hand playersCards);
 
 	//All Player's assests are displayed
 	void displayInfo();
@@ -43,12 +44,13 @@ public:
 	bool fortify(Country& source, Country& target, int amount);
 
 	// Return the countries that this player owns
-	const std::vector<Country>& getCountries();
+	const std::vector<Country>& getCountries() const;
 
-	std::string getName();
-	int controlled();
+	std::string getName() const;
+	int controlled() const;
 
 private:
+	std::string name;
 	DiceRoller diceRoller;
 	std::vector<Country> playersTerritories;
 	Hand playersCards;

@@ -13,10 +13,4 @@ public:
 	string getOpeningMessage() override;
 	string getClosingMessage() override;
 	void run() override;
-private:
-	int getRandomNumberOfPlayers();
-	vector<int> getOrderOfPlay(int num) const;
-	int numberOfPlayers;
-	vector<Player> riskPlayers;
-	vector<int> orderOfPlay;
 };

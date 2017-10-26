@@ -16,14 +16,18 @@
 #include "../Map/RiskMap.h"
 
 using std::vector;
+using std::string;
 
 class Game : public RiskObject
 {
 public:
-	Game(vector<Player*>& players, RiskMap* map);
+	Game(int numPlayers, RiskMap* map);
 	~Game();
 	void setup();
+	void openingAnnouncement() const;
+	void playGame();
 private:
-	vector<Player*> players;
+	int numPlayers;
+	vector<Player*>* players;
 	RiskMap* map;
 };
