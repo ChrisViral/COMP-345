@@ -37,8 +37,9 @@ void MainGameLoopDriver::run()
 	RiskMap* map = new RiskMap();
 	MapLoader loader("mapfiles/World.map");
 	loader.tryParseMap(map);
-
-	Game gameLoop(rand() % 5 + 2, map);
+	
+	vector<Player*> players(rand() % 5 + 2);
+	Game gameLoop(&players, map);
 	gameLoop.setup();
 	gameLoop.openingAnnouncement();
 	gameLoop.playGame();

@@ -21,13 +21,13 @@ using std::string;
 class Game : public RiskObject
 {
 public:
-	Game(int numPlayers, RiskMap* map);
+	Game(vector<Player*>* players, RiskMap* map);
 	~Game();
 	void setup();
 	void openingAnnouncement() const;
 	void playGame();
 private:
-	int numPlayers;
 	vector<Player*>* players;
+	int numPlayers;
 	RiskMap* map;
 };
