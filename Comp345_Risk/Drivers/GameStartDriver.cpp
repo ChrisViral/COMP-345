@@ -1,38 +1,56 @@
+// ==============================
+//           COMP-345 D
+//          Assignment 2
+//  ----------------------------
+//  Christophe Savard,  40017812
+//  David Di Feo,       27539800
+//  Paul Weber,         27057938
+//  Steven Tucci,       40006014
+//  Adriano Monteclavo, 40009257
+// ==============================
+
 #include "GameStartDriver.h"
 #include <iostream>
 #include "../Player/Player.h"
 #include "../Player/Card/Deck.h"
 #include "../Map/RiskMap.h"
 #include "../Map/MapLoader/MapLoader.h"
+#include "../Player/DiceRoller.h"
+#include "../Player/Card/Hand.h"
+
+std::vector<string> readFileNames();
+void askForMap(int&, std::vector<string>);
 #include "../Game/GameStart.h"
 
 GameStartDriver::GameStartDriver()
 {
-
 }
 
 GameStartDriver::~GameStartDriver()
 {
-
 }
 
-std::string GameStartDriver::getOpeningMessage()
+string GameStartDriver::getOpeningMessage()
 {
 	return "Starting Game Start driver";
 }
 
-std::string GameStartDriver::getClosingMessage()
+string GameStartDriver::getClosingMessage()
 {
 	return "Ending Game Start driver";
 }
 
 void GameStartDriver::run()
 {
+
 	GameStart gamestart;
+
 
 	gamestart.askForMap();
 
+
 	std::string mapString = "mapfiles/" + gamestart.getMapNames()[gamestart.getMapNumber() - 1] + ".map";
+
 
 	RiskMap* map = new RiskMap();
 	MapLoader mapLoader(mapString);

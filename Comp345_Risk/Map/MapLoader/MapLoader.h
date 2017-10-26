@@ -1,13 +1,19 @@
-// COMP-345
-// Assignment #1
-// Christophe Savard
-// David Di Feo
-// Paul Weber
-// Steven Tucci
-// Adriano Monteclavo
+// ==============================
+//           COMP-345 D
+//          Assignment 2
+//  ----------------------------
+//  Christophe Savard,  40017812
+//  David Di Feo,       27539800
+//  Paul Weber,         27057938
+//  Steven Tucci,       40006014
+//  Adriano Monteclavo, 40009257
+// ==============================
 
 #pragma once
+
 #include "../RiskMap.h"
+
+using std::string;
 
 class MapLoader
 {
@@ -16,19 +22,19 @@ public:
 	{
 		RiskMap* riskMap;
 		bool success;
-		std::string failureMessage;
+		string failureMessage;
 	};
 
-	explicit MapLoader(const std::string& location);
+	explicit MapLoader(const string& location);
 	~MapLoader();
 	LoaderResults tryParseMap(RiskMap* result);
 	RiskMap* getMap() const;
 
 private:
 	RiskMap* riskMap;
-	std::string location;
-	std::string current;
-	std::string error;
+	string location;
+	string current;
+	string error;
 	int line;
 	bool success;
 	bool parseMetaBlock(std::ifstream& stream);
