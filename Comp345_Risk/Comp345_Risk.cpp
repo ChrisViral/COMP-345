@@ -18,6 +18,7 @@
 #include "Drivers/GameDriver.h"
 #include "Drivers/MainGameLoopDriver.h"
 #include "Drivers/ReinforceDriver.h"
+#include "Drivers/AttackDriver.h"
 #include "Drivers/FortificationDriver.h"
 
 using std::cout;
@@ -32,20 +33,21 @@ int main()
 	GameDriver game;
 	MainGameLoopDriver loop;
 	ReinforceDriver reinforce;
-	//AttackDriver attack;		//Adriano implementation
+	AttackDriver attack;
 	FortificationDriver fortify;
 
 	drivers.push_back(&start);
 	drivers.push_back(&game);
 	drivers.push_back(&loop);
 	drivers.push_back(&reinforce);
-	//drivers.push_back(&attack); //Adriano implementation
+	drivers.push_back(&attack);
 	drivers.push_back(&fortify);
 
 	const string endll = "\n\n";
 
 	//Run drivers individually
-	Driver* d = &reinforce;
+
+	Driver* d = &attack;
 	cout << d->getOpeningMessage() << endll;
 	d->run();
 	cout << std::endl << d->getClosingMessage() << endll;

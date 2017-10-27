@@ -14,6 +14,7 @@
 #include "../Base/RiskObject.h"
 #include <string>
 
+
 class Player;
 class Continent;
 

@@ -87,6 +87,9 @@ void Game::setup()
 		//Find the country at the given index and set it's new owner
 		Country* country = map->getCountry(index);
 		Player* p = players->at(i % numPlayers);
+
+		
+
 		country->addArmies(1);
 		country->setOwner(p);
 		p->addCountry(country);
@@ -121,7 +124,7 @@ void Game::gameLoop() const
 		{
 			std::cout << "Player " << i + 1 << std::endl;
 			(*players)[i]->reinforce(true);
-			(*players)[i]->attack(true);
+			(*players)[i]->attack(Country(), Country(), true);
 			(*players)[i]->fortify(Country(), Country(), 0, true); //Dummy arguements for this part
 			std::cout << std::endl;
 		}

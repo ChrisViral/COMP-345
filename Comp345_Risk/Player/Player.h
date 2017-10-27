@@ -33,7 +33,8 @@ public:
 
 	//Method allows player to roll and take over countries adjacent to his own territories. Method ends when player 
 	//decided or when he know longer has a territory with more than one troop remaining positioned on it.
-	void attack(bool skip = false);
+	void attack();
+	void attack(Country& source, Country& target, bool skip = false);
 
 	// If the amount given is larger or equal than the source country owns, then it will return false and no armies will be exchanged
 	// If the amount if smaller, then it will exhange and return true
@@ -51,6 +52,7 @@ public:
 	void setGame(Game* currentGame);
 	void addRandomArmy();
 	Hand getHand() const;
+	DiceRoller getDiceRoller();
 	void printPlayerArmyInfo();
 
 private:
@@ -59,6 +61,9 @@ private:
 	vector<Country*> playersTerritories;
 	Hand playersCards;
 	Game* game;
-
+	bool hasAdjUnOwnedCountry(const Country& source);
+	vector<Country> Player::getAdjUnOwnedCountryList(const Country& source);
 	bool ownsCountry(const Country& country) const;
+	Country chooseSourceCountry();
+	Country chooseTargetCountry(const Country& source);
 };
