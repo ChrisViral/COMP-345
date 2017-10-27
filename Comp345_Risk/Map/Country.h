@@ -13,7 +13,7 @@
 
 #include "../Base/RiskObject.h"
 #include <string>
-#include "RiskMap.h"
+
 
 class Player;
 class Continent;

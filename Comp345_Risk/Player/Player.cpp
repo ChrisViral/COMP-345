@@ -816,6 +816,7 @@ void Player::attack(Country&source, Country& target, bool skip)
 	}
 }
 
+
 bool Player::fortify(Country& source, Country& target, int amount, bool skip)
 {
 	if (skip)
@@ -898,6 +899,8 @@ bool Player::ownsCountry(const Country& country) const
 	return false;*/
 	
 }
+
+
 Country Player::chooseSourceCountry()
 {
 	std::cout << "Countries you can attack from:" << std::endl;
@@ -922,11 +925,9 @@ Country Player::chooseSourceCountry()
 			{
 				return country;
 			}
-			else
-			{
-				std::cout << "Invalid Country Name, Please Try Again." << std::endl;
-			}
+			
 		}
+		std::cout << "Invalid Country Name, Please Try Again." << std::endl;
 	}
 }
 
@@ -987,6 +988,8 @@ vector<Country> Player::getAdjUnOwnedCountryList(const Country& source)
 	}
 	return adjCountries;
 }
+
+
 
 void Player::addCountry(Country country)
 {

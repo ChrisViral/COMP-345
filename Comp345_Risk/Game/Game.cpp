@@ -120,7 +120,7 @@ void Game::gameLoop() const
 		{
 			std::cout << "Player " << i + 1 << std::endl;
 			(*players)[i]->reinforce(true);
-			(*players)[i]->attack(true);
+			(*players)[i]->attack(Country(), Country(), true);
 			(*players)[i]->fortify(Country(), Country(), 0, true); //Dummy arguements for this part
 			std::cout << std::endl;
 		}
