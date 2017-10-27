@@ -5,6 +5,7 @@
 #include "../Player/Player.h"
 #include "../Player/DiceRoller.h"
 #include "../Player/Card/Hand.h"
+#include <iostream>
 
 ReinforceDriver::ReinforceDriver()
 {
@@ -30,12 +31,16 @@ void ReinforceDriver::run()
 	//Get a player
 	Player* p = players->at(0);
 
+	//Print initial player army info
+	p->printPlayerArmyInfo();
+	std::cout << std::endl;
+
 	//Test 1: basic reinforce
 	p->reinforce();
 
-	//Print map and player army info
-	map->printMapArmyInfo();
+	//Print player army info
 	p->printPlayerArmyInfo();
+	std::cout << std::endl;
 
 	//Test 2: reinforce with a whole continent being owned
 	Continent continent = map->getContinents().begin()->second;
@@ -46,9 +51,9 @@ void ReinforceDriver::run()
 
 	p->reinforce();
 
-	//Print map and player army info
-	map->printMapArmyInfo();
+	//Print player army info
 	p->printPlayerArmyInfo();
+	std::cout << std::endl;
 
 	//Test 3: exchange cards
 	p->getHand().addCard(Card(infantry));
@@ -57,9 +62,9 @@ void ReinforceDriver::run()
 
 	p->reinforce();
 
-	//Print map and player army info
-	map->printMapArmyInfo();
+	//Print player army info
 	p->printPlayerArmyInfo();
+	std::cout << std::endl;
 
 	//Clear memory
 	delete map;

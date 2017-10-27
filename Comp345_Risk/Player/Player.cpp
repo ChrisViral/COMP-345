@@ -886,7 +886,7 @@ void Player::addRandomArmy()
 	playersTerritories[rand() % playersTerritories.size()]->addArmies(1);
 }
 
-Hand Player::getHand() const
+Hand& Player::getHand()
 {
 	return playersCards;
 }
@@ -912,5 +912,4 @@ void Player::printPlayerArmyInfo()
 
 	//See total amount of armies owned by a player
 	cout << name << " has a total of " << armies << " placed on the board" << endl;
-	cout << "This means " << name << " has placed a total of " << (armies - playersTerritories.size()) << " armies on the board during the setup phase" << endl;
 }

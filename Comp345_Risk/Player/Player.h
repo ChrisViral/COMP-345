@@ -51,8 +51,8 @@ public:
 	int controlled() const;
 	void setGame(Game* currentGame);
 	void addRandomArmy();
-	Hand getHand() const;
 	DiceRoller getDiceRoller();
+	Hand& getHand();
 	void printPlayerArmyInfo();
 
 private:
