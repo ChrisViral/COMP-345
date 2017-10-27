@@ -209,7 +209,7 @@ void Player::addRandomArmy()
 	playersTerritories[rand() % playersTerritories.size()]->addArmies(1);
 }
 
-Hand Player::getHand() const
+Hand& Player::getHand()
 {
 	return playersCards;
 }

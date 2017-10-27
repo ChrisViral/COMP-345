@@ -50,7 +50,7 @@ public:
 	int controlled() const;
 	void setGame(Game* currentGame);
 	void addRandomArmy();
-	Hand getHand() const;
+	Hand& getHand();
 	void printPlayerArmyInfo();
 
 private:
