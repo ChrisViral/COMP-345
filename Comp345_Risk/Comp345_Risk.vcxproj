@@ -22,7 +22,7 @@
     <ProjectGuid>{2223E494-93A7-4A97-80E7-3E44308572D9}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Comp345_Risk</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -41,7 +41,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Drivers\AttackDriver.h" />
     <ClInclude Include="Base\RiskObject.h" />
     <ClInclude Include="Base\Utils.h" />
     <ClInclude Include="Base\Driver.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Drivers\AttackDriver.cpp" />
     <ClCompile Include="Base\RiskObject.cpp" />
     <ClCompile Include="Base\Driver.cpp" />
     <ClCompile Include="Drivers\FortificationDriver.cpp" />

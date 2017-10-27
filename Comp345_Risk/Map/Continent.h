@@ -16,6 +16,7 @@
 #include "RiskMap.h"
 
 class Country;
+class Player;
 struct Node;
 
 class Continent : public RiskObject
