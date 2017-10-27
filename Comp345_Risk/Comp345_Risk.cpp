@@ -45,7 +45,7 @@ int main()
 	const string endll = "\n\n";
 
 	//Run drivers individually
-	Driver* d = &game;
+	Driver* d = &attack;
 	cout << d->getOpeningMessage() << endll;
 	d->run();
 	cout << std::endl << d->getClosingMessage() << endll;

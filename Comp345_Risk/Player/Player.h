@@ -61,7 +61,8 @@ private:
 	vector<Country> playersTerritories;
 	Hand playersCards;
 	Game* game;
-
+	bool hasAdjUnOwnedCountry(const Country& source);
+	vector<Country> Player::getAdjUnOwnedCountryList(const Country& source);
 	bool ownsCountry(const Country& country) const;
 	Country chooseSourceCountry();
 	Country chooseTargetCountry(Country source);
