@@ -1,36 +1,72 @@
-// COMP-345
-// Assignment #1
-// Christophe Savard
-// David Di Feo
-// Paul Weber
-// Steven Tucci
-// Adriano Monteclavo
+// ==============================
+//           COMP-345 D
+//          Assignment 2
+//  ----------------------------
+//  Christophe Savard,  40017812
+//  David Di Feo,       27539800
+//  Paul Weber,         27057938
+//  Steven Tucci,       40006014
+//  Adriano Monteclavo, 40009257
+// ==============================
+
+#include "Base/Driver.h";
 
 #include <cstdio>
 #include <iostream>
 #include <vector>
-#include "Base/Driver.h";
+#include "Drivers/GameStartDriver.h"
+#include "Drivers/GameDriver.h"
+#include "Drivers/MainGameLoopDriver.h"
+#include "Drivers/ReinforceDriver.h"
+#include "Drivers/AttackDriver.h"
+#include "Drivers/FortificationDriver.h"
+
+using std::cout;
+using std::vector;
 
 //Comp345_Risk.cpp : Defines the entry point for the console application.
 int main()
 {
-	std::vector<Driver*> drivers(6);
+	vector<Driver*> drivers;
 
-	const std::string endll = "\n\n";
+	GameStartDriver start;
+	GameDriver game;
+	MainGameLoopDriver loop;
+	ReinforceDriver reinforce;
+	AttackDriver attack;
+	FortificationDriver fortify;
 
+	drivers.push_back(&start);
+	drivers.push_back(&game);
+	drivers.push_back(&loop);
+	drivers.push_back(&reinforce);
+	drivers.push_back(&attack);
+	drivers.push_back(&fortify);
+
+	const string endll = "\n\n";
+
+	//Run drivers individually
+
+	Driver* d = &attack;
+	cout << d->getOpeningMessage() << endll;
+	d->run();
+	cout << std::endl << d->getClosingMessage() << endll;
+
+	/*
 	//Batch run, run all drivers
-	std::cout << "Beginning driver tests" << endll;
+	cout << "Beginning driver tests" << endll;
 	for (Driver* d : drivers)
 	{
-		std::cout << "=====================================================================" << endll;
-		std::cout << d->getOpeningMessage() << endll;
+		cout << "=====================================================================" << endll;
+		cout << d->getOpeningMessage() << endll;
 		d->run();
-		std::cout << std::endl << d->getClosingMessage() << endll;
+		cout << std::endl << d->getClosingMessage() << endll;
 	}
-	std::cout << "=====================================================================" << endll;
-	std::cout << "Ended driver tests" << endll;
+	cout << "=====================================================================" << endll;
+	cout << "Ended driver tests" << endll;
+	*/
 
-	std::cout << "Press any key to exit...";
+	cout << "Press any key to exit...";
 	getchar();
 
 	return 0;

@@ -1,12 +1,16 @@
-// COMP-345
-// Assignment #1
-// Christophe Savard
-// David Di Feo
-// Paul Weber
-// Steven Tucci
-// Adriano Monteclavo
+// ==============================
+//           COMP-345 D
+//          Assignment 2
+//  ----------------------------
+//  Christophe Savard,  40017812
+//  David Di Feo,       27539800
+//  Paul Weber,         27057938
+//  Steven Tucci,       40006014
+//  Adriano Monteclavo, 40009257
+// ==============================
 
 #include "Continent.h"
+#include "../Player/Player.h"
 #include <iostream>
 
 Continent::Continent(std::string continentName, int controlVal)
@@ -43,9 +47,27 @@ void Continent::traverseCountries()
 
 		for (int j = 0; j < countries[i]->adjList.size(); j++)
 		{
-			std::cout << "\t" << countries[i]->adjList[j].country.getName() << std::endl;
+			std::cout << "\t" << countries[i]->adjList[j].country->getName() << std::endl;
 		}
 
 		std::cout << std::endl;
 	}
+}
+
+
+bool Continent::ownedBy(const Player* player)
+{
+	for (Node* n : countries)
+	{
+		if (n->country->getOwner()->getName() != player->getName())
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+std::vector<Node*> Continent::getCountries() const
+{
+	return countries;
 }

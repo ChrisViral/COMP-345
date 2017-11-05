@@ -228,13 +228,16 @@
 	<s:String x:Key="/Default/CodeStyle/CSharpVarKeywordUsage/ForBuiltInTypes/@EntryValue">UseExplicitType</s:String>
 	<s:String x:Key="/Default/CodeStyle/CSharpVarKeywordUsage/ForOtherTypes/@EntryValue">UseExplicitType</s:String>
 	<s:String x:Key="/Default/CodeStyle/CSharpVarKeywordUsage/ForSimpleTypes/@EntryValue">UseExplicitType</s:String>
-	<s:String x:Key="/Default/CodeStyle/FileHeader/FileHeaderText/@EntryValue">COMP-345&#xD;
-Assignment #1&#xD;
-Christophe Savard&#xD;
-David Di Feo&#xD;
-Paul Weber&#xD;
-Steven Tucci&#xD;
-Adriano Monteclavo</s:String>
+	<s:String x:Key="/Default/CodeStyle/FileHeader/FileHeaderText/@EntryValue">==============================&#xD;
+          COMP-345 D&#xD;
+         Assignment 2&#xD;
+ ----------------------------&#xD;
+ Christophe Savard,  40017812&#xD;
+ David Di Feo,       27539800&#xD;
+ Paul Weber,         27057938&#xD;
+ Steven Tucci,       40006014&#xD;
+ Adriano Monteclavo, 40009257&#xD;
+==============================</s:String>
 	<s:Boolean x:Key="/Default/CodeStyle/Generate/=EqualityMembers/@KeyIndexDefined">True</s:Boolean>
 	<s:String x:Key="/Default/CodeStyle/Generate/=EqualityMembers/Options/=ChangeEquals/@EntryIndexedValue">Skip</s:String>
 	<s:String x:Key="/Default/CodeStyle/Generate/=EqualityMembers/Options/=ChangeGetHashCode/@EntryIndexedValue">Skip</s:String>

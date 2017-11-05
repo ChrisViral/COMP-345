@@ -10,16 +10,27 @@
 // ==============================
 
 #pragma once
-#include "../Base/RiskObject.h"
 
-class Dice : public RiskObject
+#include "../Base/RiskObject.h"
+#include "../Map/RiskMap.h"
+
+using std::vector;
+
+class Game : public RiskObject
 {
 public:
-	Dice();
-	~Dice();
-	int roll();
-	int getLastRoll() const;
+
+	Game();
+	Game(vector<Player*>* players, RiskMap* map);
+	~Game();
+	void gameLoop() const;
+	void setup();
+	RiskMap* getMap() const;
 
 private:
-	int lastRoll;
+	std::pair<bool, Player*> checkWin() const;
+	bool owned;
+	int numPlayers;
+	vector<Player*>* players;
+	RiskMap* map;
 };
