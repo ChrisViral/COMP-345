@@ -28,7 +28,7 @@ public:
 	RiskMap* getMap() const;
 
 private:
-	bool checkWin() const;
+	std::pair<bool, Player*> checkWin() const;
 	bool owned;
 	int numPlayers;
 	vector<Player*>* players;

@@ -57,7 +57,7 @@ bool RiskMap::addEdge(std::string targetCountry, Country& newCountry)
 		if (map[i].country->getName() == targetCountry)
 		{
 			Edge e;
-			e.country = newCountry;
+			e.country = &newCountry;
 			map[i].adjList.push_back(e);
 			return true;
 		}
@@ -65,11 +65,11 @@ bool RiskMap::addEdge(std::string targetCountry, Country& newCountry)
 	return false;
 }
 
-std::pair<Country, bool> RiskMap::addCountry(std::string countryName, std::string continentName)
+std::pair<Country*, bool> RiskMap::addCountry(std::string countryName, std::string continentName)
 {
 	//inserts into the aux storage
-	Country c(countryName, getContinent(continentName));
-	std::pair<std::string, Country> pair(countryName, c);
+	Country* c = new Country(countryName, getContinent(continentName));
+	std::pair<std::string, Country*> pair(countryName, c);
 	if (!auxStorage.insert(pair).second)
 	{
 		return std::make_pair(c, false);
@@ -78,17 +78,17 @@ std::pair<Country, bool> RiskMap::addCountry(std::string countryName, std::strin
 	//Push node into map
 	//Chris: why not just use c above?
 	Node n;
-	n.country = &getCountry(countryName);
+	n.country = getCountry(countryName);
 	map.push_back(n);
 
 	return std::make_pair(c, true);
 }
 
-std::pair<Country, bool> RiskMap::addCountry(std::string countryName, std::string continentName, int x, int y)
+std::pair<Country*, bool> RiskMap::addCountry(std::string countryName, std::string continentName, int x, int y)
 {
 	//inserts into the aux storage
-	Country c(countryName, getContinent(continentName), x, y);
-	std::pair<std::string, Country> pair(countryName, c);
+	Country* c = new Country(countryName, getContinent(continentName), x, y);
+	std::pair<std::string, Country*> pair(countryName, c);
 	if (!auxStorage.insert(pair).second)
 	{
 		return std::make_pair(c, false);
@@ -96,7 +96,7 @@ std::pair<Country, bool> RiskMap::addCountry(std::string countryName, std::strin
 
 	//Push node into map
 	Node n;
-	n.country = &getCountry(countryName);
+	n.country = getCountry(countryName);
 	map.push_back(n);
 
 	return std::make_pair(c, true);
@@ -116,9 +116,9 @@ Continent& RiskMap::getContinent(std::string continentName)
 	return found->second;
 }
 
-Country& RiskMap::getCountry(std::string countrytName)
+Country* RiskMap::getCountry(std::string countrytName)
 {
-	std::unordered_map<std::string, Country>::iterator found = auxStorage.find(countrytName);
+	std::unordered_map<std::string, Country*>::iterator found = auxStorage.find(countrytName);
 
 	return found->second;
 }
@@ -136,7 +136,7 @@ void RiskMap::traverseMap()
 
 		for (int j = 0; j < map[i].adjList.size(); j++)
 		{
-			std::cout << "\t" << map[i].adjList[j].country.getName() << " (" << map[i].adjList[j].country.getContinent()->getName() << ")" << std::endl;
+			std::cout << "\t" << map[i].adjList[j].country->getName() << " (" << map[i].adjList[j].country->getContinent()->getName() << ")" << std::endl;
 		}
 
 		std::cout << std::endl;
@@ -153,7 +153,7 @@ bool RiskMap::isReachable(Country& source, Country& destination)
 	std::unordered_map<std::string, bool> visited;
 
 	//initialize them all to false
-	std::unordered_map<std::string, Country>::iterator beg = auxStorage.begin();
+	std::unordered_map<std::string, Country*>::iterator beg = auxStorage.begin();
 	for (beg; beg != auxStorage.end(); ++beg)
 	{
 		std::pair<std::string, bool> pair(beg->first, false);
@@ -176,13 +176,13 @@ bool RiskMap::isReachable(Country& source, Country& destination)
 		{
 			// If this adjacent node is the destination node, then 
 			// return true
-			if (i->country.getName() == destination.getName())
+			if (i->country->getName() == destination.getName())
 				return true;
 
-			if (!visited[i->country.getName()])
+			if (!visited[i->country->getName()])
 			{
-				visited[i->country.getName()] = true;
-				queue.push_back(i->country.getName());
+				visited[i->country->getName()] = true;
+				queue.push_back(i->country->getName());
 			}
 		}
 	}
@@ -218,16 +218,16 @@ bool RiskMap::isReachable(Player* p, Country& source, Country& destination) {
 		for (i; i != getNodeFromMap(name).adjList.end(); ++i) {
 			// If this adjacent node is the destination node, then 
 			// return true
-			if (i->country.getName() == destination.getName()) {
+			if (i->country->getName() == destination.getName()) {
 				return true;
 			}
 
 
-			if (getNodeFromMap(i->country.getName()).country->getOwner() != p)
-				visited[i->country.getName()] = true;
-			else if (!visited[i->country.getName()]) {
-				visited[i->country.getName()] = true;
-				queue.push_back(i->country.getName());
+			if (getNodeFromMap(i->country->getName()).country->getOwner() != p)
+				visited[i->country->getName()] = true;
+			else if (!visited[i->country->getName()]) {
+				visited[i->country->getName()] = true;
+				queue.push_back(i->country->getName());
 			}
 		}
 	}

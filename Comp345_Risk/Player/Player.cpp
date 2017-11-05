@@ -112,9 +112,9 @@ void Player::attack()
 	//Loops the attack phase until the user tells the program to stop.
 	while (true) 
 	{
-		Country source = chooseSourceCountry();
-		Country target = chooseTargetCountry(source);
-		attack(source, target, false);
+		Country* source = chooseSourceCountry();
+		Country* target = chooseTargetCountry(*source);
+		attack(*source, *target, false);
 
 		//prompts user if they would like to attack again.
 		std::cout << std::endl << "Would you like to attack another country? (Y/N): ";
@@ -186,7 +186,7 @@ void Player::attack(Country&source, Country& target, bool skip)
 			skip = true;
 		}
 		if (!skip) {
-			std::cout << "ATTACKING with" << a << " Dice..." << std::endl;
+			std::cout << "ATTACKING with " << a << " Dice..." << std::endl;
 			int attackRoll = diceRoller.roll(a);
 
 
@@ -782,14 +782,14 @@ bool Player::ownsCountry(const Country& country) const
 
 
 
-Country Player::chooseSourceCountry()
+Country* Player::chooseSourceCountry()
 {
 	std::cout << "Countries you can attack from:" << std::endl;
-	vector<Country> validCountries;
-	for (const Country*  country : this->getCountries())
+	vector<Country*> validCountries;
+	for (Country*  country : this->getCountries())
 	{
 		if ((country->getArmies() > 1) && (this -> hasAdjUnOwnedCountry(*country))) {
-			validCountries.push_back(*country);
+			validCountries.push_back(country);
 			std::cout << "\tName: " << country->getName() << "\tArmies: " << country->getArmies() << endl;
 		}
 	}
@@ -801,9 +801,9 @@ Country Player::chooseSourceCountry()
 
 		std::getline(std::cin, inputCountryName);
 		inputCountryName = stringToLower(inputCountryName);
-		for (const Country& country : validCountries)
+		for (Country* country : validCountries)
 		{
-			if(stringToLower(country.getName()) == inputCountryName)
+			if(stringToLower(country->getName()) == inputCountryName)
 				return country;
 			}
 			
@@ -811,26 +811,26 @@ Country Player::chooseSourceCountry()
 		std::cout << "Invalid Country Name, Please Try Again." << std::endl;
 	}
 
-Country Player::chooseTargetCountry(const Country& source) {
+Country* Player::chooseTargetCountry(Country& source) {
 	std::cout << "Countries you can attack:" << std::endl;
-	vector<Country> adj = getAdjUnOwnedCountryList(source);
-	for (Country& country : adj)
+	vector<Country*> adj = getAdjUnOwnedCountryList(source);
+	for (Country* country : adj)
 	{
-		if (country.getArmies() > 0) {
-			std::cout << "\tName: " << country.getName() << "\tArmies: " << country.getArmies() << endl;
+		if (country->getArmies() > 0) {
+			std::cout << "\tName: " << country->getName() << "\tArmies: " << country->getArmies() << endl;
 		}
 	}
 	string inputCountryName;
-	std::cout << "Which Country would you like to attack from: ";
+	std::cout << "Which Country would you like to attack: ";
 	while (true)
 	{
 		
 		
 		std::getline(std::cin, inputCountryName);
 		inputCountryName = stringToLower(inputCountryName);
-		for (const Country& country : adj)
+		for (Country* country : adj)
 		{
-			if (stringToLower(country.getName()) == inputCountryName)
+			if (stringToLower(country->getName()) == inputCountryName)
 			{
 				return country;
 			}
@@ -846,23 +846,23 @@ bool Player::hasAdjUnOwnedCountry(const Country& source)
 	vector<Edge> adj = node.adjList;
 	for (Edge& e : adj)
 	{
-		if(!this->ownsCountry(e.country))
+		if(!this->ownsCountry(*e.country))
 		{
 			return true;
 		}
 	}
 	return false;
 }
-vector<Country> Player::getAdjUnOwnedCountryList(const Country& source)
+vector<Country*> Player::getAdjUnOwnedCountryList(const Country& source)
 {
-	vector<Country> adjCountries;
+	vector<Country*> adjCountries;
 	Node& node = game->getMap()->getNodeFromMap(source.getName());
 	vector<Edge> adj = node.adjList;
 	for (Edge& e : adj)
 	{
-		Country& c = game->getMap()->getCountry(e.country.getName());
+		Country* c = game->getMap()->getCountry(e.country->getName());
 		
-		if (!this->ownsCountry(c))
+		if (!this->ownsCountry(*c))
 		{
 			adjCountries.push_back(c);
 		}

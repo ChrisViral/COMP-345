@@ -47,7 +47,7 @@ void Continent::traverseCountries()
 
 		for (int j = 0; j < countries[i]->adjList.size(); j++)
 		{
-			std::cout << "\t" << countries[i]->adjList[j].country.getName() << std::endl;
+			std::cout << "\t" << countries[i]->adjList[j].country->getName() << std::endl;
 		}
 
 		std::cout << std::endl;

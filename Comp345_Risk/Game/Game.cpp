@@ -17,6 +17,7 @@
 #include <ctime>
 #include <algorithm>
 #include <iostream>
+#include <utility>
 
 void transferCountries(Player* player, RiskMap* map);
 
@@ -118,7 +119,8 @@ RiskMap* Game::getMap() const
 void Game::gameLoop() const
 {
 	int counter = 1;
-	while (!checkWin())
+	std::pair<bool, Player*> pair = checkWin();
+	while (pair.first == false)
 	{
 		for (int i = 0; i < players->size(); i++)
 		{
@@ -134,21 +136,26 @@ void Game::gameLoop() const
 			transferCountries(players->at(0), map);
 		}
 
+		pair = checkWin();
 		counter++;
 	}
 
-	std::cout << "Player 1 won" << std::endl;
+	std::cout << pair.second->getName() << " won" << std::endl;
 }
 
-bool Game::checkWin() const
-{
+std::pair<bool,Player*> Game::checkWin() const
+{	
 	for (int i = 0; i < players->size(); i++)
 	{
 		if (players->at(i)->getCountries().size() == map->size())
-			return true;
+		{
+			
+			return std::pair<bool, Player*>(true, players->at(i));
+		}
+			
 	}
 
-	return false;
+	return std::pair<bool, Player*>(false, NULL);
 }
 
 //Free function to transfer countries to a player

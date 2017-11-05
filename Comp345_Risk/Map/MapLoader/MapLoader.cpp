@@ -200,7 +200,7 @@ bool MapLoader::parseContinentBlock(std::ifstream& stream)
 */
 bool MapLoader::parseCountryBlock(std::ifstream& stream)
 {
-	vector<std::pair<string, Country>> edges;
+	vector<std::pair<string, Country*>> edges;
 	while (getline(stream, current))
 	{
 		if (current.size() == 0) { continue; }
@@ -213,7 +213,7 @@ bool MapLoader::parseCountryBlock(std::ifstream& stream)
 			return false;
 		}
 
-		std::pair<Country, bool> p = riskMap->addCountry(splits[0], splits[3], stoi(splits[1]), stoi(splits[2]));
+		std::pair<Country*, bool> p = riskMap->addCountry(splits[0], splits[3], stoi(splits[1]), stoi(splits[2]));
 		if (!p.second)
 		{
 			error = "Dupplicate Country " + splits[0] + " detected @" + std::to_string(line);
@@ -227,11 +227,11 @@ bool MapLoader::parseCountryBlock(std::ifstream& stream)
 	}
 
 	//Setup edges and continents
-	for (std::pair<string, Country> p : edges)
+	for (std::pair<string, Country*> p : edges)
 	{
-		if (!riskMap->addEdge(p.first, p.second))
+		if (!riskMap->addEdge(p.first, *p.second))
 		{
-			error = "Could not find the adjacent Country " + p.first + " to connect to " + p.second.getName();
+			error = "Could not find the adjacent Country " + p.first + " to connect to " + p.second->getName();
 			return false;
 		}
 	}
