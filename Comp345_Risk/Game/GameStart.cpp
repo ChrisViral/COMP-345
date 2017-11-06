@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "../Map/MapLoader/MapLoader.h"
+#include "../Player/Human.h"
 
 
 GameStart::GameStart(): deck(0)  //create a deck of size 0, it will get created with the proper size after the map is selected
@@ -59,7 +60,7 @@ void GameStart::createPlayers()
 	players = new vector<Player*>();
 	for (int i = 0; i < numOfPlayers; i++)
 	{
-		players->push_back(new Player("Player " + (i + 1), DiceRoller(), vector<Country*>(), Hand()));
+		players->push_back(new Player("Player " + (i + 1), DiceRoller(), vector<Country*>(), Hand(), new Human()));
 	}
 }
 
