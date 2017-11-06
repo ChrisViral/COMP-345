@@ -667,6 +667,8 @@ void Human::attack(Player* player, Country&source, Country& target, bool skip)
 	//if the target country has been won, take ownership.
 	if (target.getArmies()<=0)
 	{
+		source.getOwner()->addCountry(&target);
+		target.getOwner()->removeCountry(&target);
 		target.setOwner(player);
 		std::cout << target.getName() << " has been conquered!" << std::endl
 			<< "How many armies would you like to move to " << target.getName() << ": ";

@@ -148,3 +148,15 @@ void Player::executeFortify(Country& source, Country& target, int amount, bool s
 {
 	typeOfPlayer->fortify(this, source, target, amount, skip);
 }
+
+void Player::removeCountry(Country* country)
+{
+	for (int i = 0; i < playersTerritories.size(); i++)
+	{
+		if (country->getName() == playersTerritories[i]->getName())
+		{
+			playersTerritories.erase(playersTerritories.begin() + i);
+			return;
+		}
+	}
+}

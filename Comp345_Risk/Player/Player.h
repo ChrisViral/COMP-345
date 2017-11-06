@@ -33,6 +33,7 @@ public:
 	const vector<Country*>& getCountries() const;
 
 	void addCountry(Country* country);
+	void removeCountry(Country* country);
 
 	std::string getName() const;
 	int controlled() const;
