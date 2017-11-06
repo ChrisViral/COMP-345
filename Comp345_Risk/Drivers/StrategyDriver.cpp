@@ -1,4 +1,4 @@
-#include "GameDriver.h"
+#include "StrategyDriver.h"
 #include "../Map/RiskMap.h"
 #include "../Map/MapLoader/MapLoader.h"
 #include "../Game/Game.h"
@@ -6,6 +6,9 @@
 #include "../Player/Card/Hand.h"
 #include "../Player/Player.h"
 #include <iostream>
+#include "../Player/Human.h"
+#include "../Player/PassiveAI.h"
+#include "../Player/AggressiveAI.h"
 
 using std::vector;
 using std::cout;
@@ -28,24 +31,18 @@ void GameDriver::run()
 
 	//Create four players at random
 	vector<Player*>* players = new vector<Player*>;
-	players->push_back(new Player("Player 1", DiceRoller(), vector<Country*>(), Hand()));
-	players->push_back(new Player("Player 2", DiceRoller(), vector<Country*>(), Hand()));
-	players->push_back(new Player("Player 3", DiceRoller(), vector<Country*>(), Hand()));
-	players->push_back(new Player("Player 4", DiceRoller(), vector<Country*>(), Hand()));
+	players->push_back(new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), new Human()));
+	players->push_back(new Player("Player 2", DiceRoller(), vector<Country*>(), Hand(), new Human()));
+	players->push_back(new Player("Player 3", DiceRoller(), vector<Country*>(), Hand(), new Human()));
+	players->push_back(new Player("Player 4", DiceRoller(), vector<Country*>(), Hand(), new Human()));
 
 	//Load a game with the above info and run the setup
 	Game game(players, map);
 	//We want to know how this affected the players and map
 	game.setup();
 
-	//Look at all the countries
-	map->printMapArmyInfo();
 
-	//Look at all the players
-	for (int i = 0; i < 4; i++)
-	{
-		players->at(i)->printPlayerArmyInfo();
-	}
+	players->at(0)->executeAttack();
 
 	//Clear memory
 	delete map;

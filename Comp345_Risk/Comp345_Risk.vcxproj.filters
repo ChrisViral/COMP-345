@@ -32,34 +32,25 @@
     <ClCompile Include="Player\DiceRoller.cpp">
       <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="Player\Player.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
     <ClCompile Include="Base\Driver.cpp">
       <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Drivers\GameStartDriver.cpp">
-      <Filter>Drivers</Filter>
     </ClCompile>
     <ClCompile Include="Game\Game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Drivers\MainGameLoopDriver.cpp">
-      <Filter>Drivers</Filter>
-    </ClCompile>
-    <ClCompile Include="Drivers\FortificationDriver.cpp">
-      <Filter>Drivers</Filter>
-    </ClCompile>
     <ClCompile Include="Game\GameStart.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Drivers\GameDriver.cpp">
+    <ClCompile Include="Player\Human.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\Player.cpp" />
+    <ClCompile Include="Player\AggressiveAI.cpp" />
+    <ClCompile Include="Player\PassiveAI.cpp" />
+    <ClCompile Include="Player\TypeOfPlayer.cpp" />
+    <ClCompile Include="Drivers\StrategyDriver.cpp">
       <Filter>Drivers</Filter>
     </ClCompile>
-    <ClCompile Include="Drivers\ReinforceDriver.cpp">
-      <Filter>Drivers</Filter>
-    </ClCompile>
-    <ClCompile Include="Drivers\AttackDriver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -97,34 +88,23 @@
     <ClInclude Include="Player\DiceRoller.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="Player\Player.h">
-      <Filter>Player</Filter>
-    </ClInclude>
     <ClInclude Include="Base\Driver.h">
       <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Drivers\GameStartDriver.h">
-      <Filter>Drivers</Filter>
     </ClInclude>
     <ClInclude Include="Game\Game.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Drivers\MainGameLoopDriver.h">
-      <Filter>Drivers</Filter>
-    </ClInclude>
-    <ClInclude Include="Drivers\FortificationDriver.h">
-      <Filter>Drivers</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameStart.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Drivers\GameDriver.h">
-      <Filter>Drivers</Filter>
+    <ClInclude Include="Player\Human.h">
+      <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="Drivers\ReinforceDriver.h">
-      <Filter>Drivers</Filter>
-    </ClInclude>
-    <ClInclude Include="Drivers\AttackDriver.h" />
+    <ClInclude Include="Player\Player.h" />
+    <ClInclude Include="Player\TypeOfPlayer.h" />
+    <ClInclude Include="Player\AggressiveAI.h" />
+    <ClInclude Include="Player\PassiveAI.h" />
+    <ClInclude Include="Drivers\StrategyDriver.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Base">

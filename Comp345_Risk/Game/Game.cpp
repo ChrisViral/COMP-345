@@ -32,9 +32,9 @@ Game::Game() : owned(true), numPlayers(0)
 
 	players = new vector<Player*>();
 
-	players->push_back(new Player("Player 1", DiceRoller(), vector<Country*>(), Hand()));
-	players->push_back(new Player("Player 2", DiceRoller(), vector<Country*>(), Hand()));
-	players->push_back(new Player("Player 3", DiceRoller(), vector<Country*>(), Hand()));
+	//players->push_back(new Player("Player 1", DiceRoller(), vector<Country*>(), Hand()));
+	//players->push_back(new Player("Player 2", DiceRoller(), vector<Country*>(), Hand()));
+	//players->push_back(new Player("Player 3", DiceRoller(), vector<Country*>(), Hand()));
 }
 
 Game::Game(vector<Player*>* players, RiskMap* map) : owned(false), numPlayers(players->size()), players(players), map(map)
@@ -125,9 +125,7 @@ void Game::gameLoop() const
 		for (int i = 0; i < players->size(); i++)
 		{
 			std::cout << "Player " << i + 1 << std::endl;
-			(*players)[i]->reinforce(true);
-			(*players)[i]->attack(Country(), Country(), true);
-			(*players)[i]->fortify(Country(), Country(), 0, true); //Dummy arguements for this part
+			(*players)[i]->executeStrategy();
 			std::cout << std::endl;
 		}
 
