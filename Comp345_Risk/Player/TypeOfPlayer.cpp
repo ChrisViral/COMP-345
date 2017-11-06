@@ -7,7 +7,7 @@ void TypeOfPlayer::reinforce(Player* player, bool skip)
 	std::cout << "This kind of player doesn't have a reinforce method yet" << std::endl;
 }
 
-void TypeOfPlayer::attack(Player* player)
+void TypeOfPlayer::attack(Player* player, bool skip)
 {
 	std::cout << "This kind of player doesn't have a attack method yet" << std::endl;
 }

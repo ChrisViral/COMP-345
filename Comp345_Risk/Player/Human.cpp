@@ -89,8 +89,15 @@ void Human::reinforce(Player* player, bool skip)
 
 }
 
-void Human::attack(Player* player)
+void Human::attack(Player* player, bool skip)
 {
+	//Temporary override for GameLoop purpose. Just for testing
+	if (skip)
+	{
+		cout << "\nAttack Method" << endl;
+		return;
+	}
+
 	//Loops the attack phase until the user tells the program to stop.
 	while (true) 
 	{
@@ -120,12 +127,6 @@ void Human::attack(Player* player)
 
 void Human::attack(Player* player, Country&source, Country& target, bool skip)
 {
-	if (skip)
-	{
-		cout << "\nAttack Method" << endl;
-		return;
-	}
-
 	while (source.getArmies()>1 && target.getArmies() > 0 && !skip)
 	{
 		int a;

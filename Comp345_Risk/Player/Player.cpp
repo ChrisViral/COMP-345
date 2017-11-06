@@ -134,9 +134,9 @@ void Player::executeStrategy()
 
 
 //These methods can be used for specific testing/demo purposes. But in reality executeStrategy should be used.
-void Player::executeAttack()
+void Player::executeAttack(bool skip)
 {
-	typeOfPlayer->attack(this);
+	typeOfPlayer->attack(this,skip);
 }
 
 void Player::executeReinforce(bool skip)

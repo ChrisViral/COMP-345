@@ -6,6 +6,7 @@
 class AggressiveAI: public RiskObject, public TypeOfPlayer
 {
 public:
+	~AggressiveAI();
 	virtual void playTurn(Player* player);
 
 	//This AI will reinforce its strongest country

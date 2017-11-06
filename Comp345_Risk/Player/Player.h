@@ -47,7 +47,7 @@ public:
 
 
 	//These methods can be used for specific testing/demo purposes. But in reality executeStrategy should be used.
-	void executeAttack();
+	void executeAttack(bool skip = false);
 	void executeReinforce(bool skip = false);
 	void executeFortify(Country& source, Country& target, int amount, bool skip = false);
 

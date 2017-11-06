@@ -29,12 +29,15 @@ void GameDriver::run()
 	MapLoader loader("mapfiles/World.map");
 	loader.tryParseMap(map);
 
+	Player* human = new Player("Player 3", DiceRoller(), vector<Country*>(), Hand(), new Human());	
+	Player* aggressiveAI = new Player("Player 3", DiceRoller(), vector<Country*>(), Hand(), new AggressiveAI());
+	Player* passiveAI = new Player("Player 3", DiceRoller(), vector<Country*>(), Hand(), new PassiveAI());
+
 	//Create four players at random
 	vector<Player*>* players = new vector<Player*>;
-	players->push_back(new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), new Human()));
-	players->push_back(new Player("Player 2", DiceRoller(), vector<Country*>(), Hand(), new Human()));
-	players->push_back(new Player("Player 3", DiceRoller(), vector<Country*>(), Hand(), new Human()));
-	players->push_back(new Player("Player 4", DiceRoller(), vector<Country*>(), Hand(), new Human()));
+	players->push_back(human);
+	players->push_back(aggressiveAI);
+	players->push_back(passiveAI);
 
 	//Load a game with the above info and run the setup
 	Game game(players, map);
@@ -42,7 +45,9 @@ void GameDriver::run()
 	game.setup();
 
 
-	players->at(0)->executeAttack();
+	//human->executeStrategy();
+	//aggressiveAI->executeStrategy();
+	//passiveAI->executeStrategy();
 
 	//Clear memory
 	delete map;
@@ -51,7 +56,6 @@ void GameDriver::run()
 	delete players->at(0);
 	delete players->at(1);
 	delete players->at(2);
-	delete players->at(3);
 	players->clear();
 
 	delete players;

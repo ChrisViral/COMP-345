@@ -1,6 +1,10 @@
 #include "AggressiveAI.h"
 #include <iostream>
 
+AggressiveAI::~AggressiveAI()
+{
+}
+
 void AggressiveAI::playTurn(Player * player)
 {
 	reinforce(player);

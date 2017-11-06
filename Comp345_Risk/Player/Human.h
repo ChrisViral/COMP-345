@@ -32,7 +32,7 @@ public:
 
 	//Method allows player to roll and take over countries adjacent to his own territories. Method ends when player 
 	//decided or when he know longer has a territory with more than one troop remaining positioned on it.
-	void attack(Player* player);
+	void attack(Player* player, bool skip = false);
 	void attack(Player* player, Country& source, Country& target, bool skip = false);
 
 	// If the amount given is larger or equal than the source country owns, then it will return false and no armies will be exchanged
