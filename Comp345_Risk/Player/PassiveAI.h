@@ -12,5 +12,5 @@ public:
 	void reinforce(Player* player, bool skip = false);
 
 	//This AI will fortify in order to move armies to weaker countries
-	bool fortify(Player* player, bool skip = false);
+	bool fortify(Player* player, Country& source, Country& target, int amount, bool skip = false);
 };

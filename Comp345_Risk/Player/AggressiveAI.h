@@ -2,6 +2,7 @@
 
 #include "../Base/RiskObject.h"
 #include "TypeOfPlayer.h"
+#include <vector>
 
 class AggressiveAI: public RiskObject, public TypeOfPlayer
 {
@@ -16,5 +17,12 @@ public:
 	void attack(Player* player, bool skip = false);
 
 	//This AI will fortify in order to maximize aggregation of forces in one country
-	bool fortify(Player* player, bool skip = false);
+	bool fortify(Player* player, Country& source, Country& target, int amount, bool skip = false);
+
+	Country* getStrongestCountry() { return strongestCountry; }
+
+private:
+	Country* strongestCountry;
+	std::vector<Country*> getAdjUnOwnedCountryList(Player* player, const Country& source);
+	bool ownsCountry(Player* player, const Country& country) const;
 };
