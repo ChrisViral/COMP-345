@@ -4,10 +4,6 @@
 #include "../Player/Player.h"
 #include <algorithm>
 
-int defend(Country* country);
-void handleBattle(Country* strongestCountry, Country* defendingCountry, int attackerRoll, int defenderRoll);
-Country* getFirstCountryWithExistingPath(Player* player, Country* strongestCountry);
-bool sortAlg(int i, int j) { return (i>j); }
 
 AggressiveAI::~AggressiveAI()
 {
@@ -18,7 +14,11 @@ void AggressiveAI::playTurn(Player * player)
 	reinforce(player);
 	attack(player);
 	Country* c = getFirstCountryWithExistingPath(player, strongestCountry);
-	fortify(player, *strongestCountry, *c, c->getArmies()-1);
+	if(c != NULL)
+		fortify(player, *strongestCountry, *c, c->getArmies()-1);
+	else
+		std::cout << "There is no path that exists with the strongest country to another country that has more than 1 army, so fortify cannot be done." << std::endl;
+
 }
 
 void AggressiveAI::reinforce(Player* player, bool skip)
@@ -137,6 +137,8 @@ void AggressiveAI::attack(Player* player, bool skip)
 			adjList.erase(adjList.begin());
 		}
 	}
+
+	std::cout << "\nNo more countries to attack" << std::endl;
 }
 
 bool AggressiveAI::fortify(Player* player, Country& source, Country& target, int amount, bool skip)
@@ -203,8 +205,9 @@ bool AggressiveAI::ownsCountry(Player* player, const Country& country) const
 
 }
 
+
 //Returns how many dice they should roll
-int defend(Country* country)
+int AggressiveAI::defend(Country* country)
 {
 	if (country->getArmies() >= 2)
 		return 2;
@@ -212,8 +215,10 @@ int defend(Country* country)
 		return 1;
 }
 
+bool sortAlg(int i, int j) { return (i>j); }
+
 //Handles the comparing and removing of armies
-void handleBattle(Country* strongestCountry, Country* defendingCountry, int attackerRoll, int defenderRoll)
+void AggressiveAI::handleBattle(Country* strongestCountry, Country* defendingCountry, int attackerRoll, int defenderRoll)
 {
 	int a1 = attackerRoll % 10; //takes last digit of attackRoll
 	int a2 = (attackerRoll % 100) / 10; //middle digit
@@ -249,11 +254,13 @@ void handleBattle(Country* strongestCountry, Country* defendingCountry, int atta
 	}
 }
 
-Country* getFirstCountryWithExistingPath(Player* player, Country* strongestCountry)
+//Looks for the first country that has a path from the strongest country and returns it so it can take its armies.
+Country* AggressiveAI::getFirstCountryWithExistingPath(Player* player, Country* strongestCountry)
 {
 	for (int i = 0; i < player->getCountries().size(); i++)
 	{
-		if (player->getCountries()[i]->getArmies() > 1 && player->getGame()->getMap()->isReachable(player, *strongestCountry, *player->getCountries()[i]))
+		if (player->getCountries()[i]->getArmies() > 1 && player->getGame()->getMap()->isReachable(player, *strongestCountry, *player->getCountries()[i])
+			&& strongestCountry->getName() != player->getCountries()[i]->getName())
 		{
 			return player->getCountries()[i];
 		}

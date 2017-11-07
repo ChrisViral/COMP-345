@@ -44,10 +44,17 @@ void GameDriver::run()
 	//We want to know how this affected the players and map
 	game.setup();
 
-
+	std::cout << "\nRunning Human strategy" << std::endl;
 	//human->executeStrategy();
+	std::cout << "\nEnding Human strategy" << std::endl;
+	
+	std::cout << "\nRunning Aggressive strategy" << std::endl;
 	aggressiveAI->executeStrategy();
-	//passiveAI->executeStrategy();
+	std::cout << "\nEnding Aggressive strategy" << std::endl;
+	
+	std::cout << "\nRunning Passive strategy" << std::endl;
+	passiveAI->executeStrategy();
+	std::cout << "\nEnding Passive strategy" << std::endl;
 
 	//Clear memory
 	delete map;

@@ -13,4 +13,9 @@ public:
 
 	//This AI will fortify in order to move armies to weaker countries
 	bool fortify(Player* player, Country& source, Country& target, int amount, bool skip = false);
+
+private:
+	Country* weakestCountry;
+	Country* getFirstCountryWithExistingPath(Player* player, Country* weakestCountry);
+
 };

@@ -25,4 +25,7 @@ private:
 	Country* strongestCountry;
 	std::vector<Country*> getAdjUnOwnedCountryList(Player* player, const Country& source);
 	bool ownsCountry(Player* player, const Country& country) const;
+	int defend(Country* country);
+	Country* getFirstCountryWithExistingPath(Player* player, Country* strongestCountry);
+	void handleBattle(Country* strongestCountry, Country* defendingCountry, int attackerRoll, int defenderRoll);
 };
