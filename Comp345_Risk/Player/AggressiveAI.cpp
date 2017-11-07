@@ -239,7 +239,7 @@ void AggressiveAI::handleBattle(Country* strongestCountry, Country* defendingCou
 	std::sort(attackerRollList.begin(), attackerRollList.end(), sortAlg);
 	std::sort(defenderRollList.begin(), defenderRollList.end(), sortAlg);
 
-	while (defenderRollList.size() != 0)
+	while (defenderRollList.size() != 0 && attackerRollList.size() != 0)
 	{
 		int attack = attackerRollList[0];
 		attackerRollList.erase(attackerRollList.begin());
