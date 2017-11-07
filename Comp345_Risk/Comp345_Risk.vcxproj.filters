@@ -51,6 +51,8 @@
     <ClCompile Include="Drivers\StrategyDriver.cpp">
       <Filter>Drivers</Filter>
     </ClCompile>
+    <ClCompile Include="Patterns\Observer\Observer.cpp" />
+    <ClCompile Include="Patterns\Observer\Subject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -105,6 +107,8 @@
     <ClInclude Include="Player\AggressiveAI.h" />
     <ClInclude Include="Player\PassiveAI.h" />
     <ClInclude Include="Drivers\StrategyDriver.h" />
+    <ClInclude Include="Patterns\Observer\Subject.h" />
+    <ClInclude Include="Patterns\Observer\Observer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Base">

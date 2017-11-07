@@ -15,5 +15,5 @@ class RiskObject
 {
 public:
 	RiskObject();
-	~RiskObject();
+	virtual ~RiskObject();
 };
