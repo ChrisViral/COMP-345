@@ -22,6 +22,7 @@ void PassiveAI::playTurn(Player * player)
 
 void PassiveAI::reinforce(Player* player, bool skip)
 {
+	TypeOfPlayer::reinforce(player, skip);
 	//Find the weakest country
 	weakestCountry = player->getCountries()[0];
 	for (int i = 1; i < player->getCountries().size(); i++)
@@ -71,6 +72,7 @@ void PassiveAI::reinforce(Player* player, bool skip)
 
 bool PassiveAI::fortify(Player* player, Country& source, Country& target, int amount, bool skip)
 {
+	TypeOfPlayer::fortify(player, source, target, amount, skip);
 	if (skip)
 	{
 		std::cout << "\nFortify Method" << std::endl;

@@ -1,19 +1,21 @@
 #include "TypeOfPlayer.h"
 #include "../Map/Country.h"
 #include <iostream>
+#include <functional>
 
 void TypeOfPlayer::reinforce(Player* player, bool skip)
 {
-	std::cout << "This kind of player doesn't have a reinforce method yet" << std::endl;
+	player->getGame()->setCurrentPlayerTurnAndPhase(player, GamePhase::reinforcePhase);
 }
 
 void TypeOfPlayer::attack(Player* player, bool skip)
 {
-	std::cout << "This kind of player doesn't have a attack method yet" << std::endl;
+	player->getGame()->setCurrentPlayerTurnAndPhase(player, GamePhase::attackPhase);
+	
 }
 
 bool TypeOfPlayer::fortify(Player* player, Country& source, Country& target, int amount, bool skip)
 {
-	std::cout << "This kind of player doesn't have a fortify method yet" << std::endl;
+	player->getGame()->setCurrentPlayerTurnAndPhase(player, GamePhase::fortifyPhase);
 	return false;
 }

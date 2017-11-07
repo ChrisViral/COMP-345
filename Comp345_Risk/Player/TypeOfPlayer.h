@@ -1,7 +1,7 @@
 #pragma once
 
-//#include "Player.h"
-class Player;
+#include "Player.h"
+//class Player;
 class Country;
 
 class TypeOfPlayer

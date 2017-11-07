@@ -23,6 +23,9 @@ void AggressiveAI::playTurn(Player * player)
 
 void AggressiveAI::reinforce(Player* player, bool skip)
 {	
+
+	TypeOfPlayer::reinforce(player, this);
+
 	//Temporary override for GameLoop purpose
 	if (skip)
 	{
@@ -78,6 +81,7 @@ void AggressiveAI::reinforce(Player* player, bool skip)
 
 void AggressiveAI::attack(Player* player, bool skip)
 {
+	TypeOfPlayer::attack(player, this);
 	vector<Country*> adjList = getAdjUnOwnedCountryList(player, *strongestCountry);
 	Country* defendingCountry = adjList[0];
 	adjList.erase(adjList.begin());
@@ -143,6 +147,7 @@ void AggressiveAI::attack(Player* player, bool skip)
 
 bool AggressiveAI::fortify(Player* player, Country& source, Country& target, int amount, bool skip)
 {
+	TypeOfPlayer::fortify(player, source, target, amount, skip);
 	if (skip)
 	{
 		std::cout << "\nFortify Method" << std::endl;

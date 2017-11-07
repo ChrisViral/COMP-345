@@ -44,6 +44,8 @@ void Human::playTurn(Player * player)
 
 void Human::reinforce(Player* player, bool skip)
 {
+
+	TypeOfPlayer::reinforce(player, skip);
 	//Temporary override for GameLoop purpose
 	if (skip)
 	{
@@ -91,6 +93,8 @@ void Human::reinforce(Player* player, bool skip)
 
 void Human::attack(Player* player, bool skip)
 {
+
+	TypeOfPlayer::attack(player, skip);
 	//Temporary override for GameLoop purpose. Just for testing
 	if (skip)
 	{
@@ -127,6 +131,8 @@ void Human::attack(Player* player, bool skip)
 
 void Human::attack(Player* player, Country&source, Country& target, bool skip)
 {
+
+	TypeOfPlayer::attack(player, skip);
 	while (source.getArmies()>1 && target.getArmies() > 0 && !skip)
 	{
 		int a;
@@ -687,6 +693,8 @@ void Human::attack(Player* player, Country&source, Country& target, bool skip)
 
 bool Human::fortify(Player* player, Country& source, Country& target, int amount, bool skip)
 {
+
+	TypeOfPlayer::fortify(player, source, target, amount, skip);
 	if (skip)
 	{
 		cout << "\nFortify Method" << endl;

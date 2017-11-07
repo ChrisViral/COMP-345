@@ -13,19 +13,28 @@
 
 #include "../Base/RiskObject.h"
 #include "../Map/RiskMap.h"
+#include "../Patterns/Observer/Subject.h"
 
 using std::vector;
 
-class Game : public RiskObject
+enum GamePhase {
+	attackPhase,
+	reinforcePhase,
+	fortifyPhase
+};
+
+class Game : public RiskObject, public Subject
 {
 public:
 
 	Game();
 	Game(vector<Player*>* players, RiskMap* map);
 	~Game();
-	void gameLoop() const;
+	void gameLoop();
 	void setup();
 	RiskMap* getMap() const;
+
+	void setCurrentPlayerTurnAndPhase(Player* player, GamePhase phase);
 
 private:
 	std::pair<bool, Player*> checkWin() const;
@@ -33,4 +42,8 @@ private:
 	int numPlayers;
 	vector<Player*>* players;
 	RiskMap* map;
+	// Who is currently playing
+	Player* currentPlayerTurn;
+	// The current phase that the current player is in
+	GamePhase currentPhase;
 };

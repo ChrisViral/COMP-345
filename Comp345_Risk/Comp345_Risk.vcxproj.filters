@@ -53,6 +53,9 @@
     </ClCompile>
     <ClCompile Include="Patterns\Observer\Observer.cpp" />
     <ClCompile Include="Patterns\Observer\Subject.cpp" />
+    <ClCompile Include="Game\UI\GameUI.cpp" />
+    <ClCompile Include="Drivers\PhaseObserverDriver.cpp" />
+    <ClCompile Include="Game\UI\TextBasedUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -109,6 +112,9 @@
     <ClInclude Include="Drivers\StrategyDriver.h" />
     <ClInclude Include="Patterns\Observer\Subject.h" />
     <ClInclude Include="Patterns\Observer\Observer.h" />
+    <ClInclude Include="Game\UI\GameUI.h" />
+    <ClInclude Include="Drivers\PhaseObserverDriver.h" />
+    <ClInclude Include="Game\UI\TextBasedUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Base">

@@ -116,7 +116,14 @@ RiskMap* Game::getMap() const
 	return map;
 }
 
-void Game::gameLoop() const
+void Game::setCurrentPlayerTurnAndPhase(Player* player, GamePhase phase) {
+	currentPlayerTurn = player;
+	currentPhase = phase;
+	// Notify that the player and phase has changed
+	notify();
+}
+
+void Game::gameLoop()
 {
 	int counter = 1;
 	std::pair<bool, Player*> pair = checkWin();
@@ -125,7 +132,14 @@ void Game::gameLoop() const
 		for (int i = 0; i < players->size(); i++)
 		{
 			std::cout << "Player " << i + 1 << std::endl;
+			// TODO(steven): do we need this here? the child players
+			// automatically call setCurrentPlayerAndPhase
+			// this is redunandant and something to think about
+			//currentPlayerTurn = players->at(i);
+
+
 			(*players)[i]->executeStrategy();
+			
 			std::cout << std::endl;
 		}
 
@@ -166,3 +180,4 @@ void transferCountries(Player* player, RiskMap* map)
 		player->addCountry((map->getCountry(i)));
 	}
 }
+
