@@ -35,9 +35,9 @@ Human::~Human()
 
 void Human::playTurn(Player * player)
 {
-	reinforce(player);
+	//reinforce(player);
 	attack(player);
-	//Might have to modify this function a bit to select the countries inside the function, instead of being passed in.
+	//TODO: Might have to modify this function a bit to select the countries inside the function, instead of being passed in.
 	//Or call a function before running fortify, that returns a source and target and then pass it in.
 	//fortify(player);
 }
@@ -45,15 +45,18 @@ void Human::playTurn(Player * player)
 void Human::reinforce(Player* player, bool skip)
 {
 
-	TypeOfPlayer::reinforce(player, skip);
+	
 	//Temporary override for GameLoop purpose
 	if (skip)
 	{
+		TypeOfPlayer::reinforce(player, skip);
 		return;
 	}
 
+	Game* game = player->getGame();
+
 	int total = std::max(3, int(player->getCountries().size() / 3));
-	cout << player->getName() << " owns " << player->getCountries().size() << " territories, therefore he can reinforce with " << total << " armies." << endl;
+	game->logAction(player->getName() + " owns " + std::to_string(player->getCountries().size()) + " territories, therefore he can reinforce with " + std::to_string(total) +" armies.");
 
 	std::unordered_map<string, Continent> continents = player->getGame()->getMap()->getContinents();
 	for (std::pair<string, Continent> p : continents)
@@ -61,7 +64,7 @@ void Human::reinforce(Player* player, bool skip)
 		Continent c = p.second;
 		if (c.ownedBy(player))
 		{
-			cout << player->getName() << " owns all of " << c.getName() << " therefore he gets an extra " << c.getControlValue() << " armies." << endl;
+			game->logAction(player->getName() + " owns all of " + c.getName() + " therefore he gets an extra " + std::to_string(c.getControlValue()) + " armies.");
 			total += p.second.getControlValue();
 		}
 	}
@@ -69,7 +72,8 @@ void Human::reinforce(Player* player, bool skip)
 	Exchangement exchange = player->getHand().exchange();
 	if (exchange.successfullyExchanged)
 	{
-		cout << player->getName() << " exchanged the following cards to get " << exchange.armies << " armies." << endl;
+		game->logAction(player->getName() + " exchanged the following cards to get " + std::to_string(exchange.armies) + " armies.");
+		
 		for (Card c : exchange.cardsExchanged)
 		{
 			cout << cardTypeEnumToString(c.getCardType()) << endl;
@@ -77,26 +81,29 @@ void Human::reinforce(Player* player, bool skip)
 		total += exchange.armies;
 	}
 
-	cout << player->getName() << " therefore has a final total of " << total << " armies to place" << endl;
+	game->logAction(player->getName() + " therefore has a final total of " + std::to_string(total) + " armies to place");
+	
 
 	for (int i = 0; i < total; i++)
 	{
 		Country* c = player->getCountries()[rand() % player->getCountries().size()];
 		c->addArmies(1);
-		cout << "Adding one army to " << c->getName() << endl;
+		game->logAction("Adding one army to " + c->getName());
 	}
 
-	cout << "All reinforcements distributed!" << endl << endl;
+	game->logAction("All reinforcements distributed!");
+	TypeOfPlayer::reinforce(player, skip);
 
 }
 
 void Human::attack(Player* player, bool skip)
 {
 
-	TypeOfPlayer::attack(player, skip);
+	
 	//Temporary override for GameLoop purpose. Just for testing
 	if (skip)
 	{
+		TypeOfPlayer::attack(player, skip);
 		return;
 	}
 
@@ -125,6 +132,7 @@ void Human::attack(Player* player, bool skip)
 			}
 		}
 	}
+	TypeOfPlayer::attack(player, skip);
 }
 
 void Human::attack(Player* player, Country&source, Country& target, bool skip)
@@ -708,21 +716,23 @@ bool Human::fortify(Player* player, Country& source, Country& target, int amount
 	
 	if (ownsCountry(player, source) && ownsCountry(player, target))
 	{
-		if (!player->getGame()->getMap()->isReachable(player, source, target)) {
-				return false;
+		if (!player->getGame()->getMap()->isReachable(player, source, target))
+		{
+			return false;
 		}
-
-
 		// We can't exchange negative/more armies then we have from the source country to the target country
 		// Also from the official rules, we must leave at least 1 army in the source country
 		// We can't pull out all of our armies
-		if (amount < 0 || amount > source.getArmies() - 1) {
+		if (amount < 0 || amount > source.getArmies() - 1)
+		{
 			return false;
 		}
 		source.removeArmies(amount);
 		target.addArmies(amount);
 		return true;
-	} else {
+	}
+	else
+	{
 		return false;
 	}
 }
@@ -772,22 +782,7 @@ bool Human::hasAdjUnOwnedCountry(Player* player, const Country& source)
 
 bool Human::ownsCountry(Player* player, const Country& country) const
 {
-
-	// TODO: figure out in the end if are keeping the getOwner() and a pointer to the owner in the player
 	return (player == country.getOwner());
-
-	// If we don't keep a pointer to the player owner, then use the bottom implementation
-
-	/*
-	for (const Country& c : playersTerritories)
-	{
-	if (c.getName() == country.getName())
-	{
-	return true;
-	}
-	}
-	return false;*/
-
 }
 
 Country* Human::chooseTargetCountry(Player* player, Country& source) {

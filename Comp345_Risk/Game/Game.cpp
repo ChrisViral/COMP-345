@@ -187,10 +187,10 @@ std::pair<bool,Player*> Game::checkWin() const
 	return std::pair<bool, Player*>(false, NULL);
 }
 
-//Free function to transfer countries to a currentPlayerTurn
+//Free function to transfer countries to a player
 void transferCountries(Player* player, RiskMap* map)
 {
-	std::cout << "Transfering Countries to currentPlayerTurn 1" << std::endl;
+	std::cout << "Transfering Countries to player 1" << std::endl;
 
 	for (int i = 0; i < map->size(); i++)
 	{

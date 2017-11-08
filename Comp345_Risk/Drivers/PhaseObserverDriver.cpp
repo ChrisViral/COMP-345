@@ -53,8 +53,8 @@ void PhaseObserverDriver::run()
 
 
 	
-	//game.gameLoop();
-	human->executeStrategy();
+	game.gameLoop();
+	//human->executeStrategy();
  	//aggressiveAI->executeStrategy();
 	//passiveAI->executeStrategy();
 	

@@ -29,7 +29,7 @@ public:
 	//All Player's assests are displayed
 	void displayInfo();
 
-	// Return the countries that this currentPlayerTurn owns
+	// Return the countries that this player owns
 	const vector<Country*>& getCountries() const;
 
 	void addCountry(Country* country);
