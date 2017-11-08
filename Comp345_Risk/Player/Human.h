@@ -30,7 +30,7 @@ public:
 	//and cards he has on hand on any of his territories to reinforce them before attacking.
 	void reinforce(Player* player, bool skip = false);
 
-	//Method allows player to roll and take over countries adjacent to his own territories. Method ends when player 
+	//Method allows currentPlayerTurn to roll and take over countries adjacent to his own territories. Method ends when currentPlayerTurn 
 	//decided or when he know longer has a territory with more than one troop remaining positioned on it.
 	void attack(Player* player, bool skip = false);
 	void attack(Player* player, Country& source, Country& target, bool skip = false);

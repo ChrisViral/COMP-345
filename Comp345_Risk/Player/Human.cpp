@@ -49,7 +49,6 @@ void Human::reinforce(Player* player, bool skip)
 	//Temporary override for GameLoop purpose
 	if (skip)
 	{
-		cout << "\nReinForce Method" << endl;
 		return;
 	}
 
@@ -98,7 +97,6 @@ void Human::attack(Player* player, bool skip)
 	//Temporary override for GameLoop purpose. Just for testing
 	if (skip)
 	{
-		cout << "\nAttack Method" << endl;
 		return;
 	}
 
@@ -697,7 +695,6 @@ bool Human::fortify(Player* player, Country& source, Country& target, int amount
 	TypeOfPlayer::fortify(player, source, target, amount, skip);
 	if (skip)
 	{
-		cout << "\nFortify Method" << endl;
 		return true;
 	}
 

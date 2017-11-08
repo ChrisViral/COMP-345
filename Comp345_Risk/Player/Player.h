@@ -29,7 +29,7 @@ public:
 	//All Player's assests are displayed
 	void displayInfo();
 
-	// Return the countries that this player owns
+	// Return the countries that this currentPlayerTurn owns
 	const vector<Country*>& getCountries() const;
 
 	void addCountry(Country* country);
@@ -40,7 +40,7 @@ public:
 	void setGame(Game* currentGame);
 	Game* getGame() { return game; }
 	void addRandomArmy();
-	DiceRoller getDiceRoller();
+	DiceRoller& getDiceRoller();
 	Hand& getHand();
 	void printPlayerArmyInfo();
 	void setStrategy(TypeOfPlayer* typePlayer);

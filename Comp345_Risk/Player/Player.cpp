@@ -98,7 +98,7 @@ Hand& Player::getHand()
 	return playersCards;
 }
 
-DiceRoller Player::getDiceRoller()
+DiceRoller& Player::getDiceRoller()
 {
 	return diceRoller;
 }
@@ -108,16 +108,16 @@ void Player::printPlayerArmyInfo()
 	//See how many countries they own
 	cout << name << " owns " << playersTerritories.size() << " countries" << endl;
 
-	//Count player's armies
+	//Count currentPlayerTurn's armies
 	int armies = 0;
 	for (Country* c : playersTerritories)
 	{
-		//See what country the player owns
+		//See what country the currentPlayerTurn owns
 		cout << name << " owns " << c->getName() << " and has " << c->getArmies() << " armies stationed there" << endl;
 		armies += c->getArmies();
 	}
 
-	//See total amount of armies owned by a player
+	//See total amount of armies owned by a currentPlayerTurn
 	cout << name << " has a total of " << armies << " placed on the board" << endl;
 }
 

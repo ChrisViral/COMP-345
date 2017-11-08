@@ -24,6 +24,7 @@ DiceRoller::DiceRoller()
 	num4 = 0;
 	num5 = 0;
 	num6 = 0;
+	cache = {};
 }
 
 
@@ -43,15 +44,16 @@ int DiceRoller::roll(int numberOfDice)
 	int rollA = 0;
 	int rollB = 0;
 	int rollC = 0;
+	
 
-
+	cache.numberOfDice = numberOfDice;
 	//switch case to determine how many times to roll the myDice object. If an invalid number of dice has been passed to the roll function, it will notify the user.
 	switch (numberOfDice)
 	{
 	case 1:
 		{
 			rollA = myDice.roll();
-			std::cout << rollA << std::endl;
+			cache.rollA = rollA;
 			totalRolls++;
 
 			break;
@@ -59,10 +61,10 @@ int DiceRoller::roll(int numberOfDice)
 	case 2:
 		{
 			rollA = myDice.roll();
-			std::cout << rollA << std::endl;
+			cache.rollA = rollA;
 			totalRolls++;
 			rollB = myDice.roll();
-			std::cout << rollB << std::endl;
+			cache.rollB = rollB;
 			totalRolls++;
 
 			break;
@@ -70,13 +72,13 @@ int DiceRoller::roll(int numberOfDice)
 	case 3:
 		{
 			rollA = myDice.roll();
-			std::cout << rollA << std::endl;
+			cache.rollA = rollA;
 			totalRolls++;
 			rollB = myDice.roll();
-			std::cout << rollB << std::endl;
+			cache.rollB = rollB;
 			totalRolls++;
 			rollC = myDice.roll();
-			std::cout << rollC << std::endl;
+			cache.rollC = rollC;
 			totalRolls++;
 
 			break;
@@ -215,3 +217,8 @@ void DiceRoller::showRolls() const
 	std::cout << "Percent of 5s: " << num5 / totalRolls * 100 << std::endl;
 	std::cout << "Percent of 6s: " << num6 / totalRolls * 100 << std::endl;
 }
+
+DiceRollCache DiceRoller::getLastRoll() {
+	return cache;
+}
+

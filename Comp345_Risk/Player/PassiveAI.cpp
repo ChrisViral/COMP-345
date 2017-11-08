@@ -8,21 +8,20 @@ void PassiveAI::playTurn(Player * player)
 {
 	reinforce(player);
 	Country* c = getFirstCountryWithExistingPath(player, weakestCountry);
-	if (c != NULL)
-	{
+	if (c != NULL) {
 		int armies = c->getArmies() - 1;
 		armies = armies / 2;
 		if (armies == 0) armies = 1;
 		fortify(player, *weakestCountry, *c, armies);
-	}
-	else
-		std::cout << "There is no path that exists with the weakest country to another country that has more than 1 army, so fortify cannot be done." << std::endl;
+	} else
+		player->getGame()->logAction("There is no path that exists with the weakest country to another country that has more than 1 army, so fortify cannot be done.");
 	
 }
 
 void PassiveAI::reinforce(Player* player, bool skip)
 {
-	TypeOfPlayer::reinforce(player, skip);
+	
+	Game* game = player->getGame();
 	//Find the weakest country
 	weakestCountry = player->getCountries()[0];
 	for (int i = 1; i < player->getCountries().size(); i++)
@@ -33,11 +32,14 @@ void PassiveAI::reinforce(Player* player, bool skip)
 		}
 	}
 
-	std::cout << "Weakest country " << weakestCountry->getName() << std::endl;
-	std::cout << "Weakest country has " << weakestCountry->getArmies() << " armies" << std::endl;
+	
+	game->logAction("Weakest country " + weakestCountry->getName());
+	game->logAction("Weakest country has " + std::to_string(weakestCountry->getArmies()) + " armies");
+	
 
 	int total = std::max(3, int(player->getCountries().size() / 3));
-	std::cout << player->getName() << " owns " << player->getCountries().size() << " territories, therefore he can reinforce with " << total << " armies." << std::endl;
+	game->logAction(player->getName() + " owns " + std::to_string(player->getCountries().size()) + " territories, therefore he can reinforce with " + std::to_string(total) + " armies.");
+	
 
 	std::unordered_map<std::string, Continent> continents = player->getGame()->getMap()->getContinents();
 	for (std::pair<std::string, Continent> p : continents)
@@ -45,7 +47,8 @@ void PassiveAI::reinforce(Player* player, bool skip)
 		Continent c = p.second;
 		if (c.ownedBy(player))
 		{
-			std::cout << player->getName() << " owns all of " << c.getName() << " therefore he gets an extra " << c.getControlValue() << " armies." << std::endl;
+			game->logAction(player->getName() + " owns all of " + c.getName() + " therefore he gets an extra " + std::to_string(c.getControlValue()) + " armies.");
+			
 			total += p.second.getControlValue();
 		}
 	}
@@ -53,49 +56,54 @@ void PassiveAI::reinforce(Player* player, bool skip)
 	Exchangement exchange = player->getHand().exchange();
 	if (exchange.successfullyExchanged)
 	{
-		std::cout << player->getName() << " exchanged the following cards to get " << exchange.armies << " armies." << std::endl;
+		game->logAction(player->getName() + " exchanged the following cards to get " + std::to_string(exchange.armies) + " armies.");
 		for (Card c : exchange.cardsExchanged)
 		{
-			std::cout << cardTypeEnumToString(c.getCardType()) << std::endl;
+			game->logAction(cardTypeEnumToString(c.getCardType()));
 		}
 		total += exchange.armies;
 	}
 
 	weakestCountry->addArmies(total);
 
-	std::cout << player->getName() << " therefore has a final total of " << total << " armies to place on " << weakestCountry->getName() << std::endl;
-	std::cout << "Weakest country now has " << weakestCountry->getArmies() << " armies" << std::endl;
+	game->logAction(player->getName() + " therefore has a final total of " + std::to_string(total) + " armies to place on " + weakestCountry->getName());
+	game->logAction("Weakest country now has " + std::to_string(weakestCountry->getArmies()) + " armies");
 
-	std::cout << "All reinforcements distributed!" << std::endl << std::endl;
+	game->logAction("All reinforcements distributed!\n");
+
+	TypeOfPlayer::reinforce(player, skip);
 
 }
 
 bool PassiveAI::fortify(Player* player, Country& source, Country& target, int amount, bool skip)
 {
-	TypeOfPlayer::fortify(player, source, target, amount, skip);
+	Game* game = player->getGame();
+	
 	if (skip)
 	{
-		std::cout << "\nFortify Method" << std::endl;
+		TypeOfPlayer::fortify(player, source, target, amount, skip);
 		return true;
 	}
 
 	if (&target != NULL)
 	{
-		std::cout << "\n" << source.getName() << " currently has " << source.getArmies() << " armies" << std::endl;
-		std::cout << target.getName() << " currently has " << target.getArmies() << " armies" << std::endl;
-		std::cout << "Adding " << amount << " armies from " << target.getName() << " to " << source.getName() << std::endl;
+		game->logAction("\n" + source.getName() + " currently has " + std::to_string(source.getArmies()) + " armies");
+		game->logAction(target.getName() + " currently has " + std::to_string(target.getArmies()) + " armies");
+		game->logAction("Adding " + std::to_string(amount) + " armies from " + target.getName() + " to " + source.getName());
 
 		weakestCountry->addArmies(amount);
 		target.removeArmies(amount);
 
-		std::cout << weakestCountry->getName() << " now has " << weakestCountry->getArmies() << " armies" << std::endl;
-		std::cout << target.getName() << " now has " << target.getArmies() << " armies" << std::endl;
+		game->logAction(weakestCountry->getName() + " now has " + std::to_string(weakestCountry->getArmies()) + " armies");
+		game->logAction(target.getName() + " now has " + std::to_string(target.getArmies()) + " armies");
 
-
+		TypeOfPlayer::fortify(player, source, target, amount, skip);
 		return true;
 	}
 
+	TypeOfPlayer::fortify(player, source, target, amount, skip);
 	return false;
+	
 }
 
 //Looks for the first country that has a path from the weakeast country and returns it so it can take its armies.

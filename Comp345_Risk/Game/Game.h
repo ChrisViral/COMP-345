@@ -14,14 +14,11 @@
 #include "../Base/RiskObject.h"
 #include "../Map/RiskMap.h"
 #include "../Patterns/Observer/Subject.h"
+#include "GameState.h"
+#include "GamePhase.h"
 
 using std::vector;
 
-enum GamePhase {
-	attackPhase,
-	reinforcePhase,
-	fortifyPhase
-};
 
 class Game : public RiskObject, public Subject
 {
@@ -33,8 +30,13 @@ public:
 	void gameLoop();
 	void setup();
 	RiskMap* getMap() const;
+	GameState getGameState();
 
 	void setCurrentPlayerTurnAndPhase(Player* player, GamePhase phase);
+	// TODO(steven) in the future these actions should be action objects instead of strings
+	// for now just save strings
+	void logAction(const std::string action);
+
 
 private:
 	std::pair<bool, Player*> checkWin() const;
@@ -44,6 +46,8 @@ private:
 	RiskMap* map;
 	// Who is currently playing
 	Player* currentPlayerTurn;
-	// The current phase that the current player is in
+	// The current phase that the current currentPlayerTurn is in
 	GamePhase currentPhase;
+	// List of recent actions/couts
+	std::vector <std::string> recentActions;
 };

@@ -46,16 +46,16 @@ void PhaseObserverDriver::run()
 	game.setup();
 
 	// Create the ui display
-	GameUI* ui = new TextBasedUI();
+	GameUI* ui = new TextBasedUI(&game);
 	// Register the ui to the game
 	// Everytime a game state changes, the ui will be notified
 	game.registerObserver(ui);
 
 
 	
-	game.gameLoop();
-	//human->executeStrategy();
-	//aggressiveAI->executeStrategy();
+	//game.gameLoop();
+	human->executeStrategy();
+ 	//aggressiveAI->executeStrategy();
 	//passiveAI->executeStrategy();
 	
 

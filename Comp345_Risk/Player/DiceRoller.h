@@ -11,6 +11,24 @@
 
 #pragma once
 #include "Dice.h"
+#include <string>
+
+struct DiceRollCache {
+	int rollA;
+	int rollB;
+	int rollC;
+	int numberOfDice;
+	std::string getOutputForNumberOfDice()
+	{
+		switch (numberOfDice)
+		{
+		case 1: return std::to_string(rollA) + "\n";
+		case 2: return std::to_string(rollA) + "\n" + std::to_string(rollB);	
+		case 3: return std::to_string(rollA) + "\n" + std::to_string(rollB) + "\n" +  std::to_string(rollC);
+		}
+		return {};
+	}
+};
 
 class DiceRoller
 {
@@ -19,6 +37,8 @@ public:
 	~DiceRoller();
 	int roll(int numberOfDice); //function rolls a number of dice and returns a string containing the rolls.
 	void showRolls() const; //prints out the total number of rolls and the percent of each rolls outcome.
+	DiceRollCache getLastRoll();
+
 
 private:
 	Dice myDice;
@@ -29,4 +49,7 @@ private:
 	float num4;
 	float num5;
 	float num6;
+	DiceRollCache cache;
+
+
 };

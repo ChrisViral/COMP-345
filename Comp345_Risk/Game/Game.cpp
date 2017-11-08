@@ -78,7 +78,7 @@ void Game::setup()
 		remaining.push_back(i);
 	}
 
-	//Assign a remaining country to each player, one by one
+	//Assign a remaining country to each currentPlayerTurn, one by one
 	for (int i = 0; i < map->size(); i++)
 	{
 		//Get random member of remaining, obtain it's index value, then remove it
@@ -97,10 +97,10 @@ void Game::setup()
 		
 	}
 
-	//Get amount of armies to give place for each player						
+	//Get amount of armies to give place for each currentPlayerTurn						
 	int armies = 40 - (numPlayers - 2) * 5;
 
-	//Each player places the same total amount of armies
+	//Each currentPlayerTurn places the same total amount of armies
 	for (int i = 0; i < armies; i++)
 	{
 		//Players place one army at a time in the regular play order
@@ -116,11 +116,27 @@ RiskMap* Game::getMap() const
 	return map;
 }
 
+GameState Game::getGameState() {
+	GameState state;
+	state.owned = owned;
+	state.numPlayers = numPlayers;
+	state.players = players;
+	state.map = map;
+	state.currentPlayerTurn = currentPlayerTurn;
+	state.currentPhase = currentPhase;
+	state.recentActions = &recentActions;
+	return state;
+}
+
 void Game::setCurrentPlayerTurnAndPhase(Player* player, GamePhase phase) {
 	currentPlayerTurn = player;
 	currentPhase = phase;
-	// Notify that the player and phase has changed
+	// Notify that the currentPlayerTurn and phase has changed
 	notify();
+}
+
+void Game::logAction(const std::string action) {
+	recentActions.push_back(action);
 }
 
 void Game::gameLoop()
@@ -131,7 +147,8 @@ void Game::gameLoop()
 	{
 		for (int i = 0; i < players->size(); i++)
 		{
-			std::cout << "Player " << i + 1 << std::endl;
+			
+			
 			// TODO(steven): do we need this here? the child players
 			// automatically call setCurrentPlayerAndPhase
 			// this is redunandant and something to think about
@@ -140,7 +157,6 @@ void Game::gameLoop()
 
 			(*players)[i]->executeStrategy();
 			
-			std::cout << std::endl;
 		}
 
 		if (counter > 3)
@@ -150,10 +166,11 @@ void Game::gameLoop()
 
 		pair = checkWin();
 		counter++;
+		
 	}
-
 	std::cout << pair.second->getName() << " won" << std::endl;
 }
+
 
 std::pair<bool,Player*> Game::checkWin() const
 {	
@@ -170,10 +187,10 @@ std::pair<bool,Player*> Game::checkWin() const
 	return std::pair<bool, Player*>(false, NULL);
 }
 
-//Free function to transfer countries to a player
+//Free function to transfer countries to a currentPlayerTurn
 void transferCountries(Player* player, RiskMap* map)
 {
-	std::cout << "Transfering Countries to player 1" << std::endl;
+	std::cout << "Transfering Countries to currentPlayerTurn 1" << std::endl;
 
 	for (int i = 0; i < map->size(); i++)
 	{

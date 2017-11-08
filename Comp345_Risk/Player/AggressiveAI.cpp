@@ -3,33 +3,36 @@
 #include "../Map/Country.h"
 #include "../Player/Player.h"
 #include <algorithm>
+#include <sstream>
 
 
 AggressiveAI::~AggressiveAI()
 {
 }
 
-void AggressiveAI::playTurn(Player * player)
+void AggressiveAI::playTurn(Player* player)
 {
+
+	Game* game = player->getGame();
 	reinforce(player);
 	attack(player);
 	Country* c = getFirstCountryWithExistingPath(player, strongestCountry);
 	if(c != NULL)
 		fortify(player, *strongestCountry, *c, c->getArmies()-1);
 	else
-		std::cout << "There is no path that exists with the strongest country to another country that has more than 1 army, so fortify cannot be done." << std::endl;
+		game->logAction("There is no path that exists with the strongest country to another country that has more than 1 army, so fortify cannot be done.");
 
 }
 
 void AggressiveAI::reinforce(Player* player, bool skip)
 {	
-
-	TypeOfPlayer::reinforce(player, this);
+	Game* game = player->getGame();
+	
 
 	//Temporary override for GameLoop purpose
 	if (skip)
 	{
-		std::cout << "\nReinForce Method" << std::endl;
+		TypeOfPlayer::attack(player, this);
 		return;
 	}
 
@@ -43,11 +46,16 @@ void AggressiveAI::reinforce(Player* player, bool skip)
 		}
 	}
 
-	std::cout << "Strongest country " << strongestCountry->getName() << std::endl;
-	std::cout << "Strongest country has " << strongestCountry->getArmies() << " armies" << std::endl;
+
+
+	game->logAction("Strongest country " + strongestCountry->getName());
+	game->logAction("Strongest country has " + std::to_string(strongestCountry->getArmies()) + " armies");
+	
+	
 
 	int total = std::max(3, int(player->getCountries().size() / 3));
-	std::cout << player->getName() << " owns " << player->getCountries().size() << " territories, therefore he can reinforce with " << total << " armies." << std::endl;
+	game->logAction(player->getName() + " owns " + std::to_string(player->getCountries().size()) + " territories, therefore he can reinforce with " + std::to_string(total) + " armies.");
+	
 
 	std::unordered_map<std::string, Continent> continents = player->getGame()->getMap()->getContinents();
 	for (std::pair<std::string, Continent> p : continents)
@@ -55,7 +63,8 @@ void AggressiveAI::reinforce(Player* player, bool skip)
 		Continent c = p.second;
 		if (c.ownedBy(player))
 		{
-			std::cout << player->getName() << " owns all of " << c.getName() << " therefore he gets an extra " << c.getControlValue() << " armies." << std::endl;
+			game->logAction(player->getName() + " owns all of " + c.getName() + " therefore he gets an extra " + std::to_string(c.getControlValue()) + " armies.");
+			
 			total += p.second.getControlValue();
 		}
 	}
@@ -63,25 +72,27 @@ void AggressiveAI::reinforce(Player* player, bool skip)
 	Exchangement exchange = player->getHand().exchange();
 	if (exchange.successfullyExchanged)
 	{
-		std::cout << player->getName() << " exchanged the following cards to get " << exchange.armies << " armies." << std::endl;
+		game->logAction(player->getName() + " exchanged the following cards to get " + std::to_string(exchange.armies) + " armies.");
 		for (Card c : exchange.cardsExchanged)
 		{
-			std::cout << cardTypeEnumToString(c.getCardType()) << std::endl;
+			game->logAction(cardTypeEnumToString(c.getCardType()));
 		}
 		total += exchange.armies;
 	}
 
 	strongestCountry->addArmies(total);
 
-	std::cout << player->getName() << " therefore has a final total of " << total << " armies to place on " << strongestCountry->getName() << std::endl;
-	std::cout << "Strongest country now has " << strongestCountry->getArmies() << " armies" << std::endl;
+	game->logAction(player->getName() + " therefore has a final total of " + std::to_string(total) + " armies to place on " + strongestCountry->getName());
+	game->logAction("Strongest country now has " + std::to_string(strongestCountry->getArmies()) + " armies");
 
-	std::cout << "All reinforcements distributed!" << std::endl << std::endl;
+	game->logAction("All reinforcements distributed!");
+	TypeOfPlayer::reinforce(player, this);
 }
 
 void AggressiveAI::attack(Player* player, bool skip)
 {
-	TypeOfPlayer::attack(player, this);
+	Game* game = player->getGame();
+	
 	vector<Country*> adjList = getAdjUnOwnedCountryList(player, *strongestCountry);
 	Country* defendingCountry = adjList[0];
 	adjList.erase(adjList.begin());
@@ -89,46 +100,62 @@ void AggressiveAI::attack(Player* player, bool skip)
 	//keep attack a untill it cannot do so anymore
 	while (strongestCountry->getArmies() >= 2 && adjList.size() != 0)
 	{
-		std::cout << "\n" << strongestCountry->getName() << "has " << strongestCountry->getArmies() << " armies" << std::endl;
-		std::cout << defendingCountry->getName() << "has " << defendingCountry->getArmies() << " armies" << std::endl;
+		game->logAction("\n" + strongestCountry->getName() + " has " + std::to_string(strongestCountry->getArmies()) + " armies");
+		game->logAction(defendingCountry->getName() + " has " + std::to_string(defendingCountry->getArmies()) + " armies");
+
+		
+		
 
 		if (strongestCountry->getArmies() == 2)
 		{
-			std::cout << "Attacker is rolling 1 dice. The rolls are:" << std::endl;
+
 			int attackerRoll = player->getDiceRoller().roll(1);
-			std::cout << "Defender is rolling " << defend(defendingCountry) << " dice. The rolls are:"  << std::endl;			
+			game->logAction("Attacker is rolling 1 dice. The rolls are:\n" + player->getDiceRoller().getLastRoll().getOutputForNumberOfDice());
+			
+			
 			int defenderRoll = defendingCountry->getOwner()->getDiceRoller().roll(defend(defendingCountry));
+			game->logAction("Defender is rolling " + std::to_string(defend(defendingCountry)) + " dice. The rolls are:\n" + defendingCountry->getOwner()->getDiceRoller().getLastRoll().getOutputForNumberOfDice());
+			
 
 			handleBattle(strongestCountry, defendingCountry, attackerRoll, defenderRoll);
 
-			std::cout << "After the attack " << strongestCountry->getName() << " Now has " << strongestCountry->getArmies() << " armies" << std::endl;
-			std::cout << "After the attack " << defendingCountry->getName() << " Now has " << defendingCountry->getArmies() << " armies" << std::endl;
+			game->logAction("After the attack " + strongestCountry->getName() + " Now has " + std::to_string(strongestCountry->getArmies()) + " armies");
+			game->logAction("After the attack " + defendingCountry->getName() + " Now has " + std::to_string(defendingCountry->getArmies()) + " armies");
 		}
 
 		else if (strongestCountry->getArmies() == 3)
 		{
-			std::cout << "Attacker is rolling 2 dice. The rolls are:" << std::endl;
 			int attackerRoll = player->getDiceRoller().roll(2);
-			std::cout << "Defender is rolling " << defend(defendingCountry) << " dice. The rolls are:" << std::endl;
+			game->logAction("Attacker is rolling 2 dice. The rolls are:\n" + player->getDiceRoller().getLastRoll().getOutputForNumberOfDice());
+			
+		
 			int defenderRoll = defendingCountry->getOwner()->getDiceRoller().roll(defend(defendingCountry));
+			game->logAction("Defender is rolling " + std::to_string(defend(defendingCountry)) + " dice. The rolls are:\n" + defendingCountry->getOwner()->getDiceRoller().getLastRoll().getOutputForNumberOfDice());
+			
 
 			handleBattle(strongestCountry, defendingCountry, attackerRoll, defenderRoll);
 
-			std::cout << strongestCountry->getName() << " Now has " << strongestCountry->getArmies() << " armies" << std::endl;
-			std::cout << defendingCountry->getName() << " Now has " << defendingCountry->getArmies() << " armies" << std::endl;
+			game->logAction(strongestCountry->getName() + " Now has " + std::to_string(strongestCountry->getArmies()) + " armies");
+			game->logAction(defendingCountry->getName() + " Now has " + std::to_string(defendingCountry->getArmies()) + " armies");
 		}
 
 		else
 		{
-			std::cout << "Attacker is rolling 3 dice. The rolls are:" << std::endl;
 			int attackerRoll = player->getDiceRoller().roll(3);
-			std::cout << "Defender is rolling " << defend(defendingCountry) << " dice. The rolls are:" << std::endl;
+			
+			game->logAction("Attacker is rolling 3 dice. The rolls are:\n" + player->getDiceRoller().getLastRoll().getOutputForNumberOfDice());
+			
+			
+			
 			int defenderRoll = defendingCountry->getOwner()->getDiceRoller().roll(defend(defendingCountry));
+			
+			game->logAction("Defender is rolling " + std::to_string(defend(defendingCountry)) + " dice. The rolls are:\n" + defendingCountry->getOwner()->getDiceRoller().getLastRoll().getOutputForNumberOfDice());
+			
 
 			handleBattle(strongestCountry, defendingCountry, attackerRoll, defenderRoll);
 
-			std::cout << strongestCountry->getName() << " Now has " << strongestCountry->getArmies() << " armies" << std::endl;
-			std::cout << defendingCountry->getName() << " Now has " << defendingCountry->getArmies() << " armies" << std::endl;
+			game->logAction(strongestCountry->getName() + " Now has " + std::to_string(strongestCountry->getArmies()) + " armies");
+			game->logAction(defendingCountry->getName() + " Now has " + std::to_string(defendingCountry->getArmies()) + " armies");
 		}
 
 		if (defendingCountry->getArmies() <= 0)
@@ -142,34 +169,39 @@ void AggressiveAI::attack(Player* player, bool skip)
 		}
 	}
 
-	std::cout << "\nNo more countries to attack" << std::endl;
+	game->logAction("\nNo more countries to attack");
+	TypeOfPlayer::attack(player, this);
 }
 
 bool AggressiveAI::fortify(Player* player, Country& source, Country& target, int amount, bool skip)
 {
-	TypeOfPlayer::fortify(player, source, target, amount, skip);
+	Game* game = player->getGame();
+	
 	if (skip)
 	{
-		std::cout << "\nFortify Method" << std::endl;
+		
+		TypeOfPlayer::fortify(player, source, target, amount, skip);
 		return true;
 	}
 
 	if (&target != NULL)
 	{
-		std::cout << "\n" << source.getName() << " currently has " << source.getArmies() << " armies" << std::endl;
-		std::cout << target.getName() << " currently has " << target.getArmies() << " armies" << std::endl;
-		std::cout << "Adding " << amount << " armies from " << target.getName() << " to " << source.getName() << std::endl;
+		game->logAction("\n" + source.getName() + " currently has " + std::to_string(source.getArmies()) + " armies");
+		game->logAction(target.getName() + " currently has " + std::to_string(target.getArmies()) + " armies");
+		game->logAction("Adding " + std::to_string(amount) + " armies from " + target.getName() + " to " + source.getName());
 
 		strongestCountry->addArmies(amount);
 		target.removeArmies(amount);
 				
-		std::cout << strongestCountry->getName() << " now has " << strongestCountry->getArmies() << " armies" << std::endl;
-		std::cout << target.getName() << " now has " << target.getArmies() << " armies" << std::endl;
+		game->logAction(strongestCountry->getName() + " now has " + std::to_string(strongestCountry->getArmies()) + " armies");
+		game->logAction(target.getName() + " now has " + std::to_string(target.getArmies()) + " armies");
 
 
+		TypeOfPlayer::fortify(player, source, target, amount, skip);
 		return true;
 	}
 
+	TypeOfPlayer::fortify(player, source, target, amount, skip);
 	return false;
 }
 
@@ -193,10 +225,10 @@ vector<Country*> AggressiveAI::getAdjUnOwnedCountryList(Player* player, const Co
 bool AggressiveAI::ownsCountry(Player* player, const Country& country) const
 {
 
-	// TODO: figure out in the end if are keeping the getOwner() and a pointer to the owner in the player
+	// TODO: figure out in the end if are keeping the getOwner() and a pointer to the owner in the currentPlayerTurn
 	return (player == country.getOwner());
 
-	// If we don't keep a pointer to the player owner, then use the bottom implementation
+	// If we don't keep a pointer to the currentPlayerTurn owner, then use the bottom implementation
 
 	/*
 	for (const Country& c : playersTerritories)
