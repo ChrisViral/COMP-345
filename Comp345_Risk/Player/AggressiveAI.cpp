@@ -269,12 +269,13 @@ void AggressiveAI::handleBattle(Country* strongestCountry, Country* defendingCou
 	std::vector<int> attackerRollList;
 	std::vector<int> defenderRollList;
 
-	attackerRollList.push_back(a1);
-	attackerRollList.push_back(a2);
-	attackerRollList.push_back(a3);
+	if (a1 != 0) attackerRollList.push_back(a1);
+	if (a2 != 0) attackerRollList.push_back(a2);
+	if (a3 != 0) attackerRollList.push_back(a3);
 
-	defenderRollList.push_back(b1);
-	defenderRollList.push_back(b2);
+
+	if (b1 != 0) defenderRollList.push_back(b1);
+	if (b2 != 0) defenderRollList.push_back(b2);
 
 	std::sort(attackerRollList.begin(), attackerRollList.end(), sortAlg);
 	std::sort(defenderRollList.begin(), defenderRollList.end(), sortAlg);
