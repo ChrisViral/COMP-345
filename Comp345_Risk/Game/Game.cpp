@@ -146,8 +146,9 @@ void Game::setCurrentPlayerTurnAndPhase(Player* player, GamePhase phase) {
 	{
 		for (string s : recentActions)
 		{
-			std::cout << s;
+			std::cout << s << std::endl;
 		}
+		recentActions.clear();
 	}
 }
 
