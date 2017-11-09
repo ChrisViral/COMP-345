@@ -31,6 +31,7 @@ public:
 	void setup();
 	RiskMap* getMap() const;
 	GameState getGameState();
+	vector<Player*>* getPlayers() const;
 
 	void setCurrentPlayerTurnAndPhase(Player* player, GamePhase phase);
 	// TODO(steven) in the future these actions should be action objects instead of strings

@@ -77,6 +77,12 @@
     <ClCompile Include="Drivers\PhaseObserverDriver.cpp">
       <Filter>Drivers</Filter>
     </ClCompile>
+    <ClCompile Include="Game\DominationGraph.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\StatisticsDriver.cpp">
+      <Filter>Drivers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -160,6 +166,12 @@
       <Filter>Drivers</Filter>
     </ClInclude>
     <ClInclude Include="Drivers\StrategyDriver.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\DominationUI.h">
+      <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\StatisticsDriver.h">
       <Filter>Drivers</Filter>
     </ClInclude>
   </ItemGroup>

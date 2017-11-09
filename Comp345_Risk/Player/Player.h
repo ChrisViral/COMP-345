@@ -18,7 +18,7 @@
 
 class TypeOfPlayer;
 
-class Player : public RiskObject
+class Player : public RiskObject, public Subject
 {
 public:
 	Player();
@@ -45,6 +45,7 @@ public:
 	void printPlayerArmyInfo();
 	void setStrategy(TypeOfPlayer* typePlayer);
 	void executeStrategy();
+
 
 
 	//These methods can be used for specific testing/demo purposes. But in reality executeStrategy should be used.

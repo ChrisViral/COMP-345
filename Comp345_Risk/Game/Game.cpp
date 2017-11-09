@@ -128,6 +128,11 @@ GameState Game::getGameState() {
 	return state;
 }
 
+vector<Player*>* Game::getPlayers() const
+{
+	return players;
+}
+
 void Game::setCurrentPlayerTurnAndPhase(Player* player, GamePhase phase) {
 	currentPlayerTurn = player;
 	currentPhase = phase;

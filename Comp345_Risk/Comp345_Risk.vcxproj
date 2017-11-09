@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Game\DominationUI.h" />
     <ClInclude Include="Drivers\StrategyDriver.h" />
     <ClInclude Include="Base\RiskObject.h" />
     <ClInclude Include="Base\Utils.h" />
@@ -169,12 +170,14 @@
     <ClInclude Include="Player\TypeOfPlayer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Patterns\Observer\Subject.h" />
+    <ClInclude Include="Drivers\StatisticsDriver.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Game\UI\TextBasedUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Base\RiskObject.cpp" />
     <ClCompile Include="Base\Driver.cpp" />
+    <ClCompile Include="Game\DominationGraph.cpp" />
     <ClCompile Include="Drivers\StrategyDriver.cpp" />
     <ClCompile Include="Game\GameState.cpp" />
     <ClCompile Include="Game\UI\GameUI.cpp" />
@@ -199,6 +202,7 @@
     <ClCompile Include="Player\TypeOfPlayer.cpp" />
     <ClCompile Include="Patterns\Observer\Subject.cpp" />
     <ClCompile Include="Game\UI\TextBasedUI.cpp" />
+    <ClCompile Include="Drivers\StatisticsDriver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="mapfiles\broken.map" />

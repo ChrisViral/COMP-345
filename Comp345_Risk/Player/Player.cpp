@@ -34,6 +34,8 @@ Player::Player(): game(nullptr)
 Player::~Player()
 {
 	game = nullptr;
+	delete typeOfPlayer;
+	typeOfPlayer = nullptr;
 }
 
 Player::Player(DiceRoller aDiceRoller, vector<Country*> aPlayersTerritoriesVector, Hand aPlayersCards): game(nullptr)
@@ -158,4 +160,5 @@ void Player::removeCountry(Country* country)
 			return;
 		}
 	}
+	notify();
 }

@@ -9,7 +9,7 @@ class Subject
 {
 public:
 	Subject();
-	~Subject();
+	virtual ~Subject();
 	virtual void registerObserver(Observer* o);
 	virtual void unregisterObserver(Observer* o);
 	virtual void notify();
