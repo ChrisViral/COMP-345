@@ -10,12 +10,11 @@
 // ==============================
 
 #include "Base/Driver.h";
-
-#include <cstdio>
 #include <iostream>
 #include <vector>
 #include "Drivers/StrategyDriver.h"
 #include "Drivers/PhaseObserverDriver.h"
+#include "Drivers/StatisticsDriver.h"
 
 using std::cout;
 using std::vector;
@@ -25,18 +24,20 @@ int main()
 {
 	vector<Driver*> drivers;
 
-	GameDriver game;
+	StrategyDriver strategy;
 	PhaseObserverDriver phase;
+	StatisticsDriver stats;
 
 
-	drivers.push_back(&game);
+	drivers.push_back(&strategy);
 	drivers.push_back(&phase);
+	drivers.push_back(&stats);
 
 	const string endll = "\n\n";
 
 	//Run drivers individually
 
-	Driver* d = &phase;
+	Driver* d = &stats;
 	cout << d->getOpeningMessage() << endll;
 	d->run();
 	cout << std::endl << d->getClosingMessage() << endll;
@@ -56,7 +57,7 @@ int main()
 	*/
 
 	cout << "Press any key to exit...";
-	//getchar();
+	getchar();
 
 	return 0;
 }

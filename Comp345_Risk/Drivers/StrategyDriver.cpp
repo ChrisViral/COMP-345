@@ -14,15 +14,15 @@ using std::vector;
 using std::cout;
 using std::endl;
 
-GameDriver::GameDriver()
+StrategyDriver::StrategyDriver()
 {
 }
 
-GameDriver::~GameDriver()
+StrategyDriver::~StrategyDriver()
 {
 }
 
-void GameDriver::run()
+void StrategyDriver::run()
 {
 	//Load the basic map
 	RiskMap* map = new RiskMap();
@@ -69,12 +69,12 @@ void GameDriver::run()
 	players = nullptr;
 }
 
-string GameDriver::getOpeningMessage()
+string StrategyDriver::getOpeningMessage()
 {
 	return "Starting Game driver";
 }
 
-string GameDriver::getClosingMessage()
+string StrategyDriver::getClosingMessage()
 {
 	return "Ending Game driver";
 }

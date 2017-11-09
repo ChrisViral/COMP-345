@@ -1,11 +1,11 @@
 #pragma once
 #include "../Base/Driver.h"
 
-class GameDriver : public Driver
+class StrategyDriver : public Driver
 {
 public:
-	GameDriver();
-	~GameDriver();
+	StrategyDriver();
+	~StrategyDriver();
 	void run() override;
 	string getOpeningMessage() override;
 	string getClosingMessage() override;
