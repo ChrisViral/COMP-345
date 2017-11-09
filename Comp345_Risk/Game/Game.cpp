@@ -137,7 +137,6 @@ void Game::setCurrentPlayerTurnAndPhase(Player* player, GamePhase phase) {
 	currentPlayerTurn = player;
 	currentPhase = phase;
 	// Notify that the currentPlayerTurn and phase has changed
-	notify();
 	if (observersCount() > 0)
 	{
 		notify();
