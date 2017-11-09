@@ -164,6 +164,9 @@ void AggressiveAI::attack(Player* player, bool skip)
 			defendingCountry->getOwner()->removeCountry(defendingCountry);
 			defendingCountry->setOwner(strongestCountry->getOwner());
 
+			defendingCountry->addArmies(1);
+			strongestCountry->removeArmies(1);
+
 			defendingCountry = adjList[0];
 			adjList.erase(adjList.begin());
 		}
