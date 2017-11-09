@@ -37,7 +37,7 @@ int main()
 
 	//Run drivers individually
 
-	Driver* d = &strategy;
+	Driver* d = &stats;
 	cout << d->getOpeningMessage() << endll;
 	d->run();
 	cout << std::endl << d->getClosingMessage() << endll;

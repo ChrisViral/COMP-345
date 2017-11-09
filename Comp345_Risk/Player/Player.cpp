@@ -155,8 +155,8 @@ void Player::removeCountry(Country* country)
 		if (country->getName() == playersTerritories[i]->getName())
 		{
 			playersTerritories.erase(playersTerritories.begin() + i);
+			notify();
 			return;
 		}
 	}
-	notify();
 }

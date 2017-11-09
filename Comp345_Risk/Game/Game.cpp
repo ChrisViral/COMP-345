@@ -210,7 +210,11 @@ void transferCountries(Player* player, RiskMap* map)
 
 	for (int i = 0; i < map->size(); i++)
 	{
-		player->addCountry((map->getCountry(i)));
+		Country* c = map->getCountry(i);
+		if (c->getOwner()->getName() != player->getName())
+		{
+			player->addCountry(c);
+		}
 	}
 }
 

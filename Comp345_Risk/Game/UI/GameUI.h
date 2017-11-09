@@ -9,6 +9,7 @@ class Game;
 class GameUI : public Observer 
 {
 public:
+	GameUI() : game(nullptr) { }
 	virtual ~GameUI();
 	virtual void update();
 protected:

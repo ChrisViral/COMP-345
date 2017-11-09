@@ -8,6 +8,8 @@
 #include "../Player/AggressiveAI.h"
 #include <iostream>
 #include "../Game/UI/DominationUI.h"
+#include "../Player/PassiveAI.h"
+#include "../Player/Human.h"
 
 using std::vector;
 using std::cout;
@@ -28,47 +30,52 @@ void StatisticsDriver::run()
 	MapLoader loader("mapfiles/World.map");
 	loader.tryParseMap(map);
 
-	TypeOfPlayer* a1 = new AggressiveAI();
-	TypeOfPlayer* a2 = new AggressiveAI();
-
-	Player* p1 = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), a1);
-	Player* p2 = new Player("Player 2", DiceRoller(), vector<Country*>(), Hand(), a2);
+	Player* human = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), new AggressiveAI);
+	Player* aggressiveAI = new Player("Player 2", DiceRoller(), vector<Country*>(), Hand(), new AggressiveAI);
+	Player* passiveAI = new Player("Player 3", DiceRoller(), vector<Country*>(), Hand(), new AggressiveAI);
 
 	//Create four players at random
 	vector<Player*>* players = new vector<Player*>;
-	players->push_back(p1);
-	players->push_back(p2);
+	players->push_back(human);
+	players->push_back(aggressiveAI);
+	players->push_back(passiveAI);
 
 	//Load a game with the above info and run the setup
 	Game game(players, map);
+	//We want to know how this affected the players and map
 	game.setup();
 
-	//UI
+	// Create the ui display
 	GameUI* ui = new DominationUI(&game);
-	p1->registerObserver(ui);
-	p2->registerObserver(ui);
+	GameUI* temp = new GameUI();
+	// Register the ui to the game
+	// Everytime a game state changes, the ui will be notified
+	game.registerObserver(temp);
+	players->at(0)->registerObserver(ui);
+	players->at(1)->registerObserver(ui);
+	players->at(2)->registerObserver(ui);
 
-	//Test
+
+
 	game.gameLoop();
+
 
 	//Clear memory
 	delete map;
 	map = nullptr;
 
-	delete a1;
-	delete a2;
-	a1 = nullptr;
-	a2 = nullptr;
-
 	delete players->at(0);
 	delete players->at(1);
+	delete players->at(2);
 	players->clear();
 
 	delete players;
 	players = nullptr;
 
 	delete ui;
+	delete temp;
 	ui = nullptr;
+	temp = nullptr;
 }
 
 string StatisticsDriver::getOpeningMessage()
