@@ -142,7 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Game\DominationUI.h" />
+    <ClInclude Include="Game\UI\DominationUI.h" />
     <ClInclude Include="Drivers\StrategyDriver.h" />
     <ClInclude Include="Base\RiskObject.h" />
     <ClInclude Include="Base\Utils.h" />
@@ -177,7 +177,7 @@
   <ItemGroup>
     <ClCompile Include="Base\RiskObject.cpp" />
     <ClCompile Include="Base\Driver.cpp" />
-    <ClCompile Include="Game\DominationGraph.cpp" />
+    <ClCompile Include="Game\UI\DominationUI.cpp" />
     <ClCompile Include="Drivers\StrategyDriver.cpp" />
     <ClCompile Include="Game\GameState.cpp" />
     <ClCompile Include="Game\UI\GameUI.cpp" />

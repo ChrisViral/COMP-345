@@ -1,6 +1,6 @@
 #pragma once
 
-#include "UI/GameUI.h"
+#include "GameUI.h"
 
 class DominationUI : public GameUI
 {

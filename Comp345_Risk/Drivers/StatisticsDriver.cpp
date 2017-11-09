@@ -7,7 +7,7 @@
 #include "../Player/Player.h"
 #include "../Player/AggressiveAI.h"
 #include <iostream>
-#include "../Game/DominationUI.h"
+#include "../Game/UI/DominationUI.h"
 
 using std::vector;
 using std::cout;

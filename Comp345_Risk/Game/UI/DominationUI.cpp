@@ -1,4 +1,5 @@
 #include "DominationUI.h"
+#include "../Game.h"
 #include <iostream>
 
 using std::cout;
