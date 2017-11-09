@@ -45,7 +45,7 @@ public:
 	Country* chooseAttackSourceCountry(Player* player);
 	Country* chooseAttackTargetCountry(Player* player, Country& source);
 	Country* chooseFortifySourceCountry(Player* player);
-	vector<Country*> getConnectedOwnedCountryList(Player* player, const Country& source);
+	vector<Country*> getConnectedOwnedCountryList(Player* player, Country& source);
 	Country* chooseFortifyTargetCountry(Player* player, Country& source);
 	bool hasAdjUnOwnedCountry(Player* player, const Country& source);
 	bool ownsCountry(Player* player, const Country& country) const;

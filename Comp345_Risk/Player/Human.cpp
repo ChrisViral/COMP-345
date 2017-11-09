@@ -911,32 +911,21 @@ Country* Human::chooseFortifySourceCountry(Player* player)
 	}
 }
 
-vector<Country*> Human::getConnectedOwnedCountryList(Player* player, const Country& source)
+vector<Country*> Human::getConnectedOwnedCountryList(Player* player, Country& source)
 {
-	vector<Country*> adjCountries;
-	Node& node = player->getGame()->getMap()->getNodeFromMap(source.getName());
-	vector<Edge> adj = node.adjList;
-	for (Edge& e : adj)
+	vector<Country*> connectedCountries;
+	RiskMap& map = *player->getGame()->getMap();
+	for (Country* country : player->getCountries())
 	{
-		Country* c = player->getGame()->getMap()->getCountry(e.country->getName());
-
-		if (ownsCountry(player, *c))
+		if (!(country == &source))
 		{
-			adjCountries.push_back(c);
-/*			vector<Country*> owned = getConnectedOwnedCountryList(player, *c);
-			adjCountries.insert(std::end(adjCountries), std::begin(owned), std::end(owned));
+			if (map.isReachable(player, source, *country))
+			{
+				connectedCountries.push_back(country);
+			}
 		}
 	}
-	vector<Country*> copy;
-	vector<Country*>::iterator it = std::unique_copy(std::begin(adjCountries), std::end(adjCountries), std::begin(copy));
-	std::sort(std::begin(copy), it);
-	it = std::unique_copy(std::begin(adjCountries), std::end(adjCountries), std::begin(copy));
-	copy.resize(std::distance(std::begin(copy), it));
-	return copy;
-*/
-		}
-	}
-	return adjCountries;
+	return connectedCountries;
 }
 
 Country* Human::chooseFortifyTargetCountry(Player* player, Country& source)
