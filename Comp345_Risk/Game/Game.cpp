@@ -138,6 +138,17 @@ void Game::setCurrentPlayerTurnAndPhase(Player* player, GamePhase phase) {
 	currentPhase = phase;
 	// Notify that the currentPlayerTurn and phase has changed
 	notify();
+	if (observersCount() > 0)
+	{
+		notify();
+	}
+	else
+	{
+		for (string s : recentActions)
+		{
+			std::cout << s;
+		}
+	}
 }
 
 void Game::logAction(const std::string action) {

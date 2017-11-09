@@ -29,3 +29,8 @@ void Subject::notify()
 		observer->update();
 	}
 }
+
+int Subject::observersCount() const
+{
+	return observers.size();
+}

@@ -30,13 +30,9 @@ void PhaseObserverDriver::run()
 	MapLoader loader("mapfiles/World.map");
 	loader.tryParseMap(map);
 
-	TypeOfPlayer* h = new Human();
-	TypeOfPlayer* a = new AggressiveAI();
-	TypeOfPlayer* p = new PassiveAI();
-
-	Player* human = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), h);
-	Player* aggressiveAI = new Player("Player 2", DiceRoller(), vector<Country*>(), Hand(), a);
-	Player* passiveAI = new Player("Player 3", DiceRoller(), vector<Country*>(), Hand(), p);
+	Player* human = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), new Human);
+	Player* aggressiveAI = new Player("Player 2", DiceRoller(), vector<Country*>(), Hand(), new AggressiveAI);
+	Player* passiveAI = new Player("Player 3", DiceRoller(), vector<Country*>(), Hand(), new PassiveAI);
 
 	//Create four players at random
 	vector<Player*>* players = new vector<Player*>;
