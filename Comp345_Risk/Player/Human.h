@@ -34,6 +34,7 @@ public:
 	//decided or when he know longer has a territory with more than one troop remaining positioned on it.
 	void attack(Player* player, bool skip = false);
 	void attack(Player* player, Country& source, Country& target, bool skip = false);
+	void fortify(Player* player);
 
 	// If the amount given is larger or equal than the source country owns, then it will return false and no armies will be exchanged
 	// If the amount if smaller, then it will exhange and return true
@@ -41,9 +42,12 @@ public:
 	// We can't pull out all of our armies
 	bool fortify(Player* player, Country& source, Country& target, int amount, bool skip = false);
 
-	Country* chooseSourceCountry(Player* player);
+	Country* chooseAttackSourceCountry(Player* player);
+	Country* chooseAttackTargetCountry(Player* player, Country& source);
+	Country* chooseFortifySourceCountry(Player* player);
+	vector<Country*> getConnectedOwnedCountryList(Player* player, const Country& source);
+	Country* chooseFortifyTargetCountry(Player* player, Country& source);
 	bool hasAdjUnOwnedCountry(Player* player, const Country& source);
 	bool ownsCountry(Player* player, const Country& country) const;
-	Country* chooseTargetCountry(Player* player, Country& source);
 	vector<Country*> getAdjUnOwnedCountryList(Player* player, const Country& source);
 };

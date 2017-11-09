@@ -45,6 +45,7 @@ public:
 	void printPlayerArmyInfo();
 	void setStrategy(TypeOfPlayer* typePlayer);
 	void executeStrategy();
+	TypeOfPlayer* getTypeOfPlayer(){ return typeOfPlayer; }
 
 
 
