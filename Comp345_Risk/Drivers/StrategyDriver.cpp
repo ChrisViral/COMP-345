@@ -29,9 +29,13 @@ void StrategyDriver::run()
 	MapLoader loader("mapfiles/World.map");
 	loader.tryParseMap(map);
 
-	Player* human = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), new Human());	
-	Player* aggressiveAI = new Player("Player 2", DiceRoller(), vector<Country*>(), Hand(), new AggressiveAI());
-	Player* passiveAI = new Player("Player 3", DiceRoller(), vector<Country*>(), Hand(), new PassiveAI());
+	TypeOfPlayer* h = new Human();
+	TypeOfPlayer* a = new AggressiveAI();
+	TypeOfPlayer* p = new PassiveAI();
+
+	Player* human = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), h);	
+	Player* aggressiveAI = new Player("Player 2", DiceRoller(), vector<Country*>(), Hand(), a);
+	Player* passiveAI = new Player("Player 3", DiceRoller(), vector<Country*>(), Hand(), p);
 
 	//Create four players at random
 	vector<Player*>* players = new vector<Player*>;
@@ -60,6 +64,13 @@ void StrategyDriver::run()
 	delete map;
 	map = nullptr;
 
+	delete h;
+	delete a;
+	delete p;
+	h = nullptr;
+	a = nullptr;
+	p = nullptr;
+
 	delete players->at(0);
 	delete players->at(1);
 	delete players->at(2);
@@ -71,10 +82,10 @@ void StrategyDriver::run()
 
 string StrategyDriver::getOpeningMessage()
 {
-	return "Starting Game driver";
+	return "Starting Strategy driver";
 }
 
 string StrategyDriver::getClosingMessage()
 {
-	return "Ending Game driver";
+	return "Ending Strategy driver";
 }

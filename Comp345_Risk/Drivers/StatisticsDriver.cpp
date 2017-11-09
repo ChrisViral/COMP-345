@@ -28,8 +28,11 @@ void StatisticsDriver::run()
 	MapLoader loader("mapfiles/World.map");
 	loader.tryParseMap(map);
 
-	Player* p1 = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), new AggressiveAI());
-	Player* p2 = new Player("Player 2", DiceRoller(), vector<Country*>(), Hand(), new AggressiveAI());
+	TypeOfPlayer* a1 = new AggressiveAI();
+	TypeOfPlayer* a2 = new AggressiveAI();
+
+	Player* p1 = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), a1);
+	Player* p2 = new Player("Player 2", DiceRoller(), vector<Country*>(), Hand(), a2);
 
 	//Create four players at random
 	vector<Player*>* players = new vector<Player*>;
@@ -51,6 +54,11 @@ void StatisticsDriver::run()
 	//Clear memory
 	delete map;
 	map = nullptr;
+
+	delete a1;
+	delete a2;
+	a1 = nullptr;
+	a2 = nullptr;
 
 	delete players->at(0);
 	delete players->at(1);
