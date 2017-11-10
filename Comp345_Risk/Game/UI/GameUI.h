@@ -17,15 +17,16 @@
 
 class Game;
 
-class GameUI : public Observer 
+class GameUI : public Observer
 {
 public:
-	GameUI() : game(nullptr) { }
+	GameUI() : game(nullptr)
+	{
+	}
+
 	virtual ~GameUI();
-	virtual void update();
+	void update() override;
 protected:
 	GameUI(Game* game);
 	Game* game;
-
 };
-

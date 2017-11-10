@@ -67,7 +67,6 @@ void StatisticsDriver::run()
 	players->at(2)->registerObserver(ui);
 
 
-
 	game.gameLoop();
 
 

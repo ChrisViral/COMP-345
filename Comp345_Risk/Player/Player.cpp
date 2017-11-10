@@ -78,9 +78,9 @@ int Player::controlled() const
 	return playersTerritories.size();
 }
 
-void Player::addCountry(Country* country) {
-
-	playersTerritories.push_back(country); 
+void Player::addCountry(Country* country)
+{
+	playersTerritories.push_back(country);
 }
 
 void Player::setGame(Game* currentGame)
@@ -127,7 +127,7 @@ void Player::setStrategy(TypeOfPlayer* typePlayer)
 }
 
 void Player::executeStrategy()
-{		
+{
 	typeOfPlayer->playTurn(this);
 }
 
@@ -135,7 +135,7 @@ void Player::executeStrategy()
 //These methods can be used for specific testing/demo purposes. But in reality executeStrategy should be used.
 void Player::executeAttack(bool skip)
 {
-	typeOfPlayer->attack(this,skip);
+	typeOfPlayer->attack(this, skip);
 }
 
 void Player::executeReinforce(bool skip)

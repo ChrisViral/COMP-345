@@ -23,22 +23,20 @@ AggressiveAI::~AggressiveAI()
 
 void AggressiveAI::playTurn(Player* player)
 {
-
 	Game* game = player->getGame();
 	reinforce(player);
 	attack(player);
 	Country* c = getFirstCountryWithExistingPath(player, strongestCountry);
-	if(c != NULL)
-		fortify(player, *strongestCountry, *c, c->getArmies()-1);
+	if (c != nullptr)
+		fortify(player, *strongestCountry, *c, c->getArmies() - 1);
 	else
 		game->logAction("There is no path that exists with the strongest country to another country that has more than 1 army, so fortify cannot be done.");
-
 }
 
 void AggressiveAI::reinforce(Player* player, bool skip)
-{	
+{
 	Game* game = player->getGame();
-	
+
 
 	//Temporary override for GameLoop purpose
 	if (skip)
@@ -58,15 +56,13 @@ void AggressiveAI::reinforce(Player* player, bool skip)
 	}
 
 
-
 	game->logAction("Strongest country " + strongestCountry->getName());
 	game->logAction("Strongest country has " + std::to_string(strongestCountry->getArmies()) + " armies");
-	
-	
+
 
 	int total = std::max(3, int(player->getCountries().size() / 3));
 	game->logAction(player->getName() + " owns " + std::to_string(player->getCountries().size()) + " territories, therefore he can reinforce with " + std::to_string(total) + " armies.");
-	
+
 
 	std::unordered_map<std::string, Continent> continents = player->getGame()->getMap()->getContinents();
 	for (std::pair<std::string, Continent> p : continents)
@@ -75,7 +71,7 @@ void AggressiveAI::reinforce(Player* player, bool skip)
 		if (c.ownedBy(player))
 		{
 			game->logAction(player->getName() + " owns all of " + c.getName() + " therefore he gets an extra " + std::to_string(c.getControlValue()) + " armies.");
-			
+
 			total += p.second.getControlValue();
 		}
 	}
@@ -103,30 +99,27 @@ void AggressiveAI::reinforce(Player* player, bool skip)
 void AggressiveAI::attack(Player* player, bool skip)
 {
 	Game* game = player->getGame();
-	
+
 	vector<Country*> adjList = getAdjUnOwnedCountryList(player, *strongestCountry);
 	Country* defendingCountry = adjList[0];
 	adjList.erase(adjList.begin());
-	
+
 	//keep attack a untill it cannot do so anymore
 	while (strongestCountry->getArmies() >= 2 && adjList.size() != 0)
 	{
 		game->logAction("\n" + strongestCountry->getName() + " has " + std::to_string(strongestCountry->getArmies()) + " armies");
 		game->logAction(defendingCountry->getName() + " has " + std::to_string(defendingCountry->getArmies()) + " armies");
 
-		
-		
 
 		if (strongestCountry->getArmies() == 2)
 		{
-
 			int attackerRoll = player->getDiceRoller().roll(1);
 			game->logAction("Attacker is rolling 1 dice. The rolls are:\n" + player->getDiceRoller().getLastRoll().getOutputForNumberOfDice());
-			
-			
+
+
 			int defenderRoll = defendingCountry->getOwner()->getDiceRoller().roll(defend(defendingCountry));
 			game->logAction("Defender is rolling " + std::to_string(defend(defendingCountry)) + " dice. The rolls are:\n" + defendingCountry->getOwner()->getDiceRoller().getLastRoll().getOutputForNumberOfDice());
-			
+
 
 			handleBattle(strongestCountry, defendingCountry, attackerRoll, defenderRoll);
 
@@ -138,11 +131,11 @@ void AggressiveAI::attack(Player* player, bool skip)
 		{
 			int attackerRoll = player->getDiceRoller().roll(2);
 			game->logAction("Attacker is rolling 2 dice. The rolls are:\n" + player->getDiceRoller().getLastRoll().getOutputForNumberOfDice());
-			
-		
+
+
 			int defenderRoll = defendingCountry->getOwner()->getDiceRoller().roll(defend(defendingCountry));
 			game->logAction("Defender is rolling " + std::to_string(defend(defendingCountry)) + " dice. The rolls are:\n" + defendingCountry->getOwner()->getDiceRoller().getLastRoll().getOutputForNumberOfDice());
-			
+
 
 			handleBattle(strongestCountry, defendingCountry, attackerRoll, defenderRoll);
 
@@ -153,15 +146,14 @@ void AggressiveAI::attack(Player* player, bool skip)
 		else
 		{
 			int attackerRoll = player->getDiceRoller().roll(3);
-			
+
 			game->logAction("Attacker is rolling 3 dice. The rolls are:\n" + player->getDiceRoller().getLastRoll().getOutputForNumberOfDice());
-			
-			
-			
+
+
 			int defenderRoll = defendingCountry->getOwner()->getDiceRoller().roll(defend(defendingCountry));
-			
+
 			game->logAction("Defender is rolling " + std::to_string(defend(defendingCountry)) + " dice. The rolls are:\n" + defendingCountry->getOwner()->getDiceRoller().getLastRoll().getOutputForNumberOfDice());
-			
+
 
 			handleBattle(strongestCountry, defendingCountry, attackerRoll, defenderRoll);
 
@@ -190,15 +182,14 @@ void AggressiveAI::attack(Player* player, bool skip)
 bool AggressiveAI::fortify(Player* player, Country& source, Country& target, int amount, bool skip)
 {
 	Game* game = player->getGame();
-	
+
 	if (skip)
 	{
-		
 		TypeOfPlayer::fortify(player, source, target, amount, skip);
 		return true;
 	}
 
-	if (&target != NULL)
+	if (&target != nullptr)
 	{
 		game->logAction("\n" + source.getName() + " currently has " + std::to_string(source.getArmies()) + " armies");
 		game->logAction(target.getName() + " currently has " + std::to_string(target.getArmies()) + " armies");
@@ -206,7 +197,7 @@ bool AggressiveAI::fortify(Player* player, Country& source, Country& target, int
 
 		strongestCountry->addArmies(amount);
 		target.removeArmies(amount);
-				
+
 		game->logAction(strongestCountry->getName() + " now has " + std::to_string(strongestCountry->getArmies()) + " armies");
 		game->logAction(target.getName() + " now has " + std::to_string(target.getArmies()) + " armies");
 
@@ -238,7 +229,6 @@ vector<Country*> AggressiveAI::getAdjUnOwnedCountryList(Player* player, const Co
 
 bool AggressiveAI::ownsCountry(Player* player, const Country& country) const
 {
-
 	// TODO: figure out in the end if are keeping the getOwner() and a pointer to the owner in the currentPlayerTurn
 	return (player == country.getOwner());
 
@@ -253,7 +243,6 @@ bool AggressiveAI::ownsCountry(Player* player, const Country& country) const
 	}
 	}
 	return false;*/
-
 }
 
 
@@ -262,11 +251,10 @@ int AggressiveAI::defend(Country* country)
 {
 	if (country->getArmies() >= 2)
 		return 2;
-	else
-		return 1;
+	return 1;
 }
 
-bool sortAlg(int i, int j) { return (i>j); }
+bool sortAlg(int i, int j) { return (i > j); }
 
 //Handles the comparing and removing of armies
 void AggressiveAI::handleBattle(Country* strongestCountry, Country* defendingCountry, int attackerRoll, int defenderRoll)
@@ -277,8 +265,8 @@ void AggressiveAI::handleBattle(Country* strongestCountry, Country* defendingCou
 	int b1 = defenderRoll % 10;
 	int b2 = (defenderRoll % 100) / 10;
 
-	std::vector<int> attackerRollList;
-	std::vector<int> defenderRollList;
+	vector<int> attackerRollList;
+	vector<int> defenderRollList;
 
 	if (a1 != 0) attackerRollList.push_back(a1);
 	if (a2 != 0) attackerRollList.push_back(a2);
@@ -288,8 +276,8 @@ void AggressiveAI::handleBattle(Country* strongestCountry, Country* defendingCou
 	if (b1 != 0) defenderRollList.push_back(b1);
 	if (b2 != 0) defenderRollList.push_back(b2);
 
-	std::sort(attackerRollList.begin(), attackerRollList.end(), sortAlg);
-	std::sort(defenderRollList.begin(), defenderRollList.end(), sortAlg);
+	sort(attackerRollList.begin(), attackerRollList.end(), sortAlg);
+	sort(defenderRollList.begin(), defenderRollList.end(), sortAlg);
 
 	while (defenderRollList.size() != 0 && attackerRollList.size() != 0)
 	{
@@ -318,5 +306,5 @@ Country* AggressiveAI::getFirstCountryWithExistingPath(Player* player, Country* 
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
