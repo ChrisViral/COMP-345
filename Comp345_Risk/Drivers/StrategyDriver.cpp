@@ -45,7 +45,7 @@ void StrategyDriver::run()
 	game.setup();
 
 	std::cout << "\nRunning Human strategy" << std::endl;
-	//human->executeStrategy();
+	human->executeStrategy();
 	std::cout << "\nEnding Human strategy" << std::endl;
 	
 	std::cout << "\nRunning Aggressive strategy" << std::endl;

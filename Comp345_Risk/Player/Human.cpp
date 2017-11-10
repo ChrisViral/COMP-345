@@ -35,11 +35,11 @@ Human::~Human()
 
 void Human::playTurn(Player * player)
 {
-	//reinforce(player);
+	reinforce(player);
 	attack(player);
 	//TODO: Might have to modify this function a bit to select the countries inside the function, instead of being passed in.
 	//Or call a function before running fortify, that returns a source and target and then pass it in.
-	//fortify(player);
+	fortify(player);
 }
 
 void Human::reinforce(Player* player, bool skip)
@@ -110,8 +110,13 @@ void Human::attack(Player* player, bool skip)
 	//Loops the attack phase until the user tells the program to stop.
 	while (true) 
 	{
-		Country* source = chooseSourceCountry(player);
-		Country* target = chooseTargetCountry(player, *source);
+		Country* source = chooseAttackSourceCountry(player);
+		if (source == NULL)
+		{
+			std::cout << "There are no possible countries to attack from..."<< endl;
+			return;
+		}
+		Country* target = chooseAttackTargetCountry(player, *source);
 		attack(player, *source, *target, false);
 
 		//prompts user if they would like to attack again.
@@ -192,14 +197,19 @@ void Human::attack(Player* player, Country&source, Country& target, bool skip)
 				b = 1;
 			}
 			//if there are 2 or more armies on the target country you can roll with up to 2 dice.
-			else if (source.getArmies() >= 2) {
-
-				std::cout << "How many Dice would you like to roll?" <<
-					std::endl << "Enter either 1 or 2: ";
-				std::cin >> b;
-				while (b < 1 || b > 2) {
-					std::cout << std::endl << "Invalid entry! Please enter a valid value: ";
+			else if (target.getArmies() >= 2) {
+				if (dynamic_cast<Human*>((target.getOwner())->getTypeOfPlayer())) {
+					std::cout << "How many Dice would you like to roll?" <<
+						std::endl << "Enter either 1 or 2: ";
 					std::cin >> b;
+					while (b < 1 || b > 2) {
+						std::cout << std::endl << "Invalid entry! Please enter a valid value: ";
+						std::cin >> b;
+					}
+				}
+				else
+				{
+					b = 2;
 				}
 			}
 			std::cout << "DEFENDING with " << b << " Dice..." << std::endl;
@@ -696,7 +706,46 @@ void Human::attack(Player* player, Country&source, Country& target, bool skip)
 	}
 }
 
+void Human::fortify(Player* player)
+{
+	std::cout << "===========================================" << endl;
+	while (true)
+	{
+		Country* source = chooseFortifySourceCountry(player);
+		Country* target = chooseFortifyTargetCountry(player, *source);
+		int amount;
+		std::cout << source->getName() << " has " << source->getArmies() << " armies" << endl;
+		std::cout << target->getName() << " has " << target->getArmies() << " armies" << endl << endl;
+		std::cout << "How many armies would you like to move from " << source->getName() << " to " << target->getName() << ": ";
+		while (true)
+		{
+			std::cin >> amount;
+			if (amount < source->getArmies() - 1 || amount >= 0) {
+				break;
+			}
+			std::cout << "Invalid entry, please be sure to leave at least 1 army on " << source->getName() << "...";
+		}
+		std:cout << "Moving " << amount << " armies from " << source->getName() << " to " << target->getName() << "..." << endl << endl;
+		fortify(player, *source, *target, amount);
+		std::cout << source->getName() << " now has " << source->getArmies() << " armies" << endl;
+		std::cout << target->getName() << " now has " << target->getArmies() << " armies" << endl << endl;
 
+		std::cout << std::endl << "Would you like to fortify another country? (Y/N): ";
+		std::string cont;
+		while (true)
+		{
+			std::getline(std::cin, cont);
+
+			if (stringToLower(cont) == "n")
+			{
+				return;
+			}
+			else if (stringToLower(cont) == "y") {
+				break;
+			}
+		}
+	}
+}
 bool Human::fortify(Player* player, Country& source, Country& target, int amount, bool skip)
 {
 
@@ -737,7 +786,7 @@ bool Human::fortify(Player* player, Country& source, Country& target, int amount
 	}
 }
 
-Country* Human::chooseSourceCountry(Player* player)
+Country* Human::chooseAttackSourceCountry(Player* player)
 {
 	std::cout << "Countries you can attack from:" << std::endl;
 	vector<Country*> validCountries;
@@ -748,12 +797,14 @@ Country* Human::chooseSourceCountry(Player* player)
 			std::cout << "\tName: " << country->getName() << "\tArmies: " << country->getArmies() << endl;
 		}
 	}
-
+	if(validCountries.empty())
+	{
+		return NULL;
+	}
 	string inputCountryName;
 	std::cout << "Which Country would you like to attack from: ";
 	while (true)
 	{
-
 		std::getline(std::cin, inputCountryName);
 		inputCountryName = stringToLower(inputCountryName);
 		for (Country* country : validCountries)
@@ -761,9 +812,8 @@ Country* Human::chooseSourceCountry(Player* player)
 			if (stringToLower(country->getName()) == inputCountryName)
 				return country;
 		}
-
+		std::cout << "Invalid Country Name, Please Try Again." << std::endl;
 	}
-	std::cout << "Invalid Country Name, Please Try Again." << std::endl;
 }
 
 bool Human::hasAdjUnOwnedCountry(Player* player, const Country& source)
@@ -785,7 +835,7 @@ bool Human::ownsCountry(Player* player, const Country& country) const
 	return (player == country.getOwner());
 }
 
-Country* Human::chooseTargetCountry(Player* player, Country& source) {
+Country* Human::chooseAttackTargetCountry(Player* player, Country& source) {
 	std::cout << "Countries you can attack:" << std::endl;
 	vector<Country*> adj = getAdjUnOwnedCountryList(player, source);
 	for (Country* country : adj)
@@ -829,4 +879,81 @@ vector<Country*> Human::getAdjUnOwnedCountryList(Player* player, const Country& 
 		}
 	}
 	return adjCountries;
+}
+
+Country* Human::chooseFortifySourceCountry(Player* player)
+{
+	std::cout << "Countries you can move armies from:" << std::endl;
+	vector<Country*> validCountries;
+	for (Country* country : player->getCountries())
+	{
+		if ((country->getArmies() > 1) && !(getConnectedOwnedCountryList(player, *country).empty())) {
+			validCountries.push_back(country);
+			std::cout << "\tName: " << country->getName() << "\tArmies: " << country->getArmies() << endl;
+		}
+	}
+	if (validCountries.empty())
+	{
+		return NULL;
+	}
+	string inputCountryName;
+	std::cout << "Which Country would you like to move armies from: ";
+	while (true)
+	{
+		std::getline(std::cin, inputCountryName);
+		inputCountryName = stringToLower(inputCountryName);
+		for (Country* country : validCountries)
+		{
+			if (stringToLower(country->getName()) == inputCountryName)
+				return country;
+		}
+		std::cout << "Invalid Country Name, Please Try Again." << std::endl;
+	}
+}
+
+vector<Country*> Human::getConnectedOwnedCountryList(Player* player, Country& source)
+{
+	vector<Country*> connectedCountries;
+	RiskMap& map = *player->getGame()->getMap();
+	for (Country* country : player->getCountries())
+	{
+		if (!(country == &source))
+		{
+			if (map.isReachable(player, source, *country))
+			{
+				connectedCountries.push_back(country);
+			}
+		}
+	}
+	return connectedCountries;
+}
+
+Country* Human::chooseFortifyTargetCountry(Player* player, Country& source)
+{
+	std::cout << "Countries you can fortify:" << std::endl;
+	vector<Country*> adj = getConnectedOwnedCountryList(player, source);
+	for (Country* country : adj)
+	{
+		if (country->getArmies() > 0) {
+			std::cout << "\tName: " << country->getName() << "\tArmies: " << country->getArmies() << endl;
+		}
+	}
+	string inputCountryName;
+	std::cout << "Which Country would you like to fortify: ";
+	while (true)
+	{
+
+
+		std::getline(std::cin, inputCountryName);
+		inputCountryName = stringToLower(inputCountryName);
+		for (Country* country : adj)
+		{
+			if (stringToLower(country->getName()) == inputCountryName)
+			{
+				return country;
+			}
+
+		}
+		std::cout << "Invalid Country Name, Please Try Again." << std::endl;
+	}
 }
