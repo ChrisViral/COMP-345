@@ -10,16 +10,13 @@
 // ==============================
 
 #pragma once
-#include "../Base/RiskObject.h"
 
-class Dice : public RiskObject
+#include "GameUI.h"
+
+class DominationUI : public GameUI
 {
 public:
-	Dice();
-	~Dice();
-	int roll();
-	int getLastRoll() const;
-
-private:
-	int lastRoll;
+	explicit DominationUI(Game* game);
+	~DominationUI();
+	void update() override;
 };

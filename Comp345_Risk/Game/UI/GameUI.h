@@ -10,16 +10,23 @@
 // ==============================
 
 #pragma once
-#include "../Base/RiskObject.h"
+#include "../../Patterns/Observer/Observer.h"
+#include "../Game.h"
+#include "../GameState.h"
+#include "../../Player/Player.h"
 
-class Dice : public RiskObject
+class Game;
+
+class GameUI : public Observer
 {
 public:
-	Dice();
-	~Dice();
-	int roll();
-	int getLastRoll() const;
+	GameUI() : game(nullptr)
+	{
+	}
 
-private:
-	int lastRoll;
+	virtual ~GameUI();
+	void update() override;
+protected:
+	GameUI(Game* game);
+	Game* game;
 };

@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 2
+//          Assignment 3
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -78,9 +78,9 @@ int Player::controlled() const
 	return playersTerritories.size();
 }
 
-void Player::addCountry(Country* country) {
-
-	playersTerritories.push_back(country); 
+void Player::addCountry(Country* country)
+{
+	playersTerritories.push_back(country);
 }
 
 void Player::setGame(Game* currentGame)
@@ -98,7 +98,7 @@ Hand& Player::getHand()
 	return playersCards;
 }
 
-DiceRoller Player::getDiceRoller()
+DiceRoller& Player::getDiceRoller()
 {
 	return diceRoller;
 }
@@ -108,16 +108,16 @@ void Player::printPlayerArmyInfo()
 	//See how many countries they own
 	cout << name << " owns " << playersTerritories.size() << " countries" << endl;
 
-	//Count player's armies
+	//Count currentPlayerTurn's armies
 	int armies = 0;
 	for (Country* c : playersTerritories)
 	{
-		//See what country the player owns
+		//See what country the currentPlayerTurn owns
 		cout << name << " owns " << c->getName() << " and has " << c->getArmies() << " armies stationed there" << endl;
 		armies += c->getArmies();
 	}
 
-	//See total amount of armies owned by a player
+	//See total amount of armies owned by a currentPlayerTurn
 	cout << name << " has a total of " << armies << " placed on the board" << endl;
 }
 
@@ -127,16 +127,15 @@ void Player::setStrategy(TypeOfPlayer* typePlayer)
 }
 
 void Player::executeStrategy()
-{		
+{
 	typeOfPlayer->playTurn(this);
 }
 
 
-
 //These methods can be used for specific testing/demo purposes. But in reality executeStrategy should be used.
-void Player::executeAttack()
+void Player::executeAttack(bool skip)
 {
-	typeOfPlayer->attack(this);
+	typeOfPlayer->attack(this, skip);
 }
 
 void Player::executeReinforce(bool skip)
@@ -147,4 +146,17 @@ void Player::executeReinforce(bool skip)
 void Player::executeFortify(Country& source, Country& target, int amount, bool skip)
 {
 	typeOfPlayer->fortify(this, source, target, amount, skip);
+}
+
+void Player::removeCountry(Country* country)
+{
+	for (int i = 0; i < playersTerritories.size(); i++)
+	{
+		if (country->getName() == playersTerritories[i]->getName())
+		{
+			playersTerritories.erase(playersTerritories.begin() + i);
+			notify();
+			return;
+		}
+	}
 }

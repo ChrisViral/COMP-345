@@ -1,3 +1,14 @@
+// ==============================
+//           COMP-345 D
+//          Assignment 3
+//  ----------------------------
+//  Christophe Savard,  40017812
+//  David Di Feo,       27539800
+//  Paul Weber,         27057938
+//  Steven Tucci,       40006014
+//  Adriano Monteclavo, 40009257
+// ==============================
+
 #include "GameStart.h"
 #include <fstream>
 #include <iostream>
@@ -6,7 +17,7 @@
 #include "../Player/Human.h"
 
 
-GameStart::GameStart(): deck(0)  //create a deck of size 0, it will get created with the proper size after the map is selected
+GameStart::GameStart(): deck(0) //create a deck of size 0, it will get created with the proper size after the map is selected
 {
 	readFileNames();
 }
@@ -51,12 +62,11 @@ void GameStart::askForPlayers()
 		std::cout << "You entered the wrong number of players. Enter between 2 - 6" << std::endl;
 		std::cin >> numOfPlayers;
 	}
-	
 }
 
 //create the players
 void GameStart::createPlayers()
-{	
+{
 	players = new vector<Player*>();
 	for (int i = 0; i < numOfPlayers; i++)
 	{
@@ -72,12 +82,11 @@ void GameStart::readFileNames()
 	input.open("mapfiles/list.txt");
 
 	//Push all the file names in the vector
-	std::string map;
+	string map;
 	while (getline(input, map))
 	{
 		mapNames.push_back(map);
 	}
-
 }
 
 void GameStart::createMap()
@@ -130,4 +139,3 @@ void GameStart::startGame()
 	game = new Game(players, map);
 	game->setup();
 }
-

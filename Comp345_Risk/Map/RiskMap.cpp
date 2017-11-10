@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 2
+//          Assignment 3
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -171,7 +171,7 @@ bool RiskMap::isReachable(Country& source, Country& destination)
 		queue.pop_front();
 
 		//Get edges 
-		std::vector<Edge>::iterator i = getNodeFromMap(name).adjList.begin();
+		vector<Edge>::iterator i = getNodeFromMap(name).adjList.begin();
 		for (i; i != getNodeFromMap(name).adjList.end(); ++i)
 		{
 			// If this adjacent node is the destination node, then 
@@ -191,7 +191,8 @@ bool RiskMap::isReachable(Country& source, Country& destination)
 }
 
 //A test to see if a source country can reach a destinatation country
-bool RiskMap::isReachable(Player* p, Country& source, Country& destination) {
+bool RiskMap::isReachable(Player* p, Country& source, Country& destination)
+{
 	if (source.getName() == destination.getName())
 		return true;
 
@@ -199,7 +200,8 @@ bool RiskMap::isReachable(Player* p, Country& source, Country& destination) {
 	std::unordered_map<std::string, bool> visited;
 
 	//initialize them all to false    
-	for (int i = 0; i < p->getCountries().size(); i++) {
+	for (int i = 0; i < p->getCountries().size(); i++)
+	{
 		std::pair<std::string, bool> pair(p->getCountries()[i]->getName(), false);
 		visited.insert(pair);
 	}
@@ -209,23 +211,27 @@ bool RiskMap::isReachable(Player* p, Country& source, Country& destination) {
 	visited[source.getName()] = true;
 	queue.push_back(source.getName());
 
-	while (!queue.empty()) {
+	while (!queue.empty())
+	{
 		std::string name = queue.front();
 		queue.pop_front();
 
 		//Get edges 
-		std::vector<Edge>::iterator i = getNodeFromMap(name).adjList.begin();
-		for (i; i != getNodeFromMap(name).adjList.end(); ++i) {
+		vector<Edge>::iterator i = getNodeFromMap(name).adjList.begin();
+		for (i; i != getNodeFromMap(name).adjList.end(); ++i)
+		{
 			// If this adjacent node is the destination node, then 
 			// return true
-			if (i->country->getName() == destination.getName()) {
+			if (i->country->getName() == destination.getName())
+			{
 				return true;
 			}
 
 
 			if (getNodeFromMap(i->country->getName()).country->getOwner() != p)
 				visited[i->country->getName()] = true;
-			else if (!visited[i->country->getName()]) {
+			else if (!visited[i->country->getName()])
+			{
 				visited[i->country->getName()] = true;
 				queue.push_back(i->country->getName());
 			}

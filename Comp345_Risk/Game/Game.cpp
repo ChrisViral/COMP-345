@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 2
+//          Assignment 3
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -78,7 +78,7 @@ void Game::setup()
 		remaining.push_back(i);
 	}
 
-	//Assign a remaining country to each player, one by one
+	//Assign a remaining country to each currentPlayerTurn, one by one
 	for (int i = 0; i < map->size(); i++)
 	{
 		//Get random member of remaining, obtain it's index value, then remove it
@@ -89,18 +89,16 @@ void Game::setup()
 		Country* country = map->getCountry(index);
 		Player* p = players->at(i % numPlayers);
 
-		
 
 		country->addArmies(1);
 		country->setOwner(p);
 		p->addCountry(country);
-		
 	}
 
-	//Get amount of armies to give place for each player						
+	//Get amount of armies to give place for each currentPlayerTurn						
 	int armies = 40 - (numPlayers - 2) * 5;
 
-	//Each player places the same total amount of armies
+	//Each currentPlayerTurn places the same total amount of armies
 	for (int i = 0; i < armies; i++)
 	{
 		//Players place one army at a time in the regular play order
@@ -116,7 +114,49 @@ RiskMap* Game::getMap() const
 	return map;
 }
 
-void Game::gameLoop() const
+GameState Game::getGameState()
+{
+	GameState state;
+	state.owned = owned;
+	state.numPlayers = numPlayers;
+	state.players = players;
+	state.map = map;
+	state.currentPlayerTurn = currentPlayerTurn;
+	state.currentPhase = currentPhase;
+	state.recentActions = &recentActions;
+	return state;
+}
+
+vector<Player*>* Game::getPlayers() const
+{
+	return players;
+}
+
+void Game::setCurrentPlayerTurnAndPhase(Player* player, GamePhase phase)
+{
+	currentPlayerTurn = player;
+	currentPhase = phase;
+	// Notify that the currentPlayerTurn and phase has changed
+	if (observersCount() > 0)
+	{
+		notify();
+	}
+	else
+	{
+		for (string s : recentActions)
+		{
+			std::cout << s << std::endl;
+		}
+		recentActions.clear();
+	}
+}
+
+void Game::logAction(const string action)
+{
+	recentActions.push_back(action);
+}
+
+void Game::gameLoop()
 {
 	int counter = 1;
 	std::pair<bool, Player*> pair = checkWin();
@@ -124,9 +164,13 @@ void Game::gameLoop() const
 	{
 		for (int i = 0; i < players->size(); i++)
 		{
-			std::cout << "Player " << i + 1 << std::endl;
+			// TODO(steven): do we need this here? the child players
+			// automatically call setCurrentPlayerAndPhase
+			// this is redunandant and something to think about
+			//currentPlayerTurn = players->at(i);
+
+
 			(*players)[i]->executeStrategy();
-			std::cout << std::endl;
 		}
 
 		if (counter > 3)
@@ -137,23 +181,21 @@ void Game::gameLoop() const
 		pair = checkWin();
 		counter++;
 	}
-
 	std::cout << pair.second->getName() << " won" << std::endl;
 }
 
-std::pair<bool,Player*> Game::checkWin() const
-{	
+
+std::pair<bool, Player*> Game::checkWin() const
+{
 	for (int i = 0; i < players->size(); i++)
 	{
 		if (players->at(i)->getCountries().size() == map->size())
 		{
-			
 			return std::pair<bool, Player*>(true, players->at(i));
 		}
-			
 	}
 
-	return std::pair<bool, Player*>(false, NULL);
+	return std::pair<bool, Player*>(false, nullptr);
 }
 
 //Free function to transfer countries to a player
@@ -163,6 +205,10 @@ void transferCountries(Player* player, RiskMap* map)
 
 	for (int i = 0; i < map->size(); i++)
 	{
-		player->addCountry((map->getCountry(i)));
+		Country* c = map->getCountry(i);
+		if (c->getOwner()->getName() != player->getName())
+		{
+			player->addCountry(c);
+		}
 	}
 }

@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 2
+//          Assignment 3
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -67,7 +67,7 @@ bool Continent::ownedBy(const Player* player)
 	return true;
 }
 
-std::vector<Node*> Continent::getCountries() const
+vector<Node*> Continent::getCountries() const
 {
 	return countries;
 }

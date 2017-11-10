@@ -10,16 +10,11 @@
 // ==============================
 
 #pragma once
-#include "../Base/RiskObject.h"
-
-class Dice : public RiskObject
+class Observer
 {
 public:
-	Dice();
-	~Dice();
-	int roll();
-	int getLastRoll() const;
-
-private:
-	int lastRoll;
+	virtual ~Observer();
+	virtual void update() = 0;
+protected:
+	Observer();
 };

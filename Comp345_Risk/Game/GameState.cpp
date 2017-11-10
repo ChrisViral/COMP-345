@@ -9,17 +9,13 @@
 //  Adriano Monteclavo, 40009257
 // ==============================
 
-#pragma once
-#include "../Base/RiskObject.h"
+#include "GameState.h"
 
-class Dice : public RiskObject
+
+GameState::GameState()
 {
-public:
-	Dice();
-	~Dice();
-	int roll();
-	int getLastRoll() const;
+}
 
-private:
-	int lastRoll;
-};
+GameState::~GameState()
+{
+}

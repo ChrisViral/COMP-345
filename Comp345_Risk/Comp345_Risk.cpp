@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 2
+//          Assignment 3
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -10,11 +10,11 @@
 // ==============================
 
 #include "Base/Driver.h";
-
-#include <cstdio>
 #include <iostream>
 #include <vector>
 #include "Drivers/StrategyDriver.h"
+#include "Drivers/PhaseObserverDriver.h"
+#include "Drivers/StatisticsDriver.h"
 
 using std::cout;
 using std::vector;
@@ -24,21 +24,24 @@ int main()
 {
 	vector<Driver*> drivers;
 
-	GameDriver game;
-
-	drivers.push_back(&game);
+	StrategyDriver strategy;
+	PhaseObserverDriver phase;
+	StatisticsDriver stats;
 
 	const string endll = "\n\n";
 
 	//Run drivers individually
 
-	Driver* d = &game;
+	Driver* d = &strategy;
 	cout << d->getOpeningMessage() << endll;
 	d->run();
 	cout << std::endl << d->getClosingMessage() << endll;
 
 	/*
 	//Batch run, run all drivers
+	drivers.push_back(&strategy);
+	drivers.push_back(&phase);
+	drivers.push_back(&stats);
 	cout << "Beginning driver tests" << endll;
 	for (Driver* d : drivers)
 	{

@@ -9,17 +9,19 @@
 //  Adriano Monteclavo, 40009257
 // ==============================
 
-#pragma once
-#include "../Base/RiskObject.h"
+#include "GameUI.h"
 
-class Dice : public RiskObject
+
+GameUI::GameUI(Game* game)
 {
-public:
-	Dice();
-	~Dice();
-	int roll();
-	int getLastRoll() const;
+	this->game = game;
+}
 
-private:
-	int lastRoll;
-};
+GameUI::~GameUI()
+{
+}
+
+
+void GameUI::update()
+{
+}

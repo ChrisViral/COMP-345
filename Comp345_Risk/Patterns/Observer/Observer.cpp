@@ -9,17 +9,12 @@
 //  Adriano Monteclavo, 40009257
 // ==============================
 
-#pragma once
-#include "../Base/RiskObject.h"
+#include "Observer.h"
 
-class Dice : public RiskObject
+Observer::Observer()
 {
-public:
-	Dice();
-	~Dice();
-	int roll();
-	int getLastRoll() const;
+}
 
-private:
-	int lastRoll;
-};
+Observer::~Observer()
+{
+}

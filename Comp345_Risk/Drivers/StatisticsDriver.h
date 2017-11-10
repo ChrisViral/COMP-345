@@ -10,16 +10,14 @@
 // ==============================
 
 #pragma once
-#include "../Base/RiskObject.h"
+#include "../Base/Driver.h"
 
-class Dice : public RiskObject
+class StatisticsDriver : public Driver
 {
 public:
-	Dice();
-	~Dice();
-	int roll();
-	int getLastRoll() const;
-
-private:
-	int lastRoll;
+	StatisticsDriver();
+	~StatisticsDriver();
+	void run() override;
+	string getOpeningMessage() override;
+	string getClosingMessage() override;
 };

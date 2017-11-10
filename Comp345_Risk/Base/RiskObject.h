@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 2
+//          Assignment 3
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -15,5 +15,5 @@ class RiskObject
 {
 public:
 	RiskObject();
-	~RiskObject();
+	virtual ~RiskObject();
 };

@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 2
+//          Assignment 3
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -18,7 +18,7 @@
 
 class TypeOfPlayer;
 
-class Player : public RiskObject
+class Player : public RiskObject, public Subject
 {
 public:
 	Player();
@@ -33,21 +33,23 @@ public:
 	const vector<Country*>& getCountries() const;
 
 	void addCountry(Country* country);
+	void removeCountry(Country* country);
 
 	std::string getName() const;
 	int controlled() const;
 	void setGame(Game* currentGame);
 	Game* getGame() { return game; }
 	void addRandomArmy();
-	DiceRoller getDiceRoller();
+	DiceRoller& getDiceRoller();
 	Hand& getHand();
 	void printPlayerArmyInfo();
 	void setStrategy(TypeOfPlayer* typePlayer);
 	void executeStrategy();
+	TypeOfPlayer* getTypeOfPlayer() { return typeOfPlayer; }
 
 
 	//These methods can be used for specific testing/demo purposes. But in reality executeStrategy should be used.
-	void executeAttack();
+	void executeAttack(bool skip = false);
 	void executeReinforce(bool skip = false);
 	void executeFortify(Country& source, Country& target, int amount, bool skip = false);
 

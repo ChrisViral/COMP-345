@@ -9,31 +9,29 @@
 //  Adriano Monteclavo, 40009257
 // ==============================
 
-#include "StrategyDriver.h"
+#include "PhaseObserverDriver.h"
+#include <iostream>
 #include "../Map/RiskMap.h"
 #include "../Map/MapLoader/MapLoader.h"
-#include "../Game/Game.h"
 #include "../Player/DiceRoller.h"
 #include "../Player/Card/Hand.h"
-#include "../Player/Player.h"
-#include <iostream>
 #include "../Player/Human.h"
-#include "../Player/PassiveAI.h"
 #include "../Player/AggressiveAI.h"
+#include "../Player/PassiveAI.h"
+#include "../Game/UI/GameUI.h"
+#include "../Game/UI/TextBasedUI.h"
 
-using std::vector;
-using std::cout;
-using std::endl;
 
-StrategyDriver::StrategyDriver()
+PhaseObserverDriver::PhaseObserverDriver()
 {
 }
 
-StrategyDriver::~StrategyDriver()
+
+PhaseObserverDriver::~PhaseObserverDriver()
 {
 }
 
-void StrategyDriver::run()
+void PhaseObserverDriver::run()
 {
 	//Load the basic map
 	RiskMap* map = new RiskMap();
@@ -55,17 +53,18 @@ void StrategyDriver::run()
 	//We want to know how this affected the players and map
 	game.setup();
 
-	cout << "\nRunning Human strategy" << endl;
-	human->executeStrategy();
-	cout << "\nEnding Human strategy" << endl;
+	// Create the ui display
+	GameUI* ui = new TextBasedUI(&game);
+	// Register the ui to the game
+	// Everytime a game state changes, the ui will be notified
+	game.registerObserver(ui);
 
-	cout << "\nRunning Aggressive strategy" << endl;
-	aggressiveAI->executeStrategy();
-	cout << "\nEnding Aggressive strategy" << endl;
 
-	cout << "\nRunning Passive strategy" << endl;
-	passiveAI->executeStrategy();
-	cout << "\nEnding Passive strategy" << endl;
+	game.gameLoop();
+	//human->executeStrategy();
+	//aggressiveAI->executeStrategy();
+	//passiveAI->executeStrategy();
+
 
 	//Clear memory
 	delete map;
@@ -78,14 +77,18 @@ void StrategyDriver::run()
 
 	delete players;
 	players = nullptr;
+
+	delete ui;
+	ui = nullptr;
 }
 
-string StrategyDriver::getOpeningMessage()
+
+string PhaseObserverDriver::getOpeningMessage()
 {
-	return "Starting Strategy driver";
+	return "Starting Phase Observer Driver";
 }
 
-string StrategyDriver::getClosingMessage()
+string PhaseObserverDriver::getClosingMessage()
 {
-	return "Ending Strategy driver";
+	return "Ending Phase Observer Driver";
 }

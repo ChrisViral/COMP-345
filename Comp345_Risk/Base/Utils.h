@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 2
+//          Assignment 3
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -18,6 +18,7 @@
 #include <sstream>
 
 using std::string;
+using std::vector;
 
 //Taken from 
 //https://stackoverflow.com/questions/1878001/how-do-i-check-if-a-c-string-starts-with-a-certain-string-and-convert-a-sub
@@ -41,9 +42,9 @@ void split(const string& s, char delim, Out result)
 	}
 }
 
-inline std::vector<string> split(const string& s, char delim)
+inline vector<string> split(const string& s, char delim)
 {
-	std::vector<string> elems;
+	vector<string> elems;
 	split(s, delim, back_inserter(elems));
 	return elems;
 }
