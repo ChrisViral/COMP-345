@@ -17,7 +17,7 @@ enum GamePhase
 	fortifyPhase
 };
 
-static string gamePhaseToString(GamePhase phase)
+static std::string gamePhaseToString(GamePhase phase)
 {
 	switch (phase)
 	{

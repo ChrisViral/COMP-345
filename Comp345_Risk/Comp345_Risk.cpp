@@ -28,22 +28,20 @@ int main()
 	PhaseObserverDriver phase;
 	StatisticsDriver stats;
 
-
-	drivers.push_back(&strategy);
-	drivers.push_back(&phase);
-	drivers.push_back(&stats);
-
 	const string endll = "\n\n";
 
 	//Run drivers individually
 
-	Driver* d = &stats;
+	Driver* d = &strategy;
 	cout << d->getOpeningMessage() << endll;
 	d->run();
 	cout << std::endl << d->getClosingMessage() << endll;
 
 	/*
 	//Batch run, run all drivers
+	drivers.push_back(&strategy);
+	drivers.push_back(&phase);
+	drivers.push_back(&stats);
 	cout << "Beginning driver tests" << endll;
 	for (Driver* d : drivers)
 	{

@@ -18,6 +18,7 @@
 #include <sstream>
 
 using std::string;
+using std::vector;
 
 //Taken from 
 //https://stackoverflow.com/questions/1878001/how-do-i-check-if-a-c-string-starts-with-a-certain-string-and-convert-a-sub
