@@ -21,8 +21,8 @@ class Player;
 class RiskMap;
 
 
-
-class GameState {
+class GameState
+{
 public:
 
 	GameState();
@@ -30,7 +30,7 @@ public:
 
 	// TODO(Steven) move all this to const or private with getter/setters
 	bool owned;
-	
+
 	int numPlayers;
 	std::vector<Player*>* players;
 	RiskMap* map;
@@ -38,4 +38,3 @@ public:
 	GamePhase currentPhase;
 	std::vector<std::string>* recentActions;
 };
-

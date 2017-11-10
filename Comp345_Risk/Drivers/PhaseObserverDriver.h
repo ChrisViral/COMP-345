@@ -23,4 +23,3 @@ public:
 	string getOpeningMessage() override;
 	string getClosingMessage() override;
 };
-

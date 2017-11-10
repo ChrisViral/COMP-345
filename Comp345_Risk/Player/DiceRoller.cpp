@@ -44,7 +44,7 @@ int DiceRoller::roll(int numberOfDice)
 	int rollA = 0;
 	int rollB = 0;
 	int rollC = 0;
-	
+
 
 	cache.numberOfDice = numberOfDice;
 	//switch case to determine how many times to roll the myDice object. If an invalid number of dice has been passed to the roll function, it will notify the user.
@@ -218,7 +218,7 @@ void DiceRoller::showRolls() const
 	std::cout << "Percent of 6s: " << num6 / totalRolls * 100 << std::endl;
 }
 
-DiceRollCache DiceRoller::getLastRoll() {
+DiceRollCache DiceRoller::getLastRoll()
+{
 	return cache;
 }
-

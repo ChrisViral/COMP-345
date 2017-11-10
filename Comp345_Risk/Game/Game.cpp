@@ -89,12 +89,10 @@ void Game::setup()
 		Country* country = map->getCountry(index);
 		Player* p = players->at(i % numPlayers);
 
-		
 
 		country->addArmies(1);
 		country->setOwner(p);
 		p->addCountry(country);
-		
 	}
 
 	//Get amount of armies to give place for each currentPlayerTurn						
@@ -116,7 +114,8 @@ RiskMap* Game::getMap() const
 	return map;
 }
 
-GameState Game::getGameState() {
+GameState Game::getGameState()
+{
 	GameState state;
 	state.owned = owned;
 	state.numPlayers = numPlayers;
@@ -133,7 +132,8 @@ vector<Player*>* Game::getPlayers() const
 	return players;
 }
 
-void Game::setCurrentPlayerTurnAndPhase(Player* player, GamePhase phase) {
+void Game::setCurrentPlayerTurnAndPhase(Player* player, GamePhase phase)
+{
 	currentPlayerTurn = player;
 	currentPhase = phase;
 	// Notify that the currentPlayerTurn and phase has changed
@@ -151,7 +151,8 @@ void Game::setCurrentPlayerTurnAndPhase(Player* player, GamePhase phase) {
 	}
 }
 
-void Game::logAction(const std::string action) {
+void Game::logAction(const string action)
+{
 	recentActions.push_back(action);
 }
 
@@ -163,8 +164,6 @@ void Game::gameLoop()
 	{
 		for (int i = 0; i < players->size(); i++)
 		{
-			
-			
 			// TODO(steven): do we need this here? the child players
 			// automatically call setCurrentPlayerAndPhase
 			// this is redunandant and something to think about
@@ -172,7 +171,6 @@ void Game::gameLoop()
 
 
 			(*players)[i]->executeStrategy();
-			
 		}
 
 		if (counter > 3)
@@ -182,25 +180,22 @@ void Game::gameLoop()
 
 		pair = checkWin();
 		counter++;
-		
 	}
 	std::cout << pair.second->getName() << " won" << std::endl;
 }
 
 
-std::pair<bool,Player*> Game::checkWin() const
-{	
+std::pair<bool, Player*> Game::checkWin() const
+{
 	for (int i = 0; i < players->size(); i++)
 	{
 		if (players->at(i)->getCountries().size() == map->size())
 		{
-			
 			return std::pair<bool, Player*>(true, players->at(i));
 		}
-			
 	}
 
-	return std::pair<bool, Player*>(false, NULL);
+	return std::pair<bool, Player*>(false, nullptr);
 }
 
 //Free function to transfer countries to a player
@@ -217,4 +212,3 @@ void transferCountries(Player* player, RiskMap* map)
 		}
 	}
 }
-

@@ -16,17 +16,16 @@
 
 void TypeOfPlayer::reinforce(Player* player, bool skip)
 {
-	player->getGame()->setCurrentPlayerTurnAndPhase(player, GamePhase::reinforcePhase);
+	player->getGame()->setCurrentPlayerTurnAndPhase(player, reinforcePhase);
 }
 
 void TypeOfPlayer::attack(Player* player, bool skip)
 {
-	player->getGame()->setCurrentPlayerTurnAndPhase(player, GamePhase::attackPhase);
-	
+	player->getGame()->setCurrentPlayerTurnAndPhase(player, attackPhase);
 }
 
 bool TypeOfPlayer::fortify(Player* player, Country& source, Country& target, int amount, bool skip)
 {
-	player->getGame()->setCurrentPlayerTurnAndPhase(player, GamePhase::fortifyPhase);
+	player->getGame()->setCurrentPlayerTurnAndPhase(player, fortifyPhase);
 	return false;
 }

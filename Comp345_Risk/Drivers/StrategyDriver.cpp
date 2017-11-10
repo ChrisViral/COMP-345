@@ -40,7 +40,7 @@ void StrategyDriver::run()
 	MapLoader loader("mapfiles/World.map");
 	loader.tryParseMap(map);
 
-	Player* human = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), new Human);	
+	Player* human = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), new Human);
 	Player* aggressiveAI = new Player("Player 2", DiceRoller(), vector<Country*>(), Hand(), new AggressiveAI);
 	Player* passiveAI = new Player("Player 3", DiceRoller(), vector<Country*>(), Hand(), new PassiveAI);
 
@@ -55,17 +55,17 @@ void StrategyDriver::run()
 	//We want to know how this affected the players and map
 	game.setup();
 
-	std::cout << "\nRunning Human strategy" << std::endl;
+	cout << "\nRunning Human strategy" << endl;
 	human->executeStrategy();
-	std::cout << "\nEnding Human strategy" << std::endl;
-	
-	std::cout << "\nRunning Aggressive strategy" << std::endl;
+	cout << "\nEnding Human strategy" << endl;
+
+	cout << "\nRunning Aggressive strategy" << endl;
 	aggressiveAI->executeStrategy();
-	std::cout << "\nEnding Aggressive strategy" << std::endl;
-	
-	std::cout << "\nRunning Passive strategy" << std::endl;
+	cout << "\nEnding Aggressive strategy" << endl;
+
+	cout << "\nRunning Passive strategy" << endl;
 	passiveAI->executeStrategy();
-	std::cout << "\nEnding Passive strategy" << std::endl;
+	cout << "\nEnding Passive strategy" << endl;
 
 	//Clear memory
 	delete map;

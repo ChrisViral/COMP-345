@@ -41,9 +41,9 @@ void split(const string& s, char delim, Out result)
 	}
 }
 
-inline std::vector<string> split(const string& s, char delim)
+inline vector<string> split(const string& s, char delim)
 {
-	std::vector<string> elems;
+	vector<string> elems;
 	split(s, delim, back_inserter(elems));
 	return elems;
 }

@@ -13,18 +13,20 @@
 #include "Dice.h"
 #include <string>
 
-struct DiceRollCache {
+struct DiceRollCache
+{
 	int rollA;
 	int rollB;
 	int rollC;
 	int numberOfDice;
+
 	std::string getOutputForNumberOfDice()
 	{
 		switch (numberOfDice)
 		{
 		case 1: return std::to_string(rollA) + "\n";
-		case 2: return std::to_string(rollA) + "\n" + std::to_string(rollB);	
-		case 3: return std::to_string(rollA) + "\n" + std::to_string(rollB) + "\n" +  std::to_string(rollC);
+		case 2: return std::to_string(rollA) + "\n" + std::to_string(rollB);
+		case 3: return std::to_string(rollA) + "\n" + std::to_string(rollB) + "\n" + std::to_string(rollC);
 		}
 		return {};
 	}
@@ -50,6 +52,4 @@ private:
 	float num5;
 	float num6;
 	DiceRollCache cache;
-
-
 };

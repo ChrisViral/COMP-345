@@ -15,23 +15,23 @@
 #include <algorithm>
 #include <math.h>
 
-void PassiveAI::playTurn(Player * player)
+void PassiveAI::playTurn(Player* player)
 {
 	reinforce(player);
 	Country* c = getFirstCountryWithExistingPath(player, weakestCountry);
-	if (c != NULL) {
+	if (c != nullptr)
+	{
 		int armies = c->getArmies() - 1;
 		armies = armies / 2;
 		if (armies == 0) armies = 1;
 		fortify(player, *weakestCountry, *c, armies);
-	} else
+	}
+	else
 		player->getGame()->logAction("There is no path that exists with the weakest country to another country that has more than 1 army, so fortify cannot be done.");
-	
 }
 
 void PassiveAI::reinforce(Player* player, bool skip)
 {
-	
 	Game* game = player->getGame();
 	//Find the weakest country
 	weakestCountry = player->getCountries()[0];
@@ -43,14 +43,14 @@ void PassiveAI::reinforce(Player* player, bool skip)
 		}
 	}
 
-	
+
 	game->logAction("Weakest country " + weakestCountry->getName());
 	game->logAction("Weakest country has " + std::to_string(weakestCountry->getArmies()) + " armies");
-	
+
 
 	int total = std::max(3, int(player->getCountries().size() / 3));
 	game->logAction(player->getName() + " owns " + std::to_string(player->getCountries().size()) + " territories, therefore he can reinforce with " + std::to_string(total) + " armies.");
-	
+
 
 	std::unordered_map<std::string, Continent> continents = player->getGame()->getMap()->getContinents();
 	for (std::pair<std::string, Continent> p : continents)
@@ -59,7 +59,7 @@ void PassiveAI::reinforce(Player* player, bool skip)
 		if (c.ownedBy(player))
 		{
 			game->logAction(player->getName() + " owns all of " + c.getName() + " therefore he gets an extra " + std::to_string(c.getControlValue()) + " armies.");
-			
+
 			total += p.second.getControlValue();
 		}
 	}
@@ -83,20 +83,19 @@ void PassiveAI::reinforce(Player* player, bool skip)
 	game->logAction("All reinforcements distributed!\n");
 
 	TypeOfPlayer::reinforce(player, skip);
-
 }
 
 bool PassiveAI::fortify(Player* player, Country& source, Country& target, int amount, bool skip)
 {
 	Game* game = player->getGame();
-	
+
 	if (skip)
 	{
 		TypeOfPlayer::fortify(player, source, target, amount, skip);
 		return true;
 	}
 
-	if (&target != NULL)
+	if (&target != nullptr)
 	{
 		game->logAction("\n" + source.getName() + " currently has " + std::to_string(source.getArmies()) + " armies");
 		game->logAction(target.getName() + " currently has " + std::to_string(target.getArmies()) + " armies");
@@ -114,7 +113,6 @@ bool PassiveAI::fortify(Player* player, Country& source, Country& target, int am
 
 	TypeOfPlayer::fortify(player, source, target, amount, skip);
 	return false;
-	
 }
 
 //Looks for the first country that has a path from the weakeast country and returns it so it can take its armies.
@@ -129,5 +127,5 @@ Country* PassiveAI::getFirstCountryWithExistingPath(Player* player, Country* wea
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }

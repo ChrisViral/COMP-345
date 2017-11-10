@@ -12,7 +12,8 @@
 #include "GameUI.h"
 
 
-GameUI::GameUI(Game* game) {
+GameUI::GameUI(Game* game)
+{
 	this->game = game;
 }
 

@@ -29,7 +29,7 @@ void Subject::registerObserver(Observer* o)
 
 void Subject::unregisterObserver(Observer* o)
 {
-	auto observerIteratorIndex = std::find(observers.begin(), observers.end(), o);
+	auto observerIteratorIndex = find(observers.begin(), observers.end(), o);
 	observers.erase(observerIteratorIndex);
 }
 

@@ -16,6 +16,5 @@ public:
 	virtual ~Observer();
 	virtual void update() = 0;
 protected:
-		Observer();
+	Observer();
 };
-

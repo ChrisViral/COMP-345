@@ -14,8 +14,6 @@
 #include "Observer.h"
 
 
-
-
 class Subject
 {
 public:
@@ -29,4 +27,3 @@ protected:
 private:
 	std::vector<Observer*> observers;
 };
-

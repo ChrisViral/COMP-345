@@ -26,5 +26,4 @@ public:
 	virtual void attack(Player* player, bool skip = false);
 
 	virtual bool fortify(Player* player, Country& source, Country& target, int amount, bool skip = false);
-
 };

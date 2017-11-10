@@ -50,5 +50,5 @@ private:
 	// The current phase that the current player is in
 	GamePhase currentPhase;
 	// List of recent actions/couts
-	std::vector <std::string> recentActions;
+	vector<std::string> recentActions;
 };

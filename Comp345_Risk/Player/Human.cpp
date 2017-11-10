@@ -33,7 +33,7 @@ Human::~Human()
 {
 }
 
-void Human::playTurn(Player * player)
+void Human::playTurn(Player* player)
 {
 	reinforce(player);
 	attack(player);
@@ -44,8 +44,6 @@ void Human::playTurn(Player * player)
 
 void Human::reinforce(Player* player, bool skip)
 {
-
-	
 	//Temporary override for GameLoop purpose
 	if (skip)
 	{
@@ -56,7 +54,7 @@ void Human::reinforce(Player* player, bool skip)
 	Game* game = player->getGame();
 
 	int total = std::max(3, int(player->getCountries().size() / 3));
-	game->logAction(player->getName() + " owns " + std::to_string(player->getCountries().size()) + " territories, therefore he can reinforce with " + std::to_string(total) +" armies.");
+	game->logAction(player->getName() + " owns " + std::to_string(player->getCountries().size()) + " territories, therefore he can reinforce with " + std::to_string(total) + " armies.");
 
 	std::unordered_map<string, Continent> continents = player->getGame()->getMap()->getContinents();
 	for (std::pair<string, Continent> p : continents)
@@ -73,7 +71,7 @@ void Human::reinforce(Player* player, bool skip)
 	if (exchange.successfullyExchanged)
 	{
 		game->logAction(player->getName() + " exchanged the following cards to get " + std::to_string(exchange.armies) + " armies.");
-		
+
 		for (Card c : exchange.cardsExchanged)
 		{
 			cout << cardTypeEnumToString(c.getCardType()) << endl;
@@ -82,7 +80,7 @@ void Human::reinforce(Player* player, bool skip)
 	}
 
 	game->logAction(player->getName() + " therefore has a final total of " + std::to_string(total) + " armies to place");
-	
+
 
 	for (int i = 0; i < total; i++)
 	{
@@ -93,13 +91,10 @@ void Human::reinforce(Player* player, bool skip)
 
 	game->logAction("All reinforcements distributed!");
 	TypeOfPlayer::reinforce(player, skip);
-
 }
 
 void Human::attack(Player* player, bool skip)
 {
-
-	
 	//Temporary override for GameLoop purpose. Just for testing
 	if (skip)
 	{
@@ -108,31 +103,30 @@ void Human::attack(Player* player, bool skip)
 	}
 
 	//Loops the attack phase until the user tells the program to stop.
-	while (true) 
+	while (true)
 	{
 		Country* source = chooseAttackSourceCountry(player);
-		if (source == NULL)
+		if (source == nullptr)
 		{
-			std::cout << "There are no possible countries to attack from..."<< endl;
+			cout << "There are no possible countries to attack from..." << endl;
 			return;
 		}
 		Country* target = chooseAttackTargetCountry(player, *source);
 		attack(player, *source, *target, false);
 
 		//prompts user if they would like to attack again.
-		std::cout << std::endl << "Would you like to attack another country? (Y/N): ";
-		std::string cont;
+		cout << endl << "Would you like to attack another country? (Y/N): ";
+		string cont;
 		while (true)
 		{
-			
-			
-			std::getline(std::cin, cont);
+			getline(std::cin, cont);
 
 			if (stringToLower(cont) == "n")
 			{
 				return;
 			}
-			else if (stringToLower(cont) =="y") {
+			if (stringToLower(cont) == "y")
+			{
 				break;
 			}
 		}
@@ -140,14 +134,13 @@ void Human::attack(Player* player, bool skip)
 	TypeOfPlayer::attack(player, skip);
 }
 
-void Human::attack(Player* player, Country&source, Country& target, bool skip)
+void Human::attack(Player* player, Country& source, Country& target, bool skip)
 {
-
 	TypeOfPlayer::attack(player, skip);
-	while (source.getArmies()>1 && target.getArmies() > 0 && !skip)
+	while (source.getArmies() > 1 && target.getArmies() > 0 && !skip)
 	{
 		int a;
-		std::cout << "--------------------ATTACKING PLAYER------------------" << std::endl;
+		cout << "--------------------ATTACKING PLAYER------------------" << endl;
 		//if the source country has 2 armies, you can only roll with one die.
 		if (source.getArmies() - 1 == 1)
 		{
@@ -156,54 +149,58 @@ void Human::attack(Player* player, Country&source, Country& target, bool skip)
 		//if there are more than 3 armies on the source country you can roll with up to 3 dice.
 		else if (source.getArmies() > 3)
 		{
-
-			std::cout << "How many Dice would you like to roll?" <<
-				std::endl << "Enter a number between 1 and 3: ";
+			cout << "How many Dice would you like to roll?" <<
+				endl << "Enter a number between 1 and 3: ";
 			std::cin >> a;
 			while (a < 1 || a > 3)
 			{
-				std::cout << std::endl << "Invalid entry! Please enter a valid value: ";
+				cout << endl << "Invalid entry! Please enter a valid value: ";
 				std::cin >> a;
 			}
 		}
 		//if there are 3 armies you can roll with up to 2 dice.
 		else if (source.getArmies() - 1 == 2)
 		{
-			std::cout << "How many Dice would you like to roll?" <<
-				std::endl << "Enter either 1 or 2: ";
+			cout << "How many Dice would you like to roll?" <<
+				endl << "Enter either 1 or 2: ";
 			std::cin >> a;
 			while (a < 1 || a > 2)
 			{
-				std::cout << std::endl << "Invalid entry! Please enter a valid value: ";
+				cout << endl << "Invalid entry! Please enter a valid value: ";
 				std::cin >> a;
 			}
 		}
 		//if there is less than 2 armies, the source country doesn't have enough armies to attack, so the attack phase ends.
 		else
 		{
-			std::cout << "There aren't enough armies on this country to perform an attack!" << std::endl
-				<< "Skipping your attack phase..." << std::endl;
+			cout << "There aren't enough armies on this country to perform an attack!" << endl
+				<< "Skipping your attack phase..." << endl;
 			skip = true;
 		}
-		if (!skip) {
-			std::cout << "ATTACKING with " << a << " Dice..." << std::endl;
+		if (!skip)
+		{
+			cout << "ATTACKING with " << a << " Dice..." << endl;
 			int attackRoll = player->getDiceRoller().roll(a);
 
 
 			int b;
-			std::cout << "--------------------DEFENDING PLAYER------------------" << std::endl;
+			cout << "--------------------DEFENDING PLAYER------------------" << endl;
 			//if the target country has 1 army, you can only roll with 1 die.
-			if (target.getArmies() == 1) {
+			if (target.getArmies() == 1)
+			{
 				b = 1;
 			}
 			//if there are 2 or more armies on the target country you can roll with up to 2 dice.
-			else if (target.getArmies() >= 2) {
-				if (dynamic_cast<Human*>((target.getOwner())->getTypeOfPlayer())) {
-					std::cout << "How many Dice would you like to roll?" <<
-						std::endl << "Enter either 1 or 2: ";
+			else if (target.getArmies() >= 2)
+			{
+				if (dynamic_cast<Human*>((target.getOwner())->getTypeOfPlayer()))
+				{
+					cout << "How many Dice would you like to roll?" <<
+						endl << "Enter either 1 or 2: ";
 					std::cin >> b;
-					while (b < 1 || b > 2) {
-						std::cout << std::endl << "Invalid entry! Please enter a valid value: ";
+					while (b < 1 || b > 2)
+					{
+						cout << endl << "Invalid entry! Please enter a valid value: ";
 						std::cin >> b;
 					}
 				}
@@ -212,7 +209,7 @@ void Human::attack(Player* player, Country&source, Country& target, bool skip)
 					b = 2;
 				}
 			}
-			std::cout << "DEFENDING with " << b << " Dice..." << std::endl;
+			cout << "DEFENDING with " << b << " Dice..." << endl;
 			int defendRoll = (*(target.getOwner())).getDiceRoller().roll(b);
 			int a1, a2, a3;
 			//since attackRoll is a 3 digit integer, we can seperate the digits by modulo operations.
@@ -223,433 +220,560 @@ void Human::attack(Player* player, Country&source, Country& target, bool skip)
 			b1 = defendRoll % 10;
 			b2 = (defendRoll % 100) / 10;
 
-			std::cout << "ATTACK ROLLS:\n\tRoll 1: " << a1 << "\n\tRoll 2: " << a2 << "\n\tRoll 3: " << a3 << std::endl
-				<< "DEFENSE ROLLS:\n\tRoll 1: " << b1 << "\n\tRoll 2: " << b2 << std::endl;
+			cout << "ATTACK ROLLS:\n\tRoll 1: " << a1 << "\n\tRoll 2: " << a2 << "\n\tRoll 3: " << a3 << endl
+				<< "DEFENSE ROLLS:\n\tRoll 1: " << b1 << "\n\tRoll 2: " << b2 << endl;
 			//START OF ROLL CHECKING
 
 			//if b2 = zero, only one defending die was used.
-			if (b2 == 0) {
+			if (b2 == 0)
+			{
 				//if any attacking dice is greater than the defending die, remove an army from the defending country.
-				if (a1 > b1 || a2 > b1 || a3 > b1) {
+				if (a1 > b1 || a2 > b1 || a3 > b1)
+				{
 					target.removeArmies(1);
-				} else {
+				}
+				else
+				{
 					source.removeArmies(1);
 				}
 			}
 
 
-
 			//TODO: if a1 a2 a3 are equal, the ifs will trigger multiple times.
 
 			//otherwise the defending country is rolling 2 dice.
-			else {
+			else
+			{
 				//if b1 is the strongest defending dice...
-				if (b1 >= b2) {
+				if (b1 >= b2)
+				{
 					//if a1 is the strongest attacking dice...
-					if (a1 >= a2 && a1 >= a3) {
+					if (a1 >= a2 && a1 >= a3)
+					{
 						//attack wins
-						if (a1 > b1) {
+						if (a1 > b1)
+						{
 							//if a2 is the second strongest attacking dice
-							if (a2 >= a3) {
+							if (a2 >= a3)
+							{
 								//attack wins
-								if (a2 > b2) {
+								if (a2 > b2)
+								{
 									target.removeArmies(2);
 								}
 								//defense wins
-								else {
+								else
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 							}
 							//else a3 is the second strongest
-							else {
+							else
+							{
 								//attack wins
-								if (a3 > b2) {
+								if (a3 > b2)
+								{
 									target.removeArmies(2);
 								}
 								//defense wins
-								else {
+								else
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 							}
 						}
 						//defense wins
-						else {
+						else
+						{
 							//a2 is the second strongest dice.
-							if (a2 >= a3) {
+							if (a2 >= a3)
+							{
 								//attack wins
-								if (a2 > b2) {
+								if (a2 > b2)
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 								//defense wins
-								else {
+								else
+								{
 									//make sure that a second highest dice has been rolled before losing 2 armies.
-									if (a2 == 0) {
+									if (a2 == 0)
+									{
 										source.removeArmies(1);
-									} else {
+									}
+									else
+									{
 										source.removeArmies(2);
 									}
 								}
 							}
 							//a3 is the second strongest dice.
-							else {
+							else
+							{
 								//attack wins
-								if (a3 > b2) {
+								if (a3 > b2)
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 								//defense wins
-								else {
+								else
+								{
 									//make sure that a second highest dice has been rolled before losing 2 armies.
-									if (a3 == 0) {
+									if (a3 == 0)
+									{
 										source.removeArmies(1);
-									} else {
+									}
+									else
+									{
 										source.removeArmies(2);
 									}
 								}
 							}
 						}
-
 					}
 					//if a2 is the strongest attacking dice...
-					else if (a2 >= a1 && a2 >= a3) {
+					else if (a2 >= a1 && a2 >= a3)
+					{
 						//attack wins
-						if (a2 > b1) {
+						if (a2 > b1)
+						{
 							//if a1 is the second strongest attacking dice
-							if (a1 >= a3) {
+							if (a1 >= a3)
+							{
 								//attack wins
-								if (a1 > b2) {
+								if (a1 > b2)
+								{
 									target.removeArmies(2);
 								}
 								//defense wins
-								else {
+								else
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 							}
 							//else a3 is the second strongest
-							else {
+							else
+							{
 								//attack wins
-								if (a3 > b2) {
+								if (a3 > b2)
+								{
 									target.removeArmies(2);
 								}
 								//defense wins
-								else {
+								else
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 							}
 						}
 						//defense wins
-						else {
+						else
+						{
 							//a1 is the second strongest dice.
-							if (a1 >= a3) {
+							if (a1 >= a3)
+							{
 								//attack wins
-								if (a1 > b2) {
+								if (a1 > b2)
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 								//defense wins
-								else {
+								else
+								{
 									//make sure that a second highest dice has been rolled before losing 2 armies.
-									if (a1 == 0) {
+									if (a1 == 0)
+									{
 										source.removeArmies(1);
-									} else {
+									}
+									else
+									{
 										source.removeArmies(2);
 									}
 								}
 							}
 							//a3 is the second strongest dice.
-							else {
+							else
+							{
 								//attack wins
-								if (a3 > b2) {
+								if (a3 > b2)
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 								//defense wins
-								else {
+								else
+								{
 									//make sure that a second highest dice has been rolled before losing 2 armies.
-									if (a3 == 0) {
+									if (a3 == 0)
+									{
 										source.removeArmies(1);
-									} else {
+									}
+									else
+									{
 										source.removeArmies(2);
 									}
 								}
 							}
 						}
-
 					}
 					//if a3 is the strongest attacking dice...
-					if (a3 >= a1 && a3 >= a2) {
+					if (a3 >= a1 && a3 >= a2)
+					{
 						//attack wins
-						if (a3 > b1) {
+						if (a3 > b1)
+						{
 							//if a1 is the second strongest attacking dice
-							if (a1 >= a2) {
+							if (a1 >= a2)
+							{
 								//attack wins
-								if (a1 > b2) {
+								if (a1 > b2)
+								{
 									target.removeArmies(2);
 								}
 								//defense wins
-								else {
+								else
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 							}
 							//else a2 is the second strongest
-							else {
+							else
+							{
 								//attack wins
-								if (a2 > b2) {
+								if (a2 > b2)
+								{
 									target.removeArmies(2);
 								}
 								//defense wins
-								else {
+								else
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 							}
 						}
 						//defense wins
-						else {
+						else
+						{
 							//a2 is the second strongest dice.
-							if (a2 >= a1) {
+							if (a2 >= a1)
+							{
 								//attack wins
-								if (a2 > b2) {
+								if (a2 > b2)
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 								//defense wins
-								else {
+								else
+								{
 									//make sure that a second highest dice has been rolled before losing 2 armies.
-									if (a2 == 0) {
+									if (a2 == 0)
+									{
 										source.removeArmies(1);
-									} else {
+									}
+									else
+									{
 										source.removeArmies(2);
 									}
 								}
 							}
 							//a1 is the second strongest dice.
-							else {
+							else
+							{
 								//attack wins
-								if (a1 > b2) {
+								if (a1 > b2)
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 								//defense wins
-								else {
+								else
+								{
 									//make sure that a second highest dice has been rolled before losing 2 armies.
-									if (a1 == 0) {
+									if (a1 == 0)
+									{
 										source.removeArmies(1);
-									} else {
+									}
+									else
+									{
 										source.removeArmies(2);
 									}
 								}
 							}
 						}
-
 					}
 				}
 
 				//b2 is the stronger defending die.
-				else {
+				else
+				{
 					//if a1 is the strongest attacking dice...
-					if (a1 >= a2 && a1 >= a3) {
+					if (a1 >= a2 && a1 >= a3)
+					{
 						//attack wins
-						if (a1 > b2) {
+						if (a1 > b2)
+						{
 							//if a2 is the second strongest attacking dice
-							if (a2 >= a3) {
+							if (a2 >= a3)
+							{
 								//attack wins
-								if (a2 > b1) {
+								if (a2 > b1)
+								{
 									target.removeArmies(2);
 								}
 								//defense wins
-								else {
+								else
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 							}
 							//else a3 is the second strongest
-							else {
+							else
+							{
 								//attack wins
-								if (a3 > b1) {
+								if (a3 > b1)
+								{
 									target.removeArmies(2);
 								}
 								//defense wins
-								else {
+								else
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 							}
 						}
 						//defense wins
-						else {
+						else
+						{
 							//a2 is the second strongest dice.
-							if (a2 >= a3) {
+							if (a2 >= a3)
+							{
 								//attack wins
-								if (a2 > b1) {
+								if (a2 > b1)
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 								//defense wins
-								else {
+								else
+								{
 									//make sure that a second highest dice has been rolled before losing 2 armies.
-									if (a2 == 0) {
+									if (a2 == 0)
+									{
 										source.removeArmies(1);
-									} else {
+									}
+									else
+									{
 										source.removeArmies(2);
 									}
 								}
 							}
 							//a3 is the second strongest dice.
-							else {
+							else
+							{
 								//attack wins
-								if (a3 > b1) {
+								if (a3 > b1)
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 								//defense wins
-								else {
+								else
+								{
 									//make sure that a second highest dice has been rolled before losing 2 armies.
-									if (a3 == 0) {
+									if (a3 == 0)
+									{
 										source.removeArmies(1);
-									} else {
+									}
+									else
+									{
 										source.removeArmies(2);
 									}
 								}
 							}
 						}
-
 					}
 					//if a2 is the strongest attacking dice...
-					else if (a2 >= a1 && a2 >= a3) {
+					else if (a2 >= a1 && a2 >= a3)
+					{
 						//attack wins
-						if (a2 > b2) {
+						if (a2 > b2)
+						{
 							//if a1 is the second strongest attacking dice
-							if (a1 >= a3) {
+							if (a1 >= a3)
+							{
 								//attack wins
-								if (a1 > b1) {
+								if (a1 > b1)
+								{
 									target.removeArmies(2);
 								}
 								//defense wins
-								else {
+								else
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 							}
 							//else a3 is the second strongest
-							else {
+							else
+							{
 								//attack wins
-								if (a3 > b1) {
+								if (a3 > b1)
+								{
 									target.removeArmies(2);
 								}
 								//defense wins
-								else {
+								else
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 							}
 						}
 						//defense wins
-						else {
+						else
+						{
 							//a1 is the second strongest dice.
-							if (a1 >= a3) {
+							if (a1 >= a3)
+							{
 								//attack wins
-								if (a1 > b1) {
+								if (a1 > b1)
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 								//defense wins
-								else {
+								else
+								{
 									//make sure that a second highest dice has been rolled before losing 2 armies.
-									if (a1 == 0) {
+									if (a1 == 0)
+									{
 										source.removeArmies(1);
-									} else {
+									}
+									else
+									{
 										source.removeArmies(2);
 									}
 								}
 							}
 							//a3 is the second strongest dice.
-							else {
+							else
+							{
 								//attack wins
-								if (a3 > b1) {
+								if (a3 > b1)
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 								//defense wins
-								else {
+								else
+								{
 									//make sure that a second highest dice has been rolled before losing 2 armies.
-									if (a3 == 0) {
+									if (a3 == 0)
+									{
 										source.removeArmies(1);
-									} else {
+									}
+									else
+									{
 										source.removeArmies(2);
 									}
 								}
 							}
 						}
-
 					}
 					//if a3 is the strongest attacking dice...
-					else if (a3 >= a1 && a3 >= a2) {
+					else if (a3 >= a1 && a3 >= a2)
+					{
 						//attack wins
-						if (a3 > b2) {
+						if (a3 > b2)
+						{
 							//if a1 is the second strongest attacking dice
-							if (a1 >= a1) {
+							if (a1 >= a1)
+							{
 								//attack wins
-								if (a1 > b1) {
+								if (a1 > b1)
+								{
 									target.removeArmies(2);
 								}
 								//defense wins
-								else {
+								else
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 							}
 							//else a2 is the second strongest
-							else {
+							else
+							{
 								//attack wins
-								if (a2 > b1) {
+								if (a2 > b1)
+								{
 									target.removeArmies(2);
 								}
 								//defense wins
-								else {
+								else
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 							}
 						}
 						//defense wins
-						else {
+						else
+						{
 							//a2 is the second strongest dice.
-							if (a2 >= a1) {
+							if (a2 >= a1)
+							{
 								//attack wins
-								if (a2 > b1) {
+								if (a2 > b1)
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 								//defense wins
-								else {
+								else
+								{
 									//make sure that a second highest dice has been rolled before losing 2 armies.
-									if (a2 == 0) {
+									if (a2 == 0)
+									{
 										source.removeArmies(1);
-									} else {
+									}
+									else
+									{
 										source.removeArmies(2);
 									}
 								}
 							}
 							//a1 is the second strongest dice.
-							else {
+							else
+							{
 								//attack wins
-								if (a1 > b1) {
+								if (a1 > b1)
+								{
 									target.removeArmies(1);
 									source.removeArmies(1);
 								}
 								//defense wins
-								else {
+								else
+								{
 									//make sure that a second highest dice has been rolled before losing 2 armies.
-									if (a1 == 0) {
+									if (a1 == 0)
+									{
 										source.removeArmies(1);
-									} else {
+									}
+									else
+									{
 										source.removeArmies(2);
 									}
 								}
@@ -659,14 +783,14 @@ void Human::attack(Player* player, Country&source, Country& target, bool skip)
 				}
 			}
 			//END OF ROLL CHECKING
-			std::cout << "SOURCE COUNTRY:\n\tName: " << source.getName() << "\tArmies: " << source.getArmies() << std::endl;
-			std::cout << "TARGET COUNTRY:\n\tName: " << target.getName() << "\tArmies: " << target.getArmies() << std::endl;
+			cout << "SOURCE COUNTRY:\n\tName: " << source.getName() << "\tArmies: " << source.getArmies() << endl;
+			cout << "TARGET COUNTRY:\n\tName: " << target.getName() << "\tArmies: " << target.getArmies() << endl;
 
-			if (target.getArmies() > 0) {
-
+			if (target.getArmies() > 0)
+			{
 				char cont;
-				std::cout << std::endl << "Would you like to attack again? (Y/N): ";
-				
+				cout << endl << "Would you like to attack again? (Y/N): ";
+
 
 				std::cin >> cont;
 
@@ -675,32 +799,33 @@ void Human::attack(Player* player, Country&source, Country& target, bool skip)
 				{
 					skip = true;
 				}
-				else if(cont == 'y') {
-					continue;
+				else if (cont == 'y')
+				{
 				}
 			}
 		}
-	//The loop will exit if:
+		//The loop will exit if:
 		//the attacking country only has 1 army left
 		//the target country has no armies left
 		//or the player decides to end his turn (skip is true)
 	}
-	
+
 	//if the target country has been won, take ownership.
-	if (target.getArmies()<=0)
+	if (target.getArmies() <= 0)
 	{
 		source.getOwner()->addCountry(&target);
 		target.getOwner()->removeCountry(&target);
 		target.setOwner(player);
-		std::cout << target.getName() << " has been conquered!" << std::endl
+		cout << target.getName() << " has been conquered!" << endl
 			<< "How many armies would you like to move to " << target.getName() << ": ";
 		int armiesMoved;
-		
-		do{
-			
+
+		do
+		{
 			//std::cout << std::endl << "Invalid entry! Please enter a valid value: ";
 			std::cin >> armiesMoved;
-		} while (armiesMoved < 1 || armiesMoved > (source.getArmies() - 1));
+		}
+		while (armiesMoved < 1 || armiesMoved > (source.getArmies() - 1));
 		target.addArmies(armiesMoved);
 		source.removeArmies(armiesMoved);
 	}
@@ -708,47 +833,49 @@ void Human::attack(Player* player, Country&source, Country& target, bool skip)
 
 void Human::fortify(Player* player)
 {
-	std::cout << "===========================================" << endl;
+	cout << "===========================================" << endl;
 	while (true)
 	{
 		Country* source = chooseFortifySourceCountry(player);
 		Country* target = chooseFortifyTargetCountry(player, *source);
 		int amount;
-		std::cout << source->getName() << " has " << source->getArmies() << " armies" << endl;
-		std::cout << target->getName() << " has " << target->getArmies() << " armies" << endl << endl;
-		std::cout << "How many armies would you like to move from " << source->getName() << " to " << target->getName() << ": ";
+		cout << source->getName() << " has " << source->getArmies() << " armies" << endl;
+		cout << target->getName() << " has " << target->getArmies() << " armies" << endl << endl;
+		cout << "How many armies would you like to move from " << source->getName() << " to " << target->getName() << ": ";
 		while (true)
 		{
 			std::cin >> amount;
-			if (amount < source->getArmies() - 1 || amount >= 0) {
+			if (amount < source->getArmies() - 1 || amount >= 0)
+			{
 				break;
 			}
-			std::cout << "Invalid entry, please be sure to leave at least 1 army on " << source->getName() << "...";
+			cout << "Invalid entry, please be sure to leave at least 1 army on " << source->getName() << "...";
 		}
-		std:cout << "Moving " << amount << " armies from " << source->getName() << " to " << target->getName() << "..." << endl << endl;
+	std:cout << "Moving " << amount << " armies from " << source->getName() << " to " << target->getName() << "..." << endl << endl;
 		fortify(player, *source, *target, amount);
-		std::cout << source->getName() << " now has " << source->getArmies() << " armies" << endl;
-		std::cout << target->getName() << " now has " << target->getArmies() << " armies" << endl << endl;
+		cout << source->getName() << " now has " << source->getArmies() << " armies" << endl;
+		cout << target->getName() << " now has " << target->getArmies() << " armies" << endl << endl;
 
-		std::cout << std::endl << "Would you like to fortify another country? (Y/N): ";
-		std::string cont;
+		cout << endl << "Would you like to fortify another country? (Y/N): ";
+		string cont;
 		while (true)
 		{
-			std::getline(std::cin, cont);
+			getline(std::cin, cont);
 
 			if (stringToLower(cont) == "n")
 			{
 				return;
 			}
-			else if (stringToLower(cont) == "y") {
+			if (stringToLower(cont) == "y")
+			{
 				break;
 			}
 		}
 	}
 }
+
 bool Human::fortify(Player* player, Country& source, Country& target, int amount, bool skip)
 {
-
 	TypeOfPlayer::fortify(player, source, target, amount, skip);
 	if (skip)
 	{
@@ -759,10 +886,9 @@ bool Human::fortify(Player* player, Country& source, Country& target, int amount
 	//std::cout << "\nPlayer can fortify a territory of his choice:" << std::endl;
 	//std::cout << " -- Exact fortify() function implementation has yet to be determined! -- " << std::endl;
 
-	
 
 	// check to see if this player owns the source and target country
-	
+
 	if (ownsCountry(player, source) && ownsCountry(player, target))
 	{
 		if (!player->getGame()->getMap()->isReachable(player, source, target))
@@ -780,39 +906,37 @@ bool Human::fortify(Player* player, Country& source, Country& target, int amount
 		target.addArmies(amount);
 		return true;
 	}
-	else
-	{
-		return false;
-	}
+	return false;
 }
 
 Country* Human::chooseAttackSourceCountry(Player* player)
 {
-	std::cout << "Countries you can attack from:" << std::endl;
+	cout << "Countries you can attack from:" << endl;
 	vector<Country*> validCountries;
 	for (Country* country : player->getCountries())
 	{
-		if ((country->getArmies() > 1) && (hasAdjUnOwnedCountry(player, *country))) {
+		if ((country->getArmies() > 1) && (hasAdjUnOwnedCountry(player, *country)))
+		{
 			validCountries.push_back(country);
-			std::cout << "\tName: " << country->getName() << "\tArmies: " << country->getArmies() << endl;
+			cout << "\tName: " << country->getName() << "\tArmies: " << country->getArmies() << endl;
 		}
 	}
-	if(validCountries.empty())
+	if (validCountries.empty())
 	{
-		return NULL;
+		return nullptr;
 	}
 	string inputCountryName;
-	std::cout << "Which Country would you like to attack from: ";
+	cout << "Which Country would you like to attack from: ";
 	while (true)
 	{
-		std::getline(std::cin, inputCountryName);
+		getline(std::cin, inputCountryName);
 		inputCountryName = stringToLower(inputCountryName);
 		for (Country* country : validCountries)
 		{
 			if (stringToLower(country->getName()) == inputCountryName)
 				return country;
 		}
-		std::cout << "Invalid Country Name, Please Try Again." << std::endl;
+		cout << "Invalid Country Name, Please Try Again." << endl;
 	}
 }
 
@@ -835,22 +959,22 @@ bool Human::ownsCountry(Player* player, const Country& country) const
 	return (player == country.getOwner());
 }
 
-Country* Human::chooseAttackTargetCountry(Player* player, Country& source) {
-	std::cout << "Countries you can attack:" << std::endl;
+Country* Human::chooseAttackTargetCountry(Player* player, Country& source)
+{
+	cout << "Countries you can attack:" << endl;
 	vector<Country*> adj = getAdjUnOwnedCountryList(player, source);
 	for (Country* country : adj)
 	{
-		if (country->getArmies() > 0) {
-			std::cout << "\tName: " << country->getName() << "\tArmies: " << country->getArmies() << endl;
+		if (country->getArmies() > 0)
+		{
+			cout << "\tName: " << country->getName() << "\tArmies: " << country->getArmies() << endl;
 		}
 	}
 	string inputCountryName;
-	std::cout << "Which Country would you like to attack: ";
+	cout << "Which Country would you like to attack: ";
 	while (true)
 	{
-
-
-		std::getline(std::cin, inputCountryName);
+		getline(std::cin, inputCountryName);
 		inputCountryName = stringToLower(inputCountryName);
 		for (Country* country : adj)
 		{
@@ -858,9 +982,8 @@ Country* Human::chooseAttackTargetCountry(Player* player, Country& source) {
 			{
 				return country;
 			}
-
 		}
-		std::cout << "Invalid Country Name, Please Try Again." << std::endl;
+		cout << "Invalid Country Name, Please Try Again." << endl;
 	}
 }
 
@@ -883,31 +1006,32 @@ vector<Country*> Human::getAdjUnOwnedCountryList(Player* player, const Country& 
 
 Country* Human::chooseFortifySourceCountry(Player* player)
 {
-	std::cout << "Countries you can move armies from:" << std::endl;
+	cout << "Countries you can move armies from:" << endl;
 	vector<Country*> validCountries;
 	for (Country* country : player->getCountries())
 	{
-		if ((country->getArmies() > 1) && !(getConnectedOwnedCountryList(player, *country).empty())) {
+		if ((country->getArmies() > 1) && !(getConnectedOwnedCountryList(player, *country).empty()))
+		{
 			validCountries.push_back(country);
-			std::cout << "\tName: " << country->getName() << "\tArmies: " << country->getArmies() << endl;
+			cout << "\tName: " << country->getName() << "\tArmies: " << country->getArmies() << endl;
 		}
 	}
 	if (validCountries.empty())
 	{
-		return NULL;
+		return nullptr;
 	}
 	string inputCountryName;
-	std::cout << "Which Country would you like to move armies from: ";
+	cout << "Which Country would you like to move armies from: ";
 	while (true)
 	{
-		std::getline(std::cin, inputCountryName);
+		getline(std::cin, inputCountryName);
 		inputCountryName = stringToLower(inputCountryName);
 		for (Country* country : validCountries)
 		{
 			if (stringToLower(country->getName()) == inputCountryName)
 				return country;
 		}
-		std::cout << "Invalid Country Name, Please Try Again." << std::endl;
+		cout << "Invalid Country Name, Please Try Again." << endl;
 	}
 }
 
@@ -930,21 +1054,20 @@ vector<Country*> Human::getConnectedOwnedCountryList(Player* player, Country& so
 
 Country* Human::chooseFortifyTargetCountry(Player* player, Country& source)
 {
-	std::cout << "Countries you can fortify:" << std::endl;
+	cout << "Countries you can fortify:" << endl;
 	vector<Country*> adj = getConnectedOwnedCountryList(player, source);
 	for (Country* country : adj)
 	{
-		if (country->getArmies() > 0) {
-			std::cout << "\tName: " << country->getName() << "\tArmies: " << country->getArmies() << endl;
+		if (country->getArmies() > 0)
+		{
+			cout << "\tName: " << country->getName() << "\tArmies: " << country->getArmies() << endl;
 		}
 	}
 	string inputCountryName;
-	std::cout << "Which Country would you like to fortify: ";
+	cout << "Which Country would you like to fortify: ";
 	while (true)
 	{
-
-
-		std::getline(std::cin, inputCountryName);
+		getline(std::cin, inputCountryName);
 		inputCountryName = stringToLower(inputCountryName);
 		for (Country* country : adj)
 		{
@@ -952,8 +1075,7 @@ Country* Human::chooseFortifyTargetCountry(Player* player, Country& source)
 			{
 				return country;
 			}
-
 		}
-		std::cout << "Invalid Country Name, Please Try Again." << std::endl;
+		cout << "Invalid Country Name, Please Try Again." << endl;
 	}
 }

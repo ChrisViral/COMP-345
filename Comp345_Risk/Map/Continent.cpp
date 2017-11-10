@@ -67,7 +67,7 @@ bool Continent::ownedBy(const Player* player)
 	return true;
 }
 
-std::vector<Node*> Continent::getCountries() const
+vector<Node*> Continent::getCountries() const
 {
 	return countries;
 }

@@ -25,7 +25,7 @@ class GameStart: public RiskObject
 public:
 	GameStart();
 	~GameStart();
-	void askForMap();	
+	void askForMap();
 	void askForPlayers();
 	vector<string> getMapNames() const { return mapNames; }
 	void createPlayers();

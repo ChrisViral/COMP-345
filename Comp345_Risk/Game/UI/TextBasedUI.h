@@ -20,10 +20,10 @@ public:
 
 
 	explicit TextBasedUI(Game* game)
-		: GameUI(game) {
+		: GameUI(game)
+	{
 	}
 
 	~TextBasedUI();
 	void update() override;
 };
-

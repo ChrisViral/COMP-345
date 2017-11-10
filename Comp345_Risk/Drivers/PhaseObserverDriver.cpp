@@ -33,7 +33,6 @@ PhaseObserverDriver::~PhaseObserverDriver()
 
 void PhaseObserverDriver::run()
 {
-
 	//Load the basic map
 	RiskMap* map = new RiskMap();
 	MapLoader loader("mapfiles/World.map");
@@ -61,12 +60,11 @@ void PhaseObserverDriver::run()
 	game.registerObserver(ui);
 
 
-	
 	game.gameLoop();
 	//human->executeStrategy();
- 	//aggressiveAI->executeStrategy();
+	//aggressiveAI->executeStrategy();
 	//passiveAI->executeStrategy();
-	
+
 
 	//Clear memory
 	delete map;
@@ -94,4 +92,3 @@ string PhaseObserverDriver::getClosingMessage()
 {
 	return "Ending Phase Observer Driver";
 }
-
