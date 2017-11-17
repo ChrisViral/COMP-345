@@ -28,6 +28,7 @@ public:
 	Continent* getContinent() const;
 	std::string getName() const;
 	int getArmies() const;
+	void setArmies(int amount) { armies = amount; }
 	void addArmies(int amount);
 	void removeArmies(int amount);
 	Player* getOwner() const;

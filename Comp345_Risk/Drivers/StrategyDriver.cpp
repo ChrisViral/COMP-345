@@ -20,6 +20,7 @@
 #include "../Player/Human.h"
 #include "../Player/PassiveAI.h"
 #include "../Player/AggressiveAI.h"
+#include "../CheaterAI.h"
 
 using std::vector;
 using std::cout;
@@ -43,12 +44,14 @@ void StrategyDriver::run()
 	Player* human = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), new Human);
 	Player* aggressiveAI = new Player("Player 2", DiceRoller(), vector<Country*>(), Hand(), new AggressiveAI);
 	Player* passiveAI = new Player("Player 3", DiceRoller(), vector<Country*>(), Hand(), new PassiveAI);
+	Player* cheaterAI = new Player("Cheater 1", DiceRoller(), vector<Country*>(), Hand(), new CheaterAI);
 
 	//Create four players at random
 	vector<Player*>* players = new vector<Player*>;
 	players->push_back(human);
 	players->push_back(aggressiveAI);
 	players->push_back(passiveAI);
+	players->push_back(cheaterAI);
 
 	//Load a game with the above info and run the setup
 	Game game(players, map);
@@ -56,7 +59,7 @@ void StrategyDriver::run()
 	game.setup();
 
 	cout << "\nRunning Human strategy" << endl;
-	human->executeStrategy();
+	cheaterAI->executeStrategy();
 	cout << "\nEnding Human strategy" << endl;
 
 	cout << "\nRunning Aggressive strategy" << endl;
@@ -67,6 +70,10 @@ void StrategyDriver::run()
 	passiveAI->executeStrategy();
 	cout << "\nEnding Passive strategy" << endl;
 
+	cout << "\nRunning Cheater strategy" << endl;
+	cheaterAI->executeStrategy();
+	cout << "\nEnding Cheater strategy" << endl;
+
 	//Clear memory
 	delete map;
 	map = nullptr;
@@ -74,6 +81,7 @@ void StrategyDriver::run()
 	delete players->at(0);
 	delete players->at(1);
 	delete players->at(2);
+	delete players->at(3);
 	players->clear();
 
 	delete players;
