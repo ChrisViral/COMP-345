@@ -8,7 +8,7 @@
 
 Tournament::Tournament()
 {
-	currentTurn = 1;
+	
 }
 
 void Tournament::chooseMaps()
@@ -216,55 +216,89 @@ std::vector<Player*>* Tournament::createComps()
 		//else if (computers[i] == "Cheater")
 		//	c->push_back(new Player("Cheater", DiceRoller(), std::vector<Country*>(), Hand(), new CheaterAI()));
 	}
+
+	return c;
 }
 
 void Tournament::runTournament()
 {
-	RiskMap* map = new RiskMap();
-	MapLoader loader("mapfiles/World.map");
-	loader.tryParseMap(map);
+	std::vector<std::string> list = listOfMaps;
 
-	vector<Player*>* comps = createComps();
+	do
+	{		
+		std::string currentmap = list[0];
+		list.erase(list.begin() );
 
-	Game game(comps, map);
+		RiskMap* map = new RiskMap();
+		MapLoader loader("mapfiles/" + currentmap + ".map");
+		loader.tryParseMap(map);
 
-	game.setup();
+		std::vector<Player*>* comps = createComps();
 
-	while (currentTurn <= numberOfTurnsPerGame)
-	{
+		Game game(comps, map);
+
+		game.setup();
+		
+		gameLoop(currentmap, game);
+
+		delete map;
+		delete comps;
+		
 		for (int i = 0; i < comps->size(); i++)
 		{
-			comps->at(i)->executeStrategy();
+			delete comps->at(i);
 		}
+		
 
-		currentTurn++;
-	}
+	} while (list.size() != 0);
 }
 
-void Tournament::gameLoop()
+void Tournament::gameLoop(std::string mapName, Game game)
 {
-	int counter = 1;
-	std::pair<bool, Player*> pair = checkWin();
-	while (pair.first == false)
+	int currentTurn = 1;
+	int gameNumber = 1;
+		
+	while (gameNumber <= numberOfGames)
 	{
-		for (int i = 0; i < players->size(); i++)
-		{
-			(*players)[i]->executeStrategy();
-		}
+		std::cout << "\n*** Map: " << mapName << " Game: " << gameNumber << " ***\n" << std::endl;
 
-		pair = checkWin();
-		counter++;
-	}
+		std::pair<bool, Player*> pair = checkWin(game);
+		while (pair.first == false && currentTurn <= numberOfTurnsPerGame)
+		{
+			std::cout << "\n*** Current Turn: " << currentTurn << " ***\n"<< std::endl;
+
+			for (int i = 0; i < game.getPlayers()->size(); i++)
+			{
+				std::cout << "\n" << (*game.getPlayers())[i]->getName() << " turn"  << std::endl;
+				(*game.getPlayers())[i]->executeStrategy();
+			}
+
+			pair = checkWin(game);
+			currentTurn++;
+		}
+		
+		info info;
+		info.mapName = mapName;
+		info.game = gameNumber;
+		if (pair.second == NULL)
+			info.winner = "Draw";
+		else
+			info.winner = pair.second->getName();
+
+		results.push_back(info);
+
+		gameNumber++;
+	}	
 }
 
 
-std::pair<bool, Player*> Tournament::checkWin() const
+std::pair<bool, Player*> Tournament::checkWin(Game game) const
 {
-	for (int i = 0; i < players->size(); i++)
+	for (int i = 0; i < game.getPlayers()->size(); i++)
 	{
-		if (players->at(i)->getCountries().size() == map->size())
+		if (game.getPlayers()->at(i)->getCountries().size() == game.getMap()->size())
 		{
-			return std::pair<bool, Player*>(true, players->at(i));
+			return std::pair<bool, Player*>(true, game.getPlayers()->at(i));
 		}
 	}
 

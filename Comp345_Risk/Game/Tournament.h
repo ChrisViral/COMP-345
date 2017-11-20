@@ -8,8 +8,9 @@
 #include <string>
 #include <utility>
 
-struct info
+class info
 {
+public:
 	std::string mapName;
 	int game;
 	std::string winner;
@@ -29,8 +30,8 @@ public:
 	void displayTable();
 	std::vector<Player*>* createComps();
 	
-	void gameLoop();
-	std::pair<bool, Player*> checkWin() const;
+	void gameLoop(std::string mapName, Game game);
+	std::pair<bool, Player*> checkWin(Game game) const;
 
 private:
 	std::vector<std::string> computers;	
@@ -38,6 +39,4 @@ private:
 	int numberOfGames;
 	std::vector<std::string> listOfMaps;
 	std::vector<info> results;
-
-	int currentTurn;
 };
