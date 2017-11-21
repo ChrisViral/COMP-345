@@ -25,3 +25,7 @@ GameUI::~GameUI()
 void GameUI::update()
 {
 }
+
+Game* GameUI::getGame() {
+	return game;
+}

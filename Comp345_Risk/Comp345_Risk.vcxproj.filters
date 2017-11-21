@@ -62,9 +62,6 @@
     <ClCompile Include="Game\UI\GameUI.cpp">
       <Filter>Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Game\UI\TextBasedUI.cpp">
-      <Filter>Game\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Patterns\Observer\Observer.cpp">
       <Filter>Patterns\Observer</Filter>
     </ClCompile>
@@ -80,9 +77,17 @@
     <ClCompile Include="Drivers\StatisticsDriver.cpp">
       <Filter>Drivers</Filter>
     </ClCompile>
-    <ClCompile Include="Game\UI\DominationUI.cpp">
+    <ClCompile Include="Drivers\DecoratedStatisticsDriver.cpp" />
+    <ClCompile Include="Game\UI\Decorators\GameStatisticsDecorator.cpp" />
+    <ClCompile Include="Game\UI\Decorators\PlayerHandUi.cpp" />
+    <ClCompile Include="Game\UI\Decorators\ContinentControlUi.cpp" />
+    <ClCompile Include="Game\UI\Decorators\DominationUI.cpp">
       <Filter>Game\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Game\UI\Decorators\TextBasedUI.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UIOutput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -150,9 +155,6 @@
     <ClInclude Include="Game\UI\GameUI.h">
       <Filter>Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Game\UI\TextBasedUI.h">
-      <Filter>Game\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Patterns\Observer\Observer.h">
       <Filter>Patterns\Observer</Filter>
     </ClInclude>
@@ -171,9 +173,17 @@
     <ClInclude Include="Drivers\StatisticsDriver.h">
       <Filter>Drivers</Filter>
     </ClInclude>
-    <ClInclude Include="Game\UI\DominationUI.h">
+    <ClInclude Include="Drivers\DecoratedStatisticsDriver.h" />
+    <ClInclude Include="Game\UI\Decorators\GameStatisticsDecorator.h" />
+    <ClInclude Include="Game\UI\Decorators\PlayerHandUi.h" />
+    <ClInclude Include="Game\UI\Decorators\ContinentControlUi.h" />
+    <ClInclude Include="Game\UI\Decorators\DominationUI.h">
       <Filter>Game\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Game\UI\Decorators\TextBasedUI.h">
+      <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIOutput.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Base">

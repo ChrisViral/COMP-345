@@ -19,7 +19,7 @@
 #include "../Player/AggressiveAI.h"
 #include "../Player/PassiveAI.h"
 #include "../Game/UI/GameUI.h"
-#include "../Game/UI/TextBasedUI.h"
+#include "../Game/UI/Decorators/TextBasedUI.h"
 
 
 PhaseObserverDriver::PhaseObserverDriver()

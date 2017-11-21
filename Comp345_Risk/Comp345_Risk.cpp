@@ -15,6 +15,7 @@
 #include "Drivers/StrategyDriver.h"
 #include "Drivers/PhaseObserverDriver.h"
 #include "Drivers/StatisticsDriver.h"
+#include "Drivers/DecoratedStatisticsDriver.h"
 
 using std::cout;
 using std::vector;
@@ -27,12 +28,13 @@ int main()
 	StrategyDriver strategy;
 	PhaseObserverDriver phase;
 	StatisticsDriver stats;
+	DecoratedStatisticsDriver decoratedStats;
 
 	const string endll = "\n\n";
 
 	//Run drivers individually
 
-	Driver* d = &strategy;
+	Driver* d = &decoratedStats;
 	cout << d->getOpeningMessage() << endll;
 	d->run();
 	cout << std::endl << d->getClosingMessage() << endll;
@@ -55,7 +57,9 @@ int main()
 	*/
 
 	cout << "Press any key to exit...";
-	getchar();
+	//getchar();
+	
+	
 
 	return 0;
 }

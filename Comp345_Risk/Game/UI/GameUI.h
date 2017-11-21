@@ -26,6 +26,7 @@ public:
 
 	virtual ~GameUI();
 	void update() override;
+	Game* getGame();
 protected:
 	GameUI(Game* game);
 	Game* game;

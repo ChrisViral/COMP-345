@@ -22,7 +22,7 @@
     <ProjectGuid>{2223E494-93A7-4A97-80E7-3E44308572D9}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Comp345_Risk</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -41,13 +41,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -142,7 +142,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Game\UI\DominationUI.h" />
+    <ClInclude Include="Game\UI\Decorators\ContinentControlUi.h" />
+    <ClInclude Include="Drivers\DecoratedStatisticsDriver.h" />
+    <ClInclude Include="Game\UI\Decorators\GameStatisticsDecorator.h" />
+    <ClInclude Include="Game\UI\Decorators\DominationUI.h" />
     <ClInclude Include="Drivers\StrategyDriver.h" />
     <ClInclude Include="Base\RiskObject.h" />
     <ClInclude Include="Base\Utils.h" />
@@ -154,6 +157,7 @@
     <ClInclude Include="Game\GameStart.h" />
     <ClInclude Include="Patterns\Observer\Observer.h" />
     <ClInclude Include="Drivers\PhaseObserverDriver.h" />
+    <ClInclude Include="Game\UI\Decorators\PlayerHandUi.h" />
     <ClInclude Include="Player\AggressiveAI.h" />
     <ClInclude Include="Player\Human.h" />
     <ClInclude Include="Player\Card\Hand.h" />
@@ -172,12 +176,16 @@
     <ClInclude Include="Patterns\Observer\Subject.h" />
     <ClInclude Include="Drivers\StatisticsDriver.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Game\UI\TextBasedUI.h" />
+    <ClInclude Include="Game\UI\Decorators\TextBasedUI.h" />
+    <ClInclude Include="UIOutput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Base\RiskObject.cpp" />
     <ClCompile Include="Base\Driver.cpp" />
-    <ClCompile Include="Game\UI\DominationUI.cpp" />
+    <ClCompile Include="Game\UI\Decorators\ContinentControlUi.cpp" />
+    <ClCompile Include="Drivers\DecoratedStatisticsDriver.cpp" />
+    <ClCompile Include="Game\UI\Decorators\GameStatisticsDecorator.cpp" />
+    <ClCompile Include="Game\UI\Decorators\DominationUI.cpp" />
     <ClCompile Include="Drivers\StrategyDriver.cpp" />
     <ClCompile Include="Game\GameState.cpp" />
     <ClCompile Include="Game\UI\GameUI.cpp" />
@@ -185,6 +193,7 @@
     <ClCompile Include="Game\GameStart.cpp" />
     <ClCompile Include="Patterns\Observer\Observer.cpp" />
     <ClCompile Include="Drivers\PhaseObserverDriver.cpp" />
+    <ClCompile Include="Game\UI\Decorators\PlayerHandUi.cpp" />
     <ClCompile Include="Player\AggressiveAI.cpp" />
     <ClCompile Include="Player\Human.cpp" />
     <ClCompile Include="Player\Card\Hand.cpp" />
@@ -201,8 +210,9 @@
     <ClCompile Include="Player\Player.cpp" />
     <ClCompile Include="Player\TypeOfPlayer.cpp" />
     <ClCompile Include="Patterns\Observer\Subject.cpp" />
-    <ClCompile Include="Game\UI\TextBasedUI.cpp" />
+    <ClCompile Include="Game\UI\Decorators\TextBasedUI.cpp" />
     <ClCompile Include="Drivers\StatisticsDriver.cpp" />
+    <ClCompile Include="UIOutput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="mapfiles\broken.map" />

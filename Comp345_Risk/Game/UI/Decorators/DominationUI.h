@@ -10,20 +10,26 @@
 // ==============================
 
 #pragma once
-#include "GameUI.h"
-#include "../Game.h"
+#include "../GameUI.h"
+#include "GameStatisticsDecorator.h"
 
 
-class TextBasedUI : public GameUI
+class DominationUI : public GameStatisticsDecorator
 {
 public:
 
-
-	explicit TextBasedUI(Game* game)
-		: GameUI(game)
+	explicit DominationUI(GameUI* decoratedUi)
+		: GameStatisticsDecorator(decoratedUi)
 	{
 	}
 
-	~TextBasedUI();
+
+	DominationUI() {
+	}
+
+	~DominationUI();
+
+
+	int getDecoratorUiEnum() override;
 	void update() override;
 };

@@ -10,23 +10,31 @@
 // ==============================
 
 #include "DominationUI.h"
-#include "../Game.h"
 #include <iostream>
 
 using std::cout;
 using std::endl;
 using std::string;
 
-DominationUI::DominationUI(Game* game) : GameUI(game)
-{
-}
+
 
 DominationUI::~DominationUI()
 {
 }
 
+int DominationUI::getDecoratorUiEnum()
+{
+	return UIDecorator::DominationUIDecorator;
+}
+
 void DominationUI::update()
 {
+	decoratedUi->update();
+	if (!enabled) return;
+
+	std::cout << "------------------------------" << std::endl;
+	std::cout << "Domination UI" << std::endl;
+
 	//Get armies info
 	vector<Player*>* players = game->getPlayers();
 	int count = players->size();
@@ -51,4 +59,6 @@ void DominationUI::update()
 		cout << p->getName() << " |" << string(static_cast<int>((controlled[i] / total) * 100.0), '*') << endl;
 	}
 	cout << endl;
+
+	std::cout << "------------------------------" << std::endl;
 }
