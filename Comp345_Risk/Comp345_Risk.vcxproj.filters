@@ -74,14 +74,12 @@
     <ClCompile Include="Player\Player.cpp">
       <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="Drivers\PhaseObserverDriver.cpp">
-      <Filter>Drivers</Filter>
-    </ClCompile>
-    <ClCompile Include="Drivers\StatisticsDriver.cpp">
-      <Filter>Drivers</Filter>
-    </ClCompile>
     <ClCompile Include="Game\UI\DominationUI.cpp">
       <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Tournament.cpp" />
+    <ClCompile Include="Drivers\TournamentDriver.cpp">
+      <Filter>Drivers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -162,17 +160,15 @@
     <ClInclude Include="Player\Player.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="Drivers\PhaseObserverDriver.h">
-      <Filter>Drivers</Filter>
-    </ClInclude>
     <ClInclude Include="Drivers\StrategyDriver.h">
-      <Filter>Drivers</Filter>
-    </ClInclude>
-    <ClInclude Include="Drivers\StatisticsDriver.h">
       <Filter>Drivers</Filter>
     </ClInclude>
     <ClInclude Include="Game\UI\DominationUI.h">
       <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Tournament.h" />
+    <ClInclude Include="Drivers\TournamentDriver.h">
+      <Filter>Drivers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
