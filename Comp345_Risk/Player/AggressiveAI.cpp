@@ -30,7 +30,10 @@ void AggressiveAI::playTurn(Player* player)
 	if (c != nullptr)
 		fortify(player, *strongestCountry, *c, c->getArmies() - 1);
 	else
+	{
 		game->logAction("There is no path that exists with the strongest country to another country that has more than 1 army, so fortify cannot be done.");
+		fortify(player, *strongestCountry, *strongestCountry, 0, true);
+	}
 	if (captured)
 	{
 		player->getHand().addCard(player->getGame()->getDeck()->draw());

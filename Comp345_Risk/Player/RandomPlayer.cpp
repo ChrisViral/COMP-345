@@ -170,7 +170,7 @@ bool RandomPlayer::fortify(Player* player)
 	vector<pair<Country*, Country*>> validCountries;
 
 	//Loop through the owned countries
-	for (Country* source : owned)
+	for (Country* source = owned[randomRange(owned.size())]; validCountries.size() == 0; source = owned[randomRange(owned.size())])
 	{
 		//Check if the country has enough armies to attack
 		if (source->getArmies() > 1)
