@@ -23,9 +23,7 @@ const int Hand::ARMY_EXCHANGE_AMOUNT = 5;
 // The amount of times an exchangeAll has happened;
 int Hand::exchangeCount = 1;
 
-Hand::Hand(): deck(nullptr)
-{
-}
+Hand::Hand(): deck(nullptr) { }
 
 Hand::Hand(Deck* deck)
 {

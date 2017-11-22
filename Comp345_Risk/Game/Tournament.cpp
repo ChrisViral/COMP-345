@@ -93,10 +93,10 @@ void Tournament::chooseComputers()
 			computers.push_back("Aggressive");
 		else if(listOfAi[aiNumber - 1] == "Passive")
 			computers.push_back("Passive");
-		//else if(listOfAi[aiNumber - 1] == "Random")
-		//	computers.push_back("Random");
-		//else if(listOfAi[aiNumber - 1] == "Cheater")
-		//	computers.push_back("Cheater");
+		else if(listOfAi[aiNumber - 1] == "Random")
+			computers.push_back("Random");
+		else if(listOfAi[aiNumber - 1] == "Cheater")
+			computers.push_back("Cheater");
 
 		listOfAi.erase(listOfAi.begin() + aiNumber - 1);
 
@@ -214,9 +214,9 @@ vector<Player*>* Tournament::createComps(Deck* deck)
 		else if(computers[i] == "Passive")
 			c->push_back(new Player("Passive", DiceRoller(), vector<Country*>(), Hand(deck), new PassiveAI()));
 		else if (computers[i] == "Random")
-			c->push_back(new Player("Random", DiceRoller(), std::vector<Country*>(), Hand(), new RandomPlayer()));
+			c->push_back(new Player("Random", DiceRoller(), std::vector<Country*>(), Hand(deck), new RandomPlayer()));
 		else if (computers[i] == "Cheater")
-			c->push_back(new Player("Cheater", DiceRoller(), std::vector<Country*>(), Hand(), new CheaterAI()));
+			c->push_back(new Player("Cheater", DiceRoller(), std::vector<Country*>(), Hand(deck), new CheaterAI()));
 	}
 
 	return c;
