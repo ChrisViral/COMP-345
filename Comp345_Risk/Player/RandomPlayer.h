@@ -15,7 +15,6 @@ public:
 	void battle(pair<Country*, Country*> countries, int attackerRoll, int defenderRoll);
 
 private:
-	bool captured;
 	/*
 	 * Random value between 0 and the max (exclusive)
 	 */

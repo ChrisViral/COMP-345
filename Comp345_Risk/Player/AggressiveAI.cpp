@@ -22,6 +22,7 @@ AggressiveAI::~AggressiveAI()
 
 void AggressiveAI::playTurn(Player* player)
 {
+	captured = false;
 	Game* game = player->getGame();
 	reinforce(player);
 	attack(player);
@@ -30,6 +31,10 @@ void AggressiveAI::playTurn(Player* player)
 		fortify(player, *strongestCountry, *c, c->getArmies() - 1);
 	else
 		game->logAction("There is no path that exists with the strongest country to another country that has more than 1 army, so fortify cannot be done.");
+	if (captured)
+	{
+		player->getHand().addCard(player->getGame()->getDeck()->draw());
+	}
 }
 
 void AggressiveAI::reinforce(Player* player, bool skip)
@@ -162,6 +167,7 @@ void AggressiveAI::attack(Player* player, bool skip)
 
 		if (defendingCountry->getArmies() <= 0)
 		{
+			captured = true;
 			strongestCountry->getOwner()->addCountry(defendingCountry);
 			defendingCountry->getOwner()->removeCountry(defendingCountry);
 			defendingCountry->setOwner(strongestCountry->getOwner());

@@ -23,6 +23,7 @@ void CheaterAI::playTurn(Player* player)
 	reinforce(player);
 	attack(player);
 	fortify(player, *((player->getCountries()).front()), *((player->getCountries()).front()), 0, false);
+	player->getHand().addCard(player->getGame()->getDeck()->draw());
 }
 
 void CheaterAI::reinforce(Player* player, bool skip)

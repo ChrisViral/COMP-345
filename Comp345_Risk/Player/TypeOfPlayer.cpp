@@ -12,6 +12,10 @@
 #include "TypeOfPlayer.h"
 #include "../Map/Country.h"
 
+TypeOfPlayer::TypeOfPlayer() : captured(false)
+{
+}
+
 TypeOfPlayer::~TypeOfPlayer()
 {
 }

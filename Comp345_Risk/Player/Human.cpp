@@ -35,11 +35,16 @@ Human::~Human()
 
 void Human::playTurn(Player* player)
 {
+	captured = false;
 	reinforce(player);
 	attack(player);
 	//TODO: Might have to modify this function a bit to select the countries inside the function, instead of being passed in.
 	//Or call a function before running fortify, that returns a source and target and then pass it in.
 	fortify(player);
+	if (captured)
+	{
+		player->getHand().addCard(player->getGame()->getDeck()->draw());
+	}
 }
 
 void Human::reinforce(Player* player, bool skip)
@@ -813,6 +818,7 @@ void Human::attack(Player* player, Country& source, Country& target, bool skip)
 	//if the target country has been won, take ownership.
 	if (target.getArmies() <= 0)
 	{
+		captured = true;
 		source.getOwner()->addCountry(&target);
 		target.getOwner()->removeCountry(&target);
 		target.setOwner(player);
