@@ -17,10 +17,10 @@
 #include "../Player/Card/Hand.h"
 #include "../Player/Player.h"
 #include <iostream>
-#include "../Player/Human.h"
 #include "../Player/PassiveAI.h"
 #include "../Player/AggressiveAI.h"
 #include "../Player/CheaterAI.h"
+#include "../Player/RandomPlayer.h"
 
 using std::vector;
 using std::cout;
@@ -41,14 +41,14 @@ void StrategyDriver::run()
 	MapLoader loader("mapfiles/World.map");
 	loader.tryParseMap(map);
 
-	Player* human = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), new Human);
+	Player* randomAI = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), new RandomPlayer);
 	Player* aggressiveAI = new Player("Player 2", DiceRoller(), vector<Country*>(), Hand(), new AggressiveAI);
 	Player* passiveAI = new Player("Player 3", DiceRoller(), vector<Country*>(), Hand(), new PassiveAI);
 	Player* cheaterAI = new Player("Cheater 1", DiceRoller(), vector<Country*>(), Hand(), new CheaterAI);
 
 	//Create four players at random
 	vector<Player*>* players = new vector<Player*>;
-	players->push_back(human);
+	players->push_back(randomAI);
 	players->push_back(aggressiveAI);
 	players->push_back(passiveAI);
 	players->push_back(cheaterAI);
@@ -58,9 +58,9 @@ void StrategyDriver::run()
 	//We want to know how this affected the players and map
 	game.setup();
 
-	cout << "\nRunning Human strategy" << endl;
-	cheaterAI->executeStrategy();
-	cout << "\nEnding Human strategy" << endl;
+	cout << "\nRunning Random strategy" << endl;
+	randomAI->executeStrategy();
+	cout << "\nEnding Random strategy" << endl;
 
 	cout << "\nRunning Aggressive strategy" << endl;
 	aggressiveAI->executeStrategy();

@@ -2,8 +2,10 @@
 #include <algorithm>
 
 using std::min;
+using std::max;
 using std::to_string;
 using std::make_pair;
+using std::string;
 
 RandomPlayer::~RandomPlayer()
 {
@@ -37,21 +39,21 @@ void RandomPlayer::reinforce(Player* player, bool skip)
 	//Choose a random country to reinforce
 	Country* c = countries[randomRange(countries.size())];
 
-	game->logAction("The random country chosent to reinforce is " + c->getName());
-	game->logAction(c->getName() + " has " + std::to_string(c->getArmies()) + " armies");
+	game->logAction("\nThe random country chosent to reinforce is " + c->getName());
+	game->logAction(c->getName() + " has " + to_string(c->getArmies()) + " armies");
 
 	//Calculate total reinforcements
-	int total = std::max(3, int(player->getCountries().size() / 3));
-	game->logAction(player->getName() + " owns " + std::to_string(player->getCountries().size()) + " territories, therefore he can reinforce with " + std::to_string(total) + " armies.");
+	int total = max(3, int(player->getCountries().size() / 3));
+	game->logAction(player->getName() + " owns " + to_string(player->getCountries().size()) + " territories, therefore he can reinforce with " + to_string(total) + " armies.");
 
 	//Calculate continent control values
-	std::unordered_map<std::string, Continent> continents = player->getGame()->getMap()->getContinents();
-	for (std::pair<std::string, Continent> p : continents)
+	std::unordered_map<string, Continent> continents = player->getGame()->getMap()->getContinents();
+	for (pair<string, Continent> p : continents)
 	{
 		Continent continent = p.second;
 		if (continent.ownedBy(player))
 		{
-			game->logAction(player->getName() + " owns all of " + continent.getName() + " therefore he gets an extra " + std::to_string(continent.getControlValue()) + " armies.");
+			game->logAction(player->getName() + " owns all of " + continent.getName() + " therefore he gets an extra " + to_string(continent.getControlValue()) + " armies.");
 
 			total += p.second.getControlValue();
 		}
@@ -61,7 +63,7 @@ void RandomPlayer::reinforce(Player* player, bool skip)
 	Exchangement exchange = player->getHand().exchange();
 	if (exchange.successfullyExchanged)
 	{
-		game->logAction(player->getName() + " exchanged the following cards to get " + std::to_string(exchange.armies) + " armies.");
+		game->logAction(player->getName() + " exchanged the following cards to get " + to_string(exchange.armies) + " armies.");
 		for (Card card : exchange.cardsExchanged)
 		{
 			game->logAction(cardTypeEnumToString(card.getCardType()));
@@ -72,8 +74,8 @@ void RandomPlayer::reinforce(Player* player, bool skip)
 	//Add armiesto country
 	c->addArmies(total);
 
-	game->logAction(player->getName() + " therefore has a final total of " + std::to_string(total) + " armies to place on " + c->getName());
-	game->logAction(c->getName() + " now has " + std::to_string(c->getArmies()) + " armies");
+	game->logAction(player->getName() + " therefore has a final total of " + to_string(total) + " armies to place on " + c->getName());
+	game->logAction(c->getName() + " now has " + to_string(c->getArmies()) + " armies");
 
 	game->logAction("All reinforcements distributed!");
 	TypeOfPlayer::reinforce(player, this);
@@ -115,10 +117,14 @@ void RandomPlayer::attack(Player* player, bool skip)
 
 	//Get target
 	pair<Country*, Country*> target = validCountries[randomRange(validCountries.size())];
+	game->logAction("\nAttacking " + target.second->getName() + " from " + target.first->getName());
 
 	//Keep attacking as long as it is possible
 	while (target.first->getArmies() > 1)
 	{
+		game->logAction(target.first->getName() + " has " + to_string(target.first->getArmies()) + " armies.");
+		game->logAction(target.second->getName() + " has " + to_string(target.second->getArmies()) + " armies.");
+
 		//Get random attack dice amount and according defend dice
 		int attackDices = randomRange(1, 3);
 		int defendDice = min(attackDices, min(2, target.second->getArmies()));
@@ -145,6 +151,8 @@ void RandomPlayer::attack(Player* player, bool skip)
 
 			target.second->addArmies(1);
 			target.first->removeArmies(1);
+
+			game->logAction(target.second->getName() + " has been overtaken by " + target.first->getName());
 			captured = true;
 			break;
 		}
@@ -184,7 +192,7 @@ bool RandomPlayer::fortify(Player* player)
 	int amount = randomRange(1, p.first->getArmies() - 1);
 
 	//Log
-	game->logAction(p.first->getName() + " currently has " + to_string(p.first->getArmies()) + " armies");
+	game->logAction("\n" + p.first->getName() + " currently has " + to_string(p.first->getArmies()) + " armies");
 	game->logAction(p.second->getName() + " currently has " + to_string(p.second->getArmies()) + " armies");
 	game->logAction("Adding " + to_string(amount) + " armies from " + p.second->getName() + " to " + p.first->getName());
 
