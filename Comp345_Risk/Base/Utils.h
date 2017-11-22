@@ -16,6 +16,7 @@
 #include <algorithm>
 #include <locale>
 #include <sstream>
+#include <iostream>
 
 using std::string;
 using std::vector;
@@ -25,6 +26,33 @@ using std::vector;
 static bool startsWith(string str, string prefix)
 {
 	return str.substr(0, prefix.size()) == prefix;
+}
+
+//https://stackoverflow.com/questions/22746429/c-decimal-to-binary-converting
+std::string toBinary(int n) {
+	std::string r;
+	while (n != 0) { r = (n % 2 == 0 ? "0" : "1") + r; n /= 2; }
+	return r;
+}
+
+inline bool charBitToBool(char bit) {
+	return bit != '0';
+}
+
+static void printOutputOptionFlags() {
+
+	std::cout << "D = Player Domination" << std::endl;
+	std::cout << "H = Players Hands " << std::endl;
+	std::cout << "C = Player Continent Control" << std::endl;
+
+	std::cout << "7 for DHC" << std::endl;
+	std::cout << "6 for DH-" << std::endl;
+	std::cout << "5 for D-C" << std::endl;
+	std::cout << "4 for D--" << std::endl;
+	std::cout << "3 for -HC" << std::endl;
+	std::cout << "2 for -H-" << std::endl;
+	std::cout << "1 for --H" << std::endl;
+	std::cout << "0 for ---" << std::endl;
 }
 
 

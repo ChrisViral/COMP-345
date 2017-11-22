@@ -3,10 +3,12 @@
 #include "Game/UI/Decorators/PlayerHandUi.h"
 #include "Game/UI/Decorators/ContinentControlUi.h"
 #include "Game/UI/Decorators/DominationUI.h"
+#include "Base/Utils.h"
 
 
 UIOutput::UIOutput(Game* game) {
 	this->game = game;
+	game->attachUiOutput(this);
 	
 	
 
@@ -65,6 +67,16 @@ UIOutput::~UIOutput()
 void UIOutput::setDecoratorEnabled(UIDecorator decorator, bool enabled)
 {
 	decorators[decorator]->enabled = enabled;
+}
+
+void UIOutput::setDecoratorFlags(int octalFlag)
+{
+	std::string bits = toBinary(octalFlag);
+	// DHC
+	// See Utils::printOutputOptionFlags()
+	setDecoratorEnabled(UIDecorator::DominationUIDecorator, charBitToBool(bits.at(0)));
+	setDecoratorEnabled(UIDecorator::PlayerHandUIDecorator, charBitToBool(bits.at(1)));
+	setDecoratorEnabled(UIDecorator::ContinentControlUIDecorator, charBitToBool(bits.at(2)));
 }
 
 GameUI* UIOutput::getUi()

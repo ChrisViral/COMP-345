@@ -17,7 +17,12 @@
 #include "GameState.h"
 #include "GamePhase.h"
 
+//#include "../UIOutput.h"
+
 using std::vector;
+
+class UIOutput;
+
 
 
 class Game : public RiskObject, public Subject
@@ -29,6 +34,7 @@ public:
 	~Game();
 	void gameLoop();
 	void setup();
+	void attachUiOutput(UIOutput* ouput);
 	RiskMap* getMap() const;
 	GameState getGameState();
 	vector<Player*>* getPlayers() const;
@@ -51,4 +57,8 @@ private:
 	GamePhase currentPhase;
 	// List of recent actions/couts
 	vector<std::string> recentActions;
+	int turnNumber;
+
+	// not part of game state
+	UIOutput* ui;
 };

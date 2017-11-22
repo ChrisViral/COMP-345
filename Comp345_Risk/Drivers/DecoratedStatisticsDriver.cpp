@@ -10,6 +10,8 @@
 #include "../Game/UI/Decorators/ContinentControlUi.h"
 #include "../UIOutput.h"
 #include "../Game/UI/Decorators/TextBasedUI.h"
+#include "../Player/Human.h"
+#include <iostream>
 
 
 DecoratedStatisticsDriver::DecoratedStatisticsDriver()
@@ -21,13 +23,16 @@ DecoratedStatisticsDriver::~DecoratedStatisticsDriver()
 {
 }
 
+
+
+
 void DecoratedStatisticsDriver::run()
 {
 	RiskMap map;
 	MapLoader loader("mapfiles/World.map");
 	loader.tryParseMap(&map);
 
-	Player* human = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), new AggressiveAI);
+	Player* human = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), new Human);
 	Player* aggressiveAI = new Player("Player 2", DiceRoller(), vector<Country*>(), Hand(), new AggressiveAI);
 	Player* passiveAI = new Player("Player 3", DiceRoller(), vector<Country*>(), Hand(), new AggressiveAI);
 
@@ -42,11 +47,13 @@ void DecoratedStatisticsDriver::run()
 	//We want to know how this affected the players and map
 	game.setup();
 
-	UIOutput output(&game);
 
-	output.setDecoratorEnabled(UIDecorator::PlayerHandUIDecorator, true);
-	output.setDecoratorEnabled(UIDecorator::ContinentControlUIDecorator, true);
-	output.setDecoratorEnabled(UIDecorator::DominationUIDecorator, true);
+	UIOutput output(&game);
+	
+
+	output.setDecoratorEnabled(UIDecorator::PlayerHandUIDecorator, false);
+	output.setDecoratorEnabled(UIDecorator::ContinentControlUIDecorator, false);
+	output.setDecoratorEnabled(UIDecorator::DominationUIDecorator, false);
 
 	
 

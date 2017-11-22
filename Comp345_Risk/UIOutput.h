@@ -1,10 +1,11 @@
 #pragma once
 #include <unordered_map>
-#include "Game/UI/GameUI.h"
+//#include "Game/UI/GameUI.h"
 #include "Game/UI/Decorators/GameStatisticsDecorator.h"
 
 class Game;
 class GameStatisticsDecorator;
+class GameUI;
 
 enum UIDecorator
 {

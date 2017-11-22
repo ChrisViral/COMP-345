@@ -19,6 +19,7 @@
 #include "Card/Hand.h"
 #include <cctype>
 #include "../Base/Utils.h"
+#include "../Drivers/DecoratedStatisticsDriver.h"
 
 using std::vector;
 using std::string;
@@ -33,8 +34,13 @@ Human::~Human()
 {
 }
 
+
 void Human::playTurn(Player* player)
 {
+	std::cout << "Which statistics do you want to show for this turn?" << std::endl;
+	printOutputOptionFlags();	
+	std::cin >> player->outputOctalFlag;
+
 	reinforce(player);
 	attack(player);
 	//TODO: Might have to modify this function a bit to select the countries inside the function, instead of being passed in.

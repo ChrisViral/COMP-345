@@ -15,7 +15,7 @@
 #include "../GameState.h"
 #include "../../Player/Player.h"
 
-class Game;
+
 
 class GameUI : public Observer
 {

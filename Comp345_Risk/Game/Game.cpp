@@ -31,6 +31,7 @@ Game::Game() : owned(true), numPlayers(0)
 	loader.tryParseMap(map);
 
 	players = new vector<Player*>();
+	turnNumber = 0;
 
 	//players->push_back(new Player("Player 1", DiceRoller(), vector<Country*>(), Hand()));
 	//players->push_back(new Player("Player 2", DiceRoller(), vector<Country*>(), Hand()));
@@ -47,6 +48,7 @@ Game::Game(vector<Player*>* players, RiskMap* map) : owned(false), numPlayers(pl
 
 	//Original random seed, only needs to be done once in whole game execution
 	srand(time(nullptr));
+	turnNumber = 0;
 }
 
 Game::~Game()
@@ -109,6 +111,10 @@ void Game::setup()
 	}
 }
 
+void Game::attachUiOutput(UIOutput* output) {
+	ui = output;
+}
+
 RiskMap* Game::getMap() const
 {
 	return map;
@@ -124,6 +130,7 @@ GameState Game::getGameState()
 	state.currentPlayerTurn = currentPlayerTurn;
 	state.currentPhase = currentPhase;
 	state.recentActions = &recentActions;
+	state.turnNumber = turnNumber;
 	return state;
 }
 
@@ -162,6 +169,7 @@ void Game::gameLoop()
 	std::pair<bool, Player*> pair = checkWin();
 	while (pair.first == false)
 	{
+		
 		for (int i = 0; i < players->size(); i++)
 		{
 			// TODO(steven): do we need this here? the child players
@@ -169,8 +177,11 @@ void Game::gameLoop()
 			// this is redunandant and something to think about
 			//currentPlayerTurn = players->at(i);
 
-
+			turnNumber++;
 			(*players)[i]->executeStrategy();
+
+			ui->setDecoratorFlags((*players)[i]->outputOctalFlag);
+			
 		}
 
 		if (counter > 3)
