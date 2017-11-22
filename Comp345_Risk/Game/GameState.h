@@ -16,6 +16,7 @@
 
 #include <vector>
 #include "GamePhase.h"
+#include "../Player/Card/Deck.h"
 
 class Player;
 class RiskMap;
@@ -33,6 +34,7 @@ public:
 
 	int numPlayers;
 	std::vector<Player*>* players;
+	Deck* deck;
 	RiskMap* map;
 	Player* currentPlayerTurn;
 	GamePhase currentPhase;

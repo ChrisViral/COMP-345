@@ -20,7 +20,7 @@ void RandomPlayer::playTurn(Player* player)
 
 	if (captured)
 	{
-		//TODO: add cards to the player
+		player->getHand().addCard(player->getGame()->getDeck()->draw());
 	}
 }
 
@@ -59,8 +59,8 @@ void RandomPlayer::reinforce(Player* player, bool skip)
 		}
 	}
 
-	//Try to exchange cards for armies
-	Exchangement exchange = player->getHand().exchange();
+	//Try to exchangeAll cards for armies
+	Exchangement exchange = player->getHand().exchangeAll();
 	if (exchange.successfullyExchanged)
 	{
 		game->logAction(player->getName() + " exchanged the following cards to get " + to_string(exchange.armies) + " armies.");
@@ -224,7 +224,7 @@ bool RandomPlayer::fortify(Player* player, Country& source, Country& target, int
 			return false;
 		}
 
-		// We can't exchange negative/more armies then we have from the source country to the target country
+		// We can't exchangeAll negative/more armies then we have from the source country to the target country
 		// Also from the official rules, we must leave at least 1 army in the source country
 		// We can't pull out all of our armies
 		if (amount < 0 || amount > source.getArmies() - 1)

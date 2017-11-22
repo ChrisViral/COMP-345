@@ -25,18 +25,18 @@ public:
 	void chooseComputers();
 	void chooseNumberOfGames();
 	void chooseNumberOfTurns();
-	std::vector<std::string> readFileNames();
+	vector<std::string> readFileNames();
 	void displayChoices();
 	void displayTable();
-	std::vector<Player*>* createComps();
+	vector<Player*>* createComps(Deck* deck);
 	
 	void gameLoop(std::string mapName, Game game);
 	std::pair<bool, Player*> checkWin(Game game) const;
 
 private:
-	std::vector<std::string> computers;	
+	vector<std::string> computers;	
 	int numberOfTurnsPerGame;
 	int numberOfGames;
-	std::vector<std::string> listOfMaps;
-	std::vector<info> results;
+	vector<std::string> listOfMaps;
+	vector<info> results;
 };

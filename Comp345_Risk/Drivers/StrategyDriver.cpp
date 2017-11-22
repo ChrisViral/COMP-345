@@ -40,11 +40,12 @@ void StrategyDriver::run()
 	RiskMap* map = new RiskMap();
 	MapLoader loader("mapfiles/World.map");
 	loader.tryParseMap(map);
+	Deck* deck = new Deck(map->size());
 
-	Player* randomAI = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), new RandomPlayer);
-	Player* aggressiveAI = new Player("Player 2", DiceRoller(), vector<Country*>(), Hand(), new AggressiveAI);
-	Player* passiveAI = new Player("Player 3", DiceRoller(), vector<Country*>(), Hand(), new PassiveAI);
-	Player* cheaterAI = new Player("Cheater 1", DiceRoller(), vector<Country*>(), Hand(), new CheaterAI);
+	Player* randomAI = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(deck), new RandomPlayer);
+	Player* aggressiveAI = new Player("Player 2", DiceRoller(), vector<Country*>(), Hand(deck), new AggressiveAI);
+	Player* passiveAI = new Player("Player 3", DiceRoller(), vector<Country*>(), Hand(deck), new PassiveAI);
+	Player* cheaterAI = new Player("Cheater 1", DiceRoller(), vector<Country*>(), Hand(deck), new CheaterAI);
 
 	//Create four players at random
 	vector<Player*>* players = new vector<Player*>;
@@ -54,7 +55,7 @@ void StrategyDriver::run()
 	players->push_back(cheaterAI);
 
 	//Load a game with the above info and run the setup
-	Game game(players, map);
+	Game game(players, map, deck);
 	//We want to know how this affected the players and map
 	game.setup();
 

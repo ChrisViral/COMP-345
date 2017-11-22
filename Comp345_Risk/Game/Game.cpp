@@ -21,7 +21,7 @@
 
 void transferCountries(Player* player, RiskMap* map);
 
-Game::Game() : owned(true), numPlayers(0)
+Game::Game() : owned(true), numPlayers(0), currentPlayerTurn(nullptr), currentPhase()
 {
 	//Original random seed, only needs to be done once in whole game execution
 	srand(time(nullptr));
@@ -30,6 +30,8 @@ Game::Game() : owned(true), numPlayers(0)
 	MapLoader loader("mapfiles/World.map");
 	loader.tryParseMap(map);
 
+	this->deck = new Deck(map->size());
+
 	players = new vector<Player*>();
 
 	//players->push_back(new Player("Player 1", DiceRoller(), vector<Country*>(), Hand()));
@@ -37,8 +39,9 @@ Game::Game() : owned(true), numPlayers(0)
 	//players->push_back(new Player("Player 3", DiceRoller(), vector<Country*>(), Hand()));
 }
 
-Game::Game(vector<Player*>* players, RiskMap* map) : owned(false), numPlayers(players->size()), players(players), map(map)
+Game::Game(vector<Player*>* players, RiskMap* map, Deck* deck) : owned(false), numPlayers(players->size()), players(players), map(map)
 {
+	this->deck = deck;
 	//Set the players to the current game
 	for (int i = 0; i < players->size(); i++)
 	{
@@ -53,6 +56,7 @@ Game::~Game()
 {
 	if (owned)
 	{
+		delete deck;
 		delete map;
 		for (int i = 0; i < players->size(); i++)
 		{
@@ -62,6 +66,7 @@ Game::~Game()
 		delete players;
 	}
 
+	deck = nullptr;
 	players = nullptr;
 	map = nullptr;
 }
@@ -125,6 +130,11 @@ GameState Game::getGameState()
 	state.currentPhase = currentPhase;
 	state.recentActions = &recentActions;
 	return state;
+}
+
+Deck* Game::getDeck() const
+{
+	return deck;
 }
 
 vector<Player*>* Game::getPlayers() const

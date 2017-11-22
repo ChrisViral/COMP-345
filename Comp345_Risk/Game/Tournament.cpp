@@ -4,6 +4,8 @@
 #include "../Player/AggressiveAI.h"
 #include "../Player/PassiveAI.h"
 #include "../Map/MapLoader/MapLoader.h"
+#include "../Player/RandomPlayer.h"
+#include "../Player/CheaterAI.h"
 
 
 Tournament::Tournament()
@@ -183,16 +185,16 @@ void Tournament::displayTable()
 }
 
 //Return a vector with the file names. If you add a new map to the folder, the list.txt file needs to be updated.
-std::vector<std::string> Tournament::readFileNames()
+vector<string> Tournament::readFileNames()
 {
-	std::vector<std::string> mapNames;
+	vector<string> mapNames;
 
 	//Open the file
 	std::ifstream input;
 	input.open("mapfiles/list.txt");
 
 	//Push all the file names in the vector
-	std::string map;
+	string map;
 	while (getline(input, map))
 	{
 		mapNames.push_back(map);
@@ -201,20 +203,20 @@ std::vector<std::string> Tournament::readFileNames()
 	return mapNames;
 }
 
-std::vector<Player*>* Tournament::createComps()
+vector<Player*>* Tournament::createComps(Deck* deck)
 {
-	std::vector<Player*>* c = new std::vector<Player*>;
+	vector<Player*>* c = new vector<Player*>;
 
 	for (int i = 0; i < computers.size(); i++)
 	{
 		if (computers[i] == "Aggressive")
-			c->push_back(new Player("Aggressive", DiceRoller(), std::vector<Country*>(), Hand(), new AggressiveAI()));
+			c->push_back(new Player("Aggressive", DiceRoller(), vector<Country*>(), Hand(deck), new AggressiveAI()));
 		else if(computers[i] == "Passive")
-			c->push_back(new Player("Passive", DiceRoller(), std::vector<Country*>(), Hand(), new PassiveAI()));
-		//else if (computers[i] == "Random")
-		//	c->push_back(new Player("Random", DiceRoller(), std::vector<Country*>(), Hand(), new RandomAI()));
-		//else if (computers[i] == "Cheater")
-		//	c->push_back(new Player("Cheater", DiceRoller(), std::vector<Country*>(), Hand(), new CheaterAI()));
+			c->push_back(new Player("Passive", DiceRoller(), vector<Country*>(), Hand(deck), new PassiveAI()));
+		else if (computers[i] == "Random")
+			c->push_back(new Player("Random", DiceRoller(), std::vector<Country*>(), Hand(), new RandomPlayer()));
+		else if (computers[i] == "Cheater")
+			c->push_back(new Player("Cheater", DiceRoller(), std::vector<Country*>(), Hand(), new CheaterAI()));
 	}
 
 	return c;
@@ -233,14 +235,16 @@ void Tournament::runTournament()
 		MapLoader loader("mapfiles/" + currentmap + ".map");
 		loader.tryParseMap(map);
 
-		std::vector<Player*>* comps = createComps();
+		Deck* deck = new Deck(map->size());
+		std::vector<Player*>* comps = createComps(deck);
 
-		Game game(comps, map);
+		Game game(comps, map, deck);
 
 		game.setup();
 		
 		gameLoop(currentmap, game);
 
+		delete deck;
 		delete map;
 		delete comps;
 		

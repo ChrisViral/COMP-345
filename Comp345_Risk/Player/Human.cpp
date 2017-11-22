@@ -67,7 +67,7 @@ void Human::reinforce(Player* player, bool skip)
 		}
 	}
 
-	Exchangement exchange = player->getHand().exchange();
+	Exchangement exchange = player->getHand().exchangeAll();
 	if (exchange.successfullyExchanged)
 	{
 		game->logAction(player->getName() + " exchanged the following cards to get " + std::to_string(exchange.armies) + " armies.");
@@ -895,7 +895,7 @@ bool Human::fortify(Player* player, Country& source, Country& target, int amount
 		{
 			return false;
 		}
-		// We can't exchange negative/more armies then we have from the source country to the target country
+		// We can't exchangeAll negative/more armies then we have from the source country to the target country
 		// Also from the official rules, we must leave at least 1 army in the source country
 		// We can't pull out all of our armies
 		if (amount < 0 || amount > source.getArmies() - 1)

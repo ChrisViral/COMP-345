@@ -75,7 +75,7 @@ void AggressiveAI::reinforce(Player* player, bool skip)
 		}
 	}
 
-	Exchangement exchange = player->getHand().exchange();
+	Exchangement exchange = player->getHand().exchangeAll();
 	if (exchange.successfullyExchanged)
 	{
 		game->logAction(player->getName() + " exchanged the following cards to get " + std::to_string(exchange.armies) + " armies.");

@@ -16,6 +16,7 @@
 #include "../Patterns/Observer/Subject.h"
 #include "GameState.h"
 #include "GamePhase.h"
+#include "../Player/Card/Deck.h"
 
 using std::vector;
 
@@ -25,12 +26,13 @@ class Game : public RiskObject, public Subject
 public:
 
 	Game();
-	Game(vector<Player*>* players, RiskMap* map);
+	Game(vector<Player*>* players, RiskMap* map, Deck* deck);
 	~Game();
 	void gameLoop();
 	void setup();
 	RiskMap* getMap() const;
 	GameState getGameState();
+	Deck* getDeck() const;
 	vector<Player*>* getPlayers() const;
 
 	void setCurrentPlayerTurnAndPhase(Player* player, GamePhase phase);
@@ -44,6 +46,7 @@ private:
 	bool owned;
 	int numPlayers;
 	vector<Player*>* players;
+	Deck* deck;
 	RiskMap* map;
 	// Who is currently playing
 	Player* currentPlayerTurn;

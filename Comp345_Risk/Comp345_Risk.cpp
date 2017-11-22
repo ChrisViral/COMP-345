@@ -31,7 +31,7 @@ int main()
 
 	//Run drivers individually
 
-	Driver* d = &strategy;
+	Driver* d = &tournament;
 	cout << d->getOpeningMessage() << endll;
 	d->run();
 	cout << std::endl << d->getClosingMessage() << endll;
@@ -53,7 +53,8 @@ int main()
 	*/
 
 	cout << "Press any key to exit...";
-	getchar();
+	string s;
+	std::cin >> s;
 
 	return 0;
 }
