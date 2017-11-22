@@ -12,11 +12,11 @@
 #pragma once
 #include "../Base/Driver.h"
 
-class StatisticsDriver : public Driver
+class TournamentDriver : public Driver
 {
 public:
-	StatisticsDriver();
-	~StatisticsDriver();
+	TournamentDriver();
+	~TournamentDriver();
 	void run() override;
 	string getOpeningMessage() override;
 	string getClosingMessage() override;

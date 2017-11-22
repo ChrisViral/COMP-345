@@ -10,7 +10,6 @@
 // ==============================
 
 #include "AggressiveAI.h"
-#include <iostream>
 #include "../Map/Country.h"
 #include "../Player/Player.h"
 #include <algorithm>

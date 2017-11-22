@@ -18,6 +18,8 @@ class Country;
 class TypeOfPlayer
 {
 public:
+	virtual ~TypeOfPlayer() = 0;
+
 	//This method should be run. But the other methods can be used for testing/demo
 	virtual void playTurn(Player* player) = 0;
 

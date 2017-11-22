@@ -851,7 +851,7 @@ void Human::fortify(Player* player)
 			}
 			cout << "Invalid entry, please be sure to leave at least 1 army on " << source->getName() << "...";
 		}
-	std:cout << "Moving " << amount << " armies from " << source->getName() << " to " << target->getName() << "..." << endl << endl;
+		std:cout << "Moving " << amount << " armies from " << source->getName() << " to " << target->getName() << "..." << endl << endl;
 		fortify(player, *source, *target, amount);
 		cout << source->getName() << " now has " << source->getArmies() << " armies" << endl;
 		cout << target->getName() << " now has " << target->getArmies() << " armies" << endl << endl;

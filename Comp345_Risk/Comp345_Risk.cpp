@@ -12,9 +12,8 @@
 #include "Base/Driver.h";
 #include <iostream>
 #include <vector>
-#include "Drivers/StrategyDriver.h"
-#include "Drivers/PhaseObserverDriver.h"
-#include "Drivers/StatisticsDriver.h"
+#include "Drivers/TournamentDriver.h"
+
 
 using std::cout;
 using std::vector;
@@ -24,15 +23,13 @@ int main()
 {
 	vector<Driver*> drivers;
 
-	StrategyDriver strategy;
-	PhaseObserverDriver phase;
-	StatisticsDriver stats;
+	TournamentDriver tournament;
 
 	const string endll = "\n\n";
 
 	//Run drivers individually
 
-	Driver* d = &strategy;
+	Driver* d = &tournament;
 	cout << d->getOpeningMessage() << endll;
 	d->run();
 	cout << std::endl << d->getClosingMessage() << endll;
