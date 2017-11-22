@@ -1,7 +1,7 @@
 #pragma once
 #include <unordered_map>
 //#include "Game/UI/GameUI.h"
-#include "Game/UI/Decorators/GameStatisticsDecorator.h"
+//#include "Game/UI/Decorators/GameStatisticsDecorator.h"
 
 class Game;
 class GameStatisticsDecorator;
@@ -14,12 +14,13 @@ enum UIDecorator
 	ContinentControlUIDecorator
 };
 
-class UIOutput
+class UIOutputDecorator
 {
 public:
-	UIOutput(Game* game);
-	~UIOutput();
+	UIOutputDecorator(Game* game);
+	~UIOutputDecorator();
 	void setDecoratorEnabled(UIDecorator decorator, bool enabled);
+	void setDecoratorFlags(int octalFlag);
 	GameUI* getUi();
 	
 private:

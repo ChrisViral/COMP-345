@@ -87,7 +87,7 @@
     <ClCompile Include="Game\UI\Decorators\TextBasedUI.cpp">
       <Filter>Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="UIOutput.cpp" />
+    <ClCompile Include="UIOutputDecorator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -183,7 +183,7 @@
     <ClInclude Include="Game\UI\Decorators\TextBasedUI.h">
       <Filter>Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="UIOutput.h" />
+    <ClInclude Include="UIOutputDecorator.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Base">

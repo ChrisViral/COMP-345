@@ -17,11 +17,10 @@
 #include "GameState.h"
 #include "GamePhase.h"
 
-//#include "../UIOutput.h"
 
 using std::vector;
 
-class UIOutput;
+
 
 
 
@@ -34,7 +33,6 @@ public:
 	~Game();
 	void gameLoop();
 	void setup();
-	void attachUiOutput(UIOutput* ouput);
 	RiskMap* getMap() const;
 	GameState getGameState();
 	vector<Player*>* getPlayers() const;
@@ -44,6 +42,8 @@ public:
 	// for now just save strings
 	void logAction(const std::string action);
 
+
+	int decoratorFlag;
 
 private:
 	std::pair<bool, Player*> checkWin() const;
@@ -59,6 +59,5 @@ private:
 	vector<std::string> recentActions;
 	int turnNumber;
 
-	// not part of game state
-	UIOutput* ui;
+
 };

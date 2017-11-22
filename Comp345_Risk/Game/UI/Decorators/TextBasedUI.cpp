@@ -13,6 +13,7 @@
 #include <iostream>
 
 
+
 TextBasedUI::~TextBasedUI()
 {
 }
@@ -20,6 +21,9 @@ TextBasedUI::~TextBasedUI()
 void TextBasedUI::update()
 {
 	GameState state = game->getGameState();
+	this->decorator->setDecoratorFlags(state.decoratorFlag);
+	
+
 	std::cout << "______________________________________________________________________________________" << std::endl;
 	std::cout << "Undecorated UI" << std::endl;
 

@@ -26,6 +26,10 @@ void GameUI::update()
 {
 }
 
+void GameUI::attachDecorator(UIOutputDecorator* decorator) {
+	this->decorator = decorator;
+}
+
 Game* GameUI::getGame() {
 	return game;
 }

@@ -1,4 +1,4 @@
-#include "UIOutput.h"
+#include "UIOutputDecorator.h"
 #include "Game/UI/Decorators/TextBasedUI.h"
 #include "Game/UI/Decorators/PlayerHandUi.h"
 #include "Game/UI/Decorators/ContinentControlUi.h"
@@ -6,9 +6,8 @@
 #include "Base/Utils.h"
 
 
-UIOutput::UIOutput(Game* game) {
+UIOutputDecorator::UIOutputDecorator(Game* game) {
 	this->game = game;
-	game->attachUiOutput(this);
 	
 	
 
@@ -30,6 +29,8 @@ UIOutput::UIOutput(Game* game) {
 
 	// Just awful
 	decoratedUI = new TextBasedUI(game);
+	decoratedUI->attachDecorator(this);
+	
 	decorators[UIDecorator::PlayerHandUIDecorator]->setDecoratedUI(decoratedUI);
 	decoratedUI = decorators[UIDecorator::PlayerHandUIDecorator];
 
@@ -38,6 +39,7 @@ UIOutput::UIOutput(Game* game) {
 
 	decorators[UIDecorator::DominationUIDecorator]->setDecoratedUI(decoratedUI);
 	decoratedUI = decorators[UIDecorator::DominationUIDecorator];
+	
 	
 
 	// The above mess is trying to do this with the map
@@ -50,7 +52,7 @@ UIOutput::UIOutput(Game* game) {
 
 }
 
-UIOutput::~UIOutput()
+UIOutputDecorator::~UIOutputDecorator()
 {
 
 
@@ -64,22 +66,24 @@ UIOutput::~UIOutput()
 	decoratedUI = nullptr;
 }
 
-void UIOutput::setDecoratorEnabled(UIDecorator decorator, bool enabled)
+void UIOutputDecorator::setDecoratorEnabled(UIDecorator decorator, bool enabled)
 {
 	decorators[decorator]->enabled = enabled;
 }
 
-void UIOutput::setDecoratorFlags(int octalFlag)
+void UIOutputDecorator::setDecoratorFlags(int octalFlag)
 {
 	std::string bits = toBinary(octalFlag);
 	// DHC
 	// See Utils::printOutputOptionFlags()
-	setDecoratorEnabled(UIDecorator::DominationUIDecorator, charBitToBool(bits.at(0)));
-	setDecoratorEnabled(UIDecorator::PlayerHandUIDecorator, charBitToBool(bits.at(1)));
-	setDecoratorEnabled(UIDecorator::ContinentControlUIDecorator, charBitToBool(bits.at(2)));
+	
+	
+	setDecoratorEnabled(UIDecorator::DominationUIDecorator, strBitToBool(bits.substr(0, 1)));
+	setDecoratorEnabled(UIDecorator::PlayerHandUIDecorator, strBitToBool(bits.substr(1, 1)));
+	setDecoratorEnabled(UIDecorator::ContinentControlUIDecorator, strBitToBool(bits.substr(2, 1)));
 }
 
-GameUI* UIOutput::getUi()
+GameUI* UIOutputDecorator::getUi()
 {
 	return decoratedUI;
 }

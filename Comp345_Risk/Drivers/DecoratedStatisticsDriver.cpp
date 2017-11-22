@@ -8,7 +8,7 @@
 #include "../Player/AggressiveAI.h"
 #include "../Game/UI/Decorators/DominationUI.h"
 #include "../Game/UI/Decorators/ContinentControlUi.h"
-#include "../UIOutput.h"
+#include "../UIOutputDecorator.h"
 #include "../Game/UI/Decorators/TextBasedUI.h"
 #include "../Player/Human.h"
 #include <iostream>
@@ -48,20 +48,13 @@ void DecoratedStatisticsDriver::run()
 	game.setup();
 
 
-	UIOutput output(&game);
+	UIOutputDecorator output(&game);
 	
 
 	output.setDecoratorEnabled(UIDecorator::PlayerHandUIDecorator, false);
 	output.setDecoratorEnabled(UIDecorator::ContinentControlUIDecorator, false);
 	output.setDecoratorEnabled(UIDecorator::DominationUIDecorator, false);
 
-	
-
-	//GameUI* ui = new TextBasedUI(&game);
-	//ui = new PlayerHandUi(ui);
-	//ui = new ContinentControlUi(ui);
-	//ui = new DominationUI(ui);
-	//
 
 
 	GameUI* ui = output.getUi();

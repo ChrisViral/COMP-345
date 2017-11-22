@@ -177,7 +177,7 @@
     <ClInclude Include="Drivers\StatisticsDriver.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Game\UI\Decorators\TextBasedUI.h" />
-    <ClInclude Include="UIOutput.h" />
+    <ClInclude Include="UIOutputDecorator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Base\RiskObject.cpp" />
@@ -212,7 +212,7 @@
     <ClCompile Include="Patterns\Observer\Subject.cpp" />
     <ClCompile Include="Game\UI\Decorators\TextBasedUI.cpp" />
     <ClCompile Include="Drivers\StatisticsDriver.cpp" />
-    <ClCompile Include="UIOutput.cpp" />
+    <ClCompile Include="UIOutputDecorator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="mapfiles\broken.map" />

@@ -111,9 +111,6 @@ void Game::setup()
 	}
 }
 
-void Game::attachUiOutput(UIOutput* output) {
-	ui = output;
-}
 
 RiskMap* Game::getMap() const
 {
@@ -131,6 +128,7 @@ GameState Game::getGameState()
 	state.currentPhase = currentPhase;
 	state.recentActions = &recentActions;
 	state.turnNumber = turnNumber;
+	state.decoratorFlag = decoratorFlag;
 	return state;
 }
 
@@ -143,6 +141,7 @@ void Game::setCurrentPlayerTurnAndPhase(Player* player, GamePhase phase)
 {
 	currentPlayerTurn = player;
 	currentPhase = phase;
+	
 	// Notify that the currentPlayerTurn and phase has changed
 	if (observersCount() > 0)
 	{
@@ -180,7 +179,8 @@ void Game::gameLoop()
 			turnNumber++;
 			(*players)[i]->executeStrategy();
 
-			ui->setDecoratorFlags((*players)[i]->outputOctalFlag);
+			decoratorFlag = (*players)[i]->outputOctalFlag;
+			
 			
 		}
 

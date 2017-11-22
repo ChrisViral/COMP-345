@@ -28,15 +28,22 @@ static bool startsWith(string str, string prefix)
 	return str.substr(0, prefix.size()) == prefix;
 }
 
-//https://stackoverflow.com/questions/22746429/c-decimal-to-binary-converting
-std::string toBinary(int n) {
-	std::string r;
-	while (n != 0) { r = (n % 2 == 0 ? "0" : "1") + r; n /= 2; }
-	return r;
+
+inline std::string toBinary(int n) {
+	// I'm sure there is a better way to do this with bit twidlling, but it's 1 in the morning
+	if (n == 0) return "000";
+	if (n == 1) return "001";
+	if (n == 2) return "010";
+	if (n == 3) return "011";
+	if (n == 4) return "100";
+	if (n == 5) return "101";
+	if (n == 6) return "110";
+	if (n == 7) return "111";
+	return "000";
 }
 
-inline bool charBitToBool(char bit) {
-	return bit != '0';
+inline bool strBitToBool(std::string bit) {
+	return bit != "0";
 }
 
 static void printOutputOptionFlags() {

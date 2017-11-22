@@ -1,6 +1,6 @@
 #include "ContinentControlUi.h"
 #include <iostream>
-
+#include "../../../UIOutputDecorator.h"
 
 
 void ContinentControlUi::update()
