@@ -84,6 +84,9 @@
     <ClCompile Include="Player\RandomPlayer.cpp">
       <Filter>Player</Filter>
     </ClCompile>
+    <ClCompile Include="CheaterAI.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
