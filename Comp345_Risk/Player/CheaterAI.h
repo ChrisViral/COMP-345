@@ -12,8 +12,8 @@
 #pragma once
 
 #include <vector>
-#include "Base/RiskObject.h"
-#include "Player/TypeOfPlayer.h"
+#include "../Base/RiskObject.h"
+#include "../Player/TypeOfPlayer.h"
 
 class CheaterAI : public RiskObject, public TypeOfPlayer
 {

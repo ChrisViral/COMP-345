@@ -9,11 +9,9 @@
 //  Adriano Monteclavo, 40009257
 // ==============================
 
-#include <algorithm>
-#include "Map/Country.h"
+#include "../Map/Country.h"
 #include "CheaterAI.h"
 #include <set>
-#include <iostream>
 
 
 CheaterAI::~CheaterAI()

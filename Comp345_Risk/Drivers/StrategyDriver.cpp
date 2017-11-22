@@ -20,7 +20,7 @@
 #include "../Player/Human.h"
 #include "../Player/PassiveAI.h"
 #include "../Player/AggressiveAI.h"
-#include "../CheaterAI.h"
+#include "../Player/CheaterAI.h"
 
 using std::vector;
 using std::cout;
