@@ -166,11 +166,17 @@ bool RandomPlayer::fortify(Player* player)
 	//Get some useful stuff
 	Game* game = player->getGame();
 	RiskMap* map = game->getMap();
-	vector<Country*> owned = player->getCountries();
+	vector<Country*> owned = vector<Country*>(player->getCountries());
 	vector<pair<Country*, Country*>> validCountries;
 
+	if (owned.size() == 1)
+	{
+		game->logAction("Only one country owned, cannot fortify any other countries");
+		return false;
+	}
+
 	//Loop through the owned countries
-	for (Country* source = owned[randomRange(owned.size())]; validCountries.size() == 0; source = owned[randomRange(owned.size())])
+	for (Country* source = getRandomAndRemove(owned); validCountries.size() == 0 && source != nullptr; source = getRandomAndRemove(owned))
 	{
 		//Check if the country has enough armies to attack
 		if (source->getArmies() > 1)
@@ -185,6 +191,12 @@ bool RandomPlayer::fortify(Player* player)
 				}
 			}
 		}
+	}
+
+	if (validCountries.size() == 0)
+	{
+		game->logAction("No connected countries, cannot fortify");
+		return false;
 	}
 
 	//Get random source/target pair
@@ -206,6 +218,18 @@ bool RandomPlayer::fortify(Player* player)
 	//Return result
 	TypeOfPlayer::fortify(player, *p.first, *p.second, amount);
 	return success;
+}
+
+Country* RandomPlayer::getRandomAndRemove(vector<Country*>& countries) const
+{
+	//If the list is empty, return a null pointer
+	if (countries.size() == 0) { return nullptr; }
+
+	//Get random element, remove it from the list, and return it
+	int index = randomRange(countries.size());
+	Country* result = countries[index];
+	countries.erase(countries.begin() + index);
+	return result;
 }
 
 bool RandomPlayer::fortify(Player* player, Country& source, Country& target, int amount, bool skip)

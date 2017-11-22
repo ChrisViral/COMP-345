@@ -15,6 +15,7 @@ public:
 	void battle(pair<Country*, Country*> countries, int attackerRoll, int defenderRoll);
 
 private:
+	Country* getRandomAndRemove(vector<Country*>& countries) const;
 	/*
 	 * Random value between 0 and the max (exclusive)
 	 */
