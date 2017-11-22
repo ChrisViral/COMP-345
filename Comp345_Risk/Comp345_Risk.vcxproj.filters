@@ -81,6 +81,9 @@
     <ClCompile Include="Drivers\TournamentDriver.cpp">
       <Filter>Drivers</Filter>
     </ClCompile>
+    <ClCompile Include="Player\RandomPlayer.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -169,6 +172,9 @@
     <ClInclude Include="Game\Tournament.h" />
     <ClInclude Include="Drivers\TournamentDriver.h">
       <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\RandomPlayer.h">
+      <Filter>Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

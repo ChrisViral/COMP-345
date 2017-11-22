@@ -168,6 +168,7 @@
     <ClInclude Include="Player\DiceRoller.h" />
     <ClInclude Include="Player\PassiveAI.h" />
     <ClInclude Include="Player\Player.h" />
+    <ClInclude Include="Player\RandomPlayer.h" />
     <ClInclude Include="Player\TypeOfPlayer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Patterns\Observer\Subject.h" />
@@ -200,6 +201,7 @@
     <ClCompile Include="Player\DiceRoller.cpp" />
     <ClCompile Include="Player\PassiveAI.cpp" />
     <ClCompile Include="Player\Player.cpp" />
+    <ClCompile Include="Player\RandomPlayer.cpp" />
     <ClCompile Include="Player\TypeOfPlayer.cpp" />
     <ClCompile Include="Patterns\Observer\Subject.cpp" />
     <ClCompile Include="Game\UI\TextBasedUI.cpp" />
