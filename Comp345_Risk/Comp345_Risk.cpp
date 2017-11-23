@@ -13,8 +13,6 @@
 #include <iostream>
 #include <vector>
 #include "Drivers/StrategyDriver.h"
-#include "Drivers/PhaseObserverDriver.h"
-#include "Drivers/StatisticsDriver.h"
 #include "Drivers/DecoratedStatisticsDriver.h"
 
 using std::cout;
@@ -26,8 +24,6 @@ int main()
 	vector<Driver*> drivers;
 
 	StrategyDriver strategy;
-	PhaseObserverDriver phase;
-	StatisticsDriver stats;
 	DecoratedStatisticsDriver decoratedStats;
 
 	const string endll = "\n\n";

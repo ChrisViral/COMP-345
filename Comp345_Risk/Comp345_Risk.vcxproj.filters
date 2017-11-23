@@ -71,12 +71,6 @@
     <ClCompile Include="Player\Player.cpp">
       <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="Drivers\PhaseObserverDriver.cpp">
-      <Filter>Drivers</Filter>
-    </ClCompile>
-    <ClCompile Include="Drivers\StatisticsDriver.cpp">
-      <Filter>Drivers</Filter>
-    </ClCompile>
     <ClCompile Include="Drivers\DecoratedStatisticsDriver.cpp" />
     <ClCompile Include="Game\UI\Decorators\GameStatisticsDecorator.cpp" />
     <ClCompile Include="Game\UI\Decorators\PlayerHandUi.cpp" />
@@ -164,13 +158,7 @@
     <ClInclude Include="Player\Player.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="Drivers\PhaseObserverDriver.h">
-      <Filter>Drivers</Filter>
-    </ClInclude>
     <ClInclude Include="Drivers\StrategyDriver.h">
-      <Filter>Drivers</Filter>
-    </ClInclude>
-    <ClInclude Include="Drivers\StatisticsDriver.h">
       <Filter>Drivers</Filter>
     </ClInclude>
     <ClInclude Include="Drivers\DecoratedStatisticsDriver.h" />
