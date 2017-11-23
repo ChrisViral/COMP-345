@@ -37,10 +37,14 @@ Human::~Human()
 
 void Human::playTurn(Player* player)
 {
-	std::cout << "Which statistics do you want to show for this turn?" << std::endl;
-	printOutputOptionFlags();	
-	std::cin >> player->outputOctalFlag;
-	player->getGame()->decoratorFlag = player->outputOctalFlag;
+	if (player->outputOctalFlag != -1)
+	{
+		std::cout << "Which statistics do you want to show for this turn?" << std::endl;
+		printOutputOptionFlags();
+		std::cin >> player->outputOctalFlag;
+		player->getGame()->decoratorFlag = player->outputOctalFlag;
+	}
+	
 
 	reinforce(player);
 	attack(player);

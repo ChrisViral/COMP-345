@@ -74,6 +74,7 @@ void UIOutputDecorator::setDecoratorEnabled(UIDecorator decorator, bool enabled)
 void UIOutputDecorator::setDecoratorFlags(int octalFlag)
 {
 	std::string bits = toBinary(octalFlag);
+	if (bits.size() == 4) return;
 	// DHC
 	// See Utils::printOutputOptionFlags()
 	

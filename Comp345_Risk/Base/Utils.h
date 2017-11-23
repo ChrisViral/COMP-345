@@ -39,6 +39,8 @@ inline std::string toBinary(int n) {
 	if (n == 5) return "101";
 	if (n == 6) return "110";
 	if (n == 7) return "111";
+	// Special case for when the user doesnt want to be asked anymore
+	if (n == -1) return "0000";
 	return "000";
 }
 
@@ -52,6 +54,7 @@ static void printOutputOptionFlags() {
 	std::cout << "H = Players Hands " << std::endl;
 	std::cout << "C = Player Continent Control" << std::endl;
 
+	
 	std::cout << "7 for DHC" << std::endl;
 	std::cout << "6 for DH-" << std::endl;
 	std::cout << "5 for D-C" << std::endl;
@@ -60,6 +63,8 @@ static void printOutputOptionFlags() {
 	std::cout << "2 for -H-" << std::endl;
 	std::cout << "1 for --H" << std::endl;
 	std::cout << "0 for ---" << std::endl;
+
+	std::cout << "-1 to never be asked again" << std::endl;
 }
 
 
