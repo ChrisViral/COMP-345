@@ -108,8 +108,12 @@ void AggressiveAI::attack(Player* player, bool skip)
 	Game* game = player->getGame();
 
 	vector<Country*> adjList = getAdjUnOwnedCountryList(player, *strongestCountry);
-	Country* defendingCountry = adjList[0];
-	adjList.erase(adjList.begin());
+	Country* defendingCountry;
+	if (adjList.size() != 0)
+	{
+		defendingCountry = adjList[0];
+		adjList.erase(adjList.begin());
+	}
 
 	//keep attack a untill it cannot do so anymore
 	while (strongestCountry->getArmies() >= 2 && adjList.size() != 0)
@@ -178,8 +182,11 @@ void AggressiveAI::attack(Player* player, bool skip)
 			defendingCountry->addArmies(1);
 			strongestCountry->removeArmies(1);
 
-			defendingCountry = adjList[0];
-			adjList.erase(adjList.begin());
+			if (adjList.size() != 0)
+			{
+				defendingCountry = adjList[0];
+				adjList.erase(adjList.begin());
+			}
 		}
 	}
 

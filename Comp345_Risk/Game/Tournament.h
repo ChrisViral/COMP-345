@@ -30,7 +30,7 @@ public:
 	void displayTable();
 	vector<Player*>* createComps(Deck* deck);
 	
-	void gameLoop(std::string mapName, Game game);
+	void gameLoop(std::string currentmap);
 	std::pair<bool, Player*> checkWin(Game game) const;
 
 private:

@@ -230,7 +230,19 @@ void Tournament::runTournament()
 	{		
 		std::string currentmap = list[0];
 		list.erase(list.begin() );
+		
+		gameLoop(currentmap);
+		
 
+	} while (list.size() != 0);
+}
+
+void Tournament::gameLoop(std::string currentmap)
+{
+	int gameNumber = 1;
+		
+	while (gameNumber <= numberOfGames)
+	{
 		RiskMap* map = new RiskMap();
 		MapLoader loader("mapfiles/" + currentmap + ".map");
 		loader.tryParseMap(map);
@@ -241,30 +253,10 @@ void Tournament::runTournament()
 		Game game(comps, map, deck);
 
 		game.setup();
-		
-		gameLoop(currentmap, game);
 
-		delete deck;
-		delete map;
-		delete comps;
-		
-		for (int i = 0; i < comps->size(); i++)
-		{
-			delete comps->at(i);
-		}
-		
+		int currentTurn = 1;
 
-	} while (list.size() != 0);
-}
-
-void Tournament::gameLoop(std::string mapName, Game game)
-{
-	int currentTurn = 1;
-	int gameNumber = 1;
-		
-	while (gameNumber <= numberOfGames)
-	{
-		std::cout << "\n*** Map: " << mapName << " Game: " << gameNumber << " ***\n" << std::endl;
+		std::cout << "\n*** Map: " << currentmap << " Game: " << gameNumber << " ***\n" << std::endl;
 
 		std::pair<bool, Player*> pair = checkWin(game);
 		while (pair.first == false && currentTurn <= numberOfTurnsPerGame)
@@ -282,7 +274,7 @@ void Tournament::gameLoop(std::string mapName, Game game)
 		}
 		
 		info info;
-		info.mapName = mapName;
+		info.mapName = currentmap;
 		info.game = gameNumber;
 		if (pair.second == NULL)
 			info.winner = "Draw";
@@ -292,6 +284,15 @@ void Tournament::gameLoop(std::string mapName, Game game)
 		results.push_back(info);
 
 		gameNumber++;
+
+		delete deck;
+		delete map;
+		delete comps;
+
+		for (int i = 0; i < comps->size(); i++)
+		{
+			delete comps->at(i);
+		}
 	}	
 }
 
