@@ -62,9 +62,6 @@
     <ClCompile Include="Game\UI\GameUI.cpp">
       <Filter>Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Game\UI\TextBasedUI.cpp">
-      <Filter>Game\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Patterns\Observer\Observer.cpp">
       <Filter>Patterns\Observer</Filter>
     </ClCompile>
@@ -73,9 +70,6 @@
     </ClCompile>
     <ClCompile Include="Player\Player.cpp">
       <Filter>Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\UI\DominationUI.cpp">
-      <Filter>Game\UI</Filter>
     </ClCompile>
     <ClCompile Include="Drivers\TournamentDriver.cpp">
       <Filter>Drivers</Filter>
@@ -156,9 +150,6 @@
     <ClInclude Include="Game\UI\GameUI.h">
       <Filter>Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Game\UI\TextBasedUI.h">
-      <Filter>Game\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Patterns\Observer\Observer.h">
       <Filter>Patterns\Observer</Filter>
     </ClInclude>
@@ -170,9 +161,6 @@
     </ClInclude>
     <ClInclude Include="Drivers\StrategyDriver.h">
       <Filter>Drivers</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\UI\DominationUI.h">
-      <Filter>Game\UI</Filter>
     </ClInclude>
     <ClInclude Include="Drivers\TournamentDriver.h">
       <Filter>Drivers</Filter>
