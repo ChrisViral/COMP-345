@@ -18,7 +18,11 @@
 #include "GamePhase.h"
 #include "../Player/Card/Deck.h"
 
+
 using std::vector;
+
+
+
 
 
 class Game : public RiskObject, public Subject
@@ -41,6 +45,8 @@ public:
 	void logAction(const std::string action);
 
 
+	int decoratorFlag;
+
 private:
 	std::pair<bool, Player*> checkWin() const;
 	bool owned;
@@ -54,4 +60,7 @@ private:
 	GamePhase currentPhase;
 	// List of recent actions/couts
 	vector<std::string> recentActions;
+	int turnNumber;
+
+
 };

@@ -14,8 +14,10 @@
 #include "../Game.h"
 #include "../GameState.h"
 #include "../../Player/Player.h"
+//class UIOutputDecorator;
+#include "../../UIOutputDecorator.h"
 
-class Game;
+
 
 class GameUI : public Observer
 {
@@ -26,7 +28,12 @@ public:
 
 	virtual ~GameUI();
 	void update() override;
+	// hacx
+	void attachDecorator(UIOutputDecorator* decorator);
+	Game* getGame();
 protected:
 	GameUI(Game* game);
 	Game* game;
+	UIOutputDecorator* decorator;
+
 };

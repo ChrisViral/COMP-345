@@ -39,4 +39,6 @@ public:
 	Player* currentPlayerTurn;
 	GamePhase currentPhase;
 	std::vector<std::string>* recentActions;
+	int turnNumber;
+	int decoratorFlag;
 };

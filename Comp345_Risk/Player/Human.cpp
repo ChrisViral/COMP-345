@@ -19,6 +19,7 @@
 #include "Card/Hand.h"
 #include <cctype>
 #include "../Base/Utils.h"
+#include "../Drivers/DecoratedStatisticsDriver.h"
 
 using std::vector;
 using std::string;
@@ -33,8 +34,17 @@ Human::~Human()
 {
 }
 
+
 void Human::playTurn(Player* player)
 {
+	if (player->outputOctalFlag != -1)
+	{
+		std::cout << "Which statistics do you want to show for this turn?" << std::endl;
+		printOutputOptionFlags();
+		std::cin >> player->outputOctalFlag;
+		player->getGame()->decoratorFlag = player->outputOctalFlag;
+	}
+	
 	captured = false;
 	reinforce(player);
 	attack(player);

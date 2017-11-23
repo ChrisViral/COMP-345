@@ -14,7 +14,7 @@
 #include <vector>
 #include "Drivers/TournamentDriver.h"
 #include "Drivers/StrategyDriver.h"
-
+#include "Drivers/DecoratedStatisticsDriver.h"
 
 using std::cout;
 using std::vector;
@@ -26,12 +26,12 @@ int main()
 
 	TournamentDriver tournament;
 	StrategyDriver strategy;
+	DecoratedStatisticsDriver decoratedStats;
 
 	const string endll = "\n\n";
 
 	//Run drivers individually
-
-	Driver* d = &tournament;
+	Driver* d = &decoratedStats;
 	cout << d->getOpeningMessage() << endll;
 	d->run();
 	cout << std::endl << d->getClosingMessage() << endll;

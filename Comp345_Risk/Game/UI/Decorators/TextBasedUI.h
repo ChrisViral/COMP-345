@@ -9,27 +9,20 @@
 //  Adriano Monteclavo, 40009257
 // ==============================
 
-#include "GameUI.h"
+#pragma once
+#include "../GameUI.h"
 
 
-GameUI::GameUI(Game* game)
+class TextBasedUI : public GameUI
 {
-	this->game = game;
-}
-
-GameUI::~GameUI()
-{
-}
+public:
 
 
-void GameUI::update()
-{
-}
+	explicit TextBasedUI(Game* game)
+		: GameUI(game)
+	{
+	}
 
-void GameUI::attachDecorator(UIOutputDecorator* decorator) {
-	this->decorator = decorator;
-}
-
-Game* GameUI::getGame() {
-	return game;
-}
+	~TextBasedUI();
+	void update() override;
+};

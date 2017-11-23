@@ -33,6 +33,7 @@ Game::Game() : owned(true), numPlayers(0), currentPlayerTurn(nullptr), currentPh
 	this->deck = new Deck(map->size());
 
 	players = new vector<Player*>();
+	turnNumber = 0;
 
 	//players->push_back(new Player("Player 1", DiceRoller(), vector<Country*>(), Hand()));
 	//players->push_back(new Player("Player 2", DiceRoller(), vector<Country*>(), Hand()));
@@ -50,6 +51,7 @@ Game::Game(vector<Player*>* players, RiskMap* map, Deck* deck) : owned(false), n
 
 	//Original random seed, only needs to be done once in whole game execution
 	srand(time(nullptr));
+	turnNumber = 0;
 }
 
 Game::~Game()
@@ -114,6 +116,7 @@ void Game::setup()
 	}
 }
 
+
 RiskMap* Game::getMap() const
 {
 	return map;
@@ -129,6 +132,8 @@ GameState Game::getGameState()
 	state.currentPlayerTurn = currentPlayerTurn;
 	state.currentPhase = currentPhase;
 	state.recentActions = &recentActions;
+	state.turnNumber = turnNumber;
+	state.decoratorFlag = decoratorFlag;
 	return state;
 }
 
@@ -146,6 +151,7 @@ void Game::setCurrentPlayerTurnAndPhase(Player* player, GamePhase phase)
 {
 	currentPlayerTurn = player;
 	currentPhase = phase;
+	
 	// Notify that the currentPlayerTurn and phase has changed
 	if (observersCount() > 0)
 	{
@@ -172,6 +178,7 @@ void Game::gameLoop()
 	std::pair<bool, Player*> pair = checkWin();
 	while (pair.first == false)
 	{
+		
 		for (int i = 0; i < players->size(); i++)
 		{
 			// TODO(steven): do we need this here? the child players
@@ -179,8 +186,12 @@ void Game::gameLoop()
 			// this is redunandant and something to think about
 			//currentPlayerTurn = players->at(i);
 
-
+			turnNumber++;
 			(*players)[i]->executeStrategy();
+
+			decoratorFlag = (*players)[i]->outputOctalFlag;
+			
+			
 		}
 
 		if (counter > 3)

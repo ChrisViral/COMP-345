@@ -16,7 +16,11 @@
 #include "../Map/Country.h"
 #include "../Game/Game.h"
 
+
+
 class TypeOfPlayer;
+class Game;
+using std::vector;
 
 class Player : public RiskObject, public Subject
 {
@@ -52,6 +56,10 @@ public:
 	void executeAttack(bool skip = false);
 	void executeReinforce(bool skip = false);
 	void executeFortify(Country& source, Country& target, int amount, bool skip = false);
+
+
+	// Used for setting the output statistics
+	int outputOctalFlag;
 
 private:
 	std::string name;
