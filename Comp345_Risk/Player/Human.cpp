@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 3
+//          Assignment 4
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -33,13 +33,27 @@ Human::~Human()
 {
 }
 
+
 void Human::playTurn(Player* player)
 {
+	if (player->outputOctalFlag != -1)
+	{
+		cout << "Which statistics do you want to show for this turn?" << endl;
+		printOutputOptionFlags();
+		std::cin >> player->outputOctalFlag;
+		player->getGame()->decoratorFlag = player->outputOctalFlag;
+	}
+
+	captured = false;
 	reinforce(player);
 	attack(player);
 	//TODO: Might have to modify this function a bit to select the countries inside the function, instead of being passed in.
 	//Or call a function before running fortify, that returns a source and target and then pass it in.
 	fortify(player);
+	if (captured)
+	{
+		player->getHand().addCard(player->getGame()->getDeck()->draw());
+	}
 }
 
 void Human::reinforce(Player* player, bool skip)
@@ -67,7 +81,7 @@ void Human::reinforce(Player* player, bool skip)
 		}
 	}
 
-	Exchangement exchange = player->getHand().exchange();
+	Exchangement exchange = player->getHand().exchangeAll();
 	if (exchange.successfullyExchanged)
 	{
 		game->logAction(player->getName() + " exchanged the following cards to get " + std::to_string(exchange.armies) + " armies.");
@@ -813,6 +827,7 @@ void Human::attack(Player* player, Country& source, Country& target, bool skip)
 	//if the target country has been won, take ownership.
 	if (target.getArmies() <= 0)
 	{
+		captured = true;
 		source.getOwner()->addCountry(&target);
 		target.getOwner()->removeCountry(&target);
 		target.setOwner(player);
@@ -895,7 +910,7 @@ bool Human::fortify(Player* player, Country& source, Country& target, int amount
 		{
 			return false;
 		}
-		// We can't exchange negative/more armies then we have from the source country to the target country
+		// We can't exchangeAll negative/more armies then we have from the source country to the target country
 		// Also from the official rules, we must leave at least 1 army in the source country
 		// We can't pull out all of our armies
 		if (amount < 0 || amount > source.getArmies() - 1)
@@ -909,7 +924,7 @@ bool Human::fortify(Player* player, Country& source, Country& target, int amount
 	return false;
 }
 
-Country* Human::chooseAttackSourceCountry(Player* player)
+Country* Human::chooseAttackSourceCountry(Player* player) const
 {
 	cout << "Countries you can attack from:" << endl;
 	vector<Country*> validCountries;
@@ -940,7 +955,7 @@ Country* Human::chooseAttackSourceCountry(Player* player)
 	}
 }
 
-bool Human::hasAdjUnOwnedCountry(Player* player, const Country& source)
+bool Human::hasAdjUnOwnedCountry(Player* player, const Country& source) const
 {
 	Node& node = player->getGame()->getMap()->getNodeFromMap(source.getName());
 	vector<Edge> adj = node.adjList;
@@ -987,7 +1002,7 @@ Country* Human::chooseAttackTargetCountry(Player* player, Country& source)
 	}
 }
 
-vector<Country*> Human::getAdjUnOwnedCountryList(Player* player, const Country& source)
+vector<Country*> Human::getAdjUnOwnedCountryList(Player* player, const Country& source) const
 {
 	vector<Country*> adjCountries;
 	Node& node = player->getGame()->getMap()->getNodeFromMap(source.getName());
@@ -1004,7 +1019,7 @@ vector<Country*> Human::getAdjUnOwnedCountryList(Player* player, const Country& 
 	return adjCountries;
 }
 
-Country* Human::chooseFortifySourceCountry(Player* player)
+Country* Human::chooseFortifySourceCountry(Player* player) const
 {
 	cout << "Countries you can move armies from:" << endl;
 	vector<Country*> validCountries;
@@ -1035,7 +1050,7 @@ Country* Human::chooseFortifySourceCountry(Player* player)
 	}
 }
 
-vector<Country*> Human::getConnectedOwnedCountryList(Player* player, Country& source)
+vector<Country*> Human::getConnectedOwnedCountryList(Player* player, Country& source) const
 {
 	vector<Country*> connectedCountries;
 	RiskMap& map = *player->getGame()->getMap();
@@ -1052,7 +1067,7 @@ vector<Country*> Human::getConnectedOwnedCountryList(Player* player, Country& so
 	return connectedCountries;
 }
 
-Country* Human::chooseFortifyTargetCountry(Player* player, Country& source)
+Country* Human::chooseFortifyTargetCountry(Player* player, Country& source) const
 {
 	cout << "Countries you can fortify:" << endl;
 	vector<Country*> adj = getConnectedOwnedCountryList(player, source);

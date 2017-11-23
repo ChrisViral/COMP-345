@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 3
+//          Assignment 4
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -12,29 +12,35 @@
 #include "Hand.h"
 #include <iostream>
 
-// The amount of cards to exchange for some amount of army
-// The army exchange amount is specified to 3
+using std::vector;
+
+// The amount of cards to exchangeAll for some amount of army
+// The army exchangeAll amount is specified to 3
 const int Hand::CARD_EXCHANGE_AMOUNT = 3;
 
-// The increment for armies to exchange with
+// The increment for armies to exchangeAll with
 const int Hand::ARMY_EXCHANGE_AMOUNT = 5;
-// The amount of times an exchange has happened;
+// The amount of times an exchangeAll has happened;
 int Hand::exchangeCount = 1;
 
-Hand::Hand()
+Hand::Hand(): deck(nullptr)
 {
+}
+
+Hand::Hand(Deck* deck)
+{
+	this->deck = deck;
 	for (int i = 0; i != _Count; i++)
 	{
 		CardType cardType = static_cast<CardType>(i);
-		hand.insert({cardType, std::vector<Card>()});
+		hand.insert({cardType, vector<Card>()});
 	}
 }
 
-
 Hand::~Hand()
 {
+	deck = nullptr;
 }
-
 
 Exchangement Hand::exchange()
 {
@@ -55,7 +61,7 @@ Exchangement Hand::exchange()
 	{
 		for (int i = 0; i < CARD_EXCHANGE_AMOUNT; i++)
 		{
-			std::vector<Card>& handAtCardType = hand.at(CardType(i));
+			vector<Card>& handAtCardType = hand.at(CardType(i));
 			ex.cardsExchanged.push_back(handAtCardType.back());
 			handAtCardType.pop_back();
 		}
@@ -69,7 +75,7 @@ Exchangement Hand::exchange(CardType cardType)
 {
 	Exchangement ex{true,{}, 0};
 	// Exchange a CARD_EXCHANGE_AMOUNT cards of the same kind
-	std::vector<Card>& handType = hand.at(cardType);
+	vector<Card>& handType = hand.at(cardType);
 	if (handType.size() >= CARD_EXCHANGE_AMOUNT)
 	{
 		for (int i = 0; i < CARD_EXCHANGE_AMOUNT; i++)
@@ -80,7 +86,7 @@ Exchangement Hand::exchange(CardType cardType)
 	}
 	else
 	{
-		// Can't exchange, there is not enough cards of the same type
+		// Can't exchangeAll, there is not enough cards of the same type
 		ex.successfullyExchanged = false;
 	}
 	return exchangeForArmy(ex);
@@ -93,13 +99,37 @@ void Hand::displayCards()
 	std::cout << "Amount of Cavalry cards: " << hand[cavalry].size() << std::endl;
 }
 
-
 void Hand::addCard(const Card& card)
 {
 	hand.at(card.getCardType()).push_back(card);
 }
 
-Exchangement Hand::exchangeForArmy(Exchangement& exchangement)
+Exchangement Hand::exchangeAll()
+{
+	//Try to exchange three different types
+	Exchangement ex = exchange();
+	int i = 0;
+
+	//Try to exchange three of a kind
+	while (!ex.successfullyExchanged && i != _Count)
+	{
+		ex = exchange(static_cast<CardType>(i++));
+	}
+
+	//Put cards back into the deck
+	if (ex.successfullyExchanged)
+	{
+		for (Card c : ex.cardsExchanged)
+		{
+			deck->addCard(c);
+		}
+	}
+
+	//Return the result
+	return ex;
+}
+
+Exchangement Hand::exchangeForArmy(Exchangement& exchangement) const
 {
 	if (exchangement.successfullyExchanged)
 	{

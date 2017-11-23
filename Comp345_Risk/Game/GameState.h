@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 3
+//          Assignment 4
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -11,11 +11,10 @@
 
 #pragma once
 
-#include "GameState.h"
-
 
 #include <vector>
 #include "GamePhase.h"
+#include "../Player/Card/Deck.h"
 
 class Player;
 class RiskMap;
@@ -33,8 +32,11 @@ public:
 
 	int numPlayers;
 	std::vector<Player*>* players;
+	Deck* deck;
 	RiskMap* map;
 	Player* currentPlayerTurn;
 	GamePhase currentPhase;
 	std::vector<std::string>* recentActions;
+	int turnNumber;
+	int decoratorFlag;
 };

@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 3
+//          Assignment 4
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -10,13 +10,14 @@
 // ==============================
 
 #pragma once
+#include "../Base/Driver.h"
 
-#include "GameUI.h"
-
-class DominationUI : public GameUI
+class TournamentDriver : public Driver
 {
 public:
-	explicit DominationUI(Game* game);
-	~DominationUI();
-	void update() override;
+	TournamentDriver();
+	~TournamentDriver();
+	void run() override;
+	string getOpeningMessage() override;
+	string getClosingMessage() override;
 };

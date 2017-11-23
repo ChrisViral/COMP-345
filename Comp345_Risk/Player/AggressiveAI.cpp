@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 3
+//          Assignment 4
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -10,7 +10,6 @@
 // ==============================
 
 #include "AggressiveAI.h"
-#include <iostream>
 #include "../Map/Country.h"
 #include "../Player/Player.h"
 #include <algorithm>
@@ -23,6 +22,7 @@ AggressiveAI::~AggressiveAI()
 
 void AggressiveAI::playTurn(Player* player)
 {
+	captured = false;
 	Game* game = player->getGame();
 	reinforce(player);
 	attack(player);
@@ -30,7 +30,14 @@ void AggressiveAI::playTurn(Player* player)
 	if (c != nullptr)
 		fortify(player, *strongestCountry, *c, c->getArmies() - 1);
 	else
+	{
 		game->logAction("There is no path that exists with the strongest country to another country that has more than 1 army, so fortify cannot be done.");
+		fortify(player, *strongestCountry, *strongestCountry, 0, true);
+	}
+	if (captured)
+	{
+		player->getHand().addCard(player->getGame()->getDeck()->draw());
+	}
 }
 
 void AggressiveAI::reinforce(Player* player, bool skip)
@@ -76,7 +83,7 @@ void AggressiveAI::reinforce(Player* player, bool skip)
 		}
 	}
 
-	Exchangement exchange = player->getHand().exchange();
+	Exchangement exchange = player->getHand().exchangeAll();
 	if (exchange.successfullyExchanged)
 	{
 		game->logAction(player->getName() + " exchanged the following cards to get " + std::to_string(exchange.armies) + " armies.");
@@ -101,8 +108,12 @@ void AggressiveAI::attack(Player* player, bool skip)
 	Game* game = player->getGame();
 
 	vector<Country*> adjList = getAdjUnOwnedCountryList(player, *strongestCountry);
-	Country* defendingCountry = adjList[0];
-	adjList.erase(adjList.begin());
+	Country* defendingCountry;
+	if (adjList.size() != 0)
+	{
+		defendingCountry = adjList[0];
+		adjList.erase(adjList.begin());
+	}
 
 	//keep attack a untill it cannot do so anymore
 	while (strongestCountry->getArmies() >= 2 && adjList.size() != 0)
@@ -163,6 +174,7 @@ void AggressiveAI::attack(Player* player, bool skip)
 
 		if (defendingCountry->getArmies() <= 0)
 		{
+			captured = true;
 			strongestCountry->getOwner()->addCountry(defendingCountry);
 			defendingCountry->getOwner()->removeCountry(defendingCountry);
 			defendingCountry->setOwner(strongestCountry->getOwner());
@@ -170,8 +182,11 @@ void AggressiveAI::attack(Player* player, bool skip)
 			defendingCountry->addArmies(1);
 			strongestCountry->removeArmies(1);
 
-			defendingCountry = adjList[0];
-			adjList.erase(adjList.begin());
+			if (adjList.size() != 0)
+			{
+				defendingCountry = adjList[0];
+				adjList.erase(adjList.begin());
+			}
 		}
 	}
 
@@ -210,7 +225,7 @@ bool AggressiveAI::fortify(Player* player, Country& source, Country& target, int
 	return false;
 }
 
-vector<Country*> AggressiveAI::getAdjUnOwnedCountryList(Player* player, const Country& source)
+vector<Country*> AggressiveAI::getAdjUnOwnedCountryList(Player* player, const Country& source) const
 {
 	vector<Country*> adjCountries;
 	Node& node = player->getGame()->getMap()->getNodeFromMap(source.getName());
@@ -247,7 +262,7 @@ bool AggressiveAI::ownsCountry(Player* player, const Country& country) const
 
 
 //Returns how many dice they should roll
-int AggressiveAI::defend(Country* country)
+int AggressiveAI::defend(Country* country) const
 {
 	if (country->getArmies() >= 2)
 		return 2;
@@ -257,7 +272,7 @@ int AggressiveAI::defend(Country* country)
 bool sortAlg(int i, int j) { return (i > j); }
 
 //Handles the comparing and removing of armies
-void AggressiveAI::handleBattle(Country* strongestCountry, Country* defendingCountry, int attackerRoll, int defenderRoll)
+void AggressiveAI::handleBattle(Country* strongestCountry, Country* defendingCountry, int attackerRoll, int defenderRoll) const
 {
 	int a1 = attackerRoll % 10; //takes last digit of attackRoll
 	int a2 = (attackerRoll % 100) / 10; //middle digit
@@ -295,7 +310,7 @@ void AggressiveAI::handleBattle(Country* strongestCountry, Country* defendingCou
 }
 
 //Looks for the first country that has a path from the strongest country and returns it so it can take its armies.
-Country* AggressiveAI::getFirstCountryWithExistingPath(Player* player, Country* strongestCountry)
+Country* AggressiveAI::getFirstCountryWithExistingPath(Player* player, Country* strongestCountry) const
 {
 	for (int i = 0; i < player->getCountries().size(); i++)
 	{

@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 3
+//          Assignment 4
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -12,10 +12,9 @@
 #pragma once
 #include "../../Patterns/Observer/Observer.h"
 #include "../Game.h"
-#include "../GameState.h"
-#include "../../Player/Player.h"
+//class UIOutputDecorator;
+#include "Decorators/UIOutputDecorator.h"
 
-class Game;
 
 class GameUI : public Observer
 {
@@ -26,7 +25,11 @@ public:
 
 	virtual ~GameUI();
 	void update() override;
+	// hacx
+	void attachDecorator(UIOutputDecorator* decorator);
+	Game* getGame() const;
 protected:
 	GameUI(Game* game);
 	Game* game;
+	UIOutputDecorator* decorator;
 };

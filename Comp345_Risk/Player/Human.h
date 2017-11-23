@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 3
+//          Assignment 4
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -11,12 +11,9 @@
 
 #pragma once
 #include "../Base/RiskObject.h"
-#include "Card/Hand.h"
-#include "DiceRoller.h"
 #include "../Map/Country.h"
 #include "../Game/Game.h"
 #include "TypeOfPlayer.h"
-#include "Player.h"
 
 class Human : public RiskObject, public TypeOfPlayer
 {
@@ -42,12 +39,12 @@ public:
 	// We can't pull out all of our armies
 	bool fortify(Player* player, Country& source, Country& target, int amount, bool skip = false) override;
 
-	Country* chooseAttackSourceCountry(Player* player);
+	Country* chooseAttackSourceCountry(Player* player) const;
 	Country* chooseAttackTargetCountry(Player* player, Country& source);
-	Country* chooseFortifySourceCountry(Player* player);
-	vector<Country*> getConnectedOwnedCountryList(Player* player, Country& source);
-	Country* chooseFortifyTargetCountry(Player* player, Country& source);
-	bool hasAdjUnOwnedCountry(Player* player, const Country& source);
+	Country* chooseFortifySourceCountry(Player* player) const;
+	vector<Country*> getConnectedOwnedCountryList(Player* player, Country& source) const;
+	Country* chooseFortifyTargetCountry(Player* player, Country& source) const;
+	bool hasAdjUnOwnedCountry(Player* player, const Country& source) const;
 	bool ownsCountry(Player* player, const Country& country) const;
-	vector<Country*> getAdjUnOwnedCountryList(Player* player, const Country& source);
+	vector<Country*> getAdjUnOwnedCountryList(Player* player, const Country& source) const;
 };

@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 3
+//          Assignment 4
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -10,23 +10,32 @@
 // ==============================
 
 #include "DominationUI.h"
-#include "../Game.h"
+#include "../../../Player/Player.h"
 #include <iostream>
+#include "UIOutputDecorator.h"
 
 using std::cout;
 using std::endl;
 using std::string;
 
-DominationUI::DominationUI(Game* game) : GameUI(game)
-{
-}
 
 DominationUI::~DominationUI()
 {
 }
 
+int DominationUI::getDecoratorUiEnum()
+{
+	return DominationUIDecorator;
+}
+
 void DominationUI::update()
 {
+	decoratedUi->update();
+	if (!enabled) return;
+
+	cout << "------------------------------" << endl;
+	cout << "Domination UI" << endl;
+
 	//Get armies info
 	vector<Player*>* players = game->getPlayers();
 	int count = players->size();
@@ -51,4 +60,6 @@ void DominationUI::update()
 		cout << p->getName() << " |" << string(static_cast<int>((controlled[i] / total) * 100.0), '*') << endl;
 	}
 	cout << endl;
+
+	cout << "------------------------------" << endl;
 }

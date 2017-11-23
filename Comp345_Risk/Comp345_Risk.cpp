@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 3
+//          Assignment 4
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -12,9 +12,9 @@
 #include "Base/Driver.h";
 #include <iostream>
 #include <vector>
+#include "Drivers/TournamentDriver.h"
 #include "Drivers/StrategyDriver.h"
-#include "Drivers/PhaseObserverDriver.h"
-#include "Drivers/StatisticsDriver.h"
+#include "Drivers/DecoratedStatisticsDriver.h"
 
 using std::cout;
 using std::vector;
@@ -24,24 +24,23 @@ int main()
 {
 	vector<Driver*> drivers;
 
+	TournamentDriver tournament;
 	StrategyDriver strategy;
-	PhaseObserverDriver phase;
-	StatisticsDriver stats;
+	DecoratedStatisticsDriver decoratedStats;
 
 	const string endll = "\n\n";
 
 	//Run drivers individually
-
-	Driver* d = &strategy;
+	Driver* d = &decoratedStats;
 	cout << d->getOpeningMessage() << endll;
 	d->run();
 	cout << std::endl << d->getClosingMessage() << endll;
 
 	/*
 	//Batch run, run all drivers
+	drivers.push_back(&tournament);
 	drivers.push_back(&strategy);
-	drivers.push_back(&phase);
-	drivers.push_back(&stats);
+	drivers.push_back(&decoratedStats);
 	cout << "Beginning driver tests" << endll;
 	for (Driver* d : drivers)
 	{

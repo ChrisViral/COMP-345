@@ -62,9 +62,6 @@
     <ClCompile Include="Game\UI\GameUI.cpp">
       <Filter>Game\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Game\UI\TextBasedUI.cpp">
-      <Filter>Game\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Patterns\Observer\Observer.cpp">
       <Filter>Patterns\Observer</Filter>
     </ClCompile>
@@ -74,14 +71,38 @@
     <ClCompile Include="Player\Player.cpp">
       <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="Drivers\PhaseObserverDriver.cpp">
+    <ClCompile Include="Drivers\TournamentDriver.cpp">
       <Filter>Drivers</Filter>
     </ClCompile>
-    <ClCompile Include="Drivers\StatisticsDriver.cpp">
+    <ClCompile Include="Player\RandomPlayer.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Tournament.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Player\CheaterAI.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Drivers\DecoratedStatisticsDriver.cpp">
       <Filter>Drivers</Filter>
     </ClCompile>
-    <ClCompile Include="Game\UI\DominationUI.cpp">
-      <Filter>Game\UI</Filter>
+    <ClCompile Include="Game\UI\Decorators\DominationUI.cpp">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\Decorators\GameStatisticsDecorator.cpp">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\Decorators\TextBasedUI.cpp">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\Decorators\UIOutputDecorator.cpp">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\Decorators\ContinentControlUI.cpp">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\Decorators\PlayerHandUI.cpp">
+      <Filter>Game\UI\Decorators</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -150,9 +171,6 @@
     <ClInclude Include="Game\UI\GameUI.h">
       <Filter>Game\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Game\UI\TextBasedUI.h">
-      <Filter>Game\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Patterns\Observer\Observer.h">
       <Filter>Patterns\Observer</Filter>
     </ClInclude>
@@ -162,17 +180,41 @@
     <ClInclude Include="Player\Player.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="Drivers\PhaseObserverDriver.h">
-      <Filter>Drivers</Filter>
-    </ClInclude>
     <ClInclude Include="Drivers\StrategyDriver.h">
       <Filter>Drivers</Filter>
     </ClInclude>
-    <ClInclude Include="Drivers\StatisticsDriver.h">
+    <ClInclude Include="Drivers\TournamentDriver.h">
       <Filter>Drivers</Filter>
     </ClInclude>
-    <ClInclude Include="Game\UI\DominationUI.h">
-      <Filter>Game\UI</Filter>
+    <ClInclude Include="Player\RandomPlayer.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Tournament.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Player\CheaterAI.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Drivers\DecoratedStatisticsDriver.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\Decorators\DominationUI.h">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\Decorators\GameStatisticsDecorator.h">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\Decorators\TextBasedUI.h">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\Decorators\UIOutputDecorator.h">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\Decorators\ContinentControlUI.h">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\Decorators\PlayerHandUI.h">
+      <Filter>Game\UI\Decorators</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +250,9 @@
     </Filter>
     <Filter Include="Patterns\Observer">
       <UniqueIdentifier>{125d9377-a4c6-4712-b9a5-2d389db3e46e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\UI\Decorators">
+      <UniqueIdentifier>{58cd2331-ab17-457b-9466-e1840e8d1139}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

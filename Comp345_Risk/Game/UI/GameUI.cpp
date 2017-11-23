@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 3
+//          Assignment 4
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -24,4 +24,14 @@ GameUI::~GameUI()
 
 void GameUI::update()
 {
+}
+
+void GameUI::attachDecorator(UIOutputDecorator* decorator)
+{
+	this->decorator = decorator;
+}
+
+Game* GameUI::getGame() const
+{
+	return game;
 }

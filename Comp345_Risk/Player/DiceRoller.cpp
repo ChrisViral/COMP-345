@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 3
+//          Assignment 4
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -218,7 +218,7 @@ void DiceRoller::showRolls() const
 	std::cout << "Percent of 6s: " << num6 / totalRolls * 100 << std::endl;
 }
 
-DiceRollCache DiceRoller::getLastRoll()
+DiceRollCache DiceRoller::getLastRoll() const
 {
 	return cache;
 }

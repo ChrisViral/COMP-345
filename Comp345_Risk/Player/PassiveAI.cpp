@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 3
+//          Assignment 4
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -11,9 +11,7 @@
 
 #include "PassiveAI.h"
 #include "../Player/Player.h"
-#include <iostream>
 #include <algorithm>
-#include <math.h>
 
 void PassiveAI::playTurn(Player* player)
 {
@@ -64,7 +62,7 @@ void PassiveAI::reinforce(Player* player, bool skip)
 		}
 	}
 
-	Exchangement exchange = player->getHand().exchange();
+	Exchangement exchange = player->getHand().exchangeAll();
 	if (exchange.successfullyExchanged)
 	{
 		game->logAction(player->getName() + " exchanged the following cards to get " + std::to_string(exchange.armies) + " armies.");
@@ -116,7 +114,7 @@ bool PassiveAI::fortify(Player* player, Country& source, Country& target, int am
 }
 
 //Looks for the first country that has a path from the weakeast country and returns it so it can take its armies.
-Country* PassiveAI::getFirstCountryWithExistingPath(Player* player, Country* weakestCountry)
+Country* PassiveAI::getFirstCountryWithExistingPath(Player* player, Country* weakestCountry) const
 {
 	for (int i = 0; i < player->getCountries().size(); i++)
 	{

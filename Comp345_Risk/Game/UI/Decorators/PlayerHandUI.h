@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 3
+//          Assignment 4
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -10,20 +10,26 @@
 // ==============================
 
 #pragma once
-#include "GameUI.h"
-#include "../Game.h"
+#include "GameStatisticsDecorator.h"
+#include "../GameUI.h"
 
 
-class TextBasedUI : public GameUI
+class PlayerHandUI : public GameStatisticsDecorator
 {
 public:
 
-
-	explicit TextBasedUI(Game* game)
-		: GameUI(game)
+	explicit PlayerHandUI(GameUI* decoratedUi)
+		: GameStatisticsDecorator(decoratedUi)
 	{
 	}
 
-	~TextBasedUI();
+
+	PlayerHandUI()
+	{
+	}
+
+	~PlayerHandUI();
+
+	int getDecoratorUiEnum() override;
 	void update() override;
 };

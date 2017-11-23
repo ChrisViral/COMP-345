@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 3
+//          Assignment 4
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -43,7 +43,7 @@ void RiskMap::setInitialized(bool init)
 	initialized = init;
 }
 
-std::unordered_map<std::string, Continent> RiskMap::getContinents()
+std::unordered_map<std::string, Continent> RiskMap::getContinents() const
 {
 	return continents;
 }

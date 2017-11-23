@@ -142,19 +142,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Game\UI\DominationUI.h" />
+    <ClInclude Include="Drivers\DecoratedStatisticsDriver.h" />
+    <ClInclude Include="Drivers\TournamentDriver.h" />
+    <ClInclude Include="Game\Tournament.h" />
     <ClInclude Include="Drivers\StrategyDriver.h" />
     <ClInclude Include="Base\RiskObject.h" />
     <ClInclude Include="Base\Utils.h" />
     <ClInclude Include="Base\Driver.h" />
     <ClInclude Include="Game\GamePhase.h" />
     <ClInclude Include="Game\GameState.h" />
+    <ClInclude Include="Game\UI\Decorators\ContinentControlUI.h" />
+    <ClInclude Include="Game\UI\Decorators\DominationUI.h" />
+    <ClInclude Include="Game\UI\Decorators\GameStatisticsDecorator.h" />
+    <ClInclude Include="Game\UI\Decorators\PlayerHandUI.h" />
+    <ClInclude Include="Game\UI\Decorators\TextBasedUI.h" />
     <ClInclude Include="Game\UI\GameUI.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Game\GameStart.h" />
     <ClInclude Include="Patterns\Observer\Observer.h" />
-    <ClInclude Include="Drivers\PhaseObserverDriver.h" />
     <ClInclude Include="Player\AggressiveAI.h" />
+    <ClInclude Include="Player\CheaterAI.h" />
     <ClInclude Include="Player\Human.h" />
     <ClInclude Include="Player\Card\Hand.h" />
     <ClInclude Include="Player\Card\Deck.h" />
@@ -167,25 +174,32 @@
     <ClInclude Include="Player\DiceRoller.h" />
     <ClInclude Include="Player\PassiveAI.h" />
     <ClInclude Include="Player\Player.h" />
+    <ClInclude Include="Player\RandomPlayer.h" />
     <ClInclude Include="Player\TypeOfPlayer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Patterns\Observer\Subject.h" />
-    <ClInclude Include="Drivers\StatisticsDriver.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Game\UI\TextBasedUI.h" />
+    <ClInclude Include="Game\UI\Decorators\UIOutputDecorator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Base\RiskObject.cpp" />
     <ClCompile Include="Base\Driver.cpp" />
-    <ClCompile Include="Game\UI\DominationUI.cpp" />
+    <ClCompile Include="Drivers\DecoratedStatisticsDriver.cpp" />
+    <ClCompile Include="Drivers\TournamentDriver.cpp" />
+    <ClCompile Include="Game\Tournament.cpp" />
     <ClCompile Include="Drivers\StrategyDriver.cpp" />
     <ClCompile Include="Game\GameState.cpp" />
+    <ClCompile Include="Game\UI\Decorators\ContinentControlUI.cpp" />
+    <ClCompile Include="Game\UI\Decorators\DominationUI.cpp" />
+    <ClCompile Include="Game\UI\Decorators\GameStatisticsDecorator.cpp" />
+    <ClCompile Include="Game\UI\Decorators\PlayerHandUI.cpp" />
+    <ClCompile Include="Game\UI\Decorators\TextBasedUI.cpp" />
     <ClCompile Include="Game\UI\GameUI.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Game\GameStart.cpp" />
     <ClCompile Include="Patterns\Observer\Observer.cpp" />
-    <ClCompile Include="Drivers\PhaseObserverDriver.cpp" />
     <ClCompile Include="Player\AggressiveAI.cpp" />
+    <ClCompile Include="Player\CheaterAI.cpp" />
     <ClCompile Include="Player\Human.cpp" />
     <ClCompile Include="Player\Card\Hand.cpp" />
     <ClCompile Include="Player\Card\Deck.cpp" />
@@ -199,10 +213,10 @@
     <ClCompile Include="Player\DiceRoller.cpp" />
     <ClCompile Include="Player\PassiveAI.cpp" />
     <ClCompile Include="Player\Player.cpp" />
+    <ClCompile Include="Player\RandomPlayer.cpp" />
     <ClCompile Include="Player\TypeOfPlayer.cpp" />
     <ClCompile Include="Patterns\Observer\Subject.cpp" />
-    <ClCompile Include="Game\UI\TextBasedUI.cpp" />
-    <ClCompile Include="Drivers\StatisticsDriver.cpp" />
+    <ClCompile Include="Game\UI\Decorators\UIOutputDecorator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="mapfiles\broken.map" />

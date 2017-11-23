@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 3
+//          Assignment 4
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -15,10 +15,7 @@
 #include <vector>
 #include "../Map/Country.h"
 #include <functional>
-#include <algorithm>
 #include "Card/Hand.h"
-#include <cctype>
-#include "../Base/Utils.h"
 #include "TypeOfPlayer.h"
 
 
@@ -27,7 +24,7 @@ using std::string;
 using std::cout;
 using std::endl;
 
-Player::Player(): game(nullptr)
+Player::Player() : playersCards(nullptr), game(nullptr), typeOfPlayer(nullptr)
 {
 }
 
@@ -36,7 +33,7 @@ Player::~Player()
 	game = nullptr;
 }
 
-Player::Player(DiceRoller aDiceRoller, vector<Country*> aPlayersTerritoriesVector, Hand aPlayersCards): game(nullptr)
+Player::Player(DiceRoller aDiceRoller, vector<Country*> aPlayersTerritoriesVector, Hand aPlayersCards) : game(nullptr), typeOfPlayer(nullptr)
 {
 	diceRoller = aDiceRoller;
 	playersTerritories = aPlayersTerritoriesVector;

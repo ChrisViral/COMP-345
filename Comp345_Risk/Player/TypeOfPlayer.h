@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 3
+//          Assignment 4
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -18,6 +18,9 @@ class Country;
 class TypeOfPlayer
 {
 public:
+	TypeOfPlayer();
+	virtual ~TypeOfPlayer() = 0;
+
 	//This method should be run. But the other methods can be used for testing/demo
 	virtual void playTurn(Player* player) = 0;
 
@@ -26,4 +29,7 @@ public:
 	virtual void attack(Player* player, bool skip = false);
 
 	virtual bool fortify(Player* player, Country& source, Country& target, int amount, bool skip = false);
+
+protected:
+	bool captured;
 };

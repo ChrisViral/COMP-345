@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 3
+//          Assignment 4
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -21,7 +21,7 @@
 
 void transferCountries(Player* player, RiskMap* map);
 
-Game::Game() : owned(true), numPlayers(0)
+Game::Game() : owned(true), numPlayers(0), currentPlayerTurn(nullptr), currentPhase()
 {
 	//Original random seed, only needs to be done once in whole game execution
 	srand(time(nullptr));
@@ -30,15 +30,19 @@ Game::Game() : owned(true), numPlayers(0)
 	MapLoader loader("mapfiles/World.map");
 	loader.tryParseMap(map);
 
+	this->deck = new Deck(map->size());
+
 	players = new vector<Player*>();
+	turnNumber = 0;
 
 	//players->push_back(new Player("Player 1", DiceRoller(), vector<Country*>(), Hand()));
 	//players->push_back(new Player("Player 2", DiceRoller(), vector<Country*>(), Hand()));
 	//players->push_back(new Player("Player 3", DiceRoller(), vector<Country*>(), Hand()));
 }
 
-Game::Game(vector<Player*>* players, RiskMap* map) : owned(false), numPlayers(players->size()), players(players), map(map)
+Game::Game(vector<Player*>* players, RiskMap* map, Deck* deck) : owned(false), numPlayers(players->size()), players(players), map(map)
 {
+	this->deck = deck;
 	//Set the players to the current game
 	for (int i = 0; i < players->size(); i++)
 	{
@@ -47,12 +51,14 @@ Game::Game(vector<Player*>* players, RiskMap* map) : owned(false), numPlayers(pl
 
 	//Original random seed, only needs to be done once in whole game execution
 	srand(time(nullptr));
+	turnNumber = 0;
 }
 
 Game::~Game()
 {
 	if (owned)
 	{
+		delete deck;
 		delete map;
 		for (int i = 0; i < players->size(); i++)
 		{
@@ -62,11 +68,12 @@ Game::~Game()
 		delete players;
 	}
 
+	deck = nullptr;
 	players = nullptr;
 	map = nullptr;
 }
 
-void Game::setup()
+void Game::setup() const
 {
 	//Shuffle the order of the players
 	random_shuffle(players->begin(), players->end());
@@ -109,6 +116,7 @@ void Game::setup()
 	}
 }
 
+
 RiskMap* Game::getMap() const
 {
 	return map;
@@ -124,7 +132,14 @@ GameState Game::getGameState()
 	state.currentPlayerTurn = currentPlayerTurn;
 	state.currentPhase = currentPhase;
 	state.recentActions = &recentActions;
+	state.turnNumber = turnNumber;
+	state.decoratorFlag = decoratorFlag;
 	return state;
+}
+
+Deck* Game::getDeck() const
+{
+	return deck;
 }
 
 vector<Player*>* Game::getPlayers() const
@@ -136,6 +151,7 @@ void Game::setCurrentPlayerTurnAndPhase(Player* player, GamePhase phase)
 {
 	currentPlayerTurn = player;
 	currentPhase = phase;
+
 	// Notify that the currentPlayerTurn and phase has changed
 	if (observersCount() > 0)
 	{
@@ -169,8 +185,10 @@ void Game::gameLoop()
 			// this is redunandant and something to think about
 			//currentPlayerTurn = players->at(i);
 
-
+			turnNumber++;
 			(*players)[i]->executeStrategy();
+
+			decoratorFlag = (*players)[i]->outputOctalFlag;
 		}
 
 		if (counter > 3)

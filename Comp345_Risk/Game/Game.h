@@ -1,6 +1,6 @@
 // ==============================
 //           COMP-345 D
-//          Assignment 3
+//          Assignment 4
 //  ----------------------------
 //  Christophe Savard,  40017812
 //  David Di Feo,       27539800
@@ -16,6 +16,8 @@
 #include "../Patterns/Observer/Subject.h"
 #include "GameState.h"
 #include "GamePhase.h"
+#include "../Player/Card/Deck.h"
+
 
 using std::vector;
 
@@ -25,12 +27,13 @@ class Game : public RiskObject, public Subject
 public:
 
 	Game();
-	Game(vector<Player*>* players, RiskMap* map);
+	Game(vector<Player*>* players, RiskMap* map, Deck* deck);
 	~Game();
 	void gameLoop();
-	void setup();
+	void setup() const;
 	RiskMap* getMap() const;
 	GameState getGameState();
+	Deck* getDeck() const;
 	vector<Player*>* getPlayers() const;
 
 	void setCurrentPlayerTurnAndPhase(Player* player, GamePhase phase);
@@ -39,11 +42,14 @@ public:
 	void logAction(const std::string action);
 
 
+	int decoratorFlag;
+
 private:
 	std::pair<bool, Player*> checkWin() const;
 	bool owned;
 	int numPlayers;
 	vector<Player*>* players;
+	Deck* deck;
 	RiskMap* map;
 	// Who is currently playing
 	Player* currentPlayerTurn;
@@ -51,4 +57,5 @@ private:
 	GamePhase currentPhase;
 	// List of recent actions/couts
 	vector<std::string> recentActions;
+	int turnNumber;
 };
