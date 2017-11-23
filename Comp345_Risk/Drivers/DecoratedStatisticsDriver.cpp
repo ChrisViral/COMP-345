@@ -18,6 +18,7 @@
 #include "../Game/UI/Decorators/UIOutputDecorator.h"
 #include "../Player/Human.h"
 #include <iostream>
+#include "../Player/RandomPlayer.h"
 
 
 DecoratedStatisticsDriver::DecoratedStatisticsDriver()
@@ -37,15 +38,15 @@ void DecoratedStatisticsDriver::run()
 	loader.tryParseMap(map);
 	Deck* deck = new Deck(map->size());
 
-	Player* human = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), new Human);
-	Player* aggressiveAI = new Player("Player 2", DiceRoller(), vector<Country*>(), Hand(), new AggressiveAI);
-	Player* passiveAI = new Player("Player 3", DiceRoller(), vector<Country*>(), Hand(), new AggressiveAI);
+	Player* p1 = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(deck), new RandomPlayer);
+	Player* p2 = new Player("Player 2", DiceRoller(), vector<Country*>(), Hand(deck), new AggressiveAI);
+	Player* p3 = new Player("Player 3", DiceRoller(), vector<Country*>(), Hand(deck), new AggressiveAI);
 
 	//Create four players at random
 	vector<Player*>* players = new vector<Player*>;
-	players->push_back(human);
-	players->push_back(aggressiveAI);
-	players->push_back(passiveAI);
+	players->push_back(p1);
+	players->push_back(p2);
+	players->push_back(p3);
 
 	//Load a game with the above info and run the setup
 	Game game(players, map, deck);

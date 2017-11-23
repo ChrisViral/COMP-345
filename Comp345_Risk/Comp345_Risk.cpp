@@ -40,6 +40,7 @@ int main()
 	//Batch run, run all drivers
 	drivers.push_back(&tournament);
 	drivers.push_back(&strategy);
+	drivers.push_back(&decoratedStats);
 	cout << "Beginning driver tests" << endll;
 	for (Driver* d : drivers)
 	{
@@ -53,8 +54,7 @@ int main()
 	*/
 
 	cout << "Press any key to exit...";
-	string s;
-	std::cin >> s;
+	getchar();
 
 	return 0;
 }
