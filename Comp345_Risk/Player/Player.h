@@ -49,7 +49,7 @@ public:
 	void printPlayerArmyInfo();
 	void setStrategy(TypeOfPlayer* typePlayer);
 	void executeStrategy();
-	TypeOfPlayer* getTypeOfPlayer() { return typeOfPlayer; }
+	TypeOfPlayer* getTypeOfPlayer() const { return typeOfPlayer; }
 
 
 	//These methods can be used for specific testing/demo purposes. But in reality executeStrategy should be used.

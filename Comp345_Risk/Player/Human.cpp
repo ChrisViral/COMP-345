@@ -45,12 +45,16 @@ void Human::playTurn(Player* player)
 		player->getGame()->decoratorFlag = player->outputOctalFlag;
 	}
 	
-
+	captured = false;
 	reinforce(player);
 	attack(player);
 	//TODO: Might have to modify this function a bit to select the countries inside the function, instead of being passed in.
 	//Or call a function before running fortify, that returns a source and target and then pass it in.
 	fortify(player);
+	if (captured)
+	{
+		player->getHand().addCard(player->getGame()->getDeck()->draw());
+	}
 }
 
 void Human::reinforce(Player* player, bool skip)
@@ -78,7 +82,7 @@ void Human::reinforce(Player* player, bool skip)
 		}
 	}
 
-	Exchangement exchange = player->getHand().exchange();
+	Exchangement exchange = player->getHand().exchangeAll();
 	if (exchange.successfullyExchanged)
 	{
 		game->logAction(player->getName() + " exchanged the following cards to get " + std::to_string(exchange.armies) + " armies.");
@@ -824,6 +828,7 @@ void Human::attack(Player* player, Country& source, Country& target, bool skip)
 	//if the target country has been won, take ownership.
 	if (target.getArmies() <= 0)
 	{
+		captured = true;
 		source.getOwner()->addCountry(&target);
 		target.getOwner()->removeCountry(&target);
 		target.setOwner(player);
@@ -862,7 +867,7 @@ void Human::fortify(Player* player)
 			}
 			cout << "Invalid entry, please be sure to leave at least 1 army on " << source->getName() << "...";
 		}
-	std:cout << "Moving " << amount << " armies from " << source->getName() << " to " << target->getName() << "..." << endl << endl;
+		std:cout << "Moving " << amount << " armies from " << source->getName() << " to " << target->getName() << "..." << endl << endl;
 		fortify(player, *source, *target, amount);
 		cout << source->getName() << " now has " << source->getArmies() << " armies" << endl;
 		cout << target->getName() << " now has " << target->getArmies() << " armies" << endl << endl;
@@ -906,7 +911,7 @@ bool Human::fortify(Player* player, Country& source, Country& target, int amount
 		{
 			return false;
 		}
-		// We can't exchange negative/more armies then we have from the source country to the target country
+		// We can't exchangeAll negative/more armies then we have from the source country to the target country
 		// Also from the official rules, we must leave at least 1 army in the source country
 		// We can't pull out all of our armies
 		if (amount < 0 || amount > source.getArmies() - 1)

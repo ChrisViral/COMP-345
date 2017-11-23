@@ -12,6 +12,7 @@
 #include "Base/Driver.h";
 #include <iostream>
 #include <vector>
+#include "Drivers/TournamentDriver.h"
 #include "Drivers/StrategyDriver.h"
 #include "Drivers/DecoratedStatisticsDriver.h"
 
@@ -23,13 +24,13 @@ int main()
 {
 	vector<Driver*> drivers;
 
+	TournamentDriver tournament;
 	StrategyDriver strategy;
 	DecoratedStatisticsDriver decoratedStats;
 
 	const string endll = "\n\n";
 
 	//Run drivers individually
-
 	Driver* d = &decoratedStats;
 	cout << d->getOpeningMessage() << endll;
 	d->run();
@@ -37,9 +38,8 @@ int main()
 
 	/*
 	//Batch run, run all drivers
+	drivers.push_back(&tournament);
 	drivers.push_back(&strategy);
-	drivers.push_back(&phase);
-	drivers.push_back(&stats);
 	cout << "Beginning driver tests" << endll;
 	for (Driver* d : drivers)
 	{
@@ -53,9 +53,8 @@ int main()
 	*/
 
 	cout << "Press any key to exit...";
-	//getchar();
-	
-	
+	string s;
+	std::cin >> s;
 
 	return 0;
 }

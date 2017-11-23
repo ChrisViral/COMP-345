@@ -11,8 +11,14 @@
 
 #include "TypeOfPlayer.h"
 #include "../Map/Country.h"
-#include <iostream>
-#include <functional>
+
+TypeOfPlayer::TypeOfPlayer() : captured(false)
+{
+}
+
+TypeOfPlayer::~TypeOfPlayer()
+{
+}
 
 void TypeOfPlayer::reinforce(Player* player, bool skip)
 {
