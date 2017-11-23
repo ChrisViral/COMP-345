@@ -25,7 +25,6 @@ GameStatisticsDecorator::GameStatisticsDecorator()
 
 GameStatisticsDecorator::~GameStatisticsDecorator()
 {
-	
 }
 
 void GameStatisticsDecorator::update()
@@ -38,12 +37,3 @@ void GameStatisticsDecorator::setDecoratedUI(GameUI* decoratedUi)
 	this->decoratedUi = decoratedUi;
 	this->game = decoratedUi->getGame();
 }
-
-
-
-
-
-
-
-
-

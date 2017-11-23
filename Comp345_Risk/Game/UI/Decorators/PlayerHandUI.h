@@ -14,8 +14,6 @@
 #include "../GameUI.h"
 
 
-
-
 class PlayerHandUI : public GameStatisticsDecorator
 {
 public:
@@ -26,7 +24,8 @@ public:
 	}
 
 
-	PlayerHandUI() {
+	PlayerHandUI()
+	{
 	}
 
 	~PlayerHandUI();
@@ -34,4 +33,3 @@ public:
 	int getDecoratorUiEnum() override;
 	void update() override;
 };
-

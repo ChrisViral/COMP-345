@@ -30,11 +30,9 @@ DecoratedStatisticsDriver::~DecoratedStatisticsDriver()
 }
 
 
-
-
 void DecoratedStatisticsDriver::run()
 {
-	RiskMap* map = new RiskMap();;
+	RiskMap* map = new RiskMap();
 	MapLoader loader("mapfiles/World.map");
 	loader.tryParseMap(map);
 	Deck* deck = new Deck(map->size());
@@ -56,16 +54,15 @@ void DecoratedStatisticsDriver::run()
 
 
 	UIOutputDecorator output(&game);
-	
 
-	output.setDecoratorEnabled(UIDecorator::PlayerHandUIDecorator, false);
-	output.setDecoratorEnabled(UIDecorator::ContinentControlUIDecorator, false);
-	output.setDecoratorEnabled(UIDecorator::DominationUIDecorator, false);
 
+	output.setDecoratorEnabled(PlayerHandUIDecorator, false);
+	output.setDecoratorEnabled(ContinentControlUIDecorator, false);
+	output.setDecoratorEnabled(DominationUIDecorator, false);
 
 
 	GameUI* ui = output.getUi();
-	
+
 	game.registerObserver(ui);
 	players->at(0)->registerObserver(ui);
 	players->at(1)->registerObserver(ui);
@@ -76,7 +73,7 @@ void DecoratedStatisticsDriver::run()
 
 
 	//Clear memory
-	
+
 	delete map;
 	map = nullptr;
 	delete deck;
@@ -89,24 +86,14 @@ void DecoratedStatisticsDriver::run()
 
 	delete players;
 	players = nullptr;
-
-	
-	
-	
-
-	
-
-
-
-
 }
 
-std::string DecoratedStatisticsDriver::getOpeningMessage()
+string DecoratedStatisticsDriver::getOpeningMessage()
 {
 	return "Starting Decorated Statistics Driver";
 }
 
-std::string DecoratedStatisticsDriver::getClosingMessage()
+string DecoratedStatisticsDriver::getClosingMessage()
 {
 	return "Ending Decorated Statistics Driver";
 }

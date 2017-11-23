@@ -17,10 +17,10 @@
 #include "../../../Base/Utils.h"
 
 
-UIOutputDecorator::UIOutputDecorator(Game* game) {
+UIOutputDecorator::UIOutputDecorator(Game* game)
+{
 	this->game = game;
-	
-	
+
 
 	// Attempt to not hardcode it
 	/*for (int decEnum = UIDecorator::DefaultUIDecorator;
@@ -34,43 +34,36 @@ UIOutputDecorator::UIOutputDecorator(Game* game) {
 
 
 	// TODO(Steven) I didnt want to hardcode it like this, but there is not enough time to do this properly
-	decorators.emplace(UIDecorator::PlayerHandUIDecorator, new PlayerHandUI());
-	decorators.emplace(UIDecorator::ContinentControlUIDecorator, new ContinentControlUI());
-	decorators.emplace(UIDecorator::DominationUIDecorator, new DominationUI());
+	decorators.emplace(PlayerHandUIDecorator, new PlayerHandUI());
+	decorators.emplace(ContinentControlUIDecorator, new ContinentControlUI());
+	decorators.emplace(DominationUIDecorator, new DominationUI());
 
 	// Just awful
 	decoratedUI = new TextBasedUI(game);
 	decoratedUI->attachDecorator(this);
-	
-	decorators[UIDecorator::PlayerHandUIDecorator]->setDecoratedUI(decoratedUI);
-	decoratedUI = decorators[UIDecorator::PlayerHandUIDecorator];
 
-	decorators[UIDecorator::ContinentControlUIDecorator]->setDecoratedUI(decoratedUI);
-	decoratedUI = decorators[UIDecorator::ContinentControlUIDecorator];
+	decorators[PlayerHandUIDecorator]->setDecoratedUI(decoratedUI);
+	decoratedUI = decorators[PlayerHandUIDecorator];
 
-	decorators[UIDecorator::DominationUIDecorator]->setDecoratedUI(decoratedUI);
-	decoratedUI = decorators[UIDecorator::DominationUIDecorator];
-	
-	
+	decorators[ContinentControlUIDecorator]->setDecoratedUI(decoratedUI);
+	decoratedUI = decorators[ContinentControlUIDecorator];
+
+	decorators[DominationUIDecorator]->setDecoratedUI(decoratedUI);
+	decoratedUI = decorators[DominationUIDecorator];
+
 
 	// The above mess is trying to do this with the map
 	//GameUI* ui = new TextBasedUI(&game);
 	//ui = new PlayerHandUI(ui);
 	//ui = new ContinentControlUI(ui);
 	//ui = new DominationUI(ui);
-
-	
-
 }
 
 UIOutputDecorator::~UIOutputDecorator()
 {
-
-
 	for (std::unordered_map<UIDecorator, GameStatisticsDecorator*>::value_type dec : decorators)
 	{
 		delete dec.second;
-
 	}
 
 	//delete decoratedUI;
@@ -84,22 +77,18 @@ void UIOutputDecorator::setDecoratorEnabled(UIDecorator decorator, bool enabled)
 
 void UIOutputDecorator::setDecoratorFlags(int octalFlag)
 {
-	std::string bits = toBinary(octalFlag);
+	string bits = toBinary(octalFlag);
 	if (bits.size() == 4) return;
 	// DHC
 	// See Utils::printOutputOptionFlags()
-	
-	
-	setDecoratorEnabled(UIDecorator::DominationUIDecorator, strBitToBool(bits.substr(0, 1)));
-	setDecoratorEnabled(UIDecorator::PlayerHandUIDecorator, strBitToBool(bits.substr(1, 1)));
-	setDecoratorEnabled(UIDecorator::ContinentControlUIDecorator, strBitToBool(bits.substr(2, 1)));
+
+
+	setDecoratorEnabled(DominationUIDecorator, strBitToBool(bits.substr(0, 1)));
+	setDecoratorEnabled(PlayerHandUIDecorator, strBitToBool(bits.substr(1, 1)));
+	setDecoratorEnabled(ContinentControlUIDecorator, strBitToBool(bits.substr(2, 1)));
 }
 
-GameUI* UIOutputDecorator::getUi()
+GameUI* UIOutputDecorator::getUi() const
 {
 	return decoratedUI;
 }
-
-
-
-

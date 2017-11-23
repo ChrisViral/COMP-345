@@ -73,7 +73,7 @@ Game::~Game()
 	map = nullptr;
 }
 
-void Game::setup()
+void Game::setup() const
 {
 	//Shuffle the order of the players
 	random_shuffle(players->begin(), players->end());
@@ -151,7 +151,7 @@ void Game::setCurrentPlayerTurnAndPhase(Player* player, GamePhase phase)
 {
 	currentPlayerTurn = player;
 	currentPhase = phase;
-	
+
 	// Notify that the currentPlayerTurn and phase has changed
 	if (observersCount() > 0)
 	{
@@ -178,7 +178,6 @@ void Game::gameLoop()
 	std::pair<bool, Player*> pair = checkWin();
 	while (pair.first == false)
 	{
-		
 		for (int i = 0; i < players->size(); i++)
 		{
 			// TODO(steven): do we need this here? the child players
@@ -190,8 +189,6 @@ void Game::gameLoop()
 			(*players)[i]->executeStrategy();
 
 			decoratorFlag = (*players)[i]->outputOctalFlag;
-			
-			
 		}
 
 		if (counter > 3)

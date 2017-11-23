@@ -10,9 +10,6 @@
 // ==============================
 
 #include "TournamentDriver.h"
-#include "../Map/RiskMap.h"
-#include "../Map/MapLoader/MapLoader.h"
-#include "../Game/Game.h"
 #include <iostream>
 #include "../Game/Tournament.h"
 

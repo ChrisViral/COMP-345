@@ -21,14 +21,13 @@
 
 Tournament::Tournament()
 {
-	
 }
 
 void Tournament::chooseMaps()
 {
-	std::vector<std::string> fileNames = readFileNames();
+	vector<string> fileNames = readFileNames();
 
-	std::string choice;
+	string choice;
 
 	do
 	{
@@ -61,20 +60,20 @@ void Tournament::chooseMaps()
 		{
 			std::cout << "\n\nDo you want to choose another map (Y or N)" << std::endl;
 			std::cin >> choice;
-		}		
-
-	} while (choice != "N" && choice != "n" && fileNames.size() != 0);
+		}
+	}
+	while (choice != "N" && choice != "n" && fileNames.size() != 0);
 }
 
 void Tournament::chooseComputers()
 {
-	std::vector<std::string> listOfAi;
+	vector<string> listOfAi;
 	listOfAi.push_back("Aggressive");
 	listOfAi.push_back("Random");
 	listOfAi.push_back("Cheater");
 	listOfAi.push_back("Passive");
 
-	std::string choice;
+	string choice;
 
 	do
 	{
@@ -100,13 +99,13 @@ void Tournament::chooseComputers()
 			std::cin >> aiNumber;
 		}
 
-		if(listOfAi[aiNumber-1] == "Aggressive")
+		if (listOfAi[aiNumber - 1] == "Aggressive")
 			computers.push_back("Aggressive");
-		else if(listOfAi[aiNumber - 1] == "Passive")
+		else if (listOfAi[aiNumber - 1] == "Passive")
 			computers.push_back("Passive");
-		else if(listOfAi[aiNumber - 1] == "Random")
+		else if (listOfAi[aiNumber - 1] == "Random")
 			computers.push_back("Random");
-		else if(listOfAi[aiNumber - 1] == "Cheater")
+		else if (listOfAi[aiNumber - 1] == "Cheater")
 			computers.push_back("Cheater");
 
 		listOfAi.erase(listOfAi.begin() + aiNumber - 1);
@@ -116,9 +115,8 @@ void Tournament::chooseComputers()
 			std::cout << "\n\nDo you want to choose another computer (Y or N)" << std::endl;
 			std::cin >> choice;
 		}
-
-	} while ((choice != "N" && choice != "n" && listOfAi.size() != 0) || computers.size() < 2);
-
+	}
+	while ((choice != "N" && choice != "n" && listOfAi.size() != 0) || computers.size() < 2);
 }
 
 void Tournament::chooseNumberOfGames()
@@ -164,26 +162,23 @@ void Tournament::displayChoices()
 	std::cout << std::endl;
 	std::cout << std::endl;
 
-	std::string maps = listOfMaps[0];
+	string maps = listOfMaps[0];
 	for (int i = 1; i < listOfMaps.size(); i++)
 	{
 		maps += ", " + listOfMaps[i];
 	}
 
-	std::string comps = computers[0];
+	string comps = computers[0];
 	for (int i = 1; i < computers.size(); i++)
 	{
 		comps += ", " + computers[i];
 	}
 
 
-
 	std::cout << "M: " << maps << std::endl;
 	std::cout << "P: " << comps << std::endl;
 	std::cout << "G: " << numberOfGames << std::endl;
 	std::cout << "D: " << numberOfTurnsPerGame << std::endl;
-
-
 }
 
 void Tournament::displayTable()
@@ -196,7 +191,7 @@ void Tournament::displayTable()
 }
 
 //Return a vector with the file names. If you add a new map to the folder, the list.txt file needs to be updated.
-vector<string> Tournament::readFileNames()
+vector<string> Tournament::readFileNames() const
 {
 	vector<string> mapNames;
 
@@ -222,12 +217,12 @@ vector<Player*>* Tournament::createComps(Deck* deck)
 	{
 		if (computers[i] == "Aggressive")
 			c->push_back(new Player("Aggressive", DiceRoller(), vector<Country*>(), Hand(deck), new AggressiveAI()));
-		else if(computers[i] == "Passive")
+		else if (computers[i] == "Passive")
 			c->push_back(new Player("Passive", DiceRoller(), vector<Country*>(), Hand(deck), new PassiveAI()));
 		else if (computers[i] == "Random")
-			c->push_back(new Player("Random", DiceRoller(), std::vector<Country*>(), Hand(deck), new RandomPlayer()));
+			c->push_back(new Player("Random", DiceRoller(), vector<Country*>(), Hand(deck), new RandomPlayer()));
 		else if (computers[i] == "Cheater")
-			c->push_back(new Player("Cheater", DiceRoller(), std::vector<Country*>(), Hand(deck), new CheaterAI()));
+			c->push_back(new Player("Cheater", DiceRoller(), vector<Country*>(), Hand(deck), new CheaterAI()));
 	}
 
 	return c;
@@ -235,23 +230,22 @@ vector<Player*>* Tournament::createComps(Deck* deck)
 
 void Tournament::runTournament()
 {
-	std::vector<std::string> list = listOfMaps;
+	vector<string> list = listOfMaps;
 
 	do
-	{		
-		std::string currentmap = list[0];
-		list.erase(list.begin() );
-		
-		gameLoop(currentmap);
-		
+	{
+		string currentmap = list[0];
+		list.erase(list.begin());
 
-	} while (list.size() != 0);
+		gameLoop(currentmap);
+	}
+	while (list.size() != 0);
 }
 
-void Tournament::gameLoop(std::string currentmap)
+void Tournament::gameLoop(string currentmap)
 {
 	int gameNumber = 1;
-		
+
 	while (gameNumber <= numberOfGames)
 	{
 		RiskMap* map = new RiskMap();
@@ -259,7 +253,7 @@ void Tournament::gameLoop(std::string currentmap)
 		loader.tryParseMap(map);
 
 		Deck* deck = new Deck(map->size());
-		std::vector<Player*>* comps = createComps(deck);
+		vector<Player*>* comps = createComps(deck);
 
 		Game game(comps, map, deck);
 
@@ -269,25 +263,25 @@ void Tournament::gameLoop(std::string currentmap)
 
 		std::cout << "\n*** Map: " << currentmap << " Game: " << gameNumber << " ***\n" << std::endl;
 
-		std::pair<bool, Player*> pair = checkWin(game);
+		pair<bool, Player*> pair = checkWin(game);
 		while (pair.first == false && currentTurn <= numberOfTurnsPerGame)
 		{
-			std::cout << "\n*** Current Turn: " << currentTurn << " ***\n"<< std::endl;
+			std::cout << "\n*** Current Turn: " << currentTurn << " ***\n" << std::endl;
 
 			for (int i = 0; i < game.getPlayers()->size(); i++)
 			{
-				std::cout << "\n" << (*game.getPlayers())[i]->getName() << " turn"  << std::endl;
+				std::cout << "\n" << (*game.getPlayers())[i]->getName() << " turn" << std::endl;
 				(*game.getPlayers())[i]->executeStrategy();
 			}
 
 			pair = checkWin(game);
 			currentTurn++;
 		}
-		
+
 		info info;
 		info.mapName = currentmap;
 		info.game = gameNumber;
-		if (pair.second == NULL)
+		if (pair.second == nullptr)
 			info.winner = "Draw";
 		else
 			info.winner = pair.second->getName();
@@ -304,19 +298,19 @@ void Tournament::gameLoop(std::string currentmap)
 		{
 			delete comps->at(i);
 		}
-	}	
+	}
 }
 
 
-std::pair<bool, Player*> Tournament::checkWin(Game game) const
+pair<bool, Player*> Tournament::checkWin(Game game) const
 {
 	for (int i = 0; i < game.getPlayers()->size(); i++)
 	{
 		if (game.getPlayers()->at(i)->getCountries().size() == game.getMap()->size())
 		{
-			return std::pair<bool, Player*>(true, game.getPlayers()->at(i));
+			return pair<bool, Player*>(true, game.getPlayers()->at(i));
 		}
 	}
 
-	return std::pair<bool, Player*>(false, nullptr);
+	return pair<bool, Player*>(false, nullptr);
 }

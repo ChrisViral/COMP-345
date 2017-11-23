@@ -27,5 +27,5 @@ public:
 
 private:
 	Country* weakestCountry;
-	Country* getFirstCountryWithExistingPath(Player* player, Country* weakestCountry);
+	Country* getFirstCountryWithExistingPath(Player* player, Country* weakestCountry) const;
 };

@@ -22,9 +22,6 @@
 using std::vector;
 
 
-
-
-
 class Game : public RiskObject, public Subject
 {
 public:
@@ -33,7 +30,7 @@ public:
 	Game(vector<Player*>* players, RiskMap* map, Deck* deck);
 	~Game();
 	void gameLoop();
-	void setup();
+	void setup() const;
 	RiskMap* getMap() const;
 	GameState getGameState();
 	Deck* getDeck() const;
@@ -61,6 +58,4 @@ private:
 	// List of recent actions/couts
 	vector<std::string> recentActions;
 	int turnNumber;
-
-
 };

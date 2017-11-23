@@ -10,8 +10,9 @@
 // ==============================
 
 #include "TextBasedUI.h"
+#include "../../../Player/Player.h"
+#include "../../GameState.h"
 #include <iostream>
-
 
 
 TextBasedUI::~TextBasedUI()
@@ -22,7 +23,7 @@ void TextBasedUI::update()
 {
 	GameState state = game->getGameState();
 	this->decorator->setDecoratorFlags(state.decoratorFlag);
-	
+
 
 	std::cout << "______________________________________________________________________________________" << std::endl;
 	std::cout << "Undecorated UI" << std::endl;

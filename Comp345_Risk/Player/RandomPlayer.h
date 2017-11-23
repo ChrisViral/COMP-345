@@ -27,6 +27,7 @@ public:
 
 private:
 	Country* getRandomAndRemove(vector<Country*>& countries) const;
+
 	/*
 	 * Random value between 0 and the max (exclusive)
 	 */

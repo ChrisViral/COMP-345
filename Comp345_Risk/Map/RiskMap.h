@@ -61,7 +61,7 @@ public:
 	int continentSize() const;
 	bool isInitialized() const;
 	void setInitialized(bool init);
-	std::unordered_map<std::string, Continent> getContinents();
+	std::unordered_map<std::string, Continent> getContinents() const;
 	void printMapArmyInfo();
 
 

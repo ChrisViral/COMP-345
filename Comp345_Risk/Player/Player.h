@@ -17,7 +17,6 @@
 #include "../Game/Game.h"
 
 
-
 class TypeOfPlayer;
 class Game;
 using std::vector;
@@ -42,7 +41,7 @@ public:
 	std::string getName() const;
 	int controlled() const;
 	void setGame(Game* currentGame);
-	Game* getGame() { return game; }
+	Game* getGame() const { return game; }
 	void addRandomArmy();
 	DiceRoller& getDiceRoller();
 	Hand& getHand();

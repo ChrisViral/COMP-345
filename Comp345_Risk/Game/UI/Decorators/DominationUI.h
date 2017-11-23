@@ -24,7 +24,8 @@ public:
 	}
 
 
-	DominationUI() {
+	DominationUI()
+	{
 	}
 
 	~DominationUI();

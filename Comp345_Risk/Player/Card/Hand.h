@@ -57,5 +57,5 @@ private:
 	// for easier exchangeAll
 	std::unordered_map<CardType, std::vector<Card>> hand;
 	// Gets the amount of armies to exchangeAll our cards for
-	Exchangement exchangeForArmy(Exchangement& exchangement);
+	Exchangement exchangeForArmy(Exchangement& exchangement) const;
 };

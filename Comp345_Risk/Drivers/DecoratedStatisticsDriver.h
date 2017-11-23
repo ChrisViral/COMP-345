@@ -13,7 +13,8 @@
 
 #include "../Base/Driver.h"
 
-class DecoratedStatisticsDriver : public Driver{
+class DecoratedStatisticsDriver : public Driver
+{
 public:
 	DecoratedStatisticsDriver();
 	~DecoratedStatisticsDriver();
@@ -22,4 +23,3 @@ public:
 	string getOpeningMessage() override;
 	string getClosingMessage() override;
 };
-

@@ -43,7 +43,7 @@ void RiskMap::setInitialized(bool init)
 	initialized = init;
 }
 
-std::unordered_map<std::string, Continent> RiskMap::getContinents()
+std::unordered_map<std::string, Continent> RiskMap::getContinents() const
 {
 	return continents;
 }

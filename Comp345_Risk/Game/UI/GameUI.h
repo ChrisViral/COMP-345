@@ -12,11 +12,8 @@
 #pragma once
 #include "../../Patterns/Observer/Observer.h"
 #include "../Game.h"
-#include "../GameState.h"
-#include "../../Player/Player.h"
 //class UIOutputDecorator;
 #include "Decorators/UIOutputDecorator.h"
-
 
 
 class GameUI : public Observer
@@ -30,10 +27,9 @@ public:
 	void update() override;
 	// hacx
 	void attachDecorator(UIOutputDecorator* decorator);
-	Game* getGame();
+	Game* getGame() const;
 protected:
 	GameUI(Game* game);
 	Game* game;
 	UIOutputDecorator* decorator;
-
 };

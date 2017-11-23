@@ -27,7 +27,7 @@ void CheaterAI::playTurn(Player* player)
 }
 
 void CheaterAI::reinforce(Player* player, bool skip)
-{	//Temporary override for GameLoop purpose
+{ //Temporary override for GameLoop purpose
 	if (skip)
 	{
 		TypeOfPlayer::reinforce(player, skip);
@@ -37,7 +37,7 @@ void CheaterAI::reinforce(Player* player, bool skip)
 	Game* game = player->getGame();
 
 	//******CHEATER DOUBLES ALL THE ARMIES ON ITS COUNTRIES******
-	for(Country* country: player-> getCountries())
+	for (Country* country: player->getCountries())
 	{
 		game->logAction("Doubling armies on " + country->getName());
 		country->addArmies(country->getArmies());
@@ -50,7 +50,7 @@ void CheaterAI::reinforce(Player* player, bool skip)
 void CheaterAI::attack(Player* player, bool skip)
 {
 	Game* game = player->getGame();
-	
+
 	int preTotalCountries = player->getCountries().size();
 	vector<Country*> targets = getTargets(player);
 	for (Country* target : targets)
@@ -75,7 +75,7 @@ bool CheaterAI::fortify(Player* player, Country& source, Country& target, int am
 		return true;
 	}
 
-	for(Country* fringe : getFringeCountries(player))
+	for (Country* fringe : getFringeCountries(player))
 	{
 		fringe->addArmies(fringe->getArmies());
 		game->logAction("Doubled armies on " + fringe->getName());
@@ -85,7 +85,7 @@ bool CheaterAI::fortify(Player* player, Country& source, Country& target, int am
 	return true;
 }
 
-vector<Country*> CheaterAI::getAdjUnOwnedCountryList(Player* player, const Country& source)
+vector<Country*> CheaterAI::getAdjUnOwnedCountryList(Player* player, const Country& source) const
 {
 	vector<Country*> adjCountries;
 	Node& node = player->getGame()->getMap()->getNodeFromMap(source.getName());
@@ -102,7 +102,7 @@ vector<Country*> CheaterAI::getAdjUnOwnedCountryList(Player* player, const Count
 	return adjCountries;
 }
 
-bool CheaterAI::hasAdjUnOwnedCountry(Player* player, const Country& source)
+bool CheaterAI::hasAdjUnOwnedCountry(Player* player, const Country& source) const
 {
 	Node& node = player->getGame()->getMap()->getNodeFromMap(source.getName());
 	vector<Edge> adj = node.adjList;
@@ -115,6 +115,7 @@ bool CheaterAI::hasAdjUnOwnedCountry(Player* player, const Country& source)
 	}
 	return false;
 }
+
 bool CheaterAI::ownsCountry(Player* player, const Country& country) const
 {
 	// TODO: figure out in the end if are keeping the getOwner() and a pointer to the owner in the currentPlayerTurn
@@ -135,14 +136,14 @@ bool CheaterAI::ownsCountry(Player* player, const Country& country) const
 
 
 //Returns how many dice they should roll
-int CheaterAI::defend(Country* country)
+int CheaterAI::defend(Country* country) const
 {
 	if (country->getArmies() >= 2)
 		return 2;
 	return 1;
 }
 
-int CheaterAI::getTotalArmies(Player* player)
+int CheaterAI::getTotalArmies(Player* player) const
 {
 	int totalArmies = 0;
 	for (Country* country : player->getCountries())
@@ -152,7 +153,7 @@ int CheaterAI::getTotalArmies(Player* player)
 	return totalArmies;
 }
 
-vector<Country*> CheaterAI::getFringeCountries(Player* player)
+vector<Country*> CheaterAI::getFringeCountries(Player* player) const
 {
 	vector<Country*> validCountries;
 	for (Country* country : player->getCountries())
@@ -167,7 +168,7 @@ vector<Country*> CheaterAI::getFringeCountries(Player* player)
 
 
 //redistributes the total amount of armies to maximize the armies placed on the newly conquered countries.
-void CheaterAI::redistributeArmiesToFringes(Player* player, vector<Country*> fringes, int totalCountries)
+void CheaterAI::redistributeArmiesToFringes(Player* player, vector<Country*> fringes, int totalCountries) const
 {
 	int totalArmies = getTotalArmies(player);
 	if (totalArmies < totalCountries)
@@ -176,16 +177,17 @@ void CheaterAI::redistributeArmiesToFringes(Player* player, vector<Country*> fri
 	}
 	//fringeTotal is the number of armies to be allocated to fringe countries.
 	int fringeTotal = totalArmies - (totalCountries - fringes.size());
-	for(Country* country: player->getCountries())
+	for (Country* country: player->getCountries())
 	{
 		country->setArmies(1);
 	}
-	for(Country* fringe: fringes)
+	for (Country* fringe: fringes)
 	{
 		fringe->setArmies(fringeTotal / fringes.size()); //this leaves a remainder...
 	}
-	if (fringes.size() > 0) {
-		int remainder = fringeTotal - ((fringeTotal / fringes.size())* fringes.size());
+	if (fringes.size() > 0)
+	{
+		int remainder = fringeTotal - ((fringeTotal / fringes.size()) * fringes.size());
 		while (remainder > 0)
 		{
 			for (Country* fringe : fringes)
@@ -198,10 +200,10 @@ void CheaterAI::redistributeArmiesToFringes(Player* player, vector<Country*> fri
 }
 
 //returns a vector of all countries that will be taken over during the attack phase.
-vector<Country*> CheaterAI::getTargets(Player* player)
+vector<Country*> CheaterAI::getTargets(Player* player) const
 {
 	std::set<Country*> temp;
-	for (const Country* source : getFringeCountries(player)) 
+	for (const Country* source : getFringeCountries(player))
 	{
 		vector<Country*> adj = getAdjUnOwnedCountryList(player, *source);
 		for (Country* country : adj)

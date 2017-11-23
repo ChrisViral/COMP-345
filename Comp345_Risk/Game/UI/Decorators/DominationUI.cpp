@@ -10,6 +10,7 @@
 // ==============================
 
 #include "DominationUI.h"
+#include "../../../Player/Player.h"
 #include <iostream>
 #include "UIOutputDecorator.h"
 
@@ -18,14 +19,13 @@ using std::endl;
 using std::string;
 
 
-
 DominationUI::~DominationUI()
 {
 }
 
 int DominationUI::getDecoratorUiEnum()
 {
-	return UIDecorator::DominationUIDecorator;
+	return DominationUIDecorator;
 }
 
 void DominationUI::update()
@@ -33,8 +33,8 @@ void DominationUI::update()
 	decoratedUi->update();
 	if (!enabled) return;
 
-	std::cout << "------------------------------" << std::endl;
-	std::cout << "Domination UI" << std::endl;
+	cout << "------------------------------" << endl;
+	cout << "Domination UI" << endl;
 
 	//Get armies info
 	vector<Player*>* players = game->getPlayers();
@@ -61,5 +61,5 @@ void DominationUI::update()
 	}
 	cout << endl;
 
-	std::cout << "------------------------------" << std::endl;
+	cout << "------------------------------" << endl;
 }

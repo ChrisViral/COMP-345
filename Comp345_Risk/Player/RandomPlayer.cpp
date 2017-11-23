@@ -112,7 +112,6 @@ void RandomPlayer::attack(Player* player, bool skip)
 		//Check if the country has enough armies to attack
 		if (c->getArmies() > 1)
 		{
-
 			Node& node = map->getNodeFromMap(c->getName());
 			//Loop through this countries' adjacent countries
 			for (Edge& e : node.adjList)

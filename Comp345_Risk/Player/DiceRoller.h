@@ -20,7 +20,7 @@ struct DiceRollCache
 	int rollC;
 	int numberOfDice;
 
-	std::string getOutputForNumberOfDice()
+	std::string getOutputForNumberOfDice() const
 	{
 		switch (numberOfDice)
 		{
@@ -39,7 +39,7 @@ public:
 	~DiceRoller();
 	int roll(int numberOfDice); //function rolls a number of dice and returns a string containing the rolls.
 	void showRolls() const; //prints out the total number of rolls and the percent of each rolls outcome.
-	DiceRollCache getLastRoll();
+	DiceRollCache getLastRoll() const;
 
 
 private:

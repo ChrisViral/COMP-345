@@ -29,7 +29,8 @@ static bool startsWith(string str, string prefix)
 }
 
 
-inline std::string toBinary(int n) {
+inline string toBinary(int n)
+{
 	// I'm sure there is a better way to do this with bit twidlling, but it's 1 in the morning
 	if (n == 0) return "000";
 	if (n == 1) return "001";
@@ -44,17 +45,18 @@ inline std::string toBinary(int n) {
 	return "000";
 }
 
-inline bool strBitToBool(std::string bit) {
+inline bool strBitToBool(string bit)
+{
 	return bit != "0";
 }
 
-static void printOutputOptionFlags() {
-
+static void printOutputOptionFlags()
+{
 	std::cout << "D = Player Domination" << std::endl;
 	std::cout << "H = Players Hands " << std::endl;
 	std::cout << "C = Player Continent Control" << std::endl;
 
-	
+
 	std::cout << "7 for DHC" << std::endl;
 	std::cout << "6 for DH-" << std::endl;
 	std::cout << "5 for D-C" << std::endl;

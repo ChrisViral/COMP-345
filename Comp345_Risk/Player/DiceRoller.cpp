@@ -218,7 +218,7 @@ void DiceRoller::showRolls() const
 	std::cout << "Percent of 6s: " << num6 / totalRolls * 100 << std::endl;
 }
 
-DiceRollCache DiceRoller::getLastRoll()
+DiceRollCache DiceRoller::getLastRoll() const
 {
 	return cache;
 }

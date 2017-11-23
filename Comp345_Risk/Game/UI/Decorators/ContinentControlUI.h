@@ -23,13 +23,11 @@ public:
 	}
 
 
-	ContinentControlUI() {
+	ContinentControlUI()
+	{
 	}
 
 	~ContinentControlUI();
 	int getDecoratorUiEnum() override;
 	void update() override;
-
-	
 };
-

@@ -30,13 +30,13 @@ public:
 	//This AI will fortify in order to maximize aggregation of forces in one country
 	bool fortify(Player* player, Country& source, Country& target, int amount, bool skip = false) override;
 
-	Country* getStrongestCountry() { return strongestCountry; }
+	Country* getStrongestCountry() const { return strongestCountry; }
 
 private:
 	Country* strongestCountry;
-	vector<Country*> getAdjUnOwnedCountryList(Player* player, const Country& source);
+	vector<Country*> getAdjUnOwnedCountryList(Player* player, const Country& source) const;
 	bool ownsCountry(Player* player, const Country& country) const;
-	int defend(Country* country);
-	Country* getFirstCountryWithExistingPath(Player* player, Country* strongestCountry);
-	void handleBattle(Country* strongestCountry, Country* defendingCountry, int attackerRoll, int defenderRoll);
+	int defend(Country* country) const;
+	Country* getFirstCountryWithExistingPath(Player* player, Country* strongestCountry) const;
+	void handleBattle(Country* strongestCountry, Country* defendingCountry, int attackerRoll, int defenderRoll) const;
 };

@@ -28,15 +28,15 @@ public:
 	void attack(Player* player, bool skip = false) override;
 
 	//This AI will fortify in order to maximize aggregation of forces in one country
-	bool fortify(Player* player, Country& source, Country& target, int amount, bool skip = false) override;	
+	bool fortify(Player* player, Country& source, Country& target, int amount, bool skip = false) override;
 
 private:
-	vector<Country*> getAdjUnOwnedCountryList(Player* player, const Country& source);
-	bool hasAdjUnOwnedCountry(Player* player, const Country& source);
+	vector<Country*> getAdjUnOwnedCountryList(Player* player, const Country& source) const;
+	bool hasAdjUnOwnedCountry(Player* player, const Country& source) const;
 	bool ownsCountry(Player* player, const Country& country) const;
-	int defend(Country* country);
-	int getTotalArmies(Player* player);
-	vector<Country*> getFringeCountries(Player* player);
-	void redistributeArmiesToFringes(Player* player, vector<Country*> fringes, int totalCountries);
-	vector<Country*> getTargets(Player* player);
+	int defend(Country* country) const;
+	int getTotalArmies(Player* player) const;
+	vector<Country*> getFringeCountries(Player* player) const;
+	void redistributeArmiesToFringes(Player* player, vector<Country*> fringes, int totalCountries) const;
+	vector<Country*> getTargets(Player* player) const;
 };

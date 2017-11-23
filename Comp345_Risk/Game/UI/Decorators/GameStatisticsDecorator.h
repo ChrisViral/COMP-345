@@ -14,8 +14,6 @@
 #include "../GameUI.h"
 
 
-
-
 class GameStatisticsDecorator : public GameUI
 {
 public:
@@ -26,9 +24,7 @@ public:
 	virtual int getDecoratorUiEnum() = 0;
 	bool enabled;
 	void update() override;
-	
+
 protected:
 	GameUI* decoratedUi;
-
 };
-

@@ -16,7 +16,6 @@
 #include "../Player/Player.h"
 
 #include <vector>
-#include <string>
 #include <utility>
 
 class info
@@ -36,16 +35,16 @@ public:
 	void chooseComputers();
 	void chooseNumberOfGames();
 	void chooseNumberOfTurns();
-	vector<std::string> readFileNames();
+	vector<std::string> readFileNames() const;
 	void displayChoices();
 	void displayTable();
 	vector<Player*>* createComps(Deck* deck);
-	
+
 	void gameLoop(std::string currentmap);
 	std::pair<bool, Player*> checkWin(Game game) const;
 
 private:
-	vector<std::string> computers;	
+	vector<std::string> computers;
 	int numberOfTurnsPerGame;
 	int numberOfGames;
 	vector<std::string> listOfMaps;

@@ -32,12 +32,11 @@ public:
 	~UIOutputDecorator();
 	void setDecoratorEnabled(UIDecorator decorator, bool enabled);
 	void setDecoratorFlags(int octalFlag);
-	GameUI* getUi();
-	
+	GameUI* getUi() const;
+
 private:
 	std::unordered_map<UIDecorator, GameStatisticsDecorator*> decorators;
-	
+
 	Game* game;
 	GameUI* decoratedUI;
 };
-

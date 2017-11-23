@@ -23,7 +23,9 @@ const int Hand::ARMY_EXCHANGE_AMOUNT = 5;
 // The amount of times an exchangeAll has happened;
 int Hand::exchangeCount = 1;
 
-Hand::Hand(): deck(nullptr) { }
+Hand::Hand(): deck(nullptr)
+{
+}
 
 Hand::Hand(Deck* deck)
 {
@@ -31,7 +33,7 @@ Hand::Hand(Deck* deck)
 	for (int i = 0; i != _Count; i++)
 	{
 		CardType cardType = static_cast<CardType>(i);
-		hand.insert({ cardType, vector<Card>() });
+		hand.insert({cardType, vector<Card>()});
 	}
 }
 
@@ -42,7 +44,7 @@ Hand::~Hand()
 
 Exchangement Hand::exchange()
 {
-	Exchangement ex{true, { }, 0};
+	Exchangement ex{true, {}, 0};
 
 	// Exchange a CARD_EXCHANGE_AMOUNT cards of all different kinds
 	bool canExchange = true;
@@ -59,7 +61,7 @@ Exchangement Hand::exchange()
 	{
 		for (int i = 0; i < CARD_EXCHANGE_AMOUNT; i++)
 		{
-			std::vector<Card>& handAtCardType = hand.at(CardType(i));
+			vector<Card>& handAtCardType = hand.at(CardType(i));
 			ex.cardsExchanged.push_back(handAtCardType.back());
 			handAtCardType.pop_back();
 		}
@@ -71,7 +73,7 @@ Exchangement Hand::exchange()
 
 Exchangement Hand::exchange(CardType cardType)
 {
-	Exchangement ex{true,{ }, 0};
+	Exchangement ex{true,{}, 0};
 	// Exchange a CARD_EXCHANGE_AMOUNT cards of the same kind
 	vector<Card>& handType = hand.at(cardType);
 	if (handType.size() >= CARD_EXCHANGE_AMOUNT)
@@ -127,7 +129,7 @@ Exchangement Hand::exchangeAll()
 	return ex;
 }
 
-Exchangement Hand::exchangeForArmy(Exchangement& exchangement)
+Exchangement Hand::exchangeForArmy(Exchangement& exchangement) const
 {
 	if (exchangement.successfullyExchanged)
 	{

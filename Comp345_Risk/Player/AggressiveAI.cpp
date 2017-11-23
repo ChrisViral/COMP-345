@@ -225,7 +225,7 @@ bool AggressiveAI::fortify(Player* player, Country& source, Country& target, int
 	return false;
 }
 
-vector<Country*> AggressiveAI::getAdjUnOwnedCountryList(Player* player, const Country& source)
+vector<Country*> AggressiveAI::getAdjUnOwnedCountryList(Player* player, const Country& source) const
 {
 	vector<Country*> adjCountries;
 	Node& node = player->getGame()->getMap()->getNodeFromMap(source.getName());
@@ -262,7 +262,7 @@ bool AggressiveAI::ownsCountry(Player* player, const Country& country) const
 
 
 //Returns how many dice they should roll
-int AggressiveAI::defend(Country* country)
+int AggressiveAI::defend(Country* country) const
 {
 	if (country->getArmies() >= 2)
 		return 2;
@@ -272,7 +272,7 @@ int AggressiveAI::defend(Country* country)
 bool sortAlg(int i, int j) { return (i > j); }
 
 //Handles the comparing and removing of armies
-void AggressiveAI::handleBattle(Country* strongestCountry, Country* defendingCountry, int attackerRoll, int defenderRoll)
+void AggressiveAI::handleBattle(Country* strongestCountry, Country* defendingCountry, int attackerRoll, int defenderRoll) const
 {
 	int a1 = attackerRoll % 10; //takes last digit of attackRoll
 	int a2 = (attackerRoll % 100) / 10; //middle digit
@@ -310,7 +310,7 @@ void AggressiveAI::handleBattle(Country* strongestCountry, Country* defendingCou
 }
 
 //Looks for the first country that has a path from the strongest country and returns it so it can take its armies.
-Country* AggressiveAI::getFirstCountryWithExistingPath(Player* player, Country* strongestCountry)
+Country* AggressiveAI::getFirstCountryWithExistingPath(Player* player, Country* strongestCountry) const
 {
 	for (int i = 0; i < player->getCountries().size(); i++)
 	{

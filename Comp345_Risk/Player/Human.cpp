@@ -19,7 +19,6 @@
 #include "Card/Hand.h"
 #include <cctype>
 #include "../Base/Utils.h"
-#include "../Drivers/DecoratedStatisticsDriver.h"
 
 using std::vector;
 using std::string;
@@ -39,12 +38,12 @@ void Human::playTurn(Player* player)
 {
 	if (player->outputOctalFlag != -1)
 	{
-		std::cout << "Which statistics do you want to show for this turn?" << std::endl;
+		cout << "Which statistics do you want to show for this turn?" << endl;
 		printOutputOptionFlags();
 		std::cin >> player->outputOctalFlag;
 		player->getGame()->decoratorFlag = player->outputOctalFlag;
 	}
-	
+
 	captured = false;
 	reinforce(player);
 	attack(player);
@@ -867,7 +866,7 @@ void Human::fortify(Player* player)
 			}
 			cout << "Invalid entry, please be sure to leave at least 1 army on " << source->getName() << "...";
 		}
-		std:cout << "Moving " << amount << " armies from " << source->getName() << " to " << target->getName() << "..." << endl << endl;
+	std:cout << "Moving " << amount << " armies from " << source->getName() << " to " << target->getName() << "..." << endl << endl;
 		fortify(player, *source, *target, amount);
 		cout << source->getName() << " now has " << source->getArmies() << " armies" << endl;
 		cout << target->getName() << " now has " << target->getArmies() << " armies" << endl << endl;
@@ -925,7 +924,7 @@ bool Human::fortify(Player* player, Country& source, Country& target, int amount
 	return false;
 }
 
-Country* Human::chooseAttackSourceCountry(Player* player)
+Country* Human::chooseAttackSourceCountry(Player* player) const
 {
 	cout << "Countries you can attack from:" << endl;
 	vector<Country*> validCountries;
@@ -956,7 +955,7 @@ Country* Human::chooseAttackSourceCountry(Player* player)
 	}
 }
 
-bool Human::hasAdjUnOwnedCountry(Player* player, const Country& source)
+bool Human::hasAdjUnOwnedCountry(Player* player, const Country& source) const
 {
 	Node& node = player->getGame()->getMap()->getNodeFromMap(source.getName());
 	vector<Edge> adj = node.adjList;
@@ -1003,7 +1002,7 @@ Country* Human::chooseAttackTargetCountry(Player* player, Country& source)
 	}
 }
 
-vector<Country*> Human::getAdjUnOwnedCountryList(Player* player, const Country& source)
+vector<Country*> Human::getAdjUnOwnedCountryList(Player* player, const Country& source) const
 {
 	vector<Country*> adjCountries;
 	Node& node = player->getGame()->getMap()->getNodeFromMap(source.getName());
@@ -1020,7 +1019,7 @@ vector<Country*> Human::getAdjUnOwnedCountryList(Player* player, const Country& 
 	return adjCountries;
 }
 
-Country* Human::chooseFortifySourceCountry(Player* player)
+Country* Human::chooseFortifySourceCountry(Player* player) const
 {
 	cout << "Countries you can move armies from:" << endl;
 	vector<Country*> validCountries;
@@ -1051,7 +1050,7 @@ Country* Human::chooseFortifySourceCountry(Player* player)
 	}
 }
 
-vector<Country*> Human::getConnectedOwnedCountryList(Player* player, Country& source)
+vector<Country*> Human::getConnectedOwnedCountryList(Player* player, Country& source) const
 {
 	vector<Country*> connectedCountries;
 	RiskMap& map = *player->getGame()->getMap();
@@ -1068,7 +1067,7 @@ vector<Country*> Human::getConnectedOwnedCountryList(Player* player, Country& so
 	return connectedCountries;
 }
 
-Country* Human::chooseFortifyTargetCountry(Player* player, Country& source)
+Country* Human::chooseFortifyTargetCountry(Player* player, Country& source) const
 {
 	cout << "Countries you can fortify:" << endl;
 	vector<Country*> adj = getConnectedOwnedCountryList(player, source);
