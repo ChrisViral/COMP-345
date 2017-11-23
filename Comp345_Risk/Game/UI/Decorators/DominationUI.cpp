@@ -11,7 +11,7 @@
 
 #include "DominationUI.h"
 #include <iostream>
-#include "../../../UIOutputDecorator.h"
+#include "UIOutputDecorator.h"
 
 using std::cout;
 using std::endl;

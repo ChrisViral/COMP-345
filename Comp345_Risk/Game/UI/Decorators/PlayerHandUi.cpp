@@ -1,6 +1,6 @@
 #include "PlayerHandUi.h"
 #include <iostream>
-#include "../../../UIOutputDecorator.h"
+#include "UIOutputDecorator.h"
 
 
 PlayerHandUi::~PlayerHandUi()

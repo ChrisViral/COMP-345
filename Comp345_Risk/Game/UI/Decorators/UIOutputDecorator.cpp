@@ -1,9 +1,9 @@
 #include "UIOutputDecorator.h"
-#include "Game/UI/Decorators/TextBasedUI.h"
-#include "Game/UI/Decorators/PlayerHandUi.h"
-#include "Game/UI/Decorators/ContinentControlUi.h"
-#include "Game/UI/Decorators/DominationUI.h"
-#include "Base/Utils.h"
+#include "TextBasedUI.h"
+#include "PlayerHandUi.h"
+#include "ContinentControlUi.h"
+#include "DominationUI.h"
+#include "../../../Base/Utils.h"
 
 
 UIOutputDecorator::UIOutputDecorator(Game* game) {

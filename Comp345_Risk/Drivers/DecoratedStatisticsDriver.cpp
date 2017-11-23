@@ -1,15 +1,10 @@
-
 #include "../Map/RiskMap.h"
 #include "../Map/MapLoader/MapLoader.h"
 #include "DecoratedStatisticsDriver.h"
 #include "../Game/Game.h"
 #include "../Game/UI/GameUI.h"
-#include "../Game/UI/Decorators/PlayerHandUi.h"
 #include "../Player/AggressiveAI.h"
-#include "../Game/UI/Decorators/DominationUI.h"
-#include "../Game/UI/Decorators/ContinentControlUi.h"
-#include "../UIOutputDecorator.h"
-#include "../Game/UI/Decorators/TextBasedUI.h"
+#include "../Game/UI/Decorators/UIOutputDecorator.h"
 #include "../Player/Human.h"
 #include <iostream>
 
@@ -28,9 +23,10 @@ DecoratedStatisticsDriver::~DecoratedStatisticsDriver()
 
 void DecoratedStatisticsDriver::run()
 {
-	RiskMap map;
+	RiskMap* map = new RiskMap();;
 	MapLoader loader("mapfiles/World.map");
-	loader.tryParseMap(&map);
+	loader.tryParseMap(map);
+	Deck* deck = new Deck(map->size());
 
 	Player* human = new Player("Player 1", DiceRoller(), vector<Country*>(), Hand(), new Human);
 	Player* aggressiveAI = new Player("Player 2", DiceRoller(), vector<Country*>(), Hand(), new AggressiveAI);
@@ -43,7 +39,7 @@ void DecoratedStatisticsDriver::run()
 	players->push_back(passiveAI);
 
 	//Load a game with the above info and run the setup
-	Game game(players, &map);
+	Game game(players, map, deck);
 	//We want to know how this affected the players and map
 	game.setup();
 
@@ -70,7 +66,10 @@ void DecoratedStatisticsDriver::run()
 
 	//Clear memory
 	
-	
+	delete map;
+	map = nullptr;
+	delete deck;
+	deck = nullptr;
 
 	delete players->at(0);
 	delete players->at(1);

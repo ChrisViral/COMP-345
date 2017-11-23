@@ -15,7 +15,7 @@
 #include "../GameState.h"
 #include "../../Player/Player.h"
 //class UIOutputDecorator;
-#include "../../UIOutputDecorator.h"
+#include "Decorators/UIOutputDecorator.h"
 
 
 

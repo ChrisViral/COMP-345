@@ -83,7 +83,27 @@
     <ClCompile Include="Player\CheaterAI.cpp">
       <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="UIOutputDecorator.cpp" />
+    <ClCompile Include="Drivers\DecoratedStatisticsDriver.cpp">
+      <Filter>Drivers</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\Decorators\DominationUI.cpp">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\Decorators\GameStatisticsDecorator.cpp">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\Decorators\PlayerHandUi.cpp">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\Decorators\TextBasedUI.cpp">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\Decorators\UIOutputDecorator.cpp">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\Decorators\ContinentControlUI.cpp">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
@@ -175,7 +195,27 @@
     <ClInclude Include="Player\CheaterAI.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="UIOutputDecorator.h" />
+    <ClInclude Include="Drivers\DecoratedStatisticsDriver.h">
+      <Filter>Drivers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\Decorators\ContinentControlUi.h">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\Decorators\DominationUI.h">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\Decorators\GameStatisticsDecorator.h">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\Decorators\PlayerHandUi.h">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\Decorators\TextBasedUI.h">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\Decorators\UIOutputDecorator.h">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Base">
@@ -210,6 +250,9 @@
     </Filter>
     <Filter Include="Patterns\Observer">
       <UniqueIdentifier>{125d9377-a4c6-4712-b9a5-2d389db3e46e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\UI\Decorators">
+      <UniqueIdentifier>{58cd2331-ab17-457b-9466-e1840e8d1139}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
