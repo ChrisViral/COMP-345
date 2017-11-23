@@ -1,21 +1,21 @@
 #pragma once
 #include "GameStatisticsDecorator.h"
 
-class ContinentControlUi : public GameStatisticsDecorator
+class ContinentControlUI : public GameStatisticsDecorator
 {
 public:
 
 
-	explicit ContinentControlUi(GameUI* decoratedUi)
+	explicit ContinentControlUI(GameUI* decoratedUi)
 		: GameStatisticsDecorator(decoratedUi)
 	{
 	}
 
 
-	ContinentControlUi() {
+	ContinentControlUI() {
 	}
 
-	~ContinentControlUi();
+	~ContinentControlUI();
 	int getDecoratorUiEnum() override;
 	void update() override;
 

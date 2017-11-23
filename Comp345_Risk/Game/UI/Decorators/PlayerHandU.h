@@ -5,20 +5,20 @@
 
 
 
-class PlayerHandUi : public GameStatisticsDecorator
+class PlayerHandUI : public GameStatisticsDecorator
 {
 public:
 
-	explicit PlayerHandUi(GameUI* decoratedUi)
+	explicit PlayerHandUI(GameUI* decoratedUi)
 		: GameStatisticsDecorator(decoratedUi)
 	{
 	}
 
 
-	PlayerHandUi() {
+	PlayerHandUI() {
 	}
 
-	~PlayerHandUi();
+	~PlayerHandUI();
 
 	int getDecoratorUiEnum() override;
 	void update() override;

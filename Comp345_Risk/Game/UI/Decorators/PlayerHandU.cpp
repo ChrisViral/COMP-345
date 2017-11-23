@@ -3,16 +3,16 @@
 #include "UIOutputDecorator.h"
 
 
-PlayerHandUi::~PlayerHandUi()
+PlayerHandUI::~PlayerHandUI()
 {
 }
 
-int PlayerHandUi::getDecoratorUiEnum()
+int PlayerHandUI::getDecoratorUiEnum()
 {
 	return UIDecorator::PlayerHandUIDecorator;
 }
 
-void PlayerHandUi::update()
+void PlayerHandUI::update()
 {
 	decoratedUi->update();
 	if (!enabled) return;

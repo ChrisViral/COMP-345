@@ -3,7 +3,7 @@
 #include "UIOutputDecorator.h"
 
 
-void ContinentControlUi::update()
+void ContinentControlUI::update()
 {
 	decoratedUi->update();
 	if (!enabled) return;
@@ -26,12 +26,12 @@ void ContinentControlUi::update()
 	std::cout << "______________________________________________________________________________________" << std::endl;
 }
 
-int ContinentControlUi::getDecoratorUiEnum()
+int ContinentControlUI::getDecoratorUiEnum()
 {
 	return UIDecorator::ContinentControlUIDecorator;
 }
 
-ContinentControlUi::~ContinentControlUi()
+ContinentControlUI::~ContinentControlUI()
 {
 }
 

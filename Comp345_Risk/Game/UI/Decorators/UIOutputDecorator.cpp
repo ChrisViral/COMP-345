@@ -23,8 +23,8 @@ UIOutputDecorator::UIOutputDecorator(Game* game) {
 
 
 	// TODO(Steven) I didnt want to hardcode it like this, but there is not enough time to do this properly
-	decorators.emplace(UIDecorator::PlayerHandUIDecorator, new PlayerHandUi());
-	decorators.emplace(UIDecorator::ContinentControlUIDecorator, new ContinentControlUi());
+	decorators.emplace(UIDecorator::PlayerHandUIDecorator, new PlayerHandUI());
+	decorators.emplace(UIDecorator::ContinentControlUIDecorator, new ContinentControlUI());
 	decorators.emplace(UIDecorator::DominationUIDecorator, new DominationUI());
 
 	// Just awful
@@ -44,8 +44,8 @@ UIOutputDecorator::UIOutputDecorator(Game* game) {
 
 	// The above mess is trying to do this with the map
 	//GameUI* ui = new TextBasedUI(&game);
-	//ui = new PlayerHandUi(ui);
-	//ui = new ContinentControlUi(ui);
+	//ui = new PlayerHandUI(ui);
+	//ui = new ContinentControlUI(ui);
 	//ui = new DominationUI(ui);
 
 	
