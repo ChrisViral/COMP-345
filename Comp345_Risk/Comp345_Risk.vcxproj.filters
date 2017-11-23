@@ -92,16 +92,16 @@
     <ClCompile Include="Game\UI\Decorators\GameStatisticsDecorator.cpp">
       <Filter>Game\UI\Decorators</Filter>
     </ClCompile>
-    <ClCompile Include="Game\UI\Decorators\PlayerHandUi.cpp">
-      <Filter>Game\UI\Decorators</Filter>
-    </ClCompile>
     <ClCompile Include="Game\UI\Decorators\TextBasedUI.cpp">
       <Filter>Game\UI\Decorators</Filter>
     </ClCompile>
     <ClCompile Include="Game\UI\Decorators\UIOutputDecorator.cpp">
       <Filter>Game\UI\Decorators</Filter>
     </ClCompile>
-    <ClCompile Include="Game\UI\Decorators\ContinentControlUI.cpp">
+    <ClCompile Include="Game\UI\Decorators\ContinentControlU.cpp">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\UI\Decorators\PlayerHandU.cpp">
       <Filter>Game\UI\Decorators</Filter>
     </ClCompile>
   </ItemGroup>
@@ -198,22 +198,22 @@
     <ClInclude Include="Drivers\DecoratedStatisticsDriver.h">
       <Filter>Drivers</Filter>
     </ClInclude>
-    <ClInclude Include="Game\UI\Decorators\ContinentControlUi.h">
-      <Filter>Game\UI\Decorators</Filter>
-    </ClInclude>
     <ClInclude Include="Game\UI\Decorators\DominationUI.h">
       <Filter>Game\UI\Decorators</Filter>
     </ClInclude>
     <ClInclude Include="Game\UI\Decorators\GameStatisticsDecorator.h">
       <Filter>Game\UI\Decorators</Filter>
     </ClInclude>
-    <ClInclude Include="Game\UI\Decorators\PlayerHandUi.h">
-      <Filter>Game\UI\Decorators</Filter>
-    </ClInclude>
     <ClInclude Include="Game\UI\Decorators\TextBasedUI.h">
       <Filter>Game\UI\Decorators</Filter>
     </ClInclude>
     <ClInclude Include="Game\UI\Decorators\UIOutputDecorator.h">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\Decorators\ContinentControlU.h">
+      <Filter>Game\UI\Decorators</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\UI\Decorators\PlayerHandU.h">
       <Filter>Game\UI\Decorators</Filter>
     </ClInclude>
   </ItemGroup>
