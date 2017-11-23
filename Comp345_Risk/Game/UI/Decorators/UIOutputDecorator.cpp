@@ -1,7 +1,7 @@
 #include "UIOutputDecorator.h"
 #include "TextBasedUI.h"
-#include "PlayerHandU.h"
-#include "ContinentControlU.h"
+#include "PlayerHandUI.h"
+#include "ContinentControlUI.h"
 #include "DominationUI.h"
 #include "../../../Base/Utils.h"
 

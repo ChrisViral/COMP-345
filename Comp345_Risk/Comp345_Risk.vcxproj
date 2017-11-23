@@ -151,10 +151,10 @@
     <ClInclude Include="Base\Driver.h" />
     <ClInclude Include="Game\GamePhase.h" />
     <ClInclude Include="Game\GameState.h" />
-    <ClInclude Include="Game\UI\Decorators\ContinentControlU.h" />
+    <ClInclude Include="Game\UI\Decorators\ContinentControlUI.h" />
     <ClInclude Include="Game\UI\Decorators\DominationUI.h" />
     <ClInclude Include="Game\UI\Decorators\GameStatisticsDecorator.h" />
-    <ClInclude Include="Game\UI\Decorators\PlayerHandU.h" />
+    <ClInclude Include="Game\UI\Decorators\PlayerHandUI.h" />
     <ClInclude Include="Game\UI\Decorators\TextBasedUI.h" />
     <ClInclude Include="Game\UI\GameUI.h" />
     <ClInclude Include="Game\Game.h" />
@@ -189,10 +189,10 @@
     <ClCompile Include="Game\Tournament.cpp" />
     <ClCompile Include="Drivers\StrategyDriver.cpp" />
     <ClCompile Include="Game\GameState.cpp" />
-    <ClCompile Include="Game\UI\Decorators\ContinentControlU.cpp" />
+    <ClCompile Include="Game\UI\Decorators\ContinentControlUI.cpp" />
     <ClCompile Include="Game\UI\Decorators\DominationUI.cpp" />
     <ClCompile Include="Game\UI\Decorators\GameStatisticsDecorator.cpp" />
-    <ClCompile Include="Game\UI\Decorators\PlayerHandU.cpp" />
+    <ClCompile Include="Game\UI\Decorators\PlayerHandUI.cpp" />
     <ClCompile Include="Game\UI\Decorators\TextBasedUI.cpp" />
     <ClCompile Include="Game\UI\GameUI.cpp" />
     <ClCompile Include="Game\Game.cpp" />

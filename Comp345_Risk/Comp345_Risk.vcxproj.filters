@@ -98,10 +98,10 @@
     <ClCompile Include="Game\UI\Decorators\UIOutputDecorator.cpp">
       <Filter>Game\UI\Decorators</Filter>
     </ClCompile>
-    <ClCompile Include="Game\UI\Decorators\ContinentControlU.cpp">
+    <ClCompile Include="Game\UI\Decorators\ContinentControlUI.cpp">
       <Filter>Game\UI\Decorators</Filter>
     </ClCompile>
-    <ClCompile Include="Game\UI\Decorators\PlayerHandU.cpp">
+    <ClCompile Include="Game\UI\Decorators\PlayerHandUI.cpp">
       <Filter>Game\UI\Decorators</Filter>
     </ClCompile>
   </ItemGroup>
@@ -210,10 +210,10 @@
     <ClInclude Include="Game\UI\Decorators\UIOutputDecorator.h">
       <Filter>Game\UI\Decorators</Filter>
     </ClInclude>
-    <ClInclude Include="Game\UI\Decorators\ContinentControlU.h">
+    <ClInclude Include="Game\UI\Decorators\ContinentControlUI.h">
       <Filter>Game\UI\Decorators</Filter>
     </ClInclude>
-    <ClInclude Include="Game\UI\Decorators\PlayerHandU.h">
+    <ClInclude Include="Game\UI\Decorators\PlayerHandUI.h">
       <Filter>Game\UI\Decorators</Filter>
     </ClInclude>
   </ItemGroup>
